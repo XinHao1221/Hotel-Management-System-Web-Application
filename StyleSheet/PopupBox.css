@@ -1,0 +1,72 @@
+﻿body {
+}
+
+/* Frame */
+.popupBox {
+    width: 70%;
+    margin-left: 11%;
+    /*min-width: 400px;*/
+    top: 100px;
+    position: absolute;
+    background-color: white;
+    z-index: 10;
+    opacity: 1.0;
+    border: 2px solid #808080;
+    font-family: Calibri;
+    padding: 0.2% 2% 2% 2%;
+    
+}
+
+/* Button */
+.popUpCancelBtn {
+    width: 25%;
+    height: 35px;
+    font-size: 80%;
+    font-weight: 600;
+    background-color: white;
+    border: 0.5px solid black;
+    float: right;
+    margin-left: 2%;
+}
+
+    .popUpCancelBtn:hover {
+        background-color: rgb(235, 235, 235);
+    }
+
+.popUpDeleteBtn {
+    width: 25%;
+    height: 35px;
+    font-size: 80%;
+    background-color: red;
+    color: white;
+    border: none;
+    font-weight: 600;
+    float: right;
+}
+
+    .popUpDeleteBtn:hover {
+        opacity: 0.7;
+        cursor: pointer;
+    }
+
+/*Content*/
+.popupTitle {
+    font-size: 150%;
+    font-weight: 600;
+}
+
+.popupBoxBody {
+    font-size: 120%;
+    margin-bottom: 15px;
+}
+
+.popupCloseIcon{
+    width:13px;
+    height:13px;
+    opacity:0.6;
+    margin-top:200%;
+}
+
+.popupCloseIcon:hover{
+    opacity:1.0;
+}
