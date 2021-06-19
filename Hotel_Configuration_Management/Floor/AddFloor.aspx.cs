@@ -95,6 +95,10 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         // Execute when user press save button
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            if(RequiredFieldValidator1.Equals("true"))
+            {
+
+            }
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -109,7 +113,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             cmdAddFloor.Parameters.AddWithValue("@FloorName", txtFloorName.Text);
             cmdAddFloor.Parameters.AddWithValue("@FloorNumber", int.Parse(ddlFloorNumber.Text)) ;
             cmdAddFloor.Parameters.AddWithValue("@Description", txtDescription.Text);
-            cmdAddFloor.Parameters.AddWithValue("@status", ddlFloorNumber.SelectedValue);
+            cmdAddFloor.Parameters.AddWithValue("@status", ddlStatus.SelectedValue);
 
             int i = cmdAddFloor.ExecuteNonQuery();
 

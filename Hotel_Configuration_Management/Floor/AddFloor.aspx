@@ -11,7 +11,9 @@
 
     <style>
 
-        
+        .formLabel{
+            font-weight:bold;
+        }
 
         .formBtnCancel{
             margin-left:15px;
@@ -26,6 +28,21 @@
 
         
 
+        .auto-style1 {
+            width: 30%;
+            height: 47px;
+            text-align: right;
+            font-family: Helvetica, sans-serif;
+            font-weight: bold;
+        }
+        .auto-style2 {
+            height: 47px;
+        }
+
+        
+
+        
+
     </style>
 
 </head>
@@ -34,14 +51,21 @@
         <div>
             <%-- Page content --%>
             <div class="content">
+
+                <div class="formHeader">
+                    Floor Form
+                </div>
+
                 <table style="width:100%;">
                     <tr>
-                        <td class="formLabel">
-                            Floor Name
+                        <td class="formLabel requiredFieldLabel">
+                                Floor Name                 
                         </td>
                         <td class="tableSeperator"></td>
                         <td>
                             <asp:TextBox ID="txtFloorName" runat="server" CssClass="inputStyle" placeholder="Name" Width="50%"></asp:TextBox>
+                            <br />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtFloorName" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +76,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="formLabel" style="vertical-align:top; padding-top:15px;">Description </td>
+                        <td class="formLabel" style="vertical-align: top; padding-top:15px;">Description </td>
                         <td></td>
                         <td>
                             <asp:TextBox ID="txtDescription" runat="server" Rows="8" TextMode="MultiLine" Width="50%" CssClass="inputMultiLineTxtBox" placeholder="Type floor description here..."></asp:TextBox>
@@ -60,27 +84,21 @@
                     </tr>
 
                     <tr>
-                        <td class="formLabel">Status</td>
-                        <td></td>
-                        <td>
-                            <asp:DropDownList ID="DropDownList1" runat="server" CssClass="dropDownStyle">
+                        <td class="auto-style1">Status</td>
+                        <td class="auto-style2"></td>
+                        <td class="auto-style2">
+                            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="dropDownStyle">
                             <asp:ListItem>Active</asp:ListItem>
                             <asp:ListItem>Suspend</asp:ListItem>
                             </asp:DropDownList></td>
                     </tr>
-                
-                    <tr>
-                        <td></td>
-                        <td>
-                        
-                        </td>
-                    </tr>
+        
                 </table>
 
                 <div class="bottomBar">
 
                     <center>
-                        <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="formBtnSave" ToolTip="Save"/>
+                        <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="formBtnSave" ToolTip="Save" ValidationGroup="save" />
                         <asp:Button ID="formBtnCancel" runat="server" Text="Reset" OnClick="btnResetForm_Click" CssClass="formBtnCancel" ToolTip="Reset"/>
                     </center>
                     
@@ -110,7 +128,7 @@
             </div>
             
         </div>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [Floor]"></asp:SqlDataSource>
+        
     </form>
 </body>
 </html>

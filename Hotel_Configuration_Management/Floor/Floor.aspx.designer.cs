@@ -11,7 +11,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 {
 
 
-    public partial class AddFloor
+    public partial class Floor
     {
 
         /// <summary>
@@ -24,76 +24,112 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// txtFloorName control.
+        /// Repeater1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFloorName;
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
 
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// lblNoItemFound control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.Label lblNoItemFound;
 
         /// <summary>
-        /// ddlFloorNumber control.
+        /// IBArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFloorNumber;
+        protected global::System.Web.UI.WebControls.ImageButton IBArrowLeft;
 
         /// <summary>
-        /// txtDescription control.
+        /// txtPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescription;
+        protected global::System.Web.UI.WebControls.TextBox txtPage;
 
         /// <summary>
-        /// ddlStatus control.
+        /// lblPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
+        protected global::System.Web.UI.WebControls.Label lblPage;
 
         /// <summary>
-        /// btnSave control.
+        /// IBArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.ImageButton IBArrowRight;
 
         /// <summary>
-        /// formBtnCancel control.
+        /// ddlItemPerPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button formBtnCancel;
+        protected global::System.Web.UI.WebControls.DropDownList ddlItemPerPage;
 
         /// <summary>
-        /// PanelCancel control.
+        /// lblItemDisplayed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelCancel;
+        protected global::System.Web.UI.WebControls.Label lblItemDisplayed;
+
+        /// <summary>
+        /// lblTotalNoOfItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalNoOfItem;
+
+        /// <summary>
+        /// popup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel popup;
+
+        /// <summary>
+        /// lblPopupTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPopupTitle;
+
+        /// <summary>
+        /// lblPopupContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPopupContent;
 
         /// <summary>
         /// btnPopupCancel control.
@@ -105,12 +141,21 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         protected global::System.Web.UI.WebControls.Button btnPopupCancel;
 
         /// <summary>
-        /// btnPopupConfirm control.
+        /// btnPopupActivate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPopupConfirm;
+        protected global::System.Web.UI.WebControls.Button btnPopupActivate;
+
+        /// <summary>
+        /// PopupCover control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PopupCover;
     }
 }
