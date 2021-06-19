@@ -88,9 +88,24 @@
     font-weight: 600;
 }
 
-.formBtnSave:hover {
-    opacity:0.7;
+.formBtnEdit {
+    background-color: rgb(0, 137, 250);
 
+    width: 100px;
+    height: 31px;
+    margin-top: 10px;
+    font-weight: 600;
+    color:white;
+}
+
+.formBtnEdit:hover{
+    cursor:pointer;
+    opacity:0.7;
+}
+
+.formBtnSave:hover {
+    cursor:pointer;
+    opacity: 0.7;
 }
 
 .formBtnCancel:hover {

@@ -25,24 +25,7 @@
             opacity:<%= Name %>;
             z-index:-1;
         }
-
         
-
-        .auto-style1 {
-            width: 30%;
-            height: 47px;
-            text-align: right;
-            font-family: Helvetica, sans-serif;
-            font-weight: bold;
-        }
-        .auto-style2 {
-            height: 47px;
-        }
-
-        
-
-        
-
     </style>
 
 </head>
@@ -84,9 +67,9 @@
                     </tr>
 
                     <tr>
-                        <td class="auto-style1">Status</td>
-                        <td class="auto-style2"></td>
-                        <td class="auto-style2">
+                        <td>Status</td>
+                        <td><td>
+                        <td>
                             <asp:DropDownList ID="ddlStatus" runat="server" CssClass="dropDownStyle">
                             <asp:ListItem>Active</asp:ListItem>
                             <asp:ListItem>Suspend</asp:ListItem>
@@ -107,7 +90,7 @@
 
             <%-- Popup Window --%>
             <div class="popup">
-                <asp:Panel ID="PanelCancel" runat="server" Visible="False" CssClass="popupWindow">
+                <asp:Panel ID="PopupCancel" runat="server" Visible="False" CssClass="popupWindow">
 
                     <%-- Popup Window Title --%>
                     <p style="color:red;" class="popupTitle">Reset Text Field?</p>
@@ -124,6 +107,10 @@
                     <asp:Button ID="btnPopupCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
                 
                     <asp:Button ID="btnPopupConfirm" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirm_Click"/>
+                </asp:Panel>
+
+                <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
+                    &nbsp;
                 </asp:Panel>
             </div>
             

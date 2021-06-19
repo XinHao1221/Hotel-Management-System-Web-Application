@@ -95,10 +95,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         // Execute when user press save button
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if(RequiredFieldValidator1.Equals("true"))
-            {
-
-            }
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -121,7 +117,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             if(i > 0)
             {
-                Response.Redirect("ViewFloor.aspx?ID=" + en.encryption(nextFloorID));
+                Response.Redirect("PreviewFloor.aspx?ID=" + en.encryption(nextFloorID));
             }
 
             //Response.Redirect("~/Hotel_Configuration_Management/AddFloor.aspx");
@@ -130,13 +126,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
         protected void btnPopupCancel_Click(object sender, EventArgs e)
         {
-            PanelCancel.Visible = false;
+            PopupCancel.Visible = false;
             Name = 1;
         }
 
         protected void btnPopupConfirm_Click(object sender, EventArgs e)
         {
-            PanelCancel.Visible = false;
+            PopupCancel.Visible = false;
             Name = 1;
 
             resetAll();
@@ -149,7 +145,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
         protected void btnResetForm_Click(object sender, EventArgs e)
         {
-            PanelCancel.Visible = true;
+            PopupCancel.Visible = true;
             Name = 0.2;
         }
     }

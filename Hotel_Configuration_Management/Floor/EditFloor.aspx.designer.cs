@@ -11,7 +11,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 {
 
 
-    public partial class AddFloor
+    public partial class EditFloor
     {
 
         /// <summary>

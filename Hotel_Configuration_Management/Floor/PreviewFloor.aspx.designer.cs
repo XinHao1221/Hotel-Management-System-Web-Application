@@ -11,7 +11,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 {
 
 
-    public partial class ViewFloor1
+    public partial class ViewFloor
     {
 
         /// <summary>

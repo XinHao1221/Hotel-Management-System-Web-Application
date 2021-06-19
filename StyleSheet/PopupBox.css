@@ -29,9 +29,9 @@
     margin-left: 2%;
 }
 
-    .popUpCancelBtn:hover {
-        background-color: rgb(235, 235, 235);
-    }
+.popUpCancelBtn:hover {
+    background-color: rgb(235, 235, 235);
+}
 
 .popUpDeleteBtn {
     width: 25%;

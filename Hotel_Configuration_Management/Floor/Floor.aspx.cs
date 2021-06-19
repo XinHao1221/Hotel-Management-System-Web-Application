@@ -255,7 +255,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
-            string PopupOpacity = (item.FindControl("Label3") as Label).Text;
+            string FloorID = (item.FindControl("lblFloorID") as Label).Text;
 
 
         }
@@ -363,7 +363,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             // Refresh the page
             refreshPage();
 
- 
         }
 
         private void refreshPage()
@@ -461,6 +460,22 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             PopupCover.Visible = false;
 
             refreshPage();
+        }
+
+        protected void LBRepeater_Click(object sender, EventArgs e)
+        {
+            IDEncryption en = new IDEncryption();
+
+            // When user click on delete button in more option panel
+            RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
+
+            // Get FloorID of the selected item
+            String floorID = (item.FindControl("lblFloorID") as Label).Text;
+
+            floorID = en.encryption(floorID);
+
+            // Redirect to view page
+            Response.Redirect("ViewFloor.aspx?ID=" + floorID);
         }
     }
 }

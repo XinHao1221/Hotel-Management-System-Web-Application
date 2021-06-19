@@ -62,6 +62,9 @@
                     <ItemTemplate>
 
                         <div style="width:97%; margin:auto;">
+
+                            <asp:LinkButton ID="LBRepeater" runat="server" OnClick="LBRepeater_Click" CssClass="optionContainer">
+                            
                                 <div style="float:left; width:5%;" class="tableContent">
                                     <div style="text-align:center;" class="textOverflowStyle">
                                         <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
@@ -88,6 +91,7 @@
                                 <div style="min-width:28%; float:left;" class="tableContent">
                                     &nbsp;
                                 </div>
+                            </asp:LinkButton>
                                 <div style="min-width:2%; float:left; right:0;" class="tableContent">
 
                                     <asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>
@@ -146,36 +150,39 @@
 
                     <AlternatingItemTemplate>
 
-                        <div style="clear:both; width:97%; margin:auto;">
-                            <div style="float:left; width:5%;" class="tableContentAlternate">
-                                    <div style="text-align:center;" class="textOverflowStyle">
-                                        <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                        <asp:LinkButton ID="LBRepeater" runat="server" OnClick="LBRepeater_Click" CssClass="optionContainer">
+                            <div style="clear:both; width:97%; margin:auto;">
+                                <div style="float:left; width:5%;" class="tableContentAlternate">
+                                        <div style="text-align:center;" class="textOverflowStyle">
+                                            <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                        </div>
                                     </div>
-                                </div>
-                            <div style="float:left; width:25%;" class="tableContentAlternate">
-                                <div style="margin-left:5%;" class="textOverflowStyle">
-                                    <asp:Label ID="lblFloorID" runat="server" Text='<%# Eval("FloorID") %>' Visible="false"></asp:Label>
-                                    <asp:Label ID="lblFloorName" runat="server" Text='<%# Eval("FloorName") %>' ToolTip='<%# Eval("FloorName") %>'></asp:Label>&nbsp;
-                                </div>
+                                <div style="float:left; width:25%;" class="tableContentAlternate">
+                                    <div style="margin-left:5%;" class="textOverflowStyle">
+                                        <asp:Label ID="lblFloorID" runat="server" Text='<%# Eval("FloorID") %>' Visible="false"></asp:Label>
+                                        <asp:Label ID="lblFloorName" runat="server" Text='<%# Eval("FloorName") %>' ToolTip='<%# Eval("FloorName") %>'></asp:Label>&nbsp;
+                                    </div>
 
-                            </div>
-                            <div style="float:left; width:20%;" class="tableContentAlternate">
-                                <div style="margin-left:5%;" class="textOverflowStyle">
-                                    <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("FloorNumber") %>' ToolTip='<%# Eval("FloorNumber") %>'></asp:Label>&nbsp;
                                 </div>
+                                <div style="float:left; width:20%;" class="tableContentAlternate">
+                                    <div style="margin-left:5%;" class="textOverflowStyle">
+                                        <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("FloorNumber") %>' ToolTip='<%# Eval("FloorNumber") %>'></asp:Label>&nbsp;
+                                    </div>
 
-                            </div>
-
-                            <div style="float:left; width:20%;" class="tableContentAlternate">
-                                <div style="margin-left:5%;" class="textOverflowStyle">
-                                    <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' ToolTip='<%# Eval("Status") %>'></asp:Label>&nbsp;
                                 </div>
 
-                            </div>
+                                <div style="float:left; width:20%;" class="tableContentAlternate">
+                                    <div style="margin-left:5%;" class="textOverflowStyle">
+                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' ToolTip='<%# Eval("Status") %>'></asp:Label>&nbsp;
+                                    </div>
 
-                            <div style="min-width:28%; float:left;" class="tableContentAlternate">
-                                &nbsp;
-                            </div>
+                                </div>
+
+                                <div style="min-width:28%; float:left;" class="tableContentAlternate">
+                                    &nbsp;
+                                </div>
+                                
+                            </asp:LinkButton>
 
                             <div style="width:2%; float:left;" class="tableContentAlternate">
                             

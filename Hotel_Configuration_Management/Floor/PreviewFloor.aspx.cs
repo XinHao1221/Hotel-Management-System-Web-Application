@@ -11,7 +11,8 @@ using Hotel_Management_System.Utility;
 
 namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 {
-    public partial class ViewFloor1 : System.Web.UI.Page
+
+    public partial class ViewFloor : System.Web.UI.Page
     {
         // Create instance of IDEncryption class
         IDEncryption en = new IDEncryption();
@@ -23,10 +24,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            floorID = Request.QueryString["ID"];
-
-            floorID = en.decryption(floorID);
-
+            floorID = en.decryption(Request.QueryString["ID"]);
             setText();
         }
 
@@ -46,13 +44,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             if (sdr.Read())
             {
-                lblFloorName.Text = sdr.GetString(sdr.GetOrdinal("FloorName"));
-                lblFloorNumber.Text = sdr.GetValue(2).ToString();
-                lblDescription.Text = sdr.GetString(sdr.GetOrdinal("Description"));
-                lblStatus.Text = sdr.GetString(sdr.GetOrdinal("Status"));
+               lblFloorName.Text = sdr.GetString(sdr.GetOrdinal("FloorName"));
+               lblFloorNumber.Text = sdr.GetValue(2).ToString();
+               lblDescription.Text = sdr.GetString(sdr.GetOrdinal("Description"));
+               lblStatus.Text = sdr.GetString(sdr.GetOrdinal("Status"));
 
-                if (lblStatus.Text == "Active")
-                {
+               if(lblStatus.Text == "Active")
+               {
                     lblStatus.Style["color"] = "#00ce1b";
                 }
                 else
