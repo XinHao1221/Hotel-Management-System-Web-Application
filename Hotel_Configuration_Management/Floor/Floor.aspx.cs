@@ -48,6 +48,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
                 }
 
                 PopupCover.Visible = false;
+                PopupDelete.Visible = false;
 
             }
         }
@@ -129,43 +130,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             Repeater1.DataBind();
 
             conn.Close();
-        }
-
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-            // Execute when user type in page number to display
-
-            page = getTotalNumberOfPage();
-
-            try
-            {   // Update offset and fetch according to page number entered
-                int number = int.Parse(txtPage.Text);
-
-                if (number <= page && number > 0)
-                {
-                    // If user enter valid page number
-                    offset = (number * fetch) - fetch;
-                }
-                else
-                {
-                    // If user enter page number which isn't within range
-                    number = 1;
-
-                    txtPage.Text = number.ToString();
-                }
-
-
-            }
-            catch (Exception i)
-            {
-                // If user input is not an integer
-                int number = 1;
-
-                txtPage.Text = number.ToString();
-            }
-
-            // Set item to repeater
-            setItemToRepeater1();
         }
 
         protected void IBArrowLeft_Click(object sender, EventArgs e)
@@ -263,6 +227,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             }
         }
 
+        protected void txtPage_TextChanged(object sender, EventArgs e)
+        {
+            refreshPage();
+        }
+
         protected void IBMoreOption_Click(object sender, ImageClickEventArgs e)
         {
             // Execute when user click on "More Option" button
@@ -287,15 +256,27 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
             string PopupOpacity = (item.FindControl("Label3") as Label).Text;
+
+
         }
 
         protected void LBDelete_Click(object sender, EventArgs e)
         {
             // When user click on delete button in more option panel
-
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
-            string name = (item.FindControl("Label3") as Label).Text;
+            // Get FloorID of the selected item
+            String floorID = (item.FindControl("lblFloorID") as Label).Text;
+            String FloorName = (item.FindControl("lblFloorName") as Label).Text;
+
+            // Set FloorName into popup window
+            lblPopupDeleteContent.Text = "Floor Name: " + FloorName + "<br /><br />";
+
+            ViewState["FloorID"] = floorID;
+
+            PopupCover.Visible = true;
+            PopupDelete.Visible = true;
+
         }
 
         protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -339,7 +320,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             // Format popup window's content
             formatPopupWindow(floorName, status);
             PopupCover.Visible = true;
-            popup.Visible = true;
+            PopupStatus.Visible = true;
 
             // Hold value for next postback
             ViewState["FloorID"] = floorID;
@@ -356,12 +337,14 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
                 lblPopupTitle.Text = "<br/>Suspend";
                 lblPopupTitle.Style["color"] = "red";
                 btnPopupActivate.Style["background-color"] = "red";
+                btnPopupActivate.Text = "Suspend";
             }
             else
             {
                 lblPopupTitle.Text = "<br/>Activate";
                 lblPopupTitle.Style["color"] = "#00ce1b";
                 btnPopupActivate.Style["background-color"] = "#00ce1b";
+                btnPopupActivate.Text = "Activate";
             }
 
             
@@ -370,13 +353,60 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
         protected void btnPopupActivate_Click(object sender, EventArgs e)
         {
+            // Update floor's status
             changeStatus();
+
+            // Close popup window
+            PopupStatus.Visible = false;
+            PopupCover.Visible = false;
+
+            // Refresh the page
+            refreshPage();
+
+ 
+        }
+
+        private void refreshPage()
+        {
+            page = getTotalNumberOfPage();
+
+            try
+            {   // Update offset and fetch according to page number entered
+                int number = int.Parse(txtPage.Text);
+
+                if (number <= page && number > 0)
+                {
+                    // If user enter valid page number
+                    offset = (number * fetch) - fetch;
+                }
+                else
+                {
+                    // If user enter page number which isn't within range
+                    number = 1;
+
+                    txtPage.Text = number.ToString();
+                }
+
+
+            }
+            catch (Exception i)
+            {
+                // If user input is not an integer
+                int number = 1;
+
+                txtPage.Text = number.ToString();
+            }
+
+            // Set item to repeater
+            setItemToRepeater1();
         }
 
         protected void btnPopupCancel_Click(object sender, EventArgs e)
         {
             PopupCover.Visible = false;
-            popup.Visible = false;
+            PopupStatus.Visible = false;
+            PopupDelete.Visible = false;
+
         }
 
         private void changeStatus()
@@ -407,6 +437,30 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             conn.Close();
 
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            
+            String floorID = ViewState["FloorID"].ToString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String deleteFloor = "DELETE FROM Floor WHERE FloorID LIKE @ID";
+
+            SqlCommand cmdDeleteFloor = new SqlCommand(deleteFloor, conn);
+
+            cmdDeleteFloor.Parameters.AddWithValue("@ID", floorID);
+
+            int i = cmdDeleteFloor.ExecuteNonQuery();
+
+            conn.Close();
+
+            PopupDelete.Visible = false;
+            PopupCover.Visible = false;
+
+            refreshPage();
         }
     }
 }

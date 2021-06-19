@@ -71,18 +71,18 @@
                                     <div style="margin-left:5%;" class="textOverflowStyle">
                                         <asp:Label ID="lblFloorID" runat="server" Text='<%# Eval("FloorID") %>' Visible="false"></asp:Label>
 
-                                        <asp:Label ID="lblFloorName" runat="server" Text='<%# Eval("FloorName") %>'></asp:Label>&nbsp;
+                                        <asp:Label ID="lblFloorName" runat="server" Text='<%# Eval("FloorName") %>' ToolTip='<%# Eval("FloorName") %>'></asp:Label>&nbsp;
                                     </div>
 
                                 </div>
                                 <div style="float:left; width:20%;" class="tableContent">
                                     <div style="margin-left:5%;" class="textOverflowStyle">
-                                        <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("FloorNumber")%>'></asp:Label>&nbsp;
+                                        <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("FloorNumber")%>' ToolTip='<%# Eval("FloorNumber") %>'></asp:Label>&nbsp;
                                     </div>
                                 </div>
                                 <div style="float:left; width:20%;" class="tableContent">
                                     <div style="margin-left:5%;" class="textOverflowStyle">
-                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status")%>'></asp:Label>&nbsp;
+                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status")%>' ToolTip='<%# Eval("Status") %>'></asp:Label>&nbsp;
                                     </div>
                                 </div>
                                 <div style="min-width:28%; float:left;" class="tableContent">
@@ -113,19 +113,6 @@
                             
                             </asp:LinkButton>
 
-                            <asp:LinkButton ID="LBDelete" runat="server" OnClick="LBDelete_Click" CssClass="optionContainer" Font-Underline="false">
-                            
-
-                                <div class="tableOption" style="color:#FF0000;">
-
-                                    <img src="../../Image/delete_icon.png" class="tableOptionIcon" />
-                                
-                                    Delete
-
-                                </div>
-                            
-                            </asp:LinkButton>
-
                             <asp:LinkButton ID="LBChangeStatus" runat="server" OnClick="LBChangeStatus_Click" CssClass="optionContainer" Font-Underline="false">
                             
 
@@ -134,6 +121,19 @@
                                     <asp:Image ID="IMChangeStatus" runat="server" CssClass="tableOptionIcon" ImageUrl="~/Image/activate_icon.png"/>
                                 
                                     <asp:Label ID="lblChangeStatus" runat="server" Text="Label" ForeColor="#00ce1b">Activate</asp:Label>
+
+                                </div>
+                            
+                            </asp:LinkButton>
+
+                            <asp:LinkButton ID="LBDelete" runat="server" OnClick="LBDelete_Click" CssClass="optionContainer" Font-Underline="false">
+                            
+
+                                <div class="tableOption" style="color:#FF0000;">
+
+                                    <img src="../../Image/delete_icon.png" class="tableOptionIcon" />
+                                
+                                    Delete
 
                                 </div>
                             
@@ -155,7 +155,7 @@
                             <div style="float:left; width:25%;" class="tableContentAlternate">
                                 <div style="margin-left:5%;" class="textOverflowStyle">
                                     <asp:Label ID="lblFloorID" runat="server" Text='<%# Eval("FloorID") %>' Visible="false"></asp:Label>
-                                    <asp:Label ID="lblFloorName" runat="server" Text='<%# Eval("FloorName") %>'></asp:Label>&nbsp;
+                                    <asp:Label ID="lblFloorName" runat="server" Text='<%# Eval("FloorName") %>' ToolTip='<%# Eval("FloorName") %>'></asp:Label>&nbsp;
                                 </div>
 
                             </div>
@@ -200,19 +200,6 @@
                             
                                 </asp:LinkButton>
 
-                                <asp:LinkButton ID="LBDelete" runat="server" OnClick="LBDelete_Click" CssClass="optionContainer" Font-Underline="false">
-                            
-
-                                    <div class="tableOption" style="color:#FF0000">
-
-                                        <img src="../../Image/delete_icon.png" class="tableOptionIcon" />
-                                
-                                        Delete
-
-                                    </div>
-                            
-                                </asp:LinkButton>
-
                                 <asp:LinkButton ID="LBChangeStatus" runat="server" OnClick="LBChangeStatus_Click" CssClass="optionContainer" Font-Underline="false">
                             
 
@@ -221,6 +208,19 @@
                                         <asp:Image ID="IMChangeStatus" runat="server" CssClass="tableOptionIcon" ImageUrl="~/Image/activate_icon.png"/>
                                 
                                         <asp:Label ID="lblChangeStatus" runat="server" Text="Label" ForeColor="#00ce1b">Activate</asp:Label>
+
+                                    </div>
+                            
+                                </asp:LinkButton>
+
+                                <asp:LinkButton ID="LBDelete" runat="server" OnClick="LBDelete_Click" CssClass="optionContainer" Font-Underline="false">
+                            
+
+                                    <div class="tableOption" style="color:#FF0000">
+
+                                        <img src="../../Image/delete_icon.png" class="tableOptionIcon" />
+                                
+                                        Delete
 
                                     </div>
                             
@@ -244,7 +244,7 @@
 
                         <div style="width:60%; float: left;">
                             <asp:ImageButton ID="IBArrowLeft" runat="server" ImageUrl="~/Image/arrow_left.png" CssClass="arrowStyle" OnClick="IBArrowLeft_Click" ToolTip="Previous Page"/>
-                            <asp:TextBox ID="txtPage" runat="server" AutoPostBack="True" OnTextChanged="TextBox1_TextChanged" CssClass="txtPage"></asp:TextBox>
+                            <asp:TextBox ID="txtPage" runat="server" AutoPostBack="True" OnTextChanged="txtPage_TextChanged" CssClass="txtPage"></asp:TextBox>
                             <div class="lblPage">
                                 /<asp:Label ID="lblPage" runat="server" Text="2"></asp:Label>
                             </div>
@@ -285,21 +285,15 @@
 
             <%-- Popup Window --%>
             <div class="popup">
-                <asp:Panel ID="popup" runat="server" Visible="False" CssClass="popupWindow">
+                <asp:Panel ID="PopupStatus" runat="server" Visible="False" CssClass="popupWindow">
 
                     <%-- Popup Window Title --%>
-                    <%--<p style="color:red;" class="popupTitle">Delete</p>--%>
                     <asp:Label ID="lblPopupTitle" runat="server" Text="Label" CssClass="popupTitle" ForeColor="#00ce1b">Activate</asp:Label>
 
                     <%-- Popup Window Body --%>
                     <div class="popupBody">
 
-                        <%--<p>Floor Name:&nbsp;</p>--%>
                         <asp:Label ID="lblPopupContent" runat="server" Text="Label"></asp:Label>
-
-                        <%-- Temp hold the FloorID and Status --%>
-                        <%--<asp:Label ID="lblFloorID" runat="server" Text="Label" Visible="false"></asp:Label>
-                        <asp:Label ID="lblStatus" runat="server" Text="Label" Visible="false"></asp:Label>--%>
 
                     </div>
 
@@ -308,6 +302,25 @@
                     <asp:Button ID="btnPopupCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
                 
                     <asp:Button ID="btnPopupActivate" runat="server" Text="Activate" CssClass="popUpActiveBtn" OnClick="btnPopupActivate_Click"/>
+                </asp:Panel>
+
+                <asp:Panel ID="PopupDelete" runat="server" Visible="False" CssClass="popupWindow">
+
+                    <%-- Popup Window Title --%>
+                    <p style="color:red;" class="popupTitle">Delete</p>
+
+                    <%-- Popup Window Body --%>
+                    <div class="popupBody">
+
+                        <asp:Label ID="lblPopupDeleteContent" runat="server" Text="Label"></asp:Label>
+
+                    </div>
+
+                    <div>&nbsp;</div>
+
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                
+                    <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="popUpDeleteBtn" OnClick="btnDelete_Click"/>
                 </asp:Panel>
             </div>
 

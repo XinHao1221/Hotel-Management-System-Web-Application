@@ -105,13 +105,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         protected global::System.Web.UI.WebControls.Label lblTotalNoOfItem;
 
         /// <summary>
-        /// popup control.
+        /// PopupStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel popup;
+        protected global::System.Web.UI.WebControls.Panel PopupStatus;
 
         /// <summary>
         /// lblPopupTitle control.
@@ -148,6 +148,42 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPopupActivate;
+
+        /// <summary>
+        /// PopupDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PopupDelete;
+
+        /// <summary>
+        /// lblPopupDeleteContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPopupDeleteContent;
+
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
+
+        /// <summary>
+        /// btnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelete;
 
         /// <summary>
         /// PopupCover control.
