@@ -14,8 +14,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 {
     public partial class AddFloor : System.Web.UI.Page
     {
-        // For popup dialog box
-        public double Name;
 
         // Create instance of IDGerator class
         IDGenerator idGenerator = new IDGenerator();
@@ -31,11 +29,12 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         {
             if (!IsPostBack)
             {
-                // For popup dialog box
-                Name = 1.0;
-
+                
                 setFloorNumber();
             }
+
+            PopupCancel.Visible = false;
+            PopupCover.Visible = false;
             
         }
 
@@ -127,13 +126,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         protected void btnPopupCancel_Click(object sender, EventArgs e)
         {
             PopupCancel.Visible = false;
-            Name = 1;
+            PopupCover.Visible = false;
         }
 
         protected void btnPopupConfirm_Click(object sender, EventArgs e)
         {
             PopupCancel.Visible = false;
-            Name = 1;
+            PopupCover.Visible = false;
 
             resetAll();
         }
@@ -146,7 +145,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         protected void btnResetForm_Click(object sender, EventArgs e)
         {
             PopupCancel.Visible = true;
-            Name = 0.2;
+            PopupCover.Visible = true;
         }
     }
 }

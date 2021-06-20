@@ -63,5 +63,14 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             conn.Close();
         }
+
+        protected void LBEdit_Click(object sender, EventArgs e)
+        {
+            // Get current FloorID
+            floorID = en.encryption(floorID);
+
+            // Redirect to edit page
+            Response.Redirect("EditFloor.aspx?ID=" + floorID);
+        }
     }
 }

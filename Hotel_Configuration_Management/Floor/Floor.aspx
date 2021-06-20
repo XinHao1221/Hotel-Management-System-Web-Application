@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
+    <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
+    <link rel="stylesheet" href="../../StyleSheet/MainMenuHeader.css" />
 
     <style>
         body{
@@ -27,6 +29,48 @@
             <%-- Page content --%>
             <div class="content">
                 
+                <div class="mainMenuHeader">
+                    <%--Title--%>
+                    <div class="mainMenuTitle">
+                        Floor 
+                    </div>
+
+                    <%--Search Bar--%>
+                    <div class="mainMenuSearchBar">
+                        <div style="display:flex; justify-content:center;">
+                            <asp:TextBox ID="txtSearch" runat="server" placeholder="Floor Name" CssClass="searchBarStyle" AutoPostBack="True" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
+                            <asp:LinkButton ID="LBMenuSearchBar" runat="server" OnClick="LBMenuSearchBar_Click" CssClass="optionContainer">
+                                <div class="searchIconContainer">
+                                    <img src="../../Image/search_icon.png" class="searchIconStyle" />
+                                </div>
+                            </asp:LinkButton>
+                            
+                        </div>
+                    </div>
+
+                    <%--Add Button--%>
+                    <div class="menuHeaderButton">
+                        <div style="float:right; margin-right:0%;">
+                            <div class="menuHeaderSaveBtn" onclick="location.href='AddFloor.aspx';">
+
+                            
+                                    <div class="menuHeaderButtonStyle">
+                                        <div>
+                                            <img src="../../Image/plus_white.png" width="12.5px" height="12.5px" style="float:left; margin:10px 0px 0px 15px;" />
+                                            <div style="float:left; margin:10px 0px 0px 10px; font-size:12.5px;">
+                                                Add
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div>
+                    
+                </div>
+
                 <div style="width: 97%; margin: auto;">
                     <div style="width:100%;">
                         <div style="float:left; width:5%;" class="tableHeader">

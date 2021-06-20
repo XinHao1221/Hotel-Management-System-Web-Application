@@ -1,0 +1,75 @@
+﻿body {
+}
+.mainMenuHeader {
+    font-size: 20px;
+    width: 96%;
+    margin: auto;
+    padding: 0px 0px 10px 10px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-family: Helvetica, sans-serif;
+    /*background-color: rgb(128, 128, 128);*/
+    height:40px;
+}
+
+.mainMenuTitle {
+    margin-top: 12.5px;
+    width: 30%;
+    float: left;
+}
+
+.mainMenuSearchBar {
+    float: left;
+    margin: 0 auto;
+    width: 40%;
+    /*background-color: aqua;*/
+}
+
+.menuHeaderButton {
+    width: 30%;
+    float: left;
+}
+
+
+.menuHeaderSaveBtn {
+    background-color: rgb(0, 206, 27);
+    width: 85px;
+    height: 33px;
+    font-weight: 600;
+    color: white;
+    margin-top: 10px;
+}
+
+.menuHeaderSaveBtn:hover {
+    opacity: 0.7;
+}
+
+.searchBarStyle {
+    border: 2px solid rgb(192 192 192);
+    margin-top: 10px;
+    height: 25px;
+    padding: 2px 7px 1px 7px;
+    width: 80%;
+    float: left;
+}
+
+.searchIconStyle {
+    width: 12.5px;
+    height: 12.5px;
+    margin: 8px 0px 0px 0px;
+}
+
+.searchIconContainer {
+    width: 27px;
+    height: 30px;
+    margin-top: 10px;
+    background-color: rgb(192 192 192);
+    float: left;
+    padding-left: 12px;
+    padding-top: 2px;
+}
+
+.searchIconContainer:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}

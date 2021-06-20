@@ -14,14 +14,17 @@
             <%-- Page content --%>
             <div class="content">
 
+                <div class="formHeader">
+                    Floor
+                </div>
+
                 <div style="margin:20px 0px 20px 50px;">
                     <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
 
-                        <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
-                        <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
-                            Menu
-                        </div>
-                        
+                    <img src="../../Image/home_icon.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
+                    <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
+                        Menu
+                    </div>
                     </div>
 
                     <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px;" onclick="location.href='AddFloor.aspx';">

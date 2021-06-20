@@ -16,7 +16,18 @@
             <div class="formHeader">
                     Floor Form
             </div>
+            <asp:LinkButton ID="LBBack" runat="server" CssClass="divLBStyle" OnClick="LBBack_Click">
+                <div style="margin:20px 0px 20px 50px;">
+                    <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
 
+                        <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
+                        <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
+                            Back
+                        </div>
+                        
+                    </div>
+                </div>
+            </asp:LinkButton>
             <table style="width:100%;">
                 <tr>
                     <td class="formLabel requiredFieldLabel">

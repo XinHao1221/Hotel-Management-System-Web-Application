@@ -86,11 +86,14 @@
     <Content Include="Image\delete_icon.png" />
     <Content Include="Image\edit_icon.png" />
     <Content Include="Image\edit_white_icon.png" />
+    <Content Include="Image\home_icon.png" />
     <Content Include="Image\more_icon.png" />
     <Content Include="Image\plus_white.png" />
     <Content Include="Image\pre-loader.gif" />
+    <Content Include="Image\search_icon.png" />
     <Content Include="Image\suspend_icon.png" />
     <Content Include="StyleSheet\InputStyle.css" />
+    <Content Include="StyleSheet\MainMenuHeader.css" />
     <Content Include="StyleSheet\PopupBox.css" />
     <Content Include="StyleSheet\PopupWindow.css" />
     <Content Include="StyleSheet\RepeaterTable.css" />

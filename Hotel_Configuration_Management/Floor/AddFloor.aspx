@@ -18,13 +18,6 @@
         .formBtnCancel{
             margin-left:15px;
         }
-
-        .content{
-            width:100%;
-            height:100%;
-            opacity:<%= Name %>;
-            z-index:-1;
-        }
         
     </style>
 
@@ -35,9 +28,24 @@
             <%-- Page content --%>
             <div class="content">
 
+                
+
                 <div class="formHeader">
                     Floor Form
                 </div>
+
+                <div style="margin:20px 0px 20px 50px;">
+                    <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
+
+                        <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
+                        <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
+                            Back
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div style="clear:both;">&nbsp;</div>
 
                 <table style="width:100%;">
                     <tr>
@@ -67,13 +75,15 @@
                     </tr>
 
                     <tr>
-                        <td>Status</td>
-                        <td><td>
+                        <td class="formLabel">Status</td>
+                        <td></td>
                         <td>
                             <asp:DropDownList ID="ddlStatus" runat="server" CssClass="dropDownStyle">
                             <asp:ListItem>Active</asp:ListItem>
                             <asp:ListItem>Suspend</asp:ListItem>
-                            </asp:DropDownList></td>
+                            </asp:DropDownList>
+
+                        </td>
                     </tr>
         
                 </table>
@@ -109,10 +119,13 @@
                     <asp:Button ID="btnPopupConfirm" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirm_Click"/>
                 </asp:Panel>
 
+                <%-- Popup Cover --%>
                 <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
                     &nbsp;
                 </asp:Panel>
             </div>
+
+       
             
         </div>
         

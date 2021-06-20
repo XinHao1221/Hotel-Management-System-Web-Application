@@ -13,6 +13,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 {
     public partial class Floor : System.Web.UI.Page
     {
+        // Create instance of Encryption class
+        IDEncryption en = new IDEncryption();
 
         // Create connection to database
         SqlConnection conn;
@@ -110,7 +112,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String getName = "SELECT * FROM Floor ORDER BY FloorID OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
+            String getName = "SELECT * FROM Floor ORDER BY FloorNumber OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
 
             SqlCommand cmdInsert = new SqlCommand(getName, conn);
             cmdInsert.Parameters.AddWithValue("@offset", offset);   // Assign start index
@@ -252,12 +254,14 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         protected void LBEdit_Click(object sender, EventArgs e)
         {
             // When user click on edit button in more option panel
-
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
-            string FloorID = (item.FindControl("lblFloorID") as Label).Text;
+            string floorID = (item.FindControl("lblFloorID") as Label).Text;
 
+            floorID = en.encryption(floorID);
 
+            // Redirect to edit page
+            Response.Redirect("EditFloor.aspx?ID=" + floorID);
         }
 
         protected void LBDelete_Click(object sender, EventArgs e)
@@ -476,6 +480,65 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             // Redirect to view page
             Response.Redirect("ViewFloor.aspx?ID=" + floorID);
+        }
+
+        protected void LBMenuSearchBar_Click(object sender, EventArgs e)
+        {
+            searchFloor();
+        }
+
+        protected void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            searchFloor();
+        }
+
+        private void searchFloor()
+        {
+            String floorName = txtSearch.Text;
+            floorName = floorName.ToUpper();
+
+            
+
+            if (floorName == "")
+            {
+                refreshPage();
+            }
+            else
+            {
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                String searchFloor = "SELECT * FROM Floor WHERE UPPER(FloorName) LIKE '%" + floorName + "%'";
+
+                SqlCommand cmdSearchFloor = new SqlCommand(searchFloor, conn);
+
+                cmdSearchFloor.Parameters.AddWithValue("@FloorName", floorName);
+
+                // Hold the data read from database
+                SqlDataAdapter sda = new SqlDataAdapter(cmdSearchFloor);
+
+                DataTable dt = new DataTable();
+
+                // Assign the data from database into dataTable
+                sda.Fill(dt);
+
+                // Bind data into repeater to display
+                Repeater1.DataSource = dt;
+                Repeater1.DataBind();
+
+                if (dt.Rows.Count == 0)
+                {
+                    lblNoItemFound.Visible = true;
+                }
+                else
+                {
+                    lblNoItemFound.Visible = false;
+                }
+
+                conn.Close();
+            }
+
+            
         }
     }
 }

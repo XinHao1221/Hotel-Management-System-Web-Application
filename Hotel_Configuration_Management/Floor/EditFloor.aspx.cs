@@ -25,14 +25,14 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //floorID = Request.QueryString["ID"];
+            floorID = Request.QueryString["ID"];
 
-            floorID = "F10000002";
-
-            //floorID = en.decryption(floorID);
+            floorID = en.decryption(floorID);
 
             if (!IsPostBack)
             {
+                // Save link for previous page
+                ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
                 PopupCover.Visible = false;
                 setData();
             }
@@ -173,6 +173,12 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             PopupCancel.Visible = false;
             PopupCover.Visible = false;
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+            // Redirect to previous page
+            Response.Redirect(ViewState["PreviousPage"].ToString());
         }
     }
 }

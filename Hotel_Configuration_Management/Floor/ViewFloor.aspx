@@ -8,12 +8,17 @@
     <title></title>
     
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
+    
 
 </head>
 
 <body>
     <form id="form1" runat="server">
         <div>
+            <div class="formHeader">
+                Floor
+            </div>
+
             <div style="margin:20px 0px 20px 50px;">
                 <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
 
@@ -24,13 +29,16 @@
                         
                 </div>
 
-                <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px;" onclick="location.href='EditFloor.aspx';">
+                <asp:LinkButton ID="LBEdit" runat="server" CssClass="divLBStyle" OnClick="LBEdit_Click">
+                    <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px;">
 
-                    <img src="../../Image/edit_white_icon.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;" />
-                    <div style="float:left; margin:12px 0px 0px 10px; font-size:15px;">
-                        Edit
+                        <img src="../../Image/edit_white_icon.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;" />
+                        <div style="float:left; margin:12px 0px 0px 10px; font-size:15px;">
+                            Edit
+                        </div>
                     </div>
-                </div>
+                </asp:LinkButton>
+                
             </div>
 
             <div style="clear:both;">&nbsp;</div>
