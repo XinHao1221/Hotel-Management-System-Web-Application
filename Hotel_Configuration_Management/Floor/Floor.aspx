@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Floor.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Floor.Floor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="Floor.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Floor.Floor" %>
 
 <!DOCTYPE html>
 
@@ -39,7 +39,7 @@
                     <div class="mainMenuSearchBar">
                         <div style="display:flex; justify-content:center;">
                             <asp:TextBox ID="txtSearch" runat="server" placeholder="Floor Name" CssClass="searchBarStyle" AutoPostBack="True" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
-                            <asp:LinkButton ID="LBMenuSearchBar" runat="server" OnClick="LBMenuSearchBar_Click" CssClass="optionContainer">
+                            <asp:LinkButton ID="LBMenuSearchBar" runat="server" OnClick="LBMenuSearchBar_Click" CssClass="optionContainer" ToolTip="Search">
                                 <div class="searchIconContainer">
                                     <img src="../../Image/search_icon.png" class="searchIconStyle" />
                                 </div>
