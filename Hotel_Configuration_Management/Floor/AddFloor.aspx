@@ -9,26 +9,12 @@
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
 
-    <style>
-
-        .formLabel{
-            font-weight:bold;
-        }
-
-        .formBtnCancel{
-            margin-left:15px;
-        }
-        
-    </style>
-
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
             <%-- Page content --%>
             <div class="content">
-
-                
 
                 <div class="formHeader">
                     Floor Form
@@ -53,7 +39,7 @@
                                 Floor Name                 
                         </td>
                         <td class="tableSeperator"></td>
-                        <td>
+                        <td class="formInput">
                             <asp:TextBox ID="txtFloorName" runat="server" CssClass="inputStyle" placeholder="Name" Width="50%"></asp:TextBox>
                             <br />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtFloorName" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
@@ -62,14 +48,14 @@
                     <tr>
                         <td class="formLabel">Floor Number </td>
                         <td></td>
-                        <td>
+                        <td class="formInput">
                             <asp:DropDownList ID="ddlFloorNumber" runat="server" CssClass="dropDownStyle" Width="10%"></asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
                         <td class="formLabel" style="vertical-align: top; padding-top:15px;">Description </td>
                         <td></td>
-                        <td>
+                        <td class="formInput">
                             <asp:TextBox ID="txtDescription" runat="server" Rows="8" TextMode="MultiLine" Width="50%" CssClass="inputMultiLineTxtBox" placeholder="Type floor description here..."></asp:TextBox>
                         </td>
                     </tr>
@@ -77,7 +63,7 @@
                     <tr>
                         <td class="formLabel">Status</td>
                         <td></td>
-                        <td>
+                        <td class="formInput">
                             <asp:DropDownList ID="ddlStatus" runat="server" CssClass="dropDownStyle">
                             <asp:ListItem>Active</asp:ListItem>
                             <asp:ListItem>Suspend</asp:ListItem>
@@ -87,6 +73,10 @@
                     </tr>
         
                 </table>
+
+                <div style="clear:both; width:100%; height:50px;">
+                    &nbsp;
+                </div>
 
                 <div class="bottomBar">
 

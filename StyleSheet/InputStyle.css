@@ -50,14 +50,19 @@
 
 .formLabel {
     width: 30%;
-    height: 50px;
+    min-height: 50px;
     text-align: right;
     font-family: Helvetica, sans-serif;
     font-weight: bold;
+    padding-bottom:10px;
 }
 
 .tableSeperator {
     width: 2%;
+}
+
+.formInput{
+    padding-bottom:20px;
 }
 
 .bottomBar {
@@ -86,6 +91,7 @@
     height: 30px;
     margin-top: 10px;
     font-weight: 600;
+    margin-left: 15px;
 }
 
 .formBtnEdit {
@@ -196,9 +202,20 @@
     font-family: Helvetica, sans-serif;
     margin-left:7px;
     margin-top:1px;
+    position:absolute;
 }
 
 .divLBStyle {
     text-decoration: none;
     color: black;
+}
+
+.formSectionStyle {
+    font-family: Helvetica, sans-serif;
+    font-size: 110%;
+    color: rgb(0 97 177);
+    font-weight:600;
+    margin-left:5%;
+    margin-top:20px;
+    margin-bottom:10px;
 }

@@ -29,7 +29,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         {
             if (!IsPostBack)
             {
-                
                 setFloorNumber();
             }
 

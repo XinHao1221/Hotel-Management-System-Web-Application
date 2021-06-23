@@ -1,0 +1,43 @@
+﻿body {
+}
+
+.subFormLabel {
+    min-height: 50px;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    padding-bottom: 10px;
+    float:left;
+    margin-right:30px;
+    margin-top:15px;
+}
+
+.subFormRepeaterHeader {
+    background-color: #F3F3F3;
+    font-size: 95%;
+    line-height: 50px;
+    vertical-align: middle;
+    font-family: Helvetica, sans-serif;
+    font-weight: 600;
+    color: rgb(63 63 63);
+}
+
+.subFormTableContent {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 40px;
+    vertical-align: middle;
+    font-size: 90%;
+    font-family: Helvetica, sans-serif;
+}
+
+.subFormTableContentAlternate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 40px;
+    vertical-align: middle;
+    font-size: 90%;
+    font-family: Helvetica, sans-serif;
+    background-color: #F3F3F3;
+}
