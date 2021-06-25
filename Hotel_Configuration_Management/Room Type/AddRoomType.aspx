@@ -11,16 +11,7 @@
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
 
     <style>
-        .formCheckBoxStyle{
-            width:50px;
-            height:50px;
-            transform: scale(1.5);
-            margin-left:5px;
-        }
-
-        .formCheckBoxStyle:hover{
-            cursor:pointer;
-        }
+        
     </style>
 </head>
 <body>

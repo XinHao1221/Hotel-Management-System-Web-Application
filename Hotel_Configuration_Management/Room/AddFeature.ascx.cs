@@ -5,18 +5,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-
-namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
+namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 {
-    public partial class AddEquipment : System.Web.UI.UserControl
+    public partial class AddFeature : System.Web.UI.UserControl
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                
-                Session["EquipmentList"] = new List<Equipment>();
+                Session["FeatureList"] = new List<String>();
 
                 PopupCover.Visible = false;
                 PopupDelete.Visible = false;
@@ -27,9 +24,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         private void checkIsEmpty()
         {
-            List<Equipment> equipmentList = (List<Equipment>)Session["EquipmentList"];
+            List<String> featureList = (List<String>)Session["FeatureList"];
 
-            if (equipmentList.Count == 0)
+            if (featureList.Count == 0)
             {
                 lblNoItemFound.Visible = true;
             }
@@ -39,39 +36,30 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             }
         }
 
-        protected void btnSaveEquipment_Click(object sender, EventArgs e)
+        protected void btnSaveFeature_Click(object sender, EventArgs e)
         {
-            List<Equipment> equipmentList = (List<Equipment>)Session["EquipmentList"];
+            List<String> featureList = (List<String>)Session["FeatureList"];
 
-            String fineCharges = txtEquipmentPrice.Text;
+            // Add to feature list
+            featureList.Add(txtFeature.Text);
 
-            // If user doesn't enter equipment price
-            if(fineCharges == "")
-            {
-                fineCharges = "0";  // Set it to zero
-            }
-
-            // Add to Equipment class
-            equipmentList.Add(new Equipment() { equipmentName = txtEquipment.Text, fineCharges = Convert.ToDouble(fineCharges) });
-
-            Repeater1.DataSource = equipmentList;
+            Repeater1.DataSource = featureList;
             Repeater1.DataBind();
 
             lblNoItemFound.Visible = false;
         }
 
-        protected void IBDeleteEquipment_Click(object sender, ImageClickEventArgs e)
+
+        protected void IBDeleteFeature_Click(object sender, ImageClickEventArgs e)
         {
             // When user click on delete icon
             RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
 
             // Get item no for the selected item
             String itemIndex = (item.FindControl("lblNumber") as Label).Text;
-            String equipmentName = (item.FindControl("lblEquipmentName") as Label).Text;
-            String fineCharges = (item.FindControl("lblFineCharges") as Label).Text;
+            String feature = (item.FindControl("lblFeature") as Label).Text;
 
-            lblPopupDeleteContent.Text = "Equipment: " + equipmentName + "<br />" +
-                "Fine Charhes: " + fineCharges + "<br /><br />";
+            lblPopupDeleteContent.Text = "Feature: " + feature + "<br /><br />";
 
             ViewState["ItemIndex"] = itemIndex;
 
@@ -89,11 +77,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         {
             int itemIndex = int.Parse(ViewState["ItemIndex"].ToString());
 
-            List<Equipment> equipmentList = (List<Equipment>)Session["EquipmentList"];
+            List<String> featuretList = (List<String>)Session["FeatureList"];
 
-            equipmentList.RemoveAt(itemIndex - 1);
+            featuretList.RemoveAt(itemIndex - 1);
 
-            Repeater1.DataSource = equipmentList;
+            Repeater1.DataSource = featuretList;
             Repeater1.DataBind();
 
             checkIsEmpty();

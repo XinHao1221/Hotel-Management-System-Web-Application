@@ -79,6 +79,8 @@
     <Content Include="Hotel_Configuration_Management\Floor\ViewFloor.aspx" />
     <Content Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx" />
     <Content Include="Hotel_Configuration_Management\Room Type\AddRoomType.aspx" />
+    <Content Include="Hotel_Configuration_Management\Room\AddFeature.ascx" />
+    <Content Include="Hotel_Configuration_Management\Room\AddRoom.aspx" />
     <Content Include="Image\activate_icon.png" />
     <Content Include="Image\arrow_down.png" />
     <Content Include="Image\arrow_left.png" />
@@ -161,6 +163,20 @@
       <DependentUpon>AddRoomType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Room Type\Equipment.cs" />
+    <Compile Include="Hotel_Configuration_Management\Room\AddFeature.ascx.cs">
+      <DependentUpon>AddFeature.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Room\AddFeature.ascx.designer.cs">
+      <DependentUpon>AddFeature.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Room\AddRoom.aspx.cs">
+      <DependentUpon>AddRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Room\AddRoom.aspx.designer.cs">
+      <DependentUpon>AddRoom.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\IDEncryption.cs" />
     <Compile Include="Utility\IDGenerator.cs" />
