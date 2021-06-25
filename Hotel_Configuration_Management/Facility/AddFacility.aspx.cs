@@ -38,7 +38,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String nextFacilityID = idGenerator.getLastID("FacilityID", "Facility", "FC");
+            String nextFacilityID = idGenerator.getNextID("FacilityID", "Facility", "FC");
 
             // SQL command to insert floor
             String addFacility = "INSERT INTO Facility VALUES (@FacilityID, @FacilityName, @Description, @Status, @Quantity, @Price)";

@@ -105,6 +105,15 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
 
         /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+
+        /// <summary>
         /// txtHigherOccupancy control.
         /// </summary>
         /// <remarks>
@@ -121,6 +130,15 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
+
+        /// <summary>
+        /// RequiredFieldValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
 
         /// <summary>
         /// cbExtraBed control.
@@ -193,5 +211,14 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button formBtnCancel;
+
+        /// <summary>
+        /// PopupCover control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PopupCover;
     }
 }

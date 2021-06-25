@@ -23,7 +23,7 @@ namespace Hotel_Management_System.Utility
             //custom logging logic can go here
         }
 
-        public String getLastID(String tableID, String tableName, String prefix)
+        public String getNextID(String tableID, String tableName, String prefix)
         {
             conn = new SqlConnection(strCon);
             conn.Open();

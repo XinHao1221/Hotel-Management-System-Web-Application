@@ -27,14 +27,14 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         #endregion
 
         public string equipmentName { get; set; }
-        public string fineCharges { get; set; }
+        public double fineCharges { get; set; }
 
         public void OnLogRequest(Object source, EventArgs e)
         {
             //custom logging logic can go here
         }
 
-        public Equipment(string equipmentName, string price)
+        public Equipment(string equipmentName, double fineCharges)
         {
             this.equipmentName = equipmentName;
             this.fineCharges = fineCharges;

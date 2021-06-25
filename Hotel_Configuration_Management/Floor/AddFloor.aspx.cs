@@ -96,7 +96,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String nextFloorID = idGenerator.getLastID("FloorID", "Floor", "F");
+            String nextFloorID = idGenerator.getNextID("FloorID", "Floor", "F");
 
             // SQL command to insert floor
             String addFloor = "INSERT INTO FLOOR VALUES (@FloorID, @FloorName, @FloorNumber, @Description, @status)";
@@ -145,6 +145,34 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         {
             PopupCancel.Visible = true;
             PopupCover.Visible = true;
+            
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+
+            // Check if user have enter any value
+            if(txtFloorName.Text == "")
+            {
+                Response.Redirect("Floor.aspx");
+            }
+
+            // If no show popup message
+            PopupCover.Visible = true;
+            PopupBack.Visible = true;
+        }
+
+        protected void btnConfirmBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Floor.aspx");
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
+        }
+
+        protected void btnCancelBack_Click(object sender, EventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
         }
     }
 }

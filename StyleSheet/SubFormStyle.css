@@ -41,3 +41,28 @@
     font-family: Helvetica, sans-serif;
     background-color: #F3F3F3;
 }
+
+.subFormBtnSave {
+    background-color: white;
+    border: 1px solid rgb(0, 206, 27);
+    width: 100px;
+    height: 30px;
+    color: rgb(0, 206, 27);
+    font-weight:600;
+    
+}
+
+.subFormBtnSave:hover {
+    cursor: pointer;
+    border: 2px solid rgb(0, 206, 27);
+}
+
+.subFormIcon{
+    width:15px;
+    height:15px;
+}
+
+.subFormIcon:hover{
+    cursor:pointer;
+    opacity:0.6;
+}

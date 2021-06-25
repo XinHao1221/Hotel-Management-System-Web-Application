@@ -91,16 +91,18 @@
                     <td class="formLabel requiredFieldLabel">Base Occupancy </td>
                     <td></td>
                     <td class="formInput">
-                        <asp:TextBox ID="txtBaseOccupancy" runat="server" CssClass="inputStyle" placeholder="2" Width="30%" ></asp:TextBox>
+                        <asp:TextBox ID="txtBaseOccupancy" runat="server" CssClass="inputStyle" placeholder="2" Width="30%" ></asp:TextBox> <br />
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Please enter a digit!" CssClass="validatorStyle" ControlToValidate="txtBaseOccupancy" Type="Integer" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtBaseOccupancy" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
                     <td class="formLabel requiredFieldLabel">Higher Occupancy </td>
                     <td></td>
                     <td class="formInput">
-                        <asp:TextBox ID="txtHigherOccupancy" runat="server" CssClass="inputStyle" placeholder="4" Width="30%" ></asp:TextBox>
+                        <asp:TextBox ID="txtHigherOccupancy" runat="server" CssClass="inputStyle" placeholder="4" Width="30%" ></asp:TextBox> <br />
                         <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Please enter a digit!" CssClass="validatorStyle" ControlToValidate="txtHigherOccupancy" Type="Integer" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtHigherOccupancy" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
@@ -144,6 +146,12 @@
                 </center>
                     
             </div>
+
+            <%-- Popup Cover --%>
+            <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
+                &nbsp;
+            </asp:Panel>
+
         </div>
     </form>
 </body>
