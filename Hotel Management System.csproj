@@ -77,6 +77,7 @@
     <Content Include="Hotel_Configuration_Management\Floor\Floor.aspx" />
     <Content Include="Hotel_Configuration_Management\Floor\PreviewFloor.aspx" />
     <Content Include="Hotel_Configuration_Management\Floor\ViewFloor.aspx" />
+    <Content Include="Hotel_Configuration_Management\PriceManager\EditRegularPrice.aspx" />
     <Content Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx" />
     <Content Include="Hotel_Configuration_Management\Room Type\AddRoomType.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\AddFeature.ascx" />
@@ -147,6 +148,13 @@
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Floor\ViewFloor.aspx.designer.cs">
       <DependentUpon>ViewFloor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\PriceManager\EditRegularPrice.aspx.cs">
+      <DependentUpon>EditRegularPrice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\PriceManager\EditRegularPrice.aspx.designer.cs">
+      <DependentUpon>EditRegularPrice.aspx</DependentUpon>
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx.cs">
       <DependentUpon>AddEquipment.ascx</DependentUpon>
