@@ -44,7 +44,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String getRoomType = "SELECT * FROM RoomType";
+            String getRoomType = "SELECT * FROM RoomType WHERE Status LIKE 'Active'";
 
             SqlCommand cmdGetRoomType = new SqlCommand(getRoomType, conn);
 

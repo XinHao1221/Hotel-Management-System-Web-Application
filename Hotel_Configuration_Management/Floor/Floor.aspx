@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/MainMenuHeader.css" />
+    <link rel="stylesheet" href="../../StyleSheet/PopupBox.css" />
 
     <style>
         body{
@@ -374,6 +375,69 @@
                     <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="popUpDeleteBtn" OnClick="btnDelete_Click"/>
                 </asp:Panel>
             </div>
+
+            <%--Popup Box--%>
+            <asp:Panel ID="PopupBoxDelete" runat="server" CssClass="popupBox" Visible="false" Width="50%">
+                    
+                <div class="popupBoxContainer">
+   
+                    <div class="popupBoxHeader">
+                        <%-- Popup Window Title --%>
+                        <div style="float:left;">
+                            <p style="color:red;" class="popupBoxTitle">Confirm before delete</p>
+                        </div>
+
+                        <div style="float:right;">
+                            <asp:ImageButton ID="IBClosePopUpBox" runat="server" ImageUrl="~/Image/delete.png" CssClass="popupBoxCloseIcon" ToolTip="Close" OnClick="IBClosePopUpBox_Click"/>
+
+                        </div>
+                    </div>
+
+                    <div style="clear:both;"></div>
+
+                    <%-- Popup Window Body --%>
+                    <div class="popupBoxBody">
+
+                        <div>
+                            There are <asp:Label ID="lblTotalRoom" runat="server" Text="Label"></asp:Label> Room Types attached to this floor. <br />
+                            The following room will be deleted:
+                            <br /><br />
+                        </div>
+
+                        <asp:Label ID="lblFloorName" runat="server" Text="Label"></asp:Label><br />
+                        
+                        <%--Display Room Number--%>
+                        <asp:Repeater ID="Repeater2" runat="server">
+                            <ItemTemplate>
+                                <div>
+                                    &emsp;&emsp;
+                                    <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("RoomNumber")%>'></asp:Label> <br />
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+
+                        
+                    </div>
+
+                    <%--Delete Confirmation Checkbox--%>
+                    <div style="font-size:120%">
+                        <div style="float:left; margin-top:2px;">
+                            <asp:CheckBox ID="cbDeleteAnywhere" runat="server" CssClass="formCheckBoxStyle" Width="25px" Height="25px" OnCheckedChanged="cbDeleteAnywhere_CheckedChanged" AutoPostBack="true"/>
+                        </div>
+                        <div style="float:left; margin-left:5px;">
+                            Delete Anywhere
+                        </div>
+                    </div>
+
+                    <div style="clear:both;">&nbsp;</div>
+
+                    <div class="popupBoxFooter">
+                        
+                        <asp:Button ID="btnPopupBoxDelete" runat="server" Text="Delete" CssClass="popUpBoxDeleteBtn" OnClick="btnPopupBoxDelete_Click" Visible="false"/>
+                    </div>
+
+                </div>
+            </asp:Panel> 
 
             <%-- Popup Cover --%>
             <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">

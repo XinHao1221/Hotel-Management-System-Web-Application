@@ -49,6 +49,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
                 lblFloorName.Text = sdr.GetString(sdr.GetOrdinal("FloorName"));
                 lblFloorNumber.Text = sdr.GetValue(2).ToString();
                 lblDescription.Text = sdr.GetString(sdr.GetOrdinal("Description"));
+                
                 lblStatus.Text = sdr.GetString(sdr.GetOrdinal("Status"));
 
                 if (lblStatus.Text == "Active")

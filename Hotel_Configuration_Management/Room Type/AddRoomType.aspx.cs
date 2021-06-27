@@ -59,7 +59,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
             
             // SQL command to get existing floor number from database
-            String addRoomType = "INSERT INTO RoomType VALUES (@RoomTypeID, @Title, @ShortCode, @Description, @BaseOccupancy, @HigherOccupancy, @ExtraBed, @ExtraBedPrice)";
+            String addRoomType = "INSERT INTO RoomType VALUES (@RoomTypeID, @Title, @ShortCode, @Description, @BaseOccupancy, @HigherOccupancy, @ExtraBed, @ExtraBedPrice, @Status)";
 
             SqlCommand cmdAddRoomType = new SqlCommand(addRoomType, conn);
 
@@ -70,6 +70,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             cmdAddRoomType.Parameters.AddWithValue("@BaseOccupancy", int.Parse(txtBaseOccupancy.Text));
             cmdAddRoomType.Parameters.AddWithValue("@HigherOccupancy", int.Parse(txtHigherOccupancy.Text));
             cmdAddRoomType.Parameters.AddWithValue("@ExtraBed", extraBed.ToString());
+            cmdAddRoomType.Parameters.AddWithValue("@Status", "Active");
+
             if (extraBed == true)
             {
                 cmdAddRoomType.Parameters.AddWithValue("@ExtraBedPrice", Convert.ToDecimal(txtExtraBedPrice.Text));

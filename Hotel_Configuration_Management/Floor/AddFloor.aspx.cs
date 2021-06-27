@@ -68,7 +68,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             conn.Open();
 
             // SQL command to get existing floor number from database
-            String getFloorNumber = "SELECT FloorNumber FROM Floor";
+            String getFloorNumber = "SELECT FloorNumber FROM Floor WHERE Status IN ('Active', 'Suspend')";
 
             SqlCommand cmdGetFloorNumber = new SqlCommand(getFloorNumber, conn);
 

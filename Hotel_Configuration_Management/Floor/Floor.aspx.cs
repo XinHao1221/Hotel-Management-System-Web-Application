@@ -62,7 +62,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             conn.Open();
 
             // SQL command 
-            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Floor";
+            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Floor WHERE Status IN ('Active', 'Suspend')";
 
             SqlCommand cmdGetItemCount = new SqlCommand(getTotalNumebrOfItem, conn);
 
@@ -112,7 +112,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String getName = "SELECT * FROM Floor ORDER BY FloorNumber OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
+            String getName = "SELECT * FROM Floor WHERE Status IN ('Active', 'Suspend') " +
+                "ORDER BY FloorNumber OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
 
             SqlCommand cmdInsert = new SqlCommand(getName, conn);
             cmdInsert.Parameters.AddWithValue("@offset", offset);   // Assign start index
@@ -271,16 +272,51 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             // Get FloorID of the selected item
             String floorID = (item.FindControl("lblFloorID") as Label).Text;
-            String FloorName = (item.FindControl("lblFloorName") as Label).Text;
+            String floorName = (item.FindControl("lblFloorName") as Label).Text;
 
             // Set FloorName into popup window
-            lblPopupDeleteContent.Text = "Floor Name: " + FloorName + "<br /><br />";
+            lblPopupDeleteContent.Text = "Floor Name: " + floorName + "<br /><br />";
 
             ViewState["FloorID"] = floorID;
+            ViewState["FloorName"] = floorName;
+
+            // check if any rooms have references to the selected floor
+            if (hasRoom() > 0)
+            {
+                PopupBoxDelete.Visible = true;
+
+                // Display the room attached to the selected floor
+                deleteConfirmationMessage();
+            }
+            else
+            {
+                PopupDelete.Visible = true;
+            }
 
             PopupCover.Visible = true;
-            PopupDelete.Visible = true;
+            
 
+        }
+
+        private int hasRoom()
+        {
+            // check if any room have references to the selected floor
+            String floorID = ViewState["FloorID"].ToString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String getRoomCount = "SELECT Count(RoomNumber) FROM Room WHERE FloorID LIKE @ID AND Status IN ('Active', 'Blocked')";
+
+            SqlCommand cmdGetRoomCount = new SqlCommand(getRoomCount, conn);
+
+            cmdGetRoomCount.Parameters.AddWithValue("@ID", floorID);
+
+            int noOfItem = (int)cmdGetRoomCount.ExecuteScalar();
+
+            conn.Close();
+
+            return noOfItem;
         }
 
         protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -456,6 +492,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             cmdDeleteFloor.Parameters.AddWithValue("@ID", floorID);
 
+
             int i = cmdDeleteFloor.ExecuteNonQuery();
 
             conn.Close();
@@ -464,6 +501,42 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             PopupCover.Visible = false;
 
             refreshPage();
+        }
+
+        private void deleteConfirmationMessage()
+        {
+            String floorID = ViewState["FloorID"].ToString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            PopupCover.Visible = true;
+            PopupBoxDelete.Visible = true;
+
+            String getRoom = "SELECT RoomNumber FROM Room WHERE FloorID LIKE @ID AND Status IN ('Active', 'Blocked')";
+
+            SqlCommand cmdGetRoom = new SqlCommand(getRoom, conn);
+
+            cmdGetRoom.Parameters.AddWithValue("@ID", floorID);
+
+            // Hold the data read from database
+            SqlDataAdapter sda = new SqlDataAdapter(cmdGetRoom);
+
+            DataTable dt = new DataTable();
+
+            // Assign the data from database into dataTable
+            sda.Fill(dt);
+
+            lblTotalRoom.Text = (dt.Rows.Count).ToString();
+
+            lblFloorName.Text = ViewState["FloorName"].ToString();
+            lblFloorName.Style["font-weight"] = "600";
+
+            // Bind data into repeater to display
+            Repeater2.DataSource = dt;
+            Repeater2.DataBind();
+
+            conn.Close();
         }
 
         protected void LBRepeater_Click(object sender, EventArgs e)
@@ -508,7 +581,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
                 conn = new SqlConnection(strCon);
                 conn.Open();
 
-                String searchFloor = "SELECT * FROM Floor WHERE UPPER(FloorName) LIKE '%" + floorName + "%'";
+                String searchFloor = "SELECT * FROM Floor WHERE UPPER(FloorName) LIKE '%" + floorName + "%' AND Status IN ('Active', 'Suspend')";
 
                 SqlCommand cmdSearchFloor = new SqlCommand(searchFloor, conn);
 
@@ -539,6 +612,69 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             }
 
             
+        }
+
+        protected void IBClosePopUpBox_Click(object sender, ImageClickEventArgs e)
+        {
+            PopupBoxDelete.Visible = false;
+            PopupCover.Visible = false;
+            PopupDelete.Visible = false;
+        }
+
+        protected void btnPopupBoxDelete_Click(object sender, EventArgs e)
+        {
+            // Change Status to "Deleted"
+            String floorID = ViewState["FloorID"].ToString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String updateFloorStatus = "UPDATE Floor SET Status = @Status WHERE FloorID LIKE @ID";
+
+            SqlCommand cmdUpdateFloorStatus = new SqlCommand(updateFloorStatus, conn);
+
+            cmdUpdateFloorStatus.Parameters.AddWithValue("@Status", "Deleted");
+            cmdUpdateFloorStatus.Parameters.AddWithValue("@ID", floorID);
+
+            int i = cmdUpdateFloorStatus.ExecuteNonQuery();
+
+            // Remove all room that attached to the deleted floor.
+            removeRoom();
+
+            conn.Close();
+
+            PopupCover.Visible = false;
+            PopupBoxDelete.Visible = false;
+
+            refreshPage();
+        }
+
+        private void removeRoom()
+        {
+            String floorID = ViewState["FloorID"].ToString();
+
+            String updateFloorStatus = "UPDATE Room SET Status = @Status WHERE FloorID LIKE @ID";
+
+            SqlCommand cmdUpdateFloorStatus = new SqlCommand(updateFloorStatus, conn);
+
+            cmdUpdateFloorStatus.Parameters.AddWithValue("@Status", "Deleted");
+            cmdUpdateFloorStatus.Parameters.AddWithValue("@ID", floorID);
+
+            int i = cmdUpdateFloorStatus.ExecuteNonQuery();
+
+        }
+
+        // Activate Delete button for popup box
+        protected void cbDeleteAnywhere_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbDeleteAnywhere.Checked)
+            {
+                btnPopupBoxDelete.Visible = true;
+            }
+            else
+            {
+                btnPopupBoxDelete.Visible = false;
+            }
         }
     }
 }

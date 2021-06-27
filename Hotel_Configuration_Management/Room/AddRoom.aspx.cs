@@ -55,7 +55,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
         {
 
             // SQL command 
-            String getFloorNumber = "SELECT * FROM Floor ORDER BY FloorNumber";
+            String getFloorNumber = "SELECT * FROM Floor WHERE Status LIKE 'Active' ORDER BY FloorNumber";
 
             SqlCommand cmdGetFloorNumber = new SqlCommand(getFloorNumber, conn);
 
@@ -82,7 +82,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
         private void setRoomType()
         {
 
-            String getRoomType = "SELECT * FROM RoomType";
+            String getRoomType = "SELECT * FROM RoomType WHERE Status LIKE 'Active'";
 
             SqlCommand cmdGetRoomType = new SqlCommand(getRoomType, conn);
 
