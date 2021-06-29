@@ -71,7 +71,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             String fineCharges = (item.FindControl("lblFineCharges") as Label).Text;
 
             lblPopupDeleteContent.Text = "Equipment: " + equipmentName + "<br />" +
-                "Fine Charhes: " + fineCharges + "<br /><br />";
+                "Fine Charges: " + fineCharges + "<br /><br />";
 
             ViewState["ItemIndex"] = itemIndex;
 

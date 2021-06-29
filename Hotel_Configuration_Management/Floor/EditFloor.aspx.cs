@@ -148,7 +148,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             if (i > 0)
             {
-                Response.Redirect("PreviewFloor.aspx?ID=" + en.encryption(floorID));
+                Response.Redirect("ViewFloor.aspx?ID=" + en.encryption(floorID));
             }
         }
 

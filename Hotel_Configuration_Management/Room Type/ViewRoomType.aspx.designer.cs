@@ -11,7 +11,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 {
 
 
-    public partial class PreviewRoomType
+    public partial class ViewRoomType
     {
 
         /// <summary>
@@ -22,6 +22,15 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
+        /// <summary>
+        /// LBEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBEdit;
 
         /// <summary>
         /// lblTitle control.

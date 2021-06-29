@@ -11,7 +11,7 @@ using Hotel_Management_System.Utility;
 
 namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 {
-    public partial class PreviewRoomType : System.Web.UI.Page
+    public partial class ViewRoomType : System.Web.UI.Page
     {
         // Create instance of IDEncryption class
         IDEncryption en = new IDEncryption();
@@ -23,7 +23,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            roomTypeID = "RT10000001";
+            //roomTypeID = "RT10000001";
+
+            roomTypeID = Request.QueryString["ID"];
+
+            roomTypeID = en.decryption(roomTypeID);
 
             setText();
             setEquipment();
@@ -49,7 +53,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
                 lblDescription.Text = sdr.GetString(sdr.GetOrdinal("Description"));
                 lblBaseOccupancy.Text = sdr.GetValue(sdr.GetOrdinal("BaseOccupancy")).ToString();
                 lblHigherOccupancy.Text = sdr.GetValue(sdr.GetOrdinal("HigherOccupancy")).ToString();
-                
+
                 // Set status to checkbox
                 String extraBed = sdr.GetString(sdr.GetOrdinal("ExtraBed"));
                 if (extraBed == "True")
@@ -89,7 +93,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             Repeater1.DataSource = dt;
             Repeater1.DataBind();
 
-            if(dt.Rows.Count <= 0)
+            if (dt.Rows.Count <= 0)
             {
                 lblNoItemFound.Visible = true;
             }
@@ -100,6 +104,16 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected void LBPriceManager_Click(object sender, EventArgs e)
         {
             Response.Redirect("../PriceManager/EditRegularPrice.aspx?ID=" + en.encryption(roomTypeID));
+        }
+
+        protected void LBEdit_Click(object sender, EventArgs e)
+        {
+            // Get current RoomTypeID
+            roomTypeID = en.encryption(roomTypeID);
+
+            // Redirect to edit page
+            Response.Redirect("EditRoomType.aspx?ID=" + roomTypeID);
+
         }
     }
 }

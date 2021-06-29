@@ -59,7 +59,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         {
             Boolean extraBed = cbExtraBed.Checked;
 
-            
             // SQL command to get existing floor number from database
             String addRoomType = "INSERT INTO RoomType VALUES (@RoomTypeID, @Title, @ShortCode, @Description, @BaseOccupancy, @HigherOccupancy, @ExtraBed, @ExtraBedPrice, @Status)";
 

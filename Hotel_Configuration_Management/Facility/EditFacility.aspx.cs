@@ -99,7 +99,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
             if (i > 0)
             {
-                Response.Redirect("PreviewFacility.aspx?ID=" + en.encryption(facilityID));
+                Response.Redirect("ViewFacility.aspx?ID=" + en.encryption(facilityID));
             }
         }
 

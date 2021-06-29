@@ -26,16 +26,58 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         // Create instance of RepeaterTableUltility
         RepeaterTableUtility ultility = new RepeaterTableUtility();
 
+        private String roomTypeID;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 setRoomType();
                 ddlRoomType.Items.Insert(0, new ListItem("-- Please Select --", "-- Please Select --"));
+
+                roomTypeID = Request.QueryString["ID"];
+
+                if (roomTypeID != null)
+                {
+                    // Check if the request is navigate from PreviewRoomType.aspx
+
+                    roomTypeID = en.decryption(Request.QueryString["ID"]);
+
+                    string roomType = getRoomType();
+
+                    if (roomType != "")
+                    {
+                        ddlRoomType.Items.FindByText(roomType).Selected = true;
+                        getStandardRoomPrice();
+                    }
+                }
+                    
+
+
+
             }
 
             PopupCover.Visible = false;
             PopupSaved.Visible = false;
+        }
+
+        private string getRoomType()
+        {
+            // open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String getRoomType = "SELECT Title FROM RoomType WHERE RoomTypeID LIKE @ID";
+
+            SqlCommand cmdGetRoomType = new SqlCommand(getRoomType, conn);
+
+            cmdGetRoomType.Parameters.AddWithValue("@ID", roomTypeID);
+
+            string roomType = (string)cmdGetRoomType.ExecuteScalar();
+
+            conn.Close();
+
+            return roomType;
         }
 
         private void setRoomType()
@@ -101,6 +143,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         }
 
         protected void ddlRoomType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            getStandardRoomPrice();
+        }
+
+        private void getStandardRoomPrice()
         {
             // open connection
             conn = new SqlConnection(strCon);

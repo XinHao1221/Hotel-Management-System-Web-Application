@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PreviewRoomType.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.PreviewRoomType" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ViewRoomType.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.ViewRoomType" %>
 
 <!DOCTYPE html>
 
@@ -13,32 +13,33 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <%-- Page content --%>
-            <div class="content">
+            <div class="formHeader">
+                Room Type
+            </div>
 
-                <div class="formHeader">
-                    Room Type
+            <div style="margin:20px 0px 20px 50px;">
+                <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
+
+                    <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
+                    <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
+                        Back
+                    </div>
+                        
                 </div>
 
-                <div style="margin:20px 0px 20px 50px;">
-                    <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='RoomType.aspx';">
+                <asp:LinkButton ID="LBEdit" runat="server" CssClass="divLBStyle" OnClick="LBEdit_Click">
+                    <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px;">
 
-                    <img src="../../Image/home_icon.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
-                    <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
-                        Menu
-                    </div>
-                    </div>
-
-                    <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px;" onclick="location.href='AddRoomType.aspx';">
-
-                        <img src="../../Image/plus_white.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;" />
+                        <img src="../../Image/edit_white_icon.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;" />
                         <div style="float:left; margin:12px 0px 0px 10px; font-size:15px;">
-                            Add
+                            Edit
                         </div>
                     </div>
-                </div>
+                </asp:LinkButton>
+                
+            </div>
 
-                <div style="height:80px;">&nbsp;</div>
+            <div style="height:80px;">&nbsp;</div>
 
                 <%--Form Section--%>
                 <div class="formSectionStyle" >
@@ -181,15 +182,16 @@
     
             </asp:Repeater>
 
-                <%--Message if item no found--%>
-                <div style="width: 80%; margin-left:6%; clear:both;">
+            <%--Message if item no found--%>
+            <div style="width: 80%; margin-left:6%; clear:both;">
 
-                    <div class="subFormTableContent" style="padding-left:2%;">
-                        <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>
-                    </div>           
-                </div>
+                <div class="subFormTableContent" style="padding-left:2%;">
+                    <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>
+                </div>           
+            </div>
 
-                <div style="clear:both; height:50px">&nbsp;</div>
+            <div style="clear:both; height:50px">&nbsp;</div>
+
         </div>
     </form>
 </body>
