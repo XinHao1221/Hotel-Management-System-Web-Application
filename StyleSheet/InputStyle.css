@@ -217,6 +217,7 @@
     width: 50%;
     word-wrap: break-word;
     font-family: Helvetica, sans-serif;
+    padding-bottom:10px;
 }
 
 .validatorStyle {

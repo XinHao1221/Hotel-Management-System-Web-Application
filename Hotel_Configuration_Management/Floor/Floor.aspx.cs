@@ -387,8 +387,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
                 btnPopupActivate.Text = "Activate";
             }
 
-            
-
         }
 
         protected void btnPopupActivate_Click(object sender, EventArgs e)
@@ -574,6 +572,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
             if (floorName == "")
             {
+                lblNoItemFound.Visible = false;
                 refreshPage();
             }
             else

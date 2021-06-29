@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
+namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 {
 
 
-    public partial class AddRoomType
+    public partial class EditFacility
     {
 
         /// <summary>
@@ -33,13 +33,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.LinkButton LBBack;
 
         /// <summary>
-        /// txtTittle control.
+        /// txtFacilityName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTittle;
+        protected global::System.Web.UI.WebControls.TextBox txtFacilityName;
 
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -51,42 +51,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 
         /// <summary>
-        /// txtShortCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtShortCode;
-
-        /// <summary>
-        /// txtPrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrice;
-
-        /// <summary>
-        /// CompareValidator4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator4;
-
-        /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-
-        /// <summary>
         /// txtDescription control.
         /// </summary>
         /// <remarks>
@@ -96,13 +60,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
 
         /// <summary>
-        /// txtBaseOccupancy control.
+        /// txtQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBaseOccupancy;
+        protected global::System.Web.UI.WebControls.TextBox txtQty;
 
         /// <summary>
         /// CompareValidator1 control.
@@ -114,6 +78,15 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
 
         /// <summary>
+        /// ddlPriceType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPriceType;
+
+        /// <summary>
         /// RequiredFieldValidator3 control.
         /// </summary>
         /// <remarks>
@@ -123,13 +96,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
 
         /// <summary>
-        /// txtHigherOccupancy control.
+        /// txtPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHigherOccupancy;
+        protected global::System.Web.UI.WebControls.TextBox txtPrice;
 
         /// <summary>
         /// CompareValidator2 control.
@@ -141,67 +114,22 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
 
         /// <summary>
-        /// RequiredFieldValidator4 control.
+        /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
 
         /// <summary>
-        /// cbExtraBed control.
+        /// ddlStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbExtraBed;
-
-        /// <summary>
-        /// pnExtraBedPrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnExtraBedPrice;
-
-        /// <summary>
-        /// txtExtraBedPrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtExtraBedPrice;
-
-        /// <summary>
-        /// CompareValidator3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator3;
-
-        /// <summary>
-        /// RFVExtraBedPrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVExtraBedPrice;
-
-        /// <summary>
-        /// EC1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Hotel_Management_System.Hotel_Configuration_Management.Room_Type.AddEquipment EC1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
 
         /// <summary>
         /// btnSave control.
@@ -213,22 +141,22 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
-        /// formBtnCancel control.
+        /// btnReset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button formBtnCancel;
+        protected global::System.Web.UI.WebControls.Button btnReset;
 
         /// <summary>
-        /// PopupReset control.
+        /// PopupCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupReset;
+        protected global::System.Web.UI.WebControls.Panel PopupCancel;
 
         /// <summary>
         /// btnPopupCancel control.
@@ -240,40 +168,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         protected global::System.Web.UI.WebControls.Button btnPopupCancel;
 
         /// <summary>
-        /// btnPopupConfirmReset control.
+        /// btnPopupConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPopupConfirmReset;
-
-        /// <summary>
-        /// PopupBack control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupBack;
-
-        /// <summary>
-        /// btnCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
-
-        /// <summary>
-        /// btnConfirmBack control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirmBack;
+        protected global::System.Web.UI.WebControls.Button btnPopupConfirm;
 
         /// <summary>
         /// PopupCover control.

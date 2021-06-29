@@ -63,6 +63,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
                 
             }
+
+            conn.Close();
         }
 
         private List<int> getExistingFloorNumber()

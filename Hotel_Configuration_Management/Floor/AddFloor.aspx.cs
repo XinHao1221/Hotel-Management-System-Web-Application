@@ -126,6 +126,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         {
             PopupCancel.Visible = false;
             PopupCover.Visible = false;
+            
         }
 
         protected void btnPopupConfirm_Click(object sender, EventArgs e)

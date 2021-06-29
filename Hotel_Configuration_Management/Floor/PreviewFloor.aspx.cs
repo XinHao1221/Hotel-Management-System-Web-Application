@@ -25,6 +25,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         protected void Page_Load(object sender, EventArgs e)
         {
             floorID = en.decryption(Request.QueryString["ID"]);
+
             setText();
         }
 
@@ -52,11 +53,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
                if(lblStatus.Text == "Active")
                {
                     lblStatus.Style["color"] = "#00ce1b";
-                }
-                else
-                {
-                    lblStatus.Style["color"] = "red";
-                }
+               }
+               else
+               { 
+                   lblStatus.Style["color"] = "red";
+               }
             }
 
             conn.Close();

@@ -148,7 +148,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
                 if(roomTypeID.Count > 0)
                 {
                     ViewState["Repeater2"] = "true";
-                    test(roomTypeID, selectedDay);
+                    setRepeater2(roomTypeID, selectedDay);
                 }
                 
             }
@@ -161,7 +161,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
             }
         }
 
-        private void test(List<string> roomTypeID, string selectedDay)
+        private void setRepeater2(List<string> roomTypeID, string selectedDay)
         {
             // open connection
             conn = new SqlConnection(strCon);

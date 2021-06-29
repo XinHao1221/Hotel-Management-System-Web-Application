@@ -25,7 +25,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            PopupReset.Visible = false;
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -136,7 +138,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void formBtnCancel_Click(object sender, EventArgs e)
         {
-
+            PopupReset.Visible = true;
+            PopupCover.Visible = true;
         }
 
         protected void cbExtraBed_CheckedChanged(object sender, EventArgs e)
@@ -152,6 +155,38 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
                 pnExtraBedPrice.Visible = false;
 
             }
+        }
+
+        protected void btnPopupCancel_Click(object sender, EventArgs e)
+        {
+            PopupBack.Visible = false;
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+        }
+
+        protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+            Response.Redirect("AddRoomType.aspx");
+        }
+
+        protected void btnConfirmBack_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+            // Check if user have enter any value
+            if (txtTittle.Text == "")
+            {
+                //Response.Redirect("RoomType.aspx");
+            }
+
+            // If no show popup message
+            PopupBack.Visible = true;
+            PopupCover.Visible = true;
         }
     }
 }

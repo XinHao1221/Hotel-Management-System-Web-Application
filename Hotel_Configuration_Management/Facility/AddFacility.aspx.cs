@@ -25,12 +25,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        }
-
-        protected void formBtnCancel_Click(object sender, EventArgs e)
-        {
-
+            PopupReset.Visible = false;
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -40,8 +37,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
             String nextFacilityID = idGenerator.getNextID("FacilityID", "Facility", "FC");
 
-            // SQL command to insert floor
-            String addFacility = "INSERT INTO Facility VALUES (@FacilityID, @FacilityName, @Description, @Status, @Quantity, @Price)";
+            // SQL command to insert facility
+            String addFacility = "INSERT INTO Facility VALUES (@FacilityID, @FacilityName, @Description, @Status, @Quantity, @Price, @PriceType)";
 
             SqlCommand cmdAddFacility = new SqlCommand(addFacility, conn);
 
@@ -51,15 +48,57 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
             cmdAddFacility.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue);
             cmdAddFacility.Parameters.AddWithValue("@Quantity", int.Parse(txtQty.Text));
             cmdAddFacility.Parameters.AddWithValue("@Price", Convert.ToDecimal(txtPrice.Text));
+            cmdAddFacility.Parameters.AddWithValue("@PriceType", ddlPriceType.SelectedValue);
 
             int i = cmdAddFacility.ExecuteNonQuery();
 
             conn.Close();
 
-            //if (i > 0)
-            //{
-            //    Response.Redirect("PreviewFloor.aspx?ID=" + en.encryption(nextFacilityID));
-            //}
+            if (i > 0)
+            {
+                Response.Redirect("PreviewFacility.aspx?ID=" + en.encryption(nextFacilityID));
+            }
+        }
+
+        protected void btnPopupCancel_Click(object sender, EventArgs e)
+        {
+            PopupReset.Visible = false;
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
+        }
+
+        protected void btnPopupConfirm_Click(object sender, EventArgs e)
+        {
+            PopupReset.Visible = false;
+            PopupCover.Visible = false;
+
+            Response.Redirect("AddFacility.aspx");
+        }
+
+        protected void btnConfirmBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Facility.aspx");
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
+        }
+
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            PopupReset.Visible = true;
+            PopupCover.Visible = true;
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+            // Check if user have enter any value
+            if (txtFacilityName.Text == "")
+            {
+                Response.Redirect("Facility.aspx");
+            }
+
+            // If no show popup message
+            PopupCover.Visible = true;
+            PopupBack.Visible = true;
         }
     }
 }

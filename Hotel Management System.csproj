@@ -72,6 +72,10 @@
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="Hotel_Configuration_Management\Facility\AddFacility.aspx" />
+    <Content Include="Hotel_Configuration_Management\Facility\EditFacility.aspx" />
+    <Content Include="Hotel_Configuration_Management\Facility\Facility.aspx" />
+    <Content Include="Hotel_Configuration_Management\Facility\PreviewFacility.aspx" />
+    <Content Include="Hotel_Configuration_Management\Facility\ViewFacility.aspx" />
     <Content Include="Hotel_Configuration_Management\Floor\AddFloor.aspx" />
     <Content Include="Hotel_Configuration_Management\Floor\EditFloor.aspx" />
     <Content Include="Hotel_Configuration_Management\Floor\Floor.aspx" />
@@ -81,6 +85,7 @@
     <Content Include="Hotel_Configuration_Management\PriceManager\EditSpecialPrice.aspx" />
     <Content Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx" />
     <Content Include="Hotel_Configuration_Management\Room Type\AddRoomType.aspx" />
+    <Content Include="Hotel_Configuration_Management\Room Type\PreviewRoomType.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\AddFeature.ascx" />
     <Content Include="Hotel_Configuration_Management\Room\AddRoom.aspx" />
     <Content Include="Image\activate_icon.png" />
@@ -88,6 +93,7 @@
     <Content Include="Image\arrow_left.png" />
     <Content Include="Image\arrow_right.png" />
     <Content Include="Image\Back.png" />
+    <Content Include="Image\checked_icon.png" />
     <Content Include="Image\close.png" />
     <Content Include="Image\delete.png" />
     <Content Include="Image\delete_icon.png" />
@@ -114,6 +120,34 @@
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Facility\AddFacility.aspx.designer.cs">
       <DependentUpon>AddFacility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Facility\EditFacility.aspx.cs">
+      <DependentUpon>EditFacility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Facility\EditFacility.aspx.designer.cs">
+      <DependentUpon>EditFacility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Facility\Facility.aspx.cs">
+      <DependentUpon>Facility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Facility\Facility.aspx.designer.cs">
+      <DependentUpon>Facility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Facility\PreviewFacility.aspx.cs">
+      <DependentUpon>PreviewFacility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Facility\PreviewFacility.aspx.designer.cs">
+      <DependentUpon>PreviewFacility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Facility\ViewFacility.aspx.cs">
+      <DependentUpon>ViewFacility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Facility\ViewFacility.aspx.designer.cs">
+      <DependentUpon>ViewFacility.aspx</DependentUpon>
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Floor\AddFloor.aspx.cs">
       <DependentUpon>AddFloor.aspx</DependentUpon>
@@ -180,6 +214,13 @@
       <DependentUpon>AddRoomType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Room Type\Equipment.cs" />
+    <Compile Include="Hotel_Configuration_Management\Room Type\PreviewRoomType.aspx.cs">
+      <DependentUpon>PreviewRoomType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Room Type\PreviewRoomType.aspx.designer.cs">
+      <DependentUpon>PreviewRoomType.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Hotel_Configuration_Management\Room\AddFeature.ascx.cs">
       <DependentUpon>AddFeature.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

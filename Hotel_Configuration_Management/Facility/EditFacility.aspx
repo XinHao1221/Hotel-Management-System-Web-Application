@@ -1,23 +1,22 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddFacility.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Facility.AddFacility" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditFacility.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Facility.EditFacility" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <title></title>
+
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
 
-    <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <%-- Page content --%>
             <div class="formHeader">
                     Facility Form
-                </div>
-
-            <asp:LinkButton ID="LBBack" runat="server" OnClick="LBBack_Click" CssClass="divLBStyle">
+            </div>
+            <asp:LinkButton ID="LBBack" runat="server" CssClass="divLBStyle" OnClick="LBBack_Click">
                 <div style="margin:20px 0px 20px 50px;">
                     <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
 
@@ -29,7 +28,8 @@
                     </div>
                 </div>
             </asp:LinkButton>
-                <div style="clear:both;">&nbsp;</div>
+
+            <div style="clear:both;">&nbsp;</div>
 
                 <table style="width:100%;">
                     <tr>
@@ -112,12 +112,11 @@
                     <asp:Button ID="btnReset" runat="server" Text="Reset" OnClick="btnReset_Click" CssClass="formBtnCancel" ToolTip="Reset"/>
                 </center>
                         
-                    
             </div>
 
             <%-- Popup Window --%>
             <div class="popup">
-                <asp:Panel ID="PopupReset" runat="server" Visible="False" CssClass="popupWindow">
+                <asp:Panel ID="PopupCancel" runat="server" Visible="False" CssClass="popupWindow">
 
                     <%-- Popup Window Title --%>
                     <p style="color:red;" class="popupTitle">Reset Text Field?</p>
@@ -136,33 +135,11 @@
                     <asp:Button ID="btnPopupConfirm" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirm_Click"/>
                 </asp:Panel>
 
-                <asp:Panel ID="PopupBack" runat="server" Visible="False" CssClass="popupWindow">
-
-                    <%-- Popup Window Title --%>
-                    <p style="color:red;" class="popupTitle">Leave without save?</p>
-
-                    <%-- Popup Window Body --%>
-                    <div class="popupBody">
-
-                        <p>The changes have not been saved. Are you sure to close the editor?</p>
-
-                    </div>
-
-                    <div>&nbsp;</div>
-
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
-                
-                    <asp:Button ID="btnConfirmBack" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnConfirmBack_Click"/>
-                </asp:Panel>
-
-                <%-- Popup Cover --%>
                 <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
                     &nbsp;
                 </asp:Panel>
             </div>
-
         </div>
-        
     </form>
 </body>
 </html>
