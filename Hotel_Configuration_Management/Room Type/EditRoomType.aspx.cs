@@ -30,7 +30,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
             if (!IsPostBack)
             {
-                //ViewState["RoomTypeID"] = roomTypeID;
                 // Save link for previous page
                 ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
                 PopupCover.Visible = false;

@@ -36,7 +36,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
                 ddlFloorNumber.Items.Insert(0, new ListItem("-- Please Select --", "-- Please Select --"));
                 ddlRoomType.Items.Insert(0, new ListItem("-- Please Select --", "-- Please Select --"));
             }
-            
+
+            PopupReset.Visible = false;
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
+
         }
 
         private void setDropDownListData()
@@ -119,6 +123,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
             }
 
             conn.Close();
+
+            Response.Redirect("PreviewRoom.aspx?ID=" + en.encryption(nextRoomID));
         }
 
         private void addRoom(String nextRoomID)
@@ -163,7 +169,42 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         protected void formBtnCancel_Click(object sender, EventArgs e)
         {
+            PopupReset.Visible = true;
+            PopupCover.Visible = true;
+        }
 
+        protected void btnPopupCancel_Click(object sender, EventArgs e)
+        {
+            PopupBack.Visible = false;
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+        }
+
+        protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+            Response.Redirect("AddRoom.aspx");
+        }
+
+        protected void btnConfirmBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Room.aspx");
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+            // Check if user have enter any value
+            if(txtRoomNumber.Text == "")
+            {
+                Response.Redirect("Room.aspx");
+            }
+
+            // If no show popup message
+            PopupBack.Visible = true;
+            PopupCover.Visible = true;
         }
     }
 }

@@ -30,14 +30,14 @@
 
 <%--Repeater table header--%>
 <div style="width:50%; margin-left:6.5%;">
-    <div style="float:left; width:8%; text-align:center;" class="subFormRepeaterHeader">
+    <div style="float:left; width:10%; text-align:center;" class="subFormRepeaterHeader">
         No
     </div>
     <div style="float:left; width:84%;" class="subFormRepeaterHeader">
-        Features
+        Feature
     </div>
     
-    <div style="float:left; width:8%;" class="subFormRepeaterHeader">
+    <div style="float:left; width:6%;" class="subFormRepeaterHeader">
         &nbsp;
     </div>
 </div>  
@@ -47,13 +47,13 @@
 
     <ItemTemplate>
         <div style="width:50%; margin-left:6.5%;">
-            <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
+            <div style="float:left; width:10%; text-align:center;" class="subFormTableContent">
                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
             </div>
             <div style="float:left; width:84%;" class="subFormTableContent">
                 <asp:Label ID="lblFeature" runat="server" Text='<%# Container.DataItem.ToString() %>'></asp:Label>
             </div>
-            <div style="float:left; width:3%;" class="subFormTableContent">
+            <div style="float:left; width:1%;" class="subFormTableContent">
                 &nbsp;
             </div>
             <div style="float:left; width:5%;" class="subFormTableContent">
@@ -64,13 +64,13 @@
 
     <AlternatingItemTemplate>
         <div style="width:50%; margin-left:6.5%;">
-            <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
+            <div style="float:left; width:10%; text-align:center;" class="subFormTableContentAlternate">
                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
             </div>
             <div style="float:left; width:84%;" class="subFormTableContentAlternate">
                 <asp:Label ID="lblFeature" runat="server" Text='<%# Container.DataItem.ToString() %>'></asp:Label>
             </div>
-            <div style="float:left; width:3%;" class="subFormTableContentAlternate">
+            <div style="float:left; width:1%;" class="subFormTableContentAlternate">
                 &nbsp;
             </div>
             <div style="float:left; width:5%; align-content:center;" class="subFormTableContentAlternate">
