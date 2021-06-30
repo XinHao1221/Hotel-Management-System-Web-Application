@@ -53,6 +53,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             }
 
             conn.Close();
+
+            Response.Redirect("PreviewRoomType.aspx?ID=" + en.encryption(nextRoomTypeID));
         }
 
         private void addRoomType(String nextRoomTypeID)
@@ -172,7 +174,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void btnConfirmBack_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("RoomType.aspx");
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
         }
 
         protected void LBBack_Click(object sender, EventArgs e)
@@ -180,7 +184,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             // Check if user have enter any value
             if (txtTittle.Text == "")
             {
-                //Response.Redirect("RoomType.aspx");
+                Response.Redirect("RoomType.aspx");
             }
 
             // If no show popup message

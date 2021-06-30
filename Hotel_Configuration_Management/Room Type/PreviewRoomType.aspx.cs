@@ -23,7 +23,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            roomTypeID = "RT10000001";
+            //roomTypeID = "RT10000001";
+            roomTypeID = en.decryption(Request.QueryString["ID"]);
 
             setText();
             setEquipment();

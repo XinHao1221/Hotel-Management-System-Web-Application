@@ -27,7 +27,7 @@
                 <asp:TextBox ID="txtEquipmentPrice" runat="server" CssClass="inputStyle" placeholder="10.00" Width="50%"></asp:TextBox>
             </div>
             <div>
-                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtEquipmentPrice" ErrorMessage="Please enter a value." ValidationGroup="add" CssClass="validatorStyle"></asp:RequiredFieldValidator>--%>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtEquipmentPrice" ErrorMessage="Please enter a value." ValidationGroup="add" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Price must be in decimal!" CssClass="validatorStyle" ControlToValidate="txtEquipmentPrice" Type="Double" ValidationGroup="add" Operator="DataTypeCheck"></asp:CompareValidator>
             </div>
             

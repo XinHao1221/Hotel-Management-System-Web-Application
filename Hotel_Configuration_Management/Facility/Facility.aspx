@@ -166,7 +166,6 @@
                             
                                     </div>
                         
-                                </div>
 
                                     <asp:Panel ID="TableOptionMenu" runat="server" Visible="false" CssClass="tableOptionMenu">
 

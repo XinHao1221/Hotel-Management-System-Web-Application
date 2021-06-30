@@ -69,7 +69,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
             for(int i = 0; i < dt.Rows.Count; i++)
             {
-                ddlFloorNumber.Items.Add(new ListItem((dt.Rows[i]["FloorNumber"].ToString() + " " + dt.Rows[i]["FloorName"].ToString()), dt.Rows[i]["FloorID"].ToString()));
+                ddlFloorNumber.Items.Add(new ListItem((dt.Rows[i]["FloorNumber"].ToString() + " - " + dt.Rows[i]["FloorName"].ToString()), dt.Rows[i]["FloorID"].ToString()));
             }
             //ddlFloorNumber.DataSource = dt;
             //ddlFloorNumber.DataBind();

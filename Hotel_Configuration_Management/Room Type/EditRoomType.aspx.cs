@@ -32,8 +32,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             {
                 //ViewState["RoomTypeID"] = roomTypeID;
                 // Save link for previous page
-                //ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
-                //PopupCover.Visible = false;
+                ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
+                PopupCover.Visible = false;
                 setData();
             }
         }
@@ -94,7 +94,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-
+            // Redirect to previous page
+            Response.Redirect(ViewState["PreviousPage"].ToString());
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -167,7 +168,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             // Reset all text field
             txtTittle.Text = "";
             txtShortCode.Text = "";
-            txtPrice.Text = "";
             txtHigherOccupancy.Text = "";
             txtBaseOccupancy.Text = "";
             txtDescription.Text = "";
@@ -181,6 +181,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
             PopupCover.Visible = false;
             PopupReset.Visible = false;
+        }
+
+        protected void LBPriceManager_Click(object sender, EventArgs e)
+        {
+            //Response.Redirect("../PriceManager/EditRegularPrice.aspx?ID=" + en.encryption(roomTypeID));
         }
     }
 }

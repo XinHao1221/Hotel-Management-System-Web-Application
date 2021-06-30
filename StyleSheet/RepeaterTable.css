@@ -6,6 +6,9 @@
 }
 
 .tableHeader {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     background-color: #F3F3F3;
     font-size: 95%;
     line-height: 50px;

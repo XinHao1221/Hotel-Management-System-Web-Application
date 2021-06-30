@@ -29,7 +29,10 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         {
             //roomTypeID = ViewState["RoomTypeID"].ToString();
 
-            roomTypeID = "RT10000003";
+            //roomTypeID = "RT10000003";
+
+            roomTypeID = Request.QueryString["ID"];
+            roomTypeID = en.decryption(roomTypeID);
 
             if (!IsPostBack)
             {
