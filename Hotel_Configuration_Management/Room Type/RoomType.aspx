@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RoomType.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.RoomType" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="RoomType.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.RoomType" %>
 
 <!DOCTYPE html>
 
@@ -369,8 +369,8 @@
                     <div class="popupBoxBody">
 
                         <div>
-                            There are <asp:Label ID="lblTotalRoom" runat="server" Text="Label"></asp:Label> Room Types attached to this floor. <br />
-                            The following room will be deleted:
+                            There are <asp:Label ID="lblTotalRoom" runat="server" Text="Label"></asp:Label> Rooms belong to this Room Type. <br />
+                            The following rooms will be deleted:
                             <br /><br />
                         </div>
 

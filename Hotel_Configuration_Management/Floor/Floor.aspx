@@ -399,8 +399,8 @@
                     <div class="popupBoxBody">
 
                         <div>
-                            There are <asp:Label ID="lblTotalRoom" runat="server" Text="Label"></asp:Label> Room Types attached to this floor. <br />
-                            The following room will be deleted:
+                            There are <asp:Label ID="lblTotalRoom" runat="server" Text="Label"></asp:Label> Rooms attached to this floor. <br />
+                            The following rooms will be deleted:
                             <br /><br />
                         </div>
 

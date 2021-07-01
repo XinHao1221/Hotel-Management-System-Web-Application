@@ -57,6 +57,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             Repeater1.DataSource = equipmentList;
             Repeater1.DataBind();
 
+            txtEquipment.Text = null;
+            txtEquipmentPrice.Text = null;
+
             lblNoItemFound.Visible = false;
         }
 

@@ -61,6 +61,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
             conn.Close();
 
+            txtEquipment.Text = null;
+            txtEquipmentPrice.Text = null;
+
             // Refresh Equipment List
             setEquipment();
 
@@ -102,7 +105,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
         {
             RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
 
-            // Get floorName for the selected item
+            // Get equipment name for the selected item
             String equipmentID = (item.FindControl("lblEquipmentID") as Label).Text;
             String equipmentName = (item.FindControl("lblEquipmentName") as Label).Text;
             String fineCharges = (item.FindControl("lblFineCharges") as Label).Text;

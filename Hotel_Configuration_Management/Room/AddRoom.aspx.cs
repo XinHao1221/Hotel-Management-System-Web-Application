@@ -59,7 +59,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
         {
 
             // SQL command 
-            String getFloorNumber = "SELECT * FROM Floor WHERE Status LIKE 'Active' ORDER BY FloorNumber";
+            String getFloorNumber = "SELECT * FROM Floor WHERE Status IN ('Active', 'Suspend') ORDER BY FloorNumber";
 
             SqlCommand cmdGetFloorNumber = new SqlCommand(getFloorNumber, conn);
 
@@ -129,7 +129,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         private void addRoom(String nextRoomID)
         {
-            String addRoom = "INSERT INTO Room VALUES (@RoomID, @RoomNumber, @FloorID, @RoomTypeID, @Status)";
+            String addRoom = "INSERT INTO Room VALUES (@RoomID, @RoomNumber, @FloorID, @RoomTypeID, @Status, @HousekeepingStatus)";
 
             SqlCommand cmdAddRoom = new SqlCommand(addRoom, conn);
 
@@ -138,6 +138,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
             cmdAddRoom.Parameters.AddWithValue("@FloorID", ddlFloorNumber.SelectedValue);
             cmdAddRoom.Parameters.AddWithValue("@RoomTypeID", ddlRoomType.SelectedValue);
             cmdAddRoom.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue);
+            cmdAddRoom.Parameters.AddWithValue("@HousekeepingStatus", "Clean");
 
             int i = cmdAddRoom.ExecuteNonQuery();
         }
@@ -151,17 +152,17 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
                 for (int j = 1; j <= featuretList.Count; j++)
                 {
-                    String nextEquipmentID = idGenerator.getNextID("FeatureID", "Feature", "FT");
+                    String nextFeatureID = idGenerator.getNextID("FeatureID", "Feature", "FT");
 
                     String addFeature = "INSERT INTO Feature VALUES (@ID, @Feature, @RoomID)";
 
-                    SqlCommand cmdAddEquipment = new SqlCommand(addFeature, conn);
+                    SqlCommand cmdAddFeature = new SqlCommand(addFeature, conn);
 
-                    cmdAddEquipment.Parameters.AddWithValue("@ID", nextEquipmentID);
-                    cmdAddEquipment.Parameters.AddWithValue("@Feature", featuretList[j - 1].ToString());
-                    cmdAddEquipment.Parameters.AddWithValue("@RoomID", nextRoomID);
+                    cmdAddFeature.Parameters.AddWithValue("@ID", nextFeatureID);
+                    cmdAddFeature.Parameters.AddWithValue("@Feature", featuretList[j - 1].ToString());
+                    cmdAddFeature.Parameters.AddWithValue("@RoomID", nextRoomID);
 
-                    int i = cmdAddEquipment.ExecuteNonQuery();
+                    int i = cmdAddFeature.ExecuteNonQuery();
                 }
 
             }

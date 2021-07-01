@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditFacility.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Facility.EditFacility" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="EditFacility.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Facility.EditFacility" %>
 
 <!DOCTYPE html>
 

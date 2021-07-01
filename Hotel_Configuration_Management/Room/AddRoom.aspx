@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddRoom.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.AddRoom" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="AddRoom.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.AddRoom" %>
 <%@ Register TagPrefix="Feature" TagName="Control" Src="~/Hotel_Configuration_Management/Room/AddFeature.ascx" %>
 
 <!DOCTYPE html>

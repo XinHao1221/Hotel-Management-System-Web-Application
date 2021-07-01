@@ -92,6 +92,7 @@
     <Content Include="Hotel_Configuration_Management\Room Type\ViewRoomType.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\AddFeature.ascx" />
     <Content Include="Hotel_Configuration_Management\Room\AddRoom.aspx" />
+    <Content Include="Hotel_Configuration_Management\Room\EditFeature.ascx" />
     <Content Include="Hotel_Configuration_Management\Room\EditRoom.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\PreviewRoom.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\ViewRoom.aspx" />
@@ -269,6 +270,13 @@
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Room\AddRoom.aspx.designer.cs">
       <DependentUpon>AddRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Room\EditFeature.ascx.cs">
+      <DependentUpon>EditFeature.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Room\EditFeature.ascx.designer.cs">
+      <DependentUpon>EditFeature.ascx</DependentUpon>
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Room\EditRoom.aspx.cs">
       <DependentUpon>EditRoom.aspx</DependentUpon>

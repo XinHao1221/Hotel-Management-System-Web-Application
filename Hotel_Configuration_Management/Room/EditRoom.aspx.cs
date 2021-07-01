@@ -190,5 +190,56 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
             // Redirect to previous page
             Response.Redirect(ViewState["PreviousPage"].ToString());
         }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            // SQL Command to update existing room's details
+
+            String updateRoom = "UPDATE Room SET RoomNumber = @RoomNumber, FloorID = @FloorID, RoomTypeID = @RoomTypeID, Status = @Status " +
+                "WHERE RoomID LIKE @RoomID";
+
+            SqlCommand cmdUpdateRoom = new SqlCommand(updateRoom, conn);
+
+            cmdUpdateRoom.Parameters.AddWithValue("@RoomNumber", txtRoomNumber.Text);
+            cmdUpdateRoom.Parameters.AddWithValue("@FloorID", ddlFloorNumber.SelectedValue);
+            cmdUpdateRoom.Parameters.AddWithValue("@RoomTypeID", ddlRoomType.SelectedValue);
+            cmdUpdateRoom.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue);
+            cmdUpdateRoom.Parameters.AddWithValue("@RoomID", roomID);
+
+            int i = cmdUpdateRoom.ExecuteNonQuery();
+
+            //Response.Redirect("ViewRoom.aspx?ID=" + en.encryption(roomID));
+        }
+
+        protected void formBtnCancel_Click(object sender, EventArgs e)
+        {
+            PopupReset.Visible = true;
+            PopupCover.Visible = true;
+        }
+
+        protected void btnPopupCancel_Click(object sender, EventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+        }
+
+        protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
+        {
+            // Reset all text field
+            txtRoomNumber.Text = "";
+            ddlFloorNumber.SelectedIndex = 0;
+            ddlRoomType.SelectedIndex = 0;
+            ddlStatus.SelectedIndex = 0;
+
+            // *** Delete all equipment
+            //deleteAllEquipment();
+            //EC1.setEquipment();
+
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+        }
     }
 }

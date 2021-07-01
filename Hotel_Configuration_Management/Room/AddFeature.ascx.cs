@@ -47,6 +47,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
             Repeater1.DataBind();
 
             lblNoItemFound.Visible = false;
+
+            txtFeature.Text = null;
         }
 
 
@@ -88,6 +90,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
             PopupCover.Visible = false;
             PopupDelete.Visible = false;
+        }
+
+        protected void btnDeleteFeature_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

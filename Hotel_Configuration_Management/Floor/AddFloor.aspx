@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AddFloor.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Floor.AddFloor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="AddFloor.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Floor.AddFloor" %>
 
 <!DOCTYPE html>
 

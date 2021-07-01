@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PreviewRoom.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.PreviewRoom" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="PreviewRoom.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.PreviewRoom" %>
 
 <!DOCTYPE html>
 
