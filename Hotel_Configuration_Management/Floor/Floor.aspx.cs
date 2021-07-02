@@ -132,6 +132,16 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
             Repeater1.DataSource = dt;
             Repeater1.DataBind();
 
+            // Display message it no item was found
+            if (dt.Rows.Count == 0)
+            {
+                lblNoItemFound.Visible = true;
+            }
+            else
+            {
+                lblNoItemFound.Visible = false;
+            }
+
             conn.Close();
         }
 
@@ -323,14 +333,14 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         {
             // Assign data from RepeaterView
             DataRowView drv = e.Item.DataItem as DataRowView;
-            String comment = Convert.ToString(drv["Status"]);
+            String status = Convert.ToString(drv["Status"]);
 
             // Get control's reference
             Label lblStatus = e.Item.FindControl("lblStatus") as Label;
             Label lblChangeStatus = e.Item.FindControl("lblChangeStatus") as Label;
             Image IMChangeStatus = e.Item.FindControl("IMChangeStatus") as Image;
             
-            if (comment == "Active")
+            if (status == "Active")
             {
                 lblStatus.Style["color"] = "#00ce1b";  // Assign green color
 
@@ -566,9 +576,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
         private void searchFloor()
         {
             String floorName = txtSearch.Text;
-            floorName = floorName.ToUpper();
-
-            
+            floorName = floorName.ToUpper(); 
 
             if (floorName == "")
             {
@@ -608,9 +616,25 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
                 }
 
                 conn.Close();
-            }
 
+                displayItemTotal("SELECT COUNT(*) FROM Floor WHERE UPPER(FloorName) LIKE '%" + floorName + "%' AND Status IN ('Active', 'Suspend')");
+            }
             
+        }
+
+        private void displayItemTotal(String query)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            SqlCommand cmdGetTotalItem = new SqlCommand(query, conn);
+
+            int noOfItem = (int)cmdGetTotalItem.ExecuteScalar();
+
+            conn.Close();
+
+            lblItemDisplayed.Text = "1 - " + noOfItem.ToString();
+            lblTotalNoOfItem.Text = noOfItem.ToString();
         }
 
         protected void IBClosePopUpBox_Click(object sender, ImageClickEventArgs e)

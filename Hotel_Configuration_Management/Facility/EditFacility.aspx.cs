@@ -89,7 +89,16 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
             cmdUpdateFacility.Parameters.AddWithValue("@FacilityName", txtFacilityName.Text);
             cmdUpdateFacility.Parameters.AddWithValue("@Description", txtDescription.Text);
             cmdUpdateFacility.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue);
-            cmdUpdateFacility.Parameters.AddWithValue("@Quantity", int.Parse(txtQty.Text));
+
+            if (txtQty.Text == "")
+            {
+                cmdUpdateFacility.Parameters.AddWithValue("@Quantity", 0);
+            }
+            else
+            {
+                cmdUpdateFacility.Parameters.AddWithValue("@Quantity", int.Parse(txtQty.Text));
+            }
+
             cmdUpdateFacility.Parameters.AddWithValue("@Price", Convert.ToDecimal(txtPrice.Text));
             cmdUpdateFacility.Parameters.AddWithValue("@PriceType", ddlPriceType.SelectedValue);
 

@@ -63,7 +63,7 @@
                     </td>
                 </tr>
                 <tr>
-                        <td class="formLabel requiredFieldLabel">
+                        <td class="formLabel">
                                 Price               
                         </td>
                         <td class="tableSeperator"></td>

@@ -23,9 +23,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            roomID = "RM10000002";
+            //roomID = "RM10000002";
 
-            //roomID = en.decryption(Request.QueryString["ID"]);
+            roomID = en.decryption(Request.QueryString["ID"]);
 
             setText();
             setFeature();

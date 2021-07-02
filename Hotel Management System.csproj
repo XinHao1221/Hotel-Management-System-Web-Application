@@ -95,6 +95,7 @@
     <Content Include="Hotel_Configuration_Management\Room\EditFeature.ascx" />
     <Content Include="Hotel_Configuration_Management\Room\EditRoom.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\PreviewRoom.aspx" />
+    <Content Include="Hotel_Configuration_Management\Room\Room.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\ViewRoom.aspx" />
     <Content Include="Image\activate_icon.png" />
     <Content Include="Image\arrow_down.png" />
@@ -107,6 +108,7 @@
     <Content Include="Image\delete_icon.png" />
     <Content Include="Image\edit_icon.png" />
     <Content Include="Image\edit_white_icon.png" />
+    <Content Include="Image\filter_icon.png" />
     <Content Include="Image\home_icon.png" />
     <Content Include="Image\more_icon.png" />
     <Content Include="Image\plus_white.png" />
@@ -291,6 +293,13 @@
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Room\PreviewRoom.aspx.designer.cs">
       <DependentUpon>PreviewRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Room\Room.aspx.cs">
+      <DependentUpon>Room.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\Room\Room.aspx.designer.cs">
+      <DependentUpon>Room.aspx</DependentUpon>
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Room\ViewRoom.aspx.cs">
       <DependentUpon>ViewRoom.aspx</DependentUpon>

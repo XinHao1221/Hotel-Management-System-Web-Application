@@ -309,7 +309,7 @@
                                 <asp:ListItem>20</asp:ListItem>
                             </asp:DropDownList>
 
-                            <div style="margin-left:6px; font-size:80%; margin-top:1.5px;" class="auto-style1">
+                            <div style="margin-left:6px; font-size:80%; margin-top:1.5px; float: left; width: 112px;">
                                 items per page
                             </div>
                         </div>

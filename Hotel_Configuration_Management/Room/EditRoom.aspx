@@ -14,7 +14,7 @@
         <div>
             <%-- Page content --%>
             <div class="formHeader">
-                Room Type Form
+                Room Form
             </div>
 
             <asp:LinkButton ID="LBBack" runat="server" OnClick="LBBack_Click" CssClass="divLBStyle">

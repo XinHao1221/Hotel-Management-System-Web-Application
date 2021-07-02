@@ -128,7 +128,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
                 "group by RoomTypeID" +
                 ") R on (RT.RoomTypeID = R.RoomTypeID) " +
                 "WHERE RT.Status LIKE 'Active' " +
-                "ORDER BY RT.RoomTypeID OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
+                "ORDER BY RT.RoomTypeID DESC OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
 
             SqlCommand cmdInsert = new SqlCommand(getRoomType, conn);
             cmdInsert.Parameters.AddWithValue("@offset", offset);   // Assign start index
@@ -146,6 +146,16 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             // Bind data into repeater to display
             Repeater1.DataSource = dt;
             Repeater1.DataBind();
+
+            // Display message it no item was found
+            if (dt.Rows.Count == 0)
+            {
+                lblNoItemFound.Visible = true;
+            }
+            else
+            {
+                lblNoItemFound.Visible = false;
+            }
 
             conn.Close();
         }
@@ -323,7 +333,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
                         "Where Status IN ('Active', 'Blocked') " +
                         "group by RoomTypeID" +
                         ") R on (RT.RoomTypeID = R.RoomTypeID) " +
-                        "WHERE RT.Status LIKE 'Active' AND UPPER(RT.Title) LIKE '%" + roomType + "%'";
+                        "WHERE RT.Status LIKE 'Active' AND UPPER(RT.Title) LIKE '%" + roomType + "%' " +
+                        "ORDER BY RT.RoomTypeID DESC";
 
                 SqlCommand cmdSearchRoomType = new SqlCommand(searchRoomType, conn);
 
@@ -351,7 +362,32 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
                 }
 
                 conn.Close();
+
+                displayItemTotal("SELECT COUNT(*) " +
+                        "from RoomType RT " +
+                        "left join (" +
+                        "select RoomTypeID, count(*) as Count " +
+                        "from Room " +
+                        "Where Status IN ('Active', 'Blocked') " +
+                        "group by RoomTypeID" +
+                        ") R on (RT.RoomTypeID = R.RoomTypeID) " +
+                        "WHERE RT.Status LIKE 'Active' AND UPPER(RT.Title) LIKE '%" + roomType + "%'");
             }
+        }
+
+        private void displayItemTotal(String query)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            SqlCommand cmdGetTotalItem = new SqlCommand(query, conn);
+
+            int noOfItem = (int)cmdGetTotalItem.ExecuteScalar();
+
+            conn.Close();
+
+            lblItemDisplayed.Text = "1 - " + noOfItem.ToString();
+            lblTotalNoOfItem.Text = noOfItem.ToString();
         }
 
         protected void LBRepeater_Click(object sender, EventArgs e)

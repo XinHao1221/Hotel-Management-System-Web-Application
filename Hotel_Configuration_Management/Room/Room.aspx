@@ -1,12 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="RoomType.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.RoomType" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Room.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.Room" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
 
-     <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
+    <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/MainMenuHeader.css" />
@@ -21,8 +20,29 @@
         .content{
 
         }
+
+        .filteringLabel{
+            font-size:12px;
+            font-family: Helvetica, sans-serif;
+            margin-left:5px;
+            font-weight:600;
+        }
+
+        .filteringDropDown{
+            min-width:150px;
+            height:30px;
+            border: 1px solid rgb(192 192 192);
+            border-radius:8px;
+            padding-left:5px;
+        }
+
+        .auto-style1 {
+            
+        }
+
     </style>
 
+    <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -33,25 +53,28 @@
                 <div class="mainMenuHeader">
                     <%--Title--%>
                     <div class="mainMenuTitle">
-                        Room Type
+                        Room
                     </div>
 
                     <%--Search Bar--%>
                     <div class="mainMenuSearchBar">
                         <div style="display:flex; justify-content:center;">
-                            <asp:TextBox ID="txtSearch" runat="server" placeholder="Room Type" CssClass="searchBarStyle" AutoPostBack="True" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
+                            <asp:TextBox ID="txtSearch" runat="server" placeholder="Room Number" CssClass="searchBarStyle" AutoPostBack="True" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
                             <asp:LinkButton ID="LBMenuSearchBar" runat="server" OnClick="LBMenuSearchBar_Click" CssClass="optionContainer" ToolTip="Search">
                                 <div class="searchIconContainer">
                                     <img src="../../Image/search_icon.png" class="searchIconStyle" />
                                 </div>
                             </asp:LinkButton>
+                            
                         </div>
                     </div>
 
                     <%--Add Button--%>
                     <div class="menuHeaderButton">
                         <div style="float:right; margin-right:0%;">
-                            <div class="menuHeaderSaveBtn" onclick="location.href='AddRoomType.aspx';">
+                            <div class="menuHeaderSaveBtn" onclick="location.href='AddRoom.aspx';">
+
+                            
                                     <div class="menuHeaderButtonStyle">
                                         <div>
                                             <img src="../../Image/plus_white.png" width="12.5px" height="12.5px" style="float:left; margin:10px 0px 0px 15px;" />
@@ -65,6 +88,33 @@
                     </div>
                     </div>
 
+                    <%--Filtering--%>
+                    <div style="margin-left:2%;">
+                        <%--<div style="float:left;">
+                            <img src="../../Image/filter_icon.png" width="20px" height="20px"/>
+                        </div>--%>
+                        <div style="float:left;">
+                            <div class="filteringLabel">
+                                Floor
+                            </div>
+                            <div>
+                                <asp:DropDownList ID="ddlFloorNumber" runat="server" CssClass="filteringDropDown" AutoPostBack="true" OnSelectedIndexChanged="ddl_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <div style="float:left; margin-left:30px;">
+                            <div class="filteringLabel">
+                                Room Type
+                            </div>
+                            <div>
+                                <asp:DropDownList ID="ddlRoomType" runat="server" CssClass="filteringDropDown" AutoPostBack="true" OnSelectedIndexChanged="ddl_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="clear:both; height:20px;">&nbsp;</div>
+
                     <div style="width: 97%; margin: auto;">
                         <div style="width:100%;">
                             <div style="float:left; width:5%;" class="tableHeader">
@@ -72,39 +122,34 @@
                                     No
                                 </div>
                             </div>
-                            <div style="float:left; width:25%;" class="tableHeader">
+                            <div style="float:left; width:20%;" class="tableHeader">
 
+                                <div style="margin-left:5%;">
+                                    <asp:Label ID="ttRoomNumber" runat="server" Text="Room Number" ToolTip="Room Number"></asp:Label>
+                                </div>
+                            </div>
+                            <div style="float:left; width:20%;" class="tableHeader">
                                 <div style="margin-left:5%;">
                                     <asp:Label ID="ttRoomType" runat="server" Text="Room Type" ToolTip="Room Type"></asp:Label>
                                 </div>
                             </div>
-                            <div style="float:left; width:10%;" class="tableHeader">
+                            <div style="float:left; width:20%;" class="tableHeader">
                                 <div style="margin-left:5%;">
-                                    <asp:Label ID="ttShortCode" runat="server" Text="Short Code" ToolTip="Short Code"></asp:Label>
+                                    <asp:Label ID="ttFloorNumber" runat="server" Text="Floor Number" ToolTip="Floor Number"></asp:Label>
                                 </div>
                             </div>
-                            <div style="float:left; width:10%;" class="tableHeader">
+                            <div style="float:left; width:20%;" class="tableHeader">
                                 <div style="margin-left:5%;">
-                                    <asp:Label ID="ttBaseOcc" runat="server" Text="Base Occ" ToolTip="Base Occupancy"></asp:Label>
+                                    <asp:Label ID="ttStatus" runat="server" Text="Status" ToolTip="Status"></asp:Label>
                                 </div>
                             </div>
-                            <div style="float:left; width:10%;" class="tableHeader">
-                                <div style="margin-left:5%;">
-                                    <asp:Label ID="ttHigherOcc" runat="server" Text="Higher Occ" ToolTip="Higher Occupancy"></asp:Label>
-                                </div>
-                            </div>
-                            <div style="float:left; width:10%;" class="tableHeader">
-                                <div style="margin-left:5%;">
-                                    <asp:Label ID="ttNoOfRoom" runat="server" Text="No Of Room" ToolTip="Total Number of Room"></asp:Label>
-                                </div>
-                            </div>
-                            <div style="width:30%; float:left;" class="tableHeader">
+                            <div style="width:15%; float:left;" class="tableHeader">
                                 &nbsp;
                             </div>
                         </div>
                     </div>
 
-                <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand" OnItemDataBound="Repeater1_ItemDataBound">
+                        <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand" OnItemDataBound="Repeater1_ItemDataBound">
 
                             <ItemTemplate>
 
@@ -117,34 +162,30 @@
                                                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
                                             </div>
                                         </div>
-                                        <div style="float:left; width:25%;" class="tableContent">
+                                        <div style="float:left; width:20%;" class="tableContent">
                                             <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("RoomTypeID") %>' Visible="false"></asp:Label>
-                                                <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("Title") %>' ToolTip='<%# Eval("Title") %>'></asp:Label>&nbsp;
+                                                <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("RoomID") %>' Visible="false"></asp:Label>
+
+                                                <asp:Label ID="lblRoomNumber" runat="server" Text='<%# Eval("RoomNumber") %>' ToolTip='<%# Eval("RoomNumber") %>'></asp:Label>&nbsp;
                                             </div>
 
                                         </div>
-                                        <div style="float:left; width:10%;" class="tableContent">
+                                        <div style="float:left; width:20%;" class="tableContent">
                                             <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblShortCode" runat="server" Text='<%# Eval("ShortCode")%>' ToolTip='<%# Eval("ShortCode") %>'></asp:Label>&nbsp;
+                                                <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("RoomType")%>' ToolTip='<%# Eval("RoomType") %>'></asp:Label>&nbsp;
                                             </div>
                                         </div>
-                                        <div style="float:left; width:10%;" class="tableContent">
+                                        <div style="float:left; width:20%;" class="tableContent">
                                             <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblBaseOccupancy" runat="server" Text='<%# Eval("BaseOccupancy")%>' ToolTip='<%# Eval("BaseOccupancy") %>'></asp:Label>&nbsp;
+                                                <asp:Label ID="lblFloorNo" runat="server" Text='<%# Eval("FloorNo")%>' ToolTip='<%# Eval("FloorNo") %>'></asp:Label>&nbsp;
                                             </div>
                                         </div>
-                                        <div style="float:left; width:10%;" class="tableContent">
+                                        <div style="float:left; width:20%;" class="tableContent">
                                             <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblHigherOccupancy" runat="server" Text='<%# Eval("HigherOccupancy")%>' ToolTip='<%# Eval("HigherOccupancy") %>'></asp:Label>&nbsp;
+                                                <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status")%>' ToolTip='<%# Eval("Status") %>'></asp:Label>&nbsp;
                                             </div>
                                         </div>
-                                        <div style="float:left; width:10%;" class="tableContent">
-                                            <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblNoOfRoom" runat="server" Text='<%# Eval("NumberOfRoom")%>' ToolTip='<%# Eval("NumberOfRoom") %>'></asp:Label>&nbsp;
-                                            </div>
-                                        </div>
-                                        <div style="min-width:28%; float:left;" class="tableContent">
+                                        <div style="min-width:13%; float:left;" class="tableContent">
                                             &nbsp;
                                         </div>
                                     </asp:LinkButton>
@@ -172,6 +213,19 @@
                             
                                     </asp:LinkButton>
 
+                                    <asp:LinkButton ID="LBChangeStatus" runat="server" OnClick="LBChangeStatus_Click" CssClass="optionContainer" Font-Underline="false">
+                            
+
+                                        <div class="tableOption" style="color:#FF0000;">
+
+                                            <asp:Image ID="IMChangeStatus" runat="server" CssClass="tableOptionIcon" ImageUrl="~/Image/activate_icon.png"/>
+                                
+                                            <asp:Label ID="lblChangeStatus" runat="server" Text="Label" ForeColor="#00ce1b">Activate</asp:Label>
+
+                                        </div>
+                            
+                                    </asp:LinkButton>
+
                                     <asp:LinkButton ID="LBDelete" runat="server" OnClick="LBDelete_Click" CssClass="optionContainer" Font-Underline="false">
                             
 
@@ -192,52 +246,45 @@
 
                             <AlternatingItemTemplate>
 
-                                
                                 <asp:LinkButton ID="LBRepeater" runat="server" OnClick="LBRepeater_Click" CssClass="optionContainer">
                                     <div style="clear:both; width:97%; margin:auto;">
-                                    <div style="float:left; width:5%;" class="tableContentAlternate">
-                                            <div style="text-align:center;" class="textOverflowStyle">
-                                                <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                        <div style="float:left; width:5%;" class="tableContentAlternate">
+                                                <div style="text-align:center;" class="textOverflowStyle">
+                                                    <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div style="float:left; width:25%;" class="tableContentAlternate">
+                                        <div style="float:left; width:20%;" class="tableContentAlternate">
                                             <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("RoomTypeID") %>' Visible="false"></asp:Label>
-                                                <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("Title") %>' ToolTip='<%# Eval("Title") %>'></asp:Label>&nbsp;
+                                                <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("RoomID") %>' Visible="false"></asp:Label>
+
+                                                <asp:Label ID="lblRoomNumber" runat="server" Text='<%# Eval("RoomNumber") %>' ToolTip='<%# Eval("RoomNumber") %>'></asp:Label>&nbsp;
                                             </div>
 
                                         </div>
-                                        <div style="float:left; width:10%;" class="tableContentAlternate">
+                                        <div style="float:left; width:20%;" class="tableContentAlternate">
                                             <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblShortCode" runat="server" Text='<%# Eval("ShortCode")%>' ToolTip='<%# Eval("ShortCode") %>'></asp:Label>&nbsp;
+                                                <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("RoomType")%>' ToolTip='<%# Eval("RoomType") %>'></asp:Label>&nbsp;
                                             </div>
                                         </div>
-                                        <div style="float:left; width:10%;" class="tableContentAlternate">
+                                        <div style="float:left; width:20%;" class="tableContentAlternate">
                                             <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblBaseOccupancy" runat="server" Text='<%# Eval("BaseOccupancy")%>' ToolTip='<%# Eval("BaseOccupancy") %>'></asp:Label>&nbsp;
+                                                <asp:Label ID="lblFloorNo" runat="server" Text='<%# Eval("FloorNo")%>' ToolTip='<%# Eval("FloorNo") %>'></asp:Label>&nbsp;
                                             </div>
                                         </div>
-                                        <div style="float:left; width:10%;" class="tableContentAlternate">
+                                        <div style="float:left; width:20%;" class="tableContentAlternate">
                                             <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblHigherOccupancy" runat="server" Text='<%# Eval("HigherOccupancy")%>' ToolTip='<%# Eval("HigherOccupancy") %>'></asp:Label>&nbsp;
+                                                <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status")%>' ToolTip='<%# Eval("Status") %>'></asp:Label>&nbsp;
                                             </div>
                                         </div>
-                                        <div style="float:left; width:10%;" class="tableContentAlternate">
-                                            <div style="margin-left:5%;" class="textOverflowStyle">
-                                                <asp:Label ID="lblNoOfRoom" runat="server" Text='<%# Eval("NumberOfRoom")%>' ToolTip='<%# Eval("NumberOfRoom") %>'></asp:Label>&nbsp;
-                                            </div>
-                                        </div>
-                                        <div style="width:28%; float:left;" class="tableContentAlternate">
+                                        <div style="min-width:13%; float:left;" class="tableContentAlternate">
                                             &nbsp;
                                         </div>
-                                
                                     </asp:LinkButton>
-
                                     <div style="width:2%; float:left;" class="tableContentAlternate">
+                            
                                         <asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>
                                     </div>
 
-                                </div>
                                 </div>
 
                                     <asp:Panel ID="TableOptionMenu" runat="server" Visible="false" CssClass="tableOptionMenuAlternate">
@@ -250,6 +297,19 @@
                                                 <img src="../../Image/edit_icon.png" class="tableOptionIcon" />
                                 
                                                 Edit
+
+                                            </div>
+                            
+                                        </asp:LinkButton>
+
+                                        <asp:LinkButton ID="LBChangeStatus" runat="server" OnClick="LBChangeStatus_Click" CssClass="optionContainer" Font-Underline="false">
+                            
+
+                                            <div class="tableOption" style="color:#FF0000;">
+
+                                                <asp:Image ID="IMChangeStatus" runat="server" CssClass="tableOptionIcon" ImageUrl="~/Image/activate_icon.png"/>
+                                
+                                                <asp:Label ID="lblChangeStatus" runat="server" Text="Label" ForeColor="#00ce1b">Activate</asp:Label>
 
                                             </div>
                             
@@ -275,11 +335,11 @@
 
                         <div style="width: 97%; margin: auto; clear:both;">
 
-                            <div class="tableContent" style="padding-left:2%;">
-                                <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>&nbsp;
-                            </div>
+                    <div class="tableContent" style="padding-left:2%;">
+                        <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>&nbsp;
+                    </div>
                 
-                        </div>
+                </div>
 
                 <div style="width: 97%; margin: auto;">
                     <div class="tableFooter" style="clear:both; padding-left:1%;">
@@ -322,10 +382,27 @@
                         &nbsp;
                     </div>
                 </div>
-
-            </div> 
+            </div>
             <%-- Popup Window --%>
             <div class="popup">
+                <asp:Panel ID="PopupStatus" runat="server" Visible="False" CssClass="popupWindow">
+
+                    <%-- Popup Window Title --%>
+                    <asp:Label ID="lblPopupTitle" runat="server" Text="Label" CssClass="popupTitle" ForeColor="#00ce1b">Activate</asp:Label>
+
+                    <%-- Popup Window Body --%>
+                    <div class="popupBody">
+
+                        <asp:Label ID="lblPopupContent" runat="server" Text="Label"></asp:Label>
+
+                    </div>
+
+                    <div>&nbsp;</div>
+
+                    <asp:Button ID="btnPopupCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                
+                    <asp:Button ID="btnPopupActivate" runat="server" Text="Activate" CssClass="popUpActiveBtn" OnClick="btnPopupActivate_Click"/>
+                </asp:Panel>
                 <asp:Panel ID="PopupDelete" runat="server" Visible="False" CssClass="popupWindow">
 
                     <%-- Popup Window Title --%>
@@ -340,75 +417,12 @@
 
                     <div>&nbsp;</div>
 
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnCancel_Click"/>
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
                 
                     <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="popUpDeleteBtn" OnClick="btnDelete_Click"/>
                 </asp:Panel>
             </div>
-
-            <%--Popup Box--%>
-            <asp:Panel ID="PopupBoxDelete" runat="server" CssClass="popupBox" Visible="false" Width="50%">
-                    
-                <div class="popupBoxContainer">
-   
-                    <div class="popupBoxHeader">
-                        <%-- Popup Window Title --%>
-                        <div style="float:left;">
-                            <p style="color:red;" class="popupBoxTitle">Confirm before delete</p>
-                        </div>
-
-                        <div style="float:right;">
-                            <asp:ImageButton ID="IBClosePopUpBox" runat="server" ImageUrl="~/Image/delete.png" CssClass="popupBoxCloseIcon" ToolTip="Close" OnClick="IBClosePopUpBox_Click"/>
-
-                        </div>
-                    </div>
-
-                    <div style="clear:both;"></div>
-
-                    <%-- Popup Window Body --%>
-                    <div class="popupBoxBody">
-
-                        <div>
-                            There are <asp:Label ID="lblTotalRoom" runat="server" Text="Label"></asp:Label> Rooms belong to this Room Type. <br />
-                            The following rooms will be deleted:
-                            <br /><br />
-                        </div>
-
-                        <asp:Label ID="lblFloorName" runat="server" Text="Label"></asp:Label><br />
-                        
-                        <%--Display Room Number--%>
-                        <asp:Repeater ID="Repeater2" runat="server">
-                            <ItemTemplate>
-                                <div>
-                                    &emsp;&emsp;
-                                    <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("RoomNumber")%>'></asp:Label> <br />
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
-
-                        
-                    </div>
-
-                    <%--Delete Confirmation Checkbox--%>
-                    <div style="font-size:120%">
-                        <div style="float:left; margin-top:2px;">
-                            <asp:CheckBox ID="cbDeleteAnywhere" runat="server" CssClass="formCheckBoxStyle" Width="25px" Height="25px" OnCheckedChanged="cbDeleteAnywhere_CheckedChanged" AutoPostBack="true"/>
-                        </div>
-                        <div style="float:left; margin-left:5px;">
-                            Delete Anywhere
-                        </div>
-                    </div>
-
-                    <div style="clear:both;">&nbsp;</div>
-
-                    <div class="popupBoxFooter">
-                        
-                        <asp:Button ID="btnPopupBoxDelete" runat="server" Text="Delete" CssClass="popUpBoxDeleteBtn" OnClick="btnPopupBoxDelete_Click" Visible="false"/>
-                    </div>
-
-                </div>
-            </asp:Panel> 
-
+                
             <%-- Popup Cover --%>
             <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
                 &nbsp;

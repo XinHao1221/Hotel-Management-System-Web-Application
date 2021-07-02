@@ -9,9 +9,9 @@ using System.Data;
 using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
 
-namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
+namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 {
-    public partial class Facility : System.Web.UI.Page
+    public partial class Room : System.Web.UI.Page
     {
         // Create instance of Encryption class
         IDEncryption en = new IDEncryption();
@@ -39,7 +39,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
                 if (page != 0)
                 {
                     txtPage.Text = "1";
-
                     setItemToRepeater1();
                 }
                 else
@@ -49,10 +48,18 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
                     ddlItemPerPage.AutoPostBack = false;
                 }
 
-                PopupCover.Visible = false;
-                PopupDelete.Visible = false;
+                // Set drop-down list data
+                setFloorNumber();
+                setRoomType();
+                ddlFloorNumber.Items.Insert(0, new ListItem("All", ""));
+                ddlRoomType.Items.Insert(0, new ListItem("All", ""));
+
+                //PopupCover.Visible = false;
+                //PopupDelete.Visible = false;
 
             }
+
+
         }
 
         private int getTotalNumberOfItem()
@@ -62,7 +69,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
             conn.Open();
 
             // SQL command 
-            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Facility WHERE Status IN ('Active', 'Suspend')";
+            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Room WHERE Status IN ('Active', 'Blocked')";
 
             SqlCommand cmdGetItemCount = new SqlCommand(getTotalNumebrOfItem, conn);
 
@@ -112,15 +119,18 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String getName = "SELECT * FROM Facility WHERE Status IN ('Active', 'Suspend') " +
-                "ORDER BY FacilityID DESC OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
+            String getRoom = "SELECT R.RoomID AS RoomID, R.RoomNumber AS RoomNumber, CONVERT(NVARCHAR(10), F.FloorNumber) + '  -  ' + F.FloorName AS FloorNo, RT.Title AS RoomType, " +
+                "R.Status AS Status " +
+                    "FROM Room R, Floor F, RoomType RT " +
+                    "WHERE R.FloorID LIKE F.FloorID AND R.RoomTypeID LIKE RT.RoomTypeID AND R.Status IN('Active', 'Blocked') " +
+                    "ORDER BY R.RoomID DESC OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
 
-            SqlCommand cmdInsert = new SqlCommand(getName, conn);
-            cmdInsert.Parameters.AddWithValue("@offset", offset);   // Assign start index
-            cmdInsert.Parameters.AddWithValue("@fetch", fetch);     // Assign no of data to be read
+            SqlCommand cmdGetRoom = new SqlCommand(getRoom, conn);
+            cmdGetRoom.Parameters.AddWithValue("@offset", offset);   // Assign start index
+            cmdGetRoom.Parameters.AddWithValue("@fetch", fetch);     // Assign no of data to be read
 
             // Hold the data read from database
-            SqlDataAdapter sda = new SqlDataAdapter(cmdInsert);
+            SqlDataAdapter sda = new SqlDataAdapter(cmdGetRoom);
 
 
             DataTable dt = new DataTable();
@@ -240,23 +250,22 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         protected void LBMenuSearchBar_Click(object sender, EventArgs e)
         {
-            searchFacility();
+            searchRoom();
         }
 
         protected void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            searchFacility();
+            searchRoom();
         }
 
-        private void searchFacility()
+        private void searchRoom()
         {
-            String facilityName = txtSearch.Text;
-            facilityName = facilityName.ToUpper();
+            String roomNo = txtSearch.Text;
+            roomNo = roomNo.ToUpper();
 
-            if (facilityName == "")
+            if (roomNo == "")
             {
                 lblNoItemFound.Visible = false;
-
                 refreshPage();
             }
             else
@@ -264,15 +273,18 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
                 conn = new SqlConnection(strCon);
                 conn.Open();
 
-                String searchFacility = "SELECT * FROM Facility WHERE UPPER(FacilityName) LIKE '%" + facilityName + "%' AND Status IN ('Active', 'Suspend') " +
-                    "ORDER BY FacilityID DESC";
+                String searchRoom = "SELECT R.RoomID AS RoomID, R.RoomNumber AS RoomNumber, CONVERT(NVARCHAR(10), F.FloorNumber) + '  -  ' + F.FloorName AS FloorNo, RT.Title AS RoomType, " +
+                "R.Status AS Status " +
+                    "FROM Room R, Floor F, RoomType RT " +
+                    "WHERE R.FloorID LIKE F.FloorID AND R.RoomTypeID LIKE RT.RoomTypeID AND R.Status IN('Active', 'Blocked') AND UPPER(R.RoomNumber) LIKE '%" + roomNo + "%' " +
+                    "ORDER BY R.RoomID DESC";
 
-                SqlCommand cmdSearchFacility = new SqlCommand(searchFacility, conn);
+                SqlCommand cmdSearchRoom = new SqlCommand(searchRoom, conn);
 
-                cmdSearchFacility.Parameters.AddWithValue("@FacilityName", facilityName);
+                cmdSearchRoom.Parameters.AddWithValue("@FacilityName", roomNo);
 
                 // Hold the data read from database
-                SqlDataAdapter sda = new SqlDataAdapter(cmdSearchFacility);
+                SqlDataAdapter sda = new SqlDataAdapter(cmdSearchRoom);
 
                 DataTable dt = new DataTable();
 
@@ -294,10 +306,10 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
                 conn.Close();
 
-                displayItemTotal("SELECT COUNT(*) FROM Facility WHERE UPPER(FacilityName) LIKE '%" + facilityName + "%' AND Status IN ('Active', 'Suspend')");
+                displayItemTotal("SELECT COUNT(*) " +
+                    "FROM Room R, Floor F, RoomType RT " +
+                    "WHERE R.FloorID LIKE F.FloorID AND R.RoomTypeID LIKE RT.RoomTypeID AND R.Status IN('Active', 'Blocked') AND UPPER(R.RoomNumber) LIKE '%" + roomNo + "%'");
             }
-
-            
         }
 
         private void displayItemTotal(String query)
@@ -319,19 +331,19 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
         {
             // Assign data from RepeaterView
             DataRowView drv = e.Item.DataItem as DataRowView;
-            String status = Convert.ToString(drv["Status"]);
+            String comment = Convert.ToString(drv["Status"]);
 
             // Get control's reference
             Label lblStatus = e.Item.FindControl("lblStatus") as Label;
             Label lblChangeStatus = e.Item.FindControl("lblChangeStatus") as Label;
             Image IMChangeStatus = e.Item.FindControl("IMChangeStatus") as Image;
 
-            if (status == "Active")
+            if (comment == "Active")
             {
                 lblStatus.Style["color"] = "#00ce1b";  // Assign green color
 
                 // Assign new options button to suspend
-                lblChangeStatus.Text = "Suspend";
+                lblChangeStatus.Text = " Blocked";
                 lblChangeStatus.Style["color"] = "red";
                 IMChangeStatus.ImageUrl = "~/Image/suspend_icon.png";
 
@@ -390,13 +402,13 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
             // When user click on delete button in more option panel
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
-            // Get FloorID of the selected item
-            String facilityID = (item.FindControl("lblFacilityID") as Label).Text;
+            // Get RoomID of the selected item
+            String roomID = (item.FindControl("lblRoomID") as Label).Text;
 
-            facilityID = en.encryption(facilityID);
+            roomID = en.encryption(roomID);
 
             // Redirect to view page
-            Response.Redirect("ViewFacility.aspx?ID=" + facilityID);
+            Response.Redirect("ViewRoom.aspx?ID=" + roomID);
         }
 
         protected void IBMoreOption_Click(object sender, ImageClickEventArgs e)
@@ -421,44 +433,44 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
             // When user click on edit button in more option panel
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
-            string facilityID = (item.FindControl("lblFacilityID") as Label).Text;
+            string roomID = (item.FindControl("lblRoomID") as Label).Text;
 
-            facilityID = en.encryption(facilityID);
+            roomID = en.encryption(roomID);
 
             // Redirect to edit page
-            Response.Redirect("EditFacility.aspx?ID=" + facilityID);
+            Response.Redirect("EditRoom.aspx?ID=" + roomID);
         }
 
         protected void LBChangeStatus_Click(object sender, EventArgs e)
         {
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
-            // Get floorName for the selected item
-            string facilityName = (item.FindControl("lblFacilityName") as Label).Text;
+            // Get room number for the selected item
+            string roomNo = (item.FindControl("lblRoomNumber") as Label).Text;
             String status = (item.FindControl("lblStatus") as Label).Text;
-            String facilityID = (item.FindControl("lblFacilityID") as Label).Text;
+            String roomID = (item.FindControl("lblRoomID") as Label).Text;
 
             // Format popup window's content
-            formatPopupWindow(facilityName, status);
+            formatPopupWindow(roomNo, status);
             PopupCover.Visible = true;
             PopupStatus.Visible = true;
 
             // Hold value for next postback
-            ViewState["FacilityID"] = facilityID;
+            ViewState["RoomID"] = roomID;
             ViewState["Status"] = status;
         }
 
         // To change the content of popup window dynamically
-        private void formatPopupWindow(String facilityName, String status)
+        private void formatPopupWindow(String roomNo, String status)
         {
-            lblPopupContent.Text = "<br />Facility Name: " + facilityName + "<br /><br />";
+            lblPopupContent.Text = "<br />Room Number: " + roomNo + "<br /><br />";
 
             if (status == "Active")
             {
-                lblPopupTitle.Text = "<br/>Suspend";
+                lblPopupTitle.Text = "<br/>Block Room";
                 lblPopupTitle.Style["color"] = "red";
                 btnPopupActivate.Style["background-color"] = "red";
-                btnPopupActivate.Text = "Suspend";
+                btnPopupActivate.Text = "Block";
             }
             else
             {
@@ -494,22 +506,22 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         private void changeStatus()
         {
-            // Get FloorID and status stored inside ViewState
-            String facilityID = ViewState["FacilityID"].ToString();
+            // Get RoomID and status stored inside ViewState
+            String roomID = ViewState["RoomID"].ToString();
             String status = ViewState["Status"].ToString();
 
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String updateStatus = "UPDATE Facility SET Status = @Status WHERE FacilityID LIKE @ID";
+            String updateStatus = "UPDATE Room SET Status = @Status WHERE RoomID LIKE @ID";
 
             SqlCommand cmdUpdateStatus = new SqlCommand(updateStatus, conn);
 
-            cmdUpdateStatus.Parameters.AddWithValue("@ID", facilityID);
+            cmdUpdateStatus.Parameters.AddWithValue("@ID", roomID);
 
             if (status == "Active")
             {
-                cmdUpdateStatus.Parameters.AddWithValue("@Status", "Suspend");
+                cmdUpdateStatus.Parameters.AddWithValue("@Status", "Blocked");
             }
             else
             {
@@ -522,66 +534,239 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         }
 
+
         protected void LBDelete_Click(object sender, EventArgs e)
         {
             // When user click on delete button in more option panel
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
             // Get FacilityID of the selected item
-            String facilityID = (item.FindControl("lblFacilityID") as Label).Text;
-            String facilityName = (item.FindControl("lblFacilityName") as Label).Text;
+            String roomID = (item.FindControl("lblRoomID") as Label).Text;
+            String roomNo = (item.FindControl("lblRoomnumber") as Label).Text;
 
             // Set FacilityName into popup window
-            lblPopupDeleteContent.Text = "Facility Name: " + facilityName + "<br /><br />";
+            lblPopupDeleteContent.Text = "Room Number: " + roomNo + "<br /><br />";
 
-            ViewState["FacilityID"] = facilityID;
-            ViewState["FacilityName"] = facilityName;
+            ViewState["RoomID"] = roomID;
+            ViewState["RoomNo"] = roomNo;
 
             PopupCover.Visible = true;
             PopupDelete.Visible = true;
         }
 
-        private void deleteFacility()
-        {
-            String facilityID = ViewState["FacilityID"].ToString(); 
-
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            try
-            {
-                String deleteFacility = "DELETE Facility WHERE FacilityID LIKE @ID";
-
-                SqlCommand cmdDeleteFacility = new SqlCommand(deleteFacility, conn);
-
-                cmdDeleteFacility.Parameters.AddWithValue("@ID", facilityID);
-
-                int i = cmdDeleteFacility.ExecuteNonQuery();
-            }
-            catch(Exception ex)
-            {
-                String updateStatus = "UPDATE Facility SET Status = @Status WHERE facilityID LIKE @ID";
-
-                SqlCommand cmdUpdateStatus = new SqlCommand(updateStatus, conn);
-
-                cmdUpdateStatus.Parameters.AddWithValue("@ID", facilityID);
-                cmdUpdateStatus.Parameters.AddWithValue("@Status", "Deleted");
-
-                int i = cmdUpdateStatus.ExecuteNonQuery();
-            }
-
-            conn.Close();
-
-        }
-
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            deleteFacility();
+           
+            // Check if the roomID exists in ReservationRoom table
+            if (checkReservationRoom() > 0)
+            {
+                changeStatusToDelete();
+            }
+            else
+            {
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                deleteFeature();
+                deleteRoom();
+
+                conn.Close();
+            }
 
             PopupDelete.Visible = false;
             PopupCover.Visible = false;
 
             refreshPage();
         }
+
+        private int checkReservationRoom()
+        {
+            // Get RoomID and status stored inside ViewState
+            String roomID = ViewState["RoomID"].ToString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String countReservationRoom = "SELECT COUNT(*) FROM ReservationRoom WHERE RoomID LIKE @ID";
+
+            SqlCommand cmdCountReservationRoom = new SqlCommand(countReservationRoom, conn);
+
+            cmdCountReservationRoom.Parameters.AddWithValue("@ID", roomID);
+
+            int count = (int)cmdCountReservationRoom.ExecuteScalar();
+
+            conn.Close();
+
+            return count;
+        }
+
+        private void deleteRoom()
+        {
+            // Get RoomID and status stored inside ViewState
+            String roomID = ViewState["RoomID"].ToString();
+
+            String deleteRoom = "DELETE FROM Room WHERE RoomID LIKE @ID";
+
+            SqlCommand cmdDeleteRoom = new SqlCommand(deleteRoom, conn);
+
+            cmdDeleteRoom.Parameters.AddWithValue("@ID", roomID);
+
+            int i = cmdDeleteRoom.ExecuteNonQuery();
+        }
+
+        // Delete all feature for the selected room
+        private void deleteFeature()
+        {
+            // Get RoomID and status stored inside ViewState
+            String roomID = ViewState["RoomID"].ToString();
+
+            String deleteFeature = "DELETE FROM Feature WHERE RoomID LIKE @ID";
+
+            SqlCommand cmdDeleteFeature = new SqlCommand(deleteFeature, conn);
+
+            cmdDeleteFeature.Parameters.AddWithValue("@ID", roomID);
+
+            int i = cmdDeleteFeature.ExecuteNonQuery();
+
+        }
+
+        private void changeStatusToDelete()
+        {
+            // Get RoomID and status stored inside ViewState
+            String roomID = ViewState["RoomID"].ToString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String updateRoomStatus = "UPDATE Room SET Status = @Status WHERE RoomID LIKE @ID";
+
+            SqlCommand cmdUpdateStatus = new SqlCommand(updateRoomStatus, conn);
+
+            cmdUpdateStatus.Parameters.AddWithValue("@Status", "Deleted");
+            cmdUpdateStatus.Parameters.AddWithValue("@ID", roomID);
+
+            int i = cmdUpdateStatus.ExecuteNonQuery();
+
+            conn.Close();
+        }
+        private void setFloorNumber()
+        {
+
+            // SQL command 
+            String getFloorNumber = "SELECT * FROM Floor WHERE Status IN ('Active', 'Suspend') ORDER BY FloorNumber";
+
+            SqlCommand cmdGetFloorNumber = new SqlCommand(getFloorNumber, conn);
+
+            SqlDataAdapter sda = new SqlDataAdapter(cmdGetFloorNumber);
+
+            DataTable dt = new DataTable();
+
+            sda.Fill(dt);
+
+
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                ddlFloorNumber.Items.Add(new ListItem((dt.Rows[i]["FloorNumber"].ToString() + " - " + dt.Rows[i]["FloorName"].ToString()), dt.Rows[i]["FloorID"].ToString()));
+            }
+            //ddlFloorNumber.DataSource = dt;
+            //ddlFloorNumber.DataBind();
+            //ddlFloorNumber.DataTextField = "FloorNumber";
+            //ddlFloorNumber.DataValueField = "FloorID";
+            //ddlFloorNumber.DataBind();
+
+        }
+
+        private void setRoomType()
+        {
+
+            String getRoomType = "SELECT * FROM RoomType WHERE Status LIKE 'Active'";
+
+            SqlCommand cmdGetRoomType = new SqlCommand(getRoomType, conn);
+
+            SqlDataAdapter sda = new SqlDataAdapter(cmdGetRoomType);
+
+            DataTable dt = new DataTable();
+
+            sda.Fill(dt);
+
+            ddlRoomType.DataSource = dt;
+            ddlRoomType.DataBind();
+            ddlRoomType.DataTextField = "Title";
+            ddlRoomType.DataValueField = "RoomTypeID";
+            ddlRoomType.DataBind();
+
+        }
+
+        protected void ddl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string floorID = "";
+            string roomTypeID = "";
+
+            if(ddlFloorNumber.SelectedValue == "" && ddlRoomType.SelectedValue == "")
+            {
+                setItemToRepeater1();
+            }
+            else
+            {
+                string temp = ddlFloorNumber.SelectedValue;
+                // prepare query based on selectedItem
+                if (ddlFloorNumber.SelectedValue != "")
+                {
+                    floorID = "AND F.FloorID LIKE '" + ddlFloorNumber.SelectedValue + "' ";
+                }
+                if(ddlRoomType.SelectedValue != "")
+                {
+                    roomTypeID = "AND R.RoomTypeID LIKE '" + ddlRoomType.SelectedValue + "' ";
+                }
+
+                // open connection
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                String getRoom = "SELECT R.RoomID AS RoomID, R.RoomNumber AS RoomNumber, CONVERT(NVARCHAR(10), F.FloorNumber) + '  -  ' + F.FloorName AS FloorNo, RT.Title AS RoomType, " +
+                "R.Status AS Status " +
+                    "FROM Room R, Floor F, RoomType RT " +
+                    "WHERE R.FloorID LIKE F.FloorID AND R.RoomTypeID LIKE RT.RoomTypeID AND R.Status IN('Active', 'Blocked') " + floorID + roomTypeID + 
+                    "ORDER BY R.RoomID DESC";
+
+                SqlCommand cmdGetRoom = new SqlCommand(getRoom, conn);
+
+                // Hold the data read from database
+                SqlDataAdapter sda = new SqlDataAdapter(cmdGetRoom);
+
+
+                DataTable dt = new DataTable();
+
+                // Assign the data from database into dataTable
+                sda.Fill(dt);
+
+                // Bind data into repeater to display
+                Repeater1.DataSource = dt;
+                Repeater1.DataBind();
+
+                // Display message it no item was found
+                if (dt.Rows.Count == 0)
+                {
+                    lblNoItemFound.Visible = true;
+                }
+                else
+                {
+                    lblNoItemFound.Visible = false;
+                }
+
+                conn.Close();
+
+                displayItemTotal("SELECT COUNT(*) " + 
+                    "FROM Room R, Floor F, RoomType RT " +
+                    "WHERE R.FloorID LIKE F.FloorID AND R.RoomTypeID LIKE RT.RoomTypeID AND R.Status IN('Active', 'Blocked') " + floorID + roomTypeID);
+
+            }
+
+           
+
+        }
+
+        
     }
 }

@@ -26,7 +26,10 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            roomID = "RM10000002";
+            roomID = Request.QueryString["ID"];
+            roomID = en.decryption(roomID);
+
+            //roomID = "RM10000002";
 
             if (!IsPostBack)
             {
@@ -61,6 +64,10 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
             if (dt.Rows.Count <= 0)
             {
                 lblNoItemFound.Visible = true;
+            }
+            else
+            {
+                lblNoItemFound.Visible = false;
             }
 
             conn.Close();

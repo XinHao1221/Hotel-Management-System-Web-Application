@@ -97,6 +97,10 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             {
                 lblNoItemFound.Visible = true;
             }
+            else
+            {
+                lblNoItemFound.Visible = false;
+            }
 
             conn.Close();
         }

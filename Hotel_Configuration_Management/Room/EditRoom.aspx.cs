@@ -23,16 +23,16 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //roomID = Request.QueryString["ID"];
-            //roomID = en.decryption(roomID);
+            roomID = Request.QueryString["ID"];
+            roomID = en.decryption(roomID);
 
-            roomID = "RM10000001";
+            //roomID = "RM10000001";
 
             if (!IsPostBack)
             {
                 // Save link for previous page
-                //ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
-                //PopupCover.Visible = false;
+                ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
+                PopupCover.Visible = false;
 
                 // Set data to drop-down list
                 setDropDownListData();
@@ -211,7 +211,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
             int i = cmdUpdateRoom.ExecuteNonQuery();
 
-            //Response.Redirect("ViewRoom.aspx?ID=" + en.encryption(roomID));
+            Response.Redirect("ViewRoom.aspx?ID=" + en.encryption(roomID));
         }
 
         protected void formBtnCancel_Click(object sender, EventArgs e)

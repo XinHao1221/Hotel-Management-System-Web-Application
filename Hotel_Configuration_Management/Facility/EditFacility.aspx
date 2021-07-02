@@ -56,7 +56,7 @@
                         </td>
                         <td class="tableSeperator"></td>
                         <td class="formInput">
-                            <asp:TextBox ID="txtQty" runat="server" CssClass="inputStyle" placeholder="'0' = infinity" Width="30%" Text="0"></asp:TextBox>
+                            <asp:TextBox ID="txtQty" runat="server" CssClass="inputStyle" placeholder="10" Width="30%" Text="0"></asp:TextBox>
                             <br />
                             <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Quantity must be a digit!" CssClass="validatorStyle" ControlToValidate="txtQty" Type="Integer" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
                         </td>
