@@ -83,6 +83,8 @@
     <Content Include="Hotel_Configuration_Management\Floor\ViewFloor.aspx" />
     <Content Include="Hotel_Configuration_Management\PriceManager\EditRegularPrice.aspx" />
     <Content Include="Hotel_Configuration_Management\PriceManager\EditSpecialPrice.aspx" />
+    <Content Include="Hotel_Configuration_Management\PriceManager\RegularRoomPrice.aspx" />
+    <Content Include="Hotel_Configuration_Management\PriceManager\SpecialRoomPrice.aspx" />
     <Content Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx" />
     <Content Include="Hotel_Configuration_Management\Room Type\AddRoomType.aspx" />
     <Content Include="Hotel_Configuration_Management\Room Type\EditEquipment.ascx" />
@@ -208,7 +210,21 @@
     <Compile Include="Hotel_Configuration_Management\PriceManager\EditSpecialPrice.aspx.designer.cs">
       <DependentUpon>EditSpecialPrice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Hotel_Configuration_Management\PriceManager\RegularRoomPrice.aspx.cs">
+      <DependentUpon>RegularRoomPrice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\PriceManager\RegularRoomPrice.aspx.designer.cs">
+      <DependentUpon>RegularRoomPrice.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Hotel_Configuration_Management\PriceManager\RoomType.cs" />
+    <Compile Include="Hotel_Configuration_Management\PriceManager\SpecialRoomPrice.aspx.cs">
+      <DependentUpon>SpecialRoomPrice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hotel_Configuration_Management\PriceManager\SpecialRoomPrice.aspx.designer.cs">
+      <DependentUpon>SpecialRoomPrice.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx.cs">
       <DependentUpon>AddEquipment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

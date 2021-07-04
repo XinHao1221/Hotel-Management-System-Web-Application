@@ -26,9 +26,36 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         // Create instance of RoomTpye
         RoomType roomType = new RoomType();
 
+        private string date;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
 
+                date = Request.QueryString["Date"];
+
+                if (date != null)
+                {
+                    // Check if the request is navigate from PreviewRoomType.aspx
+
+                    date = en.decryption(Request.QueryString["Date"]);
+
+                    //string roomType = getRoomType();
+
+                    //if (roomType != "")
+                    //{
+                    //    ddlRoomType.Items.FindByText(roomType).Selected = true;
+                    //    getStandardRoomPrice();
+                    //}
+                    txtDate.Text = date;
+                    getSpecialRoomPrice();
+                }
+
+            }
+
+            PopupCover.Visible = false;
+            PopupSaved.Visible = false;
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -129,6 +156,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
 
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {
+            getSpecialRoomPrice();
+        }
+
+        private void getSpecialRoomPrice()
+        {
             // SELECT R.Title, S.MondayPrice FROM RoomType R, StandardRoomPrice S WHERE Status IN ('Active') AND R.RoomTypeID LIKE S.RoomTypeID
 
             // Get day from specific date
@@ -145,12 +177,12 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
                 roomTypeID = getOtherRoomType();
 
                 // If having any room that doesn't have special room price
-                if(roomTypeID.Count > 0)
+                if (roomTypeID.Count > 0)
                 {
                     ViewState["Repeater2"] = "true";
                     setRepeater2(roomTypeID, selectedDay);
                 }
-                
+
             }
             else
             {
@@ -326,6 +358,32 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         protected void btnOK_Click(object sender, EventArgs e)
         {
             Response.Redirect("EditSpecialPrice.aspx");
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+            // Check if user have enter any value
+            if (txtEventName.Text == "")
+            {
+                Response.Redirect("SpecialRoomPrice.aspx");
+            }
+
+            // If no show popup message
+            PopupBack.Visible = true;
+            PopupCover.Visible = true;
+        }
+
+        protected void btnConfirmBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("SpecialRoomPrice.aspx");
+            PopupCover.Visible = false;
+            PopupBack.Visible = false;
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            PopupBack.Visible = false;
+            PopupCover.Visible = false;
         }
     }
 }

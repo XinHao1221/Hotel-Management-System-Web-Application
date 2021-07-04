@@ -265,3 +265,16 @@
     padding-top: 40px;
     margin-top: 50px;
 }
+
+.formOptionSelectedBtn {
+    border: 2px solid #00ce1b;
+    width: 100px;
+    height: 40px;
+    font-weight: 600;
+    color: #00ce1b;
+}
+
+.formOptionSelectedBtn:hover {
+    cursor:pointer;
+    opacity:0.7;
+}

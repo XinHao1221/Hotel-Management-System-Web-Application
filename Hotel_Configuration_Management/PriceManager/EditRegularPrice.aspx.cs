@@ -32,6 +32,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         {
             if (!IsPostBack)
             {
+
                 setRoomType();
                 ddlRoomType.Items.Insert(0, new ListItem("-- Please Select --", "-- Please Select --"));
 
@@ -181,5 +182,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         {
             Response.Redirect("EditRegularPrice.aspx");
         }
+
     }
 }

@@ -63,17 +63,17 @@
                     </td>
                 </tr>
                 <tr>
-                        <td class="formLabel">
-                                Price               
-                        </td>
-                        <td class="tableSeperator"></td>
-                        <td class="formInput">
-                            <asp:TextBox ID="txtPrice" runat="server" CssClass="inputStyle" placeholder="150.00" Width="30%"></asp:TextBox>
-                            <br />
-                            <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Price must be in decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
+                    <td class="formLabel requiredFieldLabel">
+                            Price               
+                    </td>
+                    <td class="tableSeperator"></td>
+                    <td class="formInput">
+                        <asp:TextBox ID="txtPrice" runat="server" CssClass="inputStyle" placeholder="150.00" Width="30%"></asp:TextBox>
+                        <br />
+                        <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Price must be in decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
                 <tr>
                     <td class="formLabel" style="vertical-align: top; padding-top:15px;">Description </td>
                     <td></td>

@@ -18,16 +18,18 @@
                 Special Price
             </div>
 
-            <div style="margin:20px 0px 20px 50px;">
-                <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
+            <asp:LinkButton ID="LBBack" runat="server" OnClick="LBBack_Click" CssClass="divLBStyle">
+                <div style="margin:20px 0px 20px 50px;">
+                    <div class="formBackBtn" style="float:left;" tooltip="save">
 
-                    <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
-                    <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
-                        Back
-                    </div>
+                        <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
+                        <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
+                            Back
+                        </div>
                         
+                    </div>
                 </div>
-            </div>
+            </asp:LinkButton>
 
             <div style="height:100px;">&nbsp;</div>
             <table style="width:100%;">
@@ -131,6 +133,25 @@
                     <asp:Button ID="btnOK" runat="server" Text="OK" CssClass="popUpCancelBtn" OnClick="btnOK_Click"/>
                 
                     
+                </asp:Panel>
+
+                <asp:Panel ID="PopupBack" runat="server" Visible="False" CssClass="popupWindow">
+
+                    <%-- Popup Window Title --%>
+                    <p style="color:red;" class="popupTitle">Leave without save?</p>
+
+                    <%-- Popup Window Body --%>
+                    <div class="popupBody">
+
+                        <p>The changes have not been saved. Are you sure to close the editor?</p>
+
+                    </div>
+
+                    <div>&nbsp;</div>
+
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnCancel_Click"/>
+                
+                    <asp:Button ID="btnConfirmBack" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnConfirmBack_Click"/>
                 </asp:Panel>
             </div>
 

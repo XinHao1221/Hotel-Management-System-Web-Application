@@ -11,7 +11,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
 {
 
 
-    public partial class EditSpecialPrice
+    public partial class RegularRoomPrice
     {
 
         /// <summary>
@@ -24,49 +24,112 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// LBBack control.
+        /// LBRegular control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LBBack;
+        protected global::System.Web.UI.WebControls.LinkButton LBRegular;
 
         /// <summary>
-        /// txtEventName control.
+        /// LBSpecial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEventName;
+        protected global::System.Web.UI.WebControls.LinkButton LBSpecial;
 
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// txtSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
-        /// txtDate control.
+        /// LBMenuSearchBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDate;
+        protected global::System.Web.UI.WebControls.LinkButton LBMenuSearchBar;
 
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// ttRoomType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.Label ttRoomType;
+
+        /// <summary>
+        /// ttMonPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ttMonPrice;
+
+        /// <summary>
+        /// ttTuePrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ttTuePrice;
+
+        /// <summary>
+        /// ttWedPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ttWedPrice;
+
+        /// <summary>
+        /// ttThuPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ttThuPrice;
+
+        /// <summary>
+        /// ttFriPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ttFriPrice;
+
+        /// <summary>
+        /// ttSun control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ttSun;
+
+        /// <summary>
+        /// ttSatPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ttSatPrice;
 
         /// <summary>
         /// Repeater1 control.
@@ -78,84 +141,75 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         protected global::System.Web.UI.WebControls.Repeater Repeater1;
 
         /// <summary>
-        /// Repeater2 control.
+        /// lblNoItemFound control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater2;
+        protected global::System.Web.UI.WebControls.Label lblNoItemFound;
 
         /// <summary>
-        /// btnSave control.
+        /// IBArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.ImageButton IBArrowLeft;
 
         /// <summary>
-        /// PopupSaved control.
+        /// txtPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupSaved;
+        protected global::System.Web.UI.WebControls.TextBox txtPage;
 
         /// <summary>
-        /// lblPopupSavedContent control.
+        /// lblPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPopupSavedContent;
+        protected global::System.Web.UI.WebControls.Label lblPage;
 
         /// <summary>
-        /// btnOK control.
+        /// IBArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOK;
+        protected global::System.Web.UI.WebControls.ImageButton IBArrowRight;
 
         /// <summary>
-        /// PopupBack control.
+        /// ddlItemPerPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupBack;
+        protected global::System.Web.UI.WebControls.DropDownList ddlItemPerPage;
 
         /// <summary>
-        /// btnCancel control.
+        /// lblItemDisplayed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.Label lblItemDisplayed;
 
         /// <summary>
-        /// btnConfirmBack control.
+        /// lblTotalNoOfItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirmBack;
-
-        /// <summary>
-        /// PopupCover control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupCover;
+        protected global::System.Web.UI.WebControls.Label lblTotalNoOfItem;
     }
 }

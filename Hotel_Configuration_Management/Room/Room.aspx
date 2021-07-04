@@ -21,21 +21,7 @@
 
         }
 
-        .filteringLabel{
-            font-size:12px;
-            font-family: Helvetica, sans-serif;
-            margin-left:5px;
-            font-weight:600;
-        }
-
-        .filteringDropDown{
-            min-width:150px;
-            height:30px;
-            border: 1px solid rgb(192 192 192);
-            border-radius:8px;
-            padding-left:5px;
-        }
-
+       
         .auto-style1 {
             
         }
@@ -47,6 +33,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
+
             <%-- Page content --%>
             <div class="content">
                 

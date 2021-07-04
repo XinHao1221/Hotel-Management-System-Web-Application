@@ -19,7 +19,7 @@
             </div>
 
             <div style="margin:20px 0px 20px 50px;">
-                <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
+                <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='RegularRoomPrice.aspx';">
 
                     <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
                     <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
