@@ -184,7 +184,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void LBPriceManager_Click(object sender, EventArgs e)
         {
-            //Response.Redirect("../PriceManager/EditRegularPrice.aspx?ID=" + en.encryption(roomTypeID));
+            Response.Redirect("../PriceManager/RegularRoomPrice.aspx");
         }
     }
 }
