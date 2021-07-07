@@ -92,8 +92,8 @@
     background-color: rgb(237 237 237);
     position: fixed;
     bottom: 0;
-    width: 100%;
     height: 50px;
+    z-index:0;
 }
 
 .formBtnSave {

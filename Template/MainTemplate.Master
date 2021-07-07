@@ -1,0 +1,355 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainTemplate.master.cs" Inherits="Hotel_Management_System.Template.MainTemplate" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <style>
+
+        body{
+           min-width:1100px;
+           width: auto !important;
+           width:1100px;
+        }
+
+        .navSideBar {
+            background-color: red;
+            position: fixed;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #0089FA;
+            /*font-family: "Lato", sans-serif;*/
+            font-family: "Open Sans", sans-serif;
+            padding: 20px 10px 0px 10px;
+            z-index:1;
+        }
+
+        .pageContent{
+            margin-left:220px;
+        }
+
+        .navSideBar{
+            
+            color:white;
+            
+        }
+
+        .navTitle {
+            text-align: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .navOptionContainer{
+            font-size:13.5px;
+            height:40px;
+            padding-top:20px;
+            padding-left:10px;
+            padding-right:5px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .navOptionContainer:hover{
+            cursor:pointer;
+            opacity:0.8;
+        }
+
+        .navIconStyle{
+            width:20px;
+            height:20px;
+        }
+
+        .navBarSeperator {
+            width: 100%;
+            margin: auto;
+            background-color: white;
+            opacity: 0.3;
+            height: 1px;
+        }
+
+        .dropdown-container {
+            
+        }
+
+        .dropdown-optionContainer {
+            padding-top: 15px;
+            width: 100%;
+            height: 25px;
+            font-family: "Open Sans", sans-serif;
+            font-size: 13.5px;
+            text-decoration: none;
+            color: black;
+            
+        }
+
+        .dropdown-optionContainer:hover{
+            opacity:0.9;
+        }
+
+        .navDropDownIcon{
+            width:12.5px;
+            height:12.5px;
+            margin-top:2.5px;
+            float:right;
+            margin-right:2px;
+        }
+
+        .siteMapStyle{
+            font-family: Helvetica, sans-serif;
+            padding-left:2%;
+            font-size:14px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+       <!--Navigation side bar-->
+        <div class="navSideBar">
+
+            <!--Title-->
+            <div class="navTitle">
+                HMS
+            </div>
+
+            <div style="height:30px;">&nbsp;</div>
+
+            <!-- Navigation Option -->
+            <!--Start Navigation Option-->
+            <div class="navBarSeperator">&nbsp;</div>
+
+            <!--Dashboard-->
+            <asp:LinkButton ID="LinkButton2" runat="server">
+
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavDashboard" runat="server" ImageUrl="~/Template/Template_Icon/dashboard.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        Dashboard
+                    </div>
+                </div>
+            </asp:LinkButton>
+
+            <div class="navBarSeperator">&nbsp;</div>
+
+            <!--Front-Desk-->
+            <asp:LinkButton ID="LBNavFrontDesk" runat="server" OnClick="LBNavFrontDesk_Click">
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavFrontDesk" runat="server" ImageUrl="~/Template/Template_Icon/front-desk.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        <asp:Label ID="lblNavFrontDesk" runat="server" Text="Front-Desk"></asp:Label>
+                    </div>
+                    <div style="">
+                        <asp:Image ID="INavArrowDown" runat="server" ImageUrl="~/Template/Template_Icon/arrow_down.png" CssClass="navDropDownIcon"/>
+                    </div>
+                </div>
+            </asp:LinkButton>
+
+            <asp:Panel ID="pnNavFrontDesk" runat="server" CssClass="dropdown-container" Visible="false">
+                <div>
+                    <a href="#">
+                        <div style="float:left; background-color:white; border-start-end-radius:5px; border-start-start-radius:5px;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Link 1
+                            </div>
+                        </div>
+                    </a>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+                    <a href="#">
+                        <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Link 2
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </asp:Panel>
+            
+            <div style="clear:both;"></div>
+
+            <div class="navBarSeperator">&nbsp;</div>
+
+            <!--Cashiering-->
+            <a>
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavCashiering" runat="server" ImageUrl="~/Template/Template_Icon/dollar.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        Cashiering
+                    </div>
+                </div>
+            </a>
+
+            <div class="navBarSeperator">&nbsp;</div>
+
+            <%--Hotel Configuration--%>
+            <asp:LinkButton ID="LBNavHotelConfiguration" runat="server" OnClick="LBNavHotelConfiguration_Click">
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavHotelConfiguration" runat="server" ImageUrl="~/Template/Template_Icon/hotel-configuration.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        <asp:Label ID="lblNavHotelConfiguration" runat="server" Text="Hotel Configuration"></asp:Label>
+                    </div>
+                    <div style="">
+                        <asp:Image ID="INavArrowDown2" runat="server" ImageUrl="~/Template/Template_Icon/arrow_down.png" CssClass="navDropDownIcon"/>
+                    </div>
+                </div>
+            </asp:LinkButton>
+
+            <asp:Panel ID="pnNavHotelConfiguration" runat="server" CssClass="dropdown-container" Visible="false">
+                <div>
+                    <a href="../Floor/Floor.aspx">
+                        <div style="float:left; background-color:white; border-start-end-radius:5px; border-start-start-radius:5px;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Floor
+                            </div>
+                        </div>
+                    </a>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+
+                    <a href="../Room/Room.aspx">
+                        <div style="float:left; background-color:white;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Room
+                            </div>
+                        </div>
+                    </a>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+
+                    <a href="../Room Type/RoomType.aspx">
+                        <div style="float:left; background-color:white;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Room Type
+                            </div>
+                        </div>
+                    </a>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+
+                    <a href="../PriceManager/RegularRoomPrice.aspx">
+                        <div style="float:left; background-color:white;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Price Manager
+                            </div>
+                        </div>
+                    </a>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+
+                    <a href="../Facility/Facility.aspx">
+                        <div style="float:left; background-color:white;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Facility
+                            </div>
+                        </div>
+                    </a>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+
+                    <a href="../Survey/Survey.aspx">
+                        <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Survey
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </asp:Panel>
+
+            <div class="navBarSeperator" style="clear:both;">&nbsp;</div>
+
+            <%--Reporting--%>
+            <asp:LinkButton ID="LBNavReport" runat="server" OnClick="LBNavReport_Click">
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavReport" runat="server" ImageUrl="~/Template/Template_Icon/profit-report.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        <asp:Label ID="lblNavReport" runat="server" Text="Report"></asp:Label>
+                    </div>
+                    <div style="">
+                        <asp:Image ID="INavArrowDown3" runat="server" ImageUrl="~/Template/Template_Icon/arrow_down.png" CssClass="navDropDownIcon"/>
+                    </div>
+                </div>
+            </asp:LinkButton>
+
+            <asp:Panel ID="pnNavReport" runat="server" CssClass="dropdown-container" Visible="false">
+                <div>
+                    <a href="#">
+                        <div style="float:left; background-color:white; border-start-end-radius:5px; border-start-start-radius:5px;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Link 1
+                            </div>
+                        </div>
+                    </a>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+                    <a href="#">
+                        <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Link 2
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </asp:Panel>
+
+            <div class="navBarSeperator" style="clear:both;">&nbsp;</div>
+        </div>
+    
+        <%--Header--%>
+        <div style="margin-left:220px; height:50px;">
+            <%--Site Map--%>
+            <div style="float:left; width:68%; height:50px; line-height: 50px;" class="siteMapStyle">
+                <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
+                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+            </div>
+            <div style="float:left; width:30%; height:50px;">
+                &nbsp;
+            </div>
+        </div>
+
+        <div style="clear:both;"></div>
+        
+        <%--Page Content--%>
+        <div class="pageContent">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

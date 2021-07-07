@@ -1,17 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="AddFloor.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Floor.AddFloor" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="AddFloor.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Floor.AddFloor" %>
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
+
 
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
 
-</head>
-<body>
-    <form id="form1" runat="server">
         <div>
             <%-- Page content --%>
             <div class="content">
@@ -21,14 +16,13 @@
                 </div>
 
                 <asp:LinkButton ID="LBBack" runat="server" OnClick="LBBack_Click" CssClass="divLBStyle">
-                    <div style="margin:20px 0px 20px 50px;">
+                    <div style="margin:20px 0px 20px 0px; margin-left:2.5%;">
                         <div class="formBackBtn" style="float:left;" tooltip="save">
 
                             <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
                             <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
                                 Back
                             </div>
-                        
                         </div>
                     </div>
                 </asp:LinkButton>
@@ -141,6 +135,4 @@
             
         </div>
         
-    </form>
-</body>
-</html>
+</asp:Content>

@@ -4,8 +4,8 @@
 /* Frame */
 .popupWindow {
     width: 30%;
-    /*min-width: 400px;*/
-    position: fixed;
+    min-width: 400px;
+    position: absolute;
     background-color: white;
     top: -640px;
     z-index: 10;
@@ -15,8 +15,8 @@
     font-family: Calibri;
     animation: drop 0.5s ease forwards, swing 2s 3s ease forwards;
     padding: 0.2% 2% 2% 2%;
-    margin-left: 31%;
     box-shadow: 3px 3px 5px rgb(149 149 149);
+    left:35%;
 }
 
 /* Frame animation */

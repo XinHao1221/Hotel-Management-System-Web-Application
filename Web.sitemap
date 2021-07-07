@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="Dashboard/Dashboard.aspx" title="Dashboard"  description="">
+    
+    <!--Floor Management-->
+    <siteMapNode url="Hotel_Configuration_Management/Floor/Floor.aspx" title="Floor"  description="">
+      <siteMapNode url="Hotel_Configuration_Management/Floor/AddFloor.aspx" title="Add Floor"  description="">
+        <siteMapNode url="Hotel_Configuration_Management/Floor/PreviewFloor.aspx" title="Floor Details"  description=""/>
+      </siteMapNode>
+      <siteMapNode url="Hotel_Configuration_Management/Floor/EditFloor.aspx" title="Edit Floor"  description="" />
+      <siteMapNode url="Hotel_Configuration_Management/Floor/ViewFloor.aspx" title="Floor Details"  description="" />
+    </siteMapNode>
+    
+    <!--Facility--> 
+    <siteMapNode url="Hotel_Configuration_Management/Facility/Facility.aspx" title="Facility"  description="">
+      <siteMapNode url="Hotel_Configuration_Management/Facility/AddFacility.aspx" title="Add Facility"  description="">
+        <siteMapNode url="Hotel_Configuration_Management/Facility/PreviewFacility.aspx" title="Facility Details"  description=""/>
+      </siteMapNode>
+      <siteMapNode url="Hotel_Configuration_Management/Facility/EditFacility.aspx" title="Edit Facility"  description="" />
+      <siteMapNode url="Hotel_Configuration_Management/Facility/ViewFacility.aspx" title="Facility Details"  description="" />
+    </siteMapNode>
+    
+    <!--Room Type--> 
+    <siteMapNode url="Hotel_Configuration_Management/RoomType/RoomType.aspx" title="Room Type"  description="">
+      <siteMapNode url="Hotel_Configuration_Management/RoomType/AddRoomType.aspx" title="Add Room Type"  description="">
+        <siteMapNode url="Hotel_Configuration_Management/RoomType/PreviewRoomType.aspx" title="Room Type Details"  description=""/>
+      </siteMapNode>
+      <siteMapNode url="Hotel_Configuration_Management/RoomType/EditRoomType.aspx" title="Edit Room Type"  description="" />
+      <siteMapNode url="Hotel_Configuration_Management/RoomType/ViewRoomType.aspx" title="Room Type Details"  description="" />
+    </siteMapNode>
+    
+    <!--Room--> 
+    <siteMapNode url="Hotel_Configuration_Management/Room/Room.aspx" title="Room"  description="">
+      <siteMapNode url="Hotel_Configuration_Management/Room/AddRoom.aspx" title="Add Room"  description="">
+        <siteMapNode url="Hotel_Configuration_Management/Room/PreviewRoom.aspx" title="Room Details"  description=""/>
+      </siteMapNode>
+      <siteMapNode url="Hotel_Configuration_Management/Room/EditRoom.aspx" title="Edit Room"  description="" />
+      <siteMapNode url="Hotel_Configuration_Management/Room/ViewRoom.aspx" title="Room Details"  description="" />
+    </siteMapNode>
+    
+    <!--Price Manager-->
+    <!--Regular Price-->
+    <siteMapNode url="Hotel_Configuration_Management/PriceManager/RegularRoomPrice.aspx" title="Regular Price"  description="">
+      <siteMapNode url="Hotel_Configuration_Management/PriceManager/EditRegularPrice.aspx" title="Edit Regular Price"  description=""/>
+    </siteMapNode>
+      
+    <!--Special Price-->
+    <siteMapNode url="Hotel_Configuration_Management/PriceManager/SpecialRoomPrice.aspx" title="Special Price"  description="">
+      <siteMapNode url="Hotel_Configuration_Management/PriceManager/EditSpecialPrice.aspx" title="Edit Special Price"  description=""/>
+    </siteMapNode>
+    
+    <!--Survey-->
+    <siteMapNode url="Hotel_Configuration_Management/Survey/Survey.aspx" title="Survey Management"  description=""/>
+  
+    <siteMapNode url="" title=""  description="" />
+  </siteMapNode>
+</siteMap>
