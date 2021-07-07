@@ -123,6 +123,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
             PopupCover.Visible = true;
             PopupDelete.Visible = true;
+
+            
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)

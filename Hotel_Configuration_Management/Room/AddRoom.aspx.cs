@@ -40,7 +40,6 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
             PopupReset.Visible = false;
             PopupCover.Visible = false;
             PopupBack.Visible = false;
-
         }
 
         private void setDropDownListData()
@@ -98,6 +97,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
             ddlRoomType.DataSource = dt;
             ddlRoomType.DataBind();
+            ddlRoomType.DataBind();
             ddlRoomType.DataTextField = "Title";
             ddlRoomType.DataValueField = "RoomTypeID";
             ddlRoomType.DataBind();
@@ -106,25 +106,29 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            // open connection
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            String nextRoomID = idGenerator.getNextID("RoomID", "Room", "RM");
-
-            addRoom(nextRoomID);
-
-            // Add Equipment 
-            List<String> tableList = (List<String>)Session["FeatureList"];
-
-            if (tableList.Any())    // Check if any equipment
+            if(lblRoomNumberErrorMsg.Visible != true)
             {
-                addFeature(nextRoomID);
+                // open connection
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                String nextRoomID = idGenerator.getNextID("RoomID", "Room", "RM");
+
+                addRoom(nextRoomID);
+
+                // Add Equipment 
+                List<String> tableList = (List<String>)Session["FeatureList"];
+
+                if (tableList.Any())    // Check if any equipment
+                {
+                    addFeature(nextRoomID);
+                }
+
+                conn.Close();
+
+                Response.Redirect("PreviewRoom.aspx?ID=" + en.encryption(nextRoomID));
             }
-
-            conn.Close();
-
-            Response.Redirect("PreviewRoom.aspx?ID=" + en.encryption(nextRoomID));
+            
         }
 
         private void addRoom(String nextRoomID)
@@ -207,5 +211,46 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
             PopupBack.Visible = true;
             PopupCover.Visible = true;
         }
+
+        protected void txtRoomNumber_TextChanged(object sender, EventArgs e)
+        {
+            if(txtRoomNumber.Text != "")
+            {
+                // Check if user entered room number exist in database
+
+                String roomNumber = txtRoomNumber.Text;
+
+                // open connection
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                String checkRoomNumber = "SELECT COUNT(*) " +
+                                    "FROM Room " +
+                                    "WHERE RoomNumber LIKE '" + roomNumber + "' AND Status IN('Active', 'Blocked')";
+
+                SqlCommand cmdCheckRoomNumber = new SqlCommand(checkRoomNumber, conn);
+
+                int count = (int)cmdCheckRoomNumber.ExecuteScalar();
+
+                conn.Close();
+
+                //If has row means room number already exists inside database
+                if (count > 0)
+                {
+                    lblRoomNumberErrorMsg.Visible = true;   // if exists print error message
+                }
+                else
+                {
+                    lblRoomNumberErrorMsg.Visible = false;    // if no exists
+                }
+
+            }
+            else
+            {
+                lblRoomNumberErrorMsg.Visible = false;
+            }
+
+        }
+
     }
 }

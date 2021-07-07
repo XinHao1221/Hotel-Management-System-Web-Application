@@ -1,11 +1,10 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="AddRoomType.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.AddRoomType" %>
-<%@ Register TagPrefix="Equipment" TagName="Control" Src="~/Hotel_Configuration_Management/Room Type/AddEquipment.ascx" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="EditRoomType.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.EditRoomType" %>
+<%@ Register TagPrefix="Equipment" TagName="Control" Src="~/Hotel_Configuration_Management/RoomType/EditEquipment.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
 
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
-
 
     <div>
         <%-- Page content --%>
@@ -54,15 +53,12 @@
                 </td>
             </tr>
             <tr>
-                <td class="formLabel requiredFieldLabel">
+                <td class="formLabel">
                         Price               
                 </td>
                 <td class="tableSeperator"></td>
-                <td class="formInput">
-                    <asp:TextBox ID="txtPrice" runat="server" CssClass="inputStyle" placeholder="150.00" Width="30%"></asp:TextBox>
-                    <br />
-                    <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Price must be in decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
+                <td class="tableData" style="text-align:left;">
+                    <asp:LinkButton ID="LBPriceManager" runat="server" OnClick="LBPriceManager_Click">manage price</asp:LinkButton>
                 </td>
             </tr>
             <tr>
@@ -153,29 +149,11 @@
                 <asp:Button ID="btnPopupConfirmReset" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirmReset_Click"/>
             </asp:Panel>
 
-            <asp:Panel ID="PopupBack" runat="server" Visible="False" CssClass="popupWindow">
-
-                <%-- Popup Window Title --%>
-                <p style="color:red;" class="popupTitle">Leave without save?</p>
-
-                <%-- Popup Window Body --%>
-                <div class="popupBody">
-
-                    <p>The changes have not been saved. Are you sure to close the editor?</p>
-
-                </div>
-
-                <div>&nbsp;</div>
-
-                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
-                
-                <asp:Button ID="btnConfirmBack" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnConfirmBack_Click"/>
-            </asp:Panel>
-
             <%-- Popup Cover --%>
             <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
                 &nbsp;
             </asp:Panel>
+
         </div>
 
     </div>

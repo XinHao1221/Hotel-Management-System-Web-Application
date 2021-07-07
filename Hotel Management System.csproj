@@ -86,13 +86,13 @@
     <Content Include="Hotel_Configuration_Management\PriceManager\EditSpecialPrice.aspx" />
     <Content Include="Hotel_Configuration_Management\PriceManager\RegularRoomPrice.aspx" />
     <Content Include="Hotel_Configuration_Management\PriceManager\SpecialRoomPrice.aspx" />
-    <Content Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx" />
-    <Content Include="Hotel_Configuration_Management\Room Type\AddRoomType.aspx" />
-    <Content Include="Hotel_Configuration_Management\Room Type\EditEquipment.ascx" />
-    <Content Include="Hotel_Configuration_Management\Room Type\EditRoomType.aspx" />
-    <Content Include="Hotel_Configuration_Management\Room Type\PreviewRoomType.aspx" />
-    <Content Include="Hotel_Configuration_Management\Room Type\RoomType.aspx" />
-    <Content Include="Hotel_Configuration_Management\Room Type\ViewRoomType.aspx" />
+    <Content Include="Hotel_Configuration_Management\RoomType\AddEquipment.ascx" />
+    <Content Include="Hotel_Configuration_Management\RoomType\AddRoomType.aspx" />
+    <Content Include="Hotel_Configuration_Management\RoomType\EditEquipment.ascx" />
+    <Content Include="Hotel_Configuration_Management\RoomType\EditRoomType.aspx" />
+    <Content Include="Hotel_Configuration_Management\RoomType\PreviewRoomType.aspx" />
+    <Content Include="Hotel_Configuration_Management\RoomType\RoomType.aspx" />
+    <Content Include="Hotel_Configuration_Management\RoomType\ViewRoomType.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\AddFeature.ascx" />
     <Content Include="Hotel_Configuration_Management\Room\AddRoom.aspx" />
     <Content Include="Hotel_Configuration_Management\Room\EditFeature.ascx" />
@@ -241,54 +241,54 @@
     <Compile Include="Hotel_Configuration_Management\PriceManager\SpecialRoomPrice.aspx.designer.cs">
       <DependentUpon>SpecialRoomPrice.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\AddEquipment.ascx.cs">
       <DependentUpon>AddEquipment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\AddEquipment.ascx.designer.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\AddEquipment.ascx.designer.cs">
       <DependentUpon>AddEquipment.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\AddRoomType.aspx.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\AddRoomType.aspx.cs">
       <DependentUpon>AddRoomType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\AddRoomType.aspx.designer.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\AddRoomType.aspx.designer.cs">
       <DependentUpon>AddRoomType.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\EditEquipment.ascx.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\EditEquipment.ascx.cs">
       <DependentUpon>EditEquipment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\EditEquipment.ascx.designer.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\EditEquipment.ascx.designer.cs">
       <DependentUpon>EditEquipment.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\EditRoomType.aspx.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\EditRoomType.aspx.cs">
       <DependentUpon>EditRoomType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\EditRoomType.aspx.designer.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\EditRoomType.aspx.designer.cs">
       <DependentUpon>EditRoomType.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\Equipment.cs" />
-    <Compile Include="Hotel_Configuration_Management\Room Type\PreviewRoomType.aspx.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\Equipment.cs" />
+    <Compile Include="Hotel_Configuration_Management\RoomType\PreviewRoomType.aspx.cs">
       <DependentUpon>PreviewRoomType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\PreviewRoomType.aspx.designer.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\PreviewRoomType.aspx.designer.cs">
       <DependentUpon>PreviewRoomType.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\RoomType.aspx.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\RoomType.aspx.cs">
       <DependentUpon>RoomType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\RoomType.aspx.designer.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\RoomType.aspx.designer.cs">
       <DependentUpon>RoomType.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\ViewRoomType.aspx.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\ViewRoomType.aspx.cs">
       <DependentUpon>ViewRoomType.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Hotel_Configuration_Management\Room Type\ViewRoomType.aspx.designer.cs">
+    <Compile Include="Hotel_Configuration_Management\RoomType\ViewRoomType.aspx.designer.cs">
       <DependentUpon>ViewRoomType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Hotel_Configuration_Management\Room\AddFeature.ascx.cs">

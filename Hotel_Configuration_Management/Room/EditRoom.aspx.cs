@@ -130,6 +130,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
                 ddlStatus.SelectedValue = sdr.GetString(sdr.GetOrdinal("Status"));
 
+                // Retain Room Number 
+                ViewState["RoomNumber"] = sdr.GetString(sdr.GetOrdinal("RoomNumber"));
+
             }
 
             conn.Close();
@@ -193,25 +196,30 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            conn = new SqlConnection(strCon);
-            conn.Open();
+            // If room number is valid
+            if (lblRoomNumberErrorMsg.Visible != true)
+            {
+                conn = new SqlConnection(strCon);
+                conn.Open();
 
-            // SQL Command to update existing room's details
+                // SQL Command to update existing room's details
 
-            String updateRoom = "UPDATE Room SET RoomNumber = @RoomNumber, FloorID = @FloorID, RoomTypeID = @RoomTypeID, Status = @Status " +
-                "WHERE RoomID LIKE @RoomID";
+                String updateRoom = "UPDATE Room SET RoomNumber = @RoomNumber, FloorID = @FloorID, RoomTypeID = @RoomTypeID, Status = @Status " +
+                    "WHERE RoomID LIKE @RoomID";
 
-            SqlCommand cmdUpdateRoom = new SqlCommand(updateRoom, conn);
+                SqlCommand cmdUpdateRoom = new SqlCommand(updateRoom, conn);
 
-            cmdUpdateRoom.Parameters.AddWithValue("@RoomNumber", txtRoomNumber.Text);
-            cmdUpdateRoom.Parameters.AddWithValue("@FloorID", ddlFloorNumber.SelectedValue);
-            cmdUpdateRoom.Parameters.AddWithValue("@RoomTypeID", ddlRoomType.SelectedValue);
-            cmdUpdateRoom.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue);
-            cmdUpdateRoom.Parameters.AddWithValue("@RoomID", roomID);
+                cmdUpdateRoom.Parameters.AddWithValue("@RoomNumber", txtRoomNumber.Text);
+                cmdUpdateRoom.Parameters.AddWithValue("@FloorID", ddlFloorNumber.SelectedValue);
+                cmdUpdateRoom.Parameters.AddWithValue("@RoomTypeID", ddlRoomType.SelectedValue);
+                cmdUpdateRoom.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue);
+                cmdUpdateRoom.Parameters.AddWithValue("@RoomID", roomID);
 
-            int i = cmdUpdateRoom.ExecuteNonQuery();
+                int i = cmdUpdateRoom.ExecuteNonQuery();
 
-            Response.Redirect("ViewRoom.aspx?ID=" + en.encryption(roomID));
+                Response.Redirect("ViewRoom.aspx?ID=" + en.encryption(roomID));
+            }
+                
         }
 
         protected void formBtnCancel_Click(object sender, EventArgs e)
@@ -240,6 +248,48 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
             PopupCover.Visible = false;
             PopupReset.Visible = false;
+        }
+
+        protected void txtRoomNumber_TextChanged(object sender, EventArgs e)
+        {
+            String currentRoomNumber = ViewState["RoomNumber"].ToString();
+
+            if ((txtRoomNumber.Text != "") && (txtRoomNumber.Text != currentRoomNumber))
+            {
+                // Check if user entered room number exist in database
+
+                String roomNumber = txtRoomNumber.Text;
+
+                // open connection
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                String checkRoomNumber = "SELECT COUNT(*) " +
+                                    "FROM Room " +
+                                    "WHERE RoomNumber LIKE '" + roomNumber + "' AND Status IN('Active', 'Blocked')";
+
+                SqlCommand cmdCheckRoomNumber = new SqlCommand(checkRoomNumber, conn);
+
+                int count = (int)cmdCheckRoomNumber.ExecuteScalar();
+
+                conn.Close();
+
+                //If has row means room number already exists inside database
+                if (count > 0)
+                {
+                    lblRoomNumberErrorMsg.Visible = true;   // if exists print error message
+                }
+                else
+                {
+                    lblRoomNumberErrorMsg.Visible = false;    // if no exists
+                }
+
+            }
+            else
+            {
+                lblRoomNumberErrorMsg.Visible = false;
+            }
+
         }
     }
 }

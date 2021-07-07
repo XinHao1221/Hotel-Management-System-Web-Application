@@ -5,7 +5,7 @@
 .popupWindow {
     width: 30%;
     min-width: 400px;
-    position: absolute;
+    position: fixed;
     background-color: white;
     top: -640px;
     z-index: 10;

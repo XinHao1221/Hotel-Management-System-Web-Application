@@ -208,9 +208,9 @@
                         </ItemTemplate>
 
                         <AlternatingItemTemplate>
-
-                            <asp:LinkButton ID="LBRepeater" runat="server" OnClick="LBRepeater_Click" CssClass="optionContainer">
-                                <div style="clear:both; width:97%; margin:auto;">
+                            <div style="clear:both; width:97%; margin:auto;">
+                                <asp:LinkButton ID="LBRepeater" runat="server" OnClick="LBRepeater_Click" CssClass="optionContainer">
+                                
                                     <div style="float:left; width:5%;" class="tableContentAlternate">
                                             <div style="text-align:center;" class="textOverflowStyle">
                                                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>

@@ -89,6 +89,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
             PopupCover.Visible = true;
             PopupDelete.Visible = true;
+
         }
 
         protected void btnDeleteFeature_Click(object sender, EventArgs e)

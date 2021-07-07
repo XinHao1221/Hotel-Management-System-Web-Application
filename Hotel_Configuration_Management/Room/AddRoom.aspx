@@ -17,7 +17,7 @@
 
         <asp:LinkButton ID="LBBack" runat="server" OnClick="LBBack_Click" CssClass="divLBStyle">
             <div style="margin:20px 0px 20px 0px; margin-left:2.5%;">
-                <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Floor.aspx';">
+                <div class="formBackBtn" style="float:left;" tooltip="save" onclick="location.href='Room.aspx';">
 
                     <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
                     <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
@@ -42,9 +42,10 @@
                 </td>
                 <td class="tableSeperator"></td>
                 <td class="formInput">
-                    <asp:TextBox ID="txtRoomNumber" runat="server" CssClass="inputStyle" placeholder="R101" Width="20%"></asp:TextBox>
+                    <asp:TextBox ID="txtRoomNumber" runat="server" CssClass="inputStyle" placeholder="R1001" Width="20%" AutoPostBack="true" OnTextChanged="txtRoomNumber_TextChanged"></asp:TextBox>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtRoomNumber" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
+                    <asp:Label ID="lblRoomNumberErrorMsg" runat="server" Text="Room Number already exists" CssClass="validatorStyle" Visible="false"></asp:Label>
                 </td>
             </tr>
             <tr>

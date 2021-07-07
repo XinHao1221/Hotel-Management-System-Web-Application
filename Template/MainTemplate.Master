@@ -241,7 +241,7 @@
                         &nbsp;
                     </div>
 
-                    <a href="../Room Type/RoomType.aspx">
+                    <a href="../RoomType/RoomType.aspx">
                         <div style="float:left; background-color:white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Room Type
@@ -349,6 +349,11 @@
         <div class="pageContent">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
+        </div>
+
+        <%--Footer--%>
+        <div style="margin-left:220px; height:70px;">
+            &nbsp;
         </div>
     </form>
 </body>

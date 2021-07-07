@@ -1,8 +1,13 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddEquipment.ascx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.AddEquipment" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditEquipment.ascx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room_Type.EditEquipment" %>
 
 <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
 <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
 
+<style>
+    .subFormIcon{
+        margin-top:10px;
+    }
+</style>
 
 <div style="margin-left:8%; margin-top:25px;">
     <div style="float:left;">
@@ -45,16 +50,16 @@
 
 <%--Repeater table header--%>
 <div style="width:80%; margin:auto;">
-    <div style="float:left; width:5%; text-align:center;" class="subFormRepeaterHeader">
+    <div style="float:left; width:8%; text-align:center;" class="subFormRepeaterHeader">
         No
     </div>
     <div style="float:left; width:25%;" class="subFormRepeaterHeader">
         Equipment
     </div>
-    <div style="float:left; width:25%;" class="subFormRepeaterHeader">
+    <div style="float:left; width:15%; text-align:right;" class="subFormRepeaterHeader">
         Fine Charges
     </div>
-    <div style="float:left; width:40%;" class="subFormRepeaterHeader">
+    <div style="float:left; width:47%;" class="subFormRepeaterHeader">
         &nbsp;
     </div>
     <div style="float:left; width:5%;" class="subFormRepeaterHeader">
@@ -67,16 +72,17 @@
 
     <ItemTemplate>
         <div style="width:80%; margin:auto;">
-            <div style="float:left; width:5%; text-align:center;" class="subFormTableContent">
+            <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
             </div>
             <div style="float:left; width:25%;" class="subFormTableContent">
-                <asp:Label ID="lblEquipmentName" runat="server" Text='<%# Eval("equipmentName") %>'></asp:Label>
+                <asp:Label ID="lblEquipmentID" runat="server" Text='<%# Eval("EquipmentID") %>' Visible="false"></asp:Label>
+                <asp:Label ID="lblEquipmentName" runat="server" Text='<%# Eval("Title") %>'></asp:Label>
             </div>
-            <div style="float:left; width:8%; text-align:right;" class="subFormTableContent">
-                <asp:Label ID="lblFineCharges" runat="server" Text='<%# Eval("fineCharges", "{0:N2}") %>'></asp:Label>
+            <div style="float:left; width:15%; text-align:right;" class="subFormTableContent">
+                <asp:Label ID="lblFineCharges" runat="server" Text='<%# Eval("FineCharges") %>'></asp:Label>
             </div>
-            <div style="float:left; width:59%;" class="subFormTableContent">
+            <div style="float:left; width:49%;" class="subFormTableContent">
                 &nbsp;
             </div>
             <div style="float:left; width:3%;" class="subFormTableContent">
@@ -87,19 +93,20 @@
 
     <AlternatingItemTemplate>
         <div style="width:80%; margin:auto;">
-            <div style="float:left; width:5%; text-align:center;" class="subFormTableContentAlternate">
+            <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
             </div>
             <div style="float:left; width:25%;" class="subFormTableContentAlternate">
-                <asp:Label ID="lblEquipmentName" runat="server" Text='<%# Eval("equipmentName") %>'></asp:Label>
+                <asp:Label ID="lblEquipmentID" runat="server" Text='<%# Eval("EquipmentID") %>' Visible="false"></asp:Label>
+                <asp:Label ID="lblEquipmentName" runat="server" Text='<%# Eval("Title") %>'></asp:Label>
             </div>
-            <div style="float:left; width:8%; text-align:right;" class="subFormTableContentAlternate">
-                <asp:Label ID="lblFineCharges" runat="server" Text='<%# Eval("fineCharges", "{0:N2}") %>'></asp:Label>
+            <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
+                <asp:Label ID="lblFineCharges" runat="server" Text='<%# Eval("FineCharges") %>'></asp:Label>
             </div>
-            <div style="float:left; width:59%;" class="subFormTableContentAlternate">
+            <div style="float:left; width:49%;" class="subFormTableContentAlternate">
                 &nbsp;
             </div>
-            <div style="float:left; width:3%;" class="subFormTableContentAlternate">
+            <div style="float:left; width:3%; height:40px;" class="subFormTableContentAlternate">
                 <asp:ImageButton ID="IBDeleteEquipment" runat="server" OnClick="IBDeleteEquipment_Click" ImageUrl="~/Image/delete_icon.png" CssClass="subFormIcon" ToolTip="Delete"/>
             </div>
         </div> 
@@ -113,10 +120,6 @@
         <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>
     </div>           
 </div>
-
-<%--<div style="width:80%; margin:auto;" class="subFormRepeaterHeader">
-    &nbsp;
-</div>--%>
 
 <%--Popup Window--%>
 <div class="popup">
