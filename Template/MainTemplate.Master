@@ -126,8 +126,7 @@
             <div class="navBarSeperator">&nbsp;</div>
 
             <!--Dashboard-->
-            <asp:LinkButton ID="LinkButton2" runat="server">
-
+            <asp:HyperLink ID="HlNavDashboard" runat="server" NavigateUrl="~/Dashboard/Dashboard.aspx">
                 <div class="navOptionContainer">
                     <div style="float:left;">
                         <asp:Image ID="INavDashboard" runat="server" ImageUrl="~/Template/Template_Icon/dashboard.png" CssClass="navIconStyle"/>
@@ -137,7 +136,7 @@
                         Dashboard
                     </div>
                 </div>
-            </asp:LinkButton>
+            </asp:HyperLink>
 
             <div class="navBarSeperator">&nbsp;</div>
 
@@ -185,7 +184,7 @@
             <div class="navBarSeperator">&nbsp;</div>
 
             <!--Cashiering-->
-            <a>
+            <asp:HyperLink ID="HLNavCashiering" runat="server">
                 <div class="navOptionContainer">
                     <div style="float:left;">
                         <asp:Image ID="INavCashiering" runat="server" ImageUrl="~/Template/Template_Icon/dollar.png" CssClass="navIconStyle"/>
@@ -195,8 +194,8 @@
                         Cashiering
                     </div>
                 </div>
-            </a>
-
+            </asp:HyperLink>
+                
             <div class="navBarSeperator">&nbsp;</div>
 
             <%--Hotel Configuration--%>
@@ -217,73 +216,74 @@
 
             <asp:Panel ID="pnNavHotelConfiguration" runat="server" CssClass="dropdown-container" Visible="false">
                 <div>
-                    <a href="../Floor/Floor.aspx">
+                    <asp:HyperLink ID="HLNavFloor" runat="server" NavigateUrl="~/Hotel_Configuration_Management/Floor/Floor.aspx">
                         <div style="float:left; background-color:white; border-start-end-radius:5px; border-start-start-radius:5px;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Floor
                             </div>
                         </div>
-                    </a>
+                    </asp:HyperLink>
 
                     <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
                         &nbsp;
                     </div>
 
-                    <a href="../Room/Room.aspx">
+                    <asp:HyperLink ID="HLNavRoom" runat="server" NavigateUrl="~/Hotel_Configuration_Management/Room/Room.aspx">
                         <div style="float:left; background-color:white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Room
                             </div>
                         </div>
-                    </a>
-
+                    </asp:HyperLink>
+                    
                     <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
                         &nbsp;
                     </div>
 
-                    <a href="../RoomType/RoomType.aspx">
+                    <asp:HyperLink ID="HLNavRoomType" runat="server" NavigateUrl="~/Hotel_Configuration_Management/RoomType/RoomType.aspx">
                         <div style="float:left; background-color:white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Room Type
                             </div>
                         </div>
-                    </a>
+                    </asp:HyperLink> 
 
                     <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
                         &nbsp;
                     </div>
 
-                    <a href="../PriceManager/RegularRoomPrice.aspx">
+                    <asp:HyperLink ID="HLNavPriceManager" runat="server" NavigateUrl="~/Hotel_Configuration_Management/PriceManager/RegularRoomPrice.aspx">
                         <div style="float:left; background-color:white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Price Manager
                             </div>
                         </div>
-                    </a>
+                    </asp:HyperLink>
 
                     <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
                         &nbsp;
                     </div>
 
-                    <a href="../Facility/Facility.aspx">
+                    <asp:HyperLink ID="HLNavFacility" runat="server" NavigateUrl="~/Hotel_Configuration_Management/Facility/Facility.aspx">
                         <div style="float:left; background-color:white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Facility
                             </div>
                         </div>
-                    </a>
-
+                    </asp:HyperLink>
+                    
                     <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
                         &nbsp;
                     </div>
 
-                    <a href="../Survey/Survey.aspx">
+                    <asp:HyperLink ID="HLNavSurvey" runat="server" NavigateUrl="~/Hotel_Configuration_Management/Survey/Survey.aspx">
                         <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Survey
                             </div>
                         </div>
-                    </a>
+                    </asp:HyperLink>
+                        
                 </div>
             </asp:Panel>
 

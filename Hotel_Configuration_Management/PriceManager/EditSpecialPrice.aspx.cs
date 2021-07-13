@@ -190,6 +190,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
                 ViewState["Repeater2"] = "false";
 
                 getStandardRoomPrice(selectedDay);
+                txtEventName.Text = "";
             }
         }
 

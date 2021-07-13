@@ -72,6 +72,9 @@
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="Dashboard\Dashboard.aspx" />
+    <Content Include="Front_Desk\Guest\AddGuest.aspx" />
+    <Content Include="Front_Desk\Guest\AddPreference.ascx" />
+    <Content Include="Front_Desk\Guest\Guest.aspx" />
     <Content Include="Hotel_Configuration_Management\Facility\AddFacility.aspx" />
     <Content Include="Hotel_Configuration_Management\Facility\EditFacility.aspx" />
     <Content Include="Hotel_Configuration_Management\Facility\Facility.aspx" />
@@ -125,6 +128,7 @@
     <Content Include="StyleSheet\PopupWindow.css" />
     <Content Include="StyleSheet\RepeaterTable.css" />
     <Content Include="StyleSheet\SubFormStyle.css" />
+    <Content Include="Temp.aspx" />
     <Content Include="Template\Template_Icon\arrow_down.png" />
     <Content Include="Template\Template_Icon\dashboard.png" />
     <Content Include="Template\Template_Icon\dollar.png" />
@@ -142,6 +146,28 @@
     <Compile Include="Dashboard\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Front_Desk\Guest\AddGuest.aspx.cs">
+      <DependentUpon>AddGuest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\AddGuest.aspx.designer.cs">
+      <DependentUpon>AddGuest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\AddPreference.ascx.cs">
+      <DependentUpon>AddPreference.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\AddPreference.ascx.designer.cs">
+      <DependentUpon>AddPreference.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\Guest.aspx.cs">
+      <DependentUpon>Guest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\Guest.aspx.designer.cs">
+      <DependentUpon>Guest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\Preference.cs" />
     <Compile Include="Hotel_Configuration_Management\Facility\AddFacility.aspx.cs">
       <DependentUpon>AddFacility.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -348,6 +374,13 @@
       <DependentUpon>Survey.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Temp.aspx.cs">
+      <DependentUpon>Temp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Temp.aspx.designer.cs">
+      <DependentUpon>Temp.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Template\MainTemplate.Master.cs">
       <DependentUpon>MainTemplate.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -43,7 +43,7 @@
                 </td>
                 <td class="tableSeperator"></td>
                 <td class="formInput">
-                    <asp:TextBox ID="txtDate" runat="server" CssClass="inputStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtDate_TextChanged" AutoPostBack="true"></asp:TextBox>
+                    <asp:TextBox ID="txtDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtDate_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDate" ErrorMessage="Please select a date." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                 </td>

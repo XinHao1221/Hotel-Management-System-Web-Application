@@ -67,7 +67,7 @@
                             <asp:ListItem>Per Reservation</asp:ListItem>
                         </asp:DropDownList>
                         <br />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlPriceType" InitialValue="-- Price Type --" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlPriceType" InitialValue="-- Price Type --" ErrorMessage="Please select an item." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
