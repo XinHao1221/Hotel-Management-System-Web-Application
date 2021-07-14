@@ -1,0 +1,153 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+using Hotel_Management_System.Utility;
+
+namespace Hotel_Management_System.Front_Desk.Guest
+{
+    public partial class EditGuest : System.Web.UI.Page
+    {
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+        private String guestID;
+
+        // Create connection to database
+        SqlConnection conn;
+        String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            //guestID = Request.QueryString["ID"];
+
+            //guestID = en.decryption(facilityID);
+
+            guestID = "G10000001";
+
+            if (!IsPostBack)
+            {
+                // Save link for previous page
+                //ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
+
+                //PopupCover.Visible = false;
+                setData();
+            }
+        }
+
+        private void setData()
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            // Get guest
+            String getGuest = "SELECT * FROM Guest WHERE GuestID LIKE @ID";
+
+            SqlCommand cmdGetGuest = new SqlCommand(getGuest, conn);
+
+            cmdGetGuest.Parameters.AddWithValue("@ID", guestID);
+
+            SqlDataReader sdr = cmdGetGuest.ExecuteReader();
+
+            if (sdr.Read())
+            {
+                ddlTitle.SelectedValue = sdr.GetString(sdr.GetOrdinal("Title"));
+
+                txtName.Text = sdr.GetString(sdr.GetOrdinal("Name"));
+
+                ddlGender.SelectedValue = sdr.GetString(sdr.GetOrdinal("Gender"));
+
+                ddlIDType.SelectedValue = sdr.GetString(sdr.GetOrdinal("IDType"));
+
+                txtIDNo.Text = sdr.GetString(sdr.GetOrdinal("IDNo"));
+
+                ddlNationality.SelectedValue = sdr.GetString(sdr.GetOrdinal("Nationality"));
+
+                txtDOB.Text = sdr.GetString(sdr.GetOrdinal("DOB"));
+
+                getAge(sdr.GetString(sdr.GetOrdinal("DOB")));
+
+                txtPhone.Text = sdr.GetString(sdr.GetOrdinal("Phone"));
+
+                txtEmail.Text = sdr.GetString(sdr.GetOrdinal("Email"));
+            }
+
+            conn.Close();
+
+        }
+
+        protected void txtDOB_TextChanged(object sender, EventArgs e)
+        {
+            // Get Age of guest
+            DateTime dob = Convert.ToDateTime(txtDOB.Text);
+            DateTime currentDate = DateTime.Now;
+
+            // Get total day
+            double totalDay = Convert.ToDouble((currentDate - dob).TotalDays);
+
+            // Convert total day in data of birth
+            Decimal age = Math.Ceiling(Convert.ToDecimal(totalDay / 365));
+
+            lblAge.Text = age.ToString();
+
+        }
+
+        private void getAge(string dateOfBirth)
+        {
+            // Get Age of guest
+            DateTime dob = Convert.ToDateTime(dateOfBirth);
+            DateTime currentDate = DateTime.Now;
+
+            // Get total day
+            double totalDay = Convert.ToDouble((currentDate - dob).TotalDays);
+
+            // Convert total day in data of birth
+            Decimal age = Math.Ceiling(Convert.ToDecimal(totalDay / 365));
+
+            lblAge.Text = age.ToString();
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+            // Redirect to previous page
+            Response.Redirect(ViewState["PreviousPage"].ToString());
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            // Update guest
+            String updateGuest = "UPDATE Guest " +
+                "SET Name = @Name, Title = @Title, Phone = @Phone, Email = @Email, IDType = @IDType, IDNo = @IDNo, Nationality = @Nationality, " +
+                "DOB = @DOB, Gender = @Gender WHERE GuestID LIKE @ID";
+
+            SqlCommand cmdUpdateGuest = new SqlCommand(updateGuest, conn);
+
+            cmdUpdateGuest.Parameters.AddWithValue("@ID", guestID);
+            cmdUpdateGuest.Parameters.AddWithValue("@Name", txtName.Text);
+            cmdUpdateGuest.Parameters.AddWithValue("@Title", ddlTitle.SelectedValue);
+            cmdUpdateGuest.Parameters.AddWithValue("@Phone", txtPhone.Text);
+            cmdUpdateGuest.Parameters.AddWithValue("@Email", txtEmail.Text);
+            cmdUpdateGuest.Parameters.AddWithValue("@IDType", ddlIDType.SelectedValue);
+            cmdUpdateGuest.Parameters.AddWithValue("@IDNo", txtIDNo.Text);
+            cmdUpdateGuest.Parameters.AddWithValue("@Nationality", ddlNationality.SelectedValue);
+            cmdUpdateGuest.Parameters.AddWithValue("@DOB", txtDOB.Text);
+            cmdUpdateGuest.Parameters.AddWithValue("@Gender", ddlGender.Text);
+
+            int i = cmdUpdateGuest.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        protected void formBtnCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

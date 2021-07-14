@@ -52,6 +52,15 @@
     <!--Survey-->
     <siteMapNode url="Hotel_Configuration_Management/Survey/Survey.aspx" title="Survey Management"  description=""/>
   
+    <!--Guest-->
+    <siteMapNode url="Front_Desk/Guest/Guest.aspx" title="Guest"  description="">
+      <siteMapNode url="Front_Desk/Guest/AddGuest.aspx" title="Add Guest"  description="">
+        <siteMapNode url="Front_Desk/Guest/PreviewGuest.aspx" title="Guest Details"  description=""/>
+      </siteMapNode>
+      <siteMapNode url="Front_Desk/Guest/EditGuest.aspx" title="Edit Guest"  description="" />
+      <siteMapNode url="Front_Desk/Guest/ViewGuest.aspx" title="Guest Details"  description="" />
+    </siteMapNode>
+    
     <siteMapNode url="" title=""  description="" />
   </siteMapNode>
 </siteMap>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" AutoEventWireup="true" CodeBehind="Room.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.Room" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Room.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.Room" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
 
@@ -8,25 +8,7 @@
     <link rel="stylesheet" href="../../StyleSheet/MainMenuHeader.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupBox.css" />
 
-    <style>
-        body{
-            width:100%;
-            height:100%;
-        }
-
-        .content{
-
-        }
-
-       
-        .auto-style1 {
-            
-        }
-
-    </style>
-
     <div>
-
         <%-- Page content --%>
         <div class="content">
                 
@@ -52,19 +34,17 @@
                 <%--Add Button--%>
                 <div class="menuHeaderButton">
                     <div style="float:right; margin-right:0%;">
-                        <div class="menuHeaderSaveBtn" onclick="location.href='AddRoom.aspx';">
-
-                            
-                                <div class="menuHeaderButtonStyle">
-                                    <div>
-                                        <img src="../../Image/plus_white.png" width="12.5px" height="12.5px" style="float:left; margin:10px 0px 0px 15px;" />
-                                        <div style="float:left; margin:10px 0px 0px 10px; font-size:12.5px;">
-                                            Add
-                                        </div>
+                        <div class="menuHeaderSaveBtn" onclick="location.href='AddRoom.aspx';"> 
+                            <div class="menuHeaderButtonStyle">
+                                <div>
+                                    <img src="../../Image/plus_white.png" width="12.5px" height="12.5px" style="float:left; margin:10px 0px 0px 15px;" />
+                                    <div style="float:left; margin:10px 0px 0px 10px; font-size:12.5px;">
+                                        Add
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
                 </div>
 

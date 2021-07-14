@@ -66,8 +66,8 @@ namespace Hotel_Management_System.Front_Desk.Guest
             String preferece = (item.FindControl("lblPreference") as Label).Text;
             String date = (item.FindControl("lblDate") as Label).Text;
 
-            lblPopupDeleteContent.Text = "Preference: " + preferece + "<br />" +
-                "Date Added: " + date + "<br /><br />";
+            lblPopupDeleteContent.Text = "Preference: " + preferece + "<br /><br />";
+                //"Date Added: " + date + "<br /><br />";
 
             ViewState["ItemIndex"] = itemIndex;
 

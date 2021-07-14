@@ -96,6 +96,15 @@ namespace Hotel_Management_System.Template
         protected global::System.Web.UI.WebControls.Panel pnNavFrontDesk;
 
         /// <summary>
+        /// HLNavGuest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLNavGuest;
+
+        /// <summary>
         /// HLNavCashiering control.
         /// </summary>
         /// <remarks>

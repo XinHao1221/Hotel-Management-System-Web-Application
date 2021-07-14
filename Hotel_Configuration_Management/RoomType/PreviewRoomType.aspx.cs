@@ -32,6 +32,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         private void setText()
         {
+            // Open database connection
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -64,6 +65,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
                     cbExtraBed.Visible = true;
                 }
             }
+
+            conn.Close();
         }
 
         private void setEquipment()

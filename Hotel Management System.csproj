@@ -74,7 +74,11 @@
     <Content Include="Dashboard\Dashboard.aspx" />
     <Content Include="Front_Desk\Guest\AddGuest.aspx" />
     <Content Include="Front_Desk\Guest\AddPreference.ascx" />
+    <Content Include="Front_Desk\Guest\EditGuest.aspx" />
+    <Content Include="Front_Desk\Guest\EditPreference.ascx" />
     <Content Include="Front_Desk\Guest\Guest.aspx" />
+    <Content Include="Front_Desk\Guest\PreviewGuest.aspx" />
+    <Content Include="Front_Desk\Guest\ViewGuest.aspx" />
     <Content Include="Hotel_Configuration_Management\Facility\AddFacility.aspx" />
     <Content Include="Hotel_Configuration_Management\Facility\EditFacility.aspx" />
     <Content Include="Hotel_Configuration_Management\Facility\Facility.aspx" />
@@ -160,6 +164,20 @@
     <Compile Include="Front_Desk\Guest\AddPreference.ascx.designer.cs">
       <DependentUpon>AddPreference.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Front_Desk\Guest\EditGuest.aspx.cs">
+      <DependentUpon>EditGuest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\EditGuest.aspx.designer.cs">
+      <DependentUpon>EditGuest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\EditPreference.ascx.cs">
+      <DependentUpon>EditPreference.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\EditPreference.ascx.designer.cs">
+      <DependentUpon>EditPreference.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Front_Desk\Guest\Guest.aspx.cs">
       <DependentUpon>Guest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -168,6 +186,20 @@
       <DependentUpon>Guest.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front_Desk\Guest\Preference.cs" />
+    <Compile Include="Front_Desk\Guest\PreviewGuest.aspx.cs">
+      <DependentUpon>PreviewGuest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\PreviewGuest.aspx.designer.cs">
+      <DependentUpon>PreviewGuest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\ViewGuest.aspx.cs">
+      <DependentUpon>ViewGuest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Guest\ViewGuest.aspx.designer.cs">
+      <DependentUpon>ViewGuest.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Hotel_Configuration_Management\Facility\AddFacility.aspx.cs">
       <DependentUpon>AddFacility.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
