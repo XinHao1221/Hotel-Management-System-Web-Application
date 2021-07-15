@@ -26,7 +26,10 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            guestID = "G10000001";
+            guestID = Request.QueryString["ID"];
+            guestID = en.decryption(guestID);
+
+            //guestID = "G10000001";
 
             if (!IsPostBack)
             {

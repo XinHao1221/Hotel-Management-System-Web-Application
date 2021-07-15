@@ -23,16 +23,16 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //guestID = Request.QueryString["ID"];
+            guestID = Request.QueryString["ID"];
 
-            //guestID = en.decryption(facilityID);
+            guestID = en.decryption(guestID);
 
-            guestID = "G10000001";
+            //guestID = "G10000001";
 
             if (!IsPostBack)
             {
                 // Save link for previous page
-                //ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
+                ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
 
                 //PopupCover.Visible = false;
                 setData();
@@ -143,11 +143,42 @@ namespace Hotel_Management_System.Front_Desk.Guest
             int i = cmdUpdateGuest.ExecuteNonQuery();
 
             conn.Close();
+
+            // Redirect to View Guest Page
+            Response.Redirect("ViewGuest.aspx?ID=" + en.encryption(guestID));
         }
 
         protected void formBtnCancel_Click(object sender, EventArgs e)
         {
-
+            PopupReset.Visible = true;
+            PopupCover.Visible = true; 
         }
+
+        protected void btnPopupCancel_Click(object sender, EventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+        }
+
+        protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
+        {
+            // Reset all text field
+            ddlTitle.SelectedIndex = 0;
+            txtName.Text = "";
+            ddlGender.SelectedIndex = 0;
+            ddlIDType.SelectedIndex = 0;
+            txtIDNo.Text = "";
+            ddlNationality.SelectedIndex = 0;
+            txtDOB.Text = "";
+            txtPhone.Text = "";
+            txtEmail.Text = "";
+            lblAge.Text = "";
+
+
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+        }
+
+
     }
 }

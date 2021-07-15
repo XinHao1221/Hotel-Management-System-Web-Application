@@ -388,10 +388,24 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void LBEdit_Click(object sender, EventArgs e)
         {
+            // When user click on edit button in more option panel
+            RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
 
+            // Get GuestID of the selected item
+            String guestID = (item.FindControl("lblGuestID") as Label).Text;
+
+            guestID = en.encryption(guestID);
+
+            // Redirect to view page
+            Response.Redirect("ViewGuest.aspx?ID=" + guestID);
         }
 
         protected void LBChangeStatus_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void LBMakeReservation_Click(object sender, EventArgs e)
         {
 
         }

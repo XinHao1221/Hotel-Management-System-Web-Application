@@ -424,6 +424,34 @@
                     
         </div>
 
+        <%-- Popup Window --%>
+        <div class="popup">
+            <asp:Panel ID="PopupReset" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:red;" class="popupTitle">Reset Text Field?</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    <p>All text fields will be reset!</p>
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnPopupCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                
+                <asp:Button ID="btnPopupConfirmReset" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirmReset_Click"/>
+            </asp:Panel>
+
+            <%-- Popup Cover --%>
+            <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
+                &nbsp;
+            </asp:Panel>
+
+        </div>
+
     </div>
 
 </asp:Content>

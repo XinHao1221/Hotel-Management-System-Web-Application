@@ -160,14 +160,20 @@
                             
                         </asp:LinkButton>
 
-                        <asp:LinkButton ID="LBChangeStatus" runat="server" OnClick="LBChangeStatus_Click" CssClass="optionContainer" Font-Underline="false">
+                        <asp:LinkButton ID="LBMakeReservation" runat="server" OnClick="LBMakeReservation_Click" CssClass="optionContainer" Font-Underline="false" ToolTip="Make Reservation">
                             
 
-                            <div class="tableOption" style="color:#FF0000;">
+                            <div class="tableOption">
 
-                                <asp:Image ID="IMChangeStatus" runat="server" CssClass="tableOptionIcon" ImageUrl="~/Image/activate_icon.png"/>
+                                <div style="float:left;">
+                                    <img src="../../Image/booking.png" class="tableOptionIcon" />
+                                </div>
                                 
-                                <asp:Label ID="lblChangeStatus" runat="server" Text="Label" ForeColor="#00ce1b">Activate</asp:Label>
+                                <div style="float:left; padding-top:1.5px;">
+                                    <asp:Label ID="lblChangeStatus" runat="server" Text="Label">Reservation</asp:Label>
+                                </div>
+
+                                <div style="clear:both;"></div>
 
                             </div>
                             
@@ -241,18 +247,18 @@
                             
                             </asp:LinkButton>
 
-                            <asp:LinkButton ID="LBChangeStatus" runat="server" OnClick="LBChangeStatus_Click" CssClass="optionContainer" Font-Underline="false">
+                            <asp:LinkButton ID="LBMakeReservation" runat="server" OnClick="LBMakeReservation_Click" CssClass="optionContainer" Font-Underline="false" ToolTip="Make Reservation">
                             
 
-                                <div class="tableOption" style="color:#FF0000;">
+                            <div class="tableOption">
 
-                                    <asp:Image ID="IMChangeStatus" runat="server" CssClass="tableOptionIcon" ImageUrl="~/Image/activate_icon.png"/>
+                                <img src="../../Image/booking.png" class="tableOptionIcon" />
                                 
-                                    <asp:Label ID="lblChangeStatus" runat="server" Text="Label" ForeColor="#00ce1b">Activate</asp:Label>
+                                Reservation
 
-                                </div>
+                            </div>
                             
-                            </asp:LinkButton>
+                        </asp:LinkButton>
 
                         </asp:Panel> 
 

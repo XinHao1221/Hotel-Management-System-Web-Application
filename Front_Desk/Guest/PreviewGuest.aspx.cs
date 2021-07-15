@@ -23,9 +23,9 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //guestID = en.decryption(Request.QueryString["ID"]);
+            guestID = en.decryption(Request.QueryString["ID"]);
 
-            guestID = "G10000001";
+            //guestID = "G10000001";
 
             setText();
 
