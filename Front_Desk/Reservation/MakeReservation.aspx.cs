@@ -26,6 +26,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         // Create instance of ReservationUltility class
         ReservationUtility reservationUtility = new ReservationUtility();
 
+        // No of PNRoomReservationForm that Visible = true
+        private static int noOfRoomReservationForm = 1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -218,5 +220,102 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Navigate to add guest
             Response.Redirect("~/Front_Desk/Guest/AddGuest.aspx");
         }
+
+        protected void AddReservationForm(object sender, EventArgs e)
+        {
+            // Get reference of LinkButton current clicked
+            LinkButton lbAdd = (LinkButton)sender;
+
+            // Get ID of LinkButton
+            String id = lbAdd.ID;
+
+            // Get last value of ID
+            // To identify which 
+            int index = id.Last() - '0';
+
+            String nextReservationPanelID = "PNReservationForm" + (index + 1).ToString();
+
+            Panel PNReservationForm = PNReserveRoom.FindControl(nextReservationPanelID) as Panel;
+
+            PNReservationForm.Visible = true;
+
+            noOfRoomReservationForm++;
+        }
+
+        protected void DeleteReservationForm(object sender, EventArgs e)
+        {
+            LinkButton lbDelete = (LinkButton)sender;
+
+            String id = lbDelete.ID;
+
+            int index = id.Last() - '0';
+
+            String currentReservationPanelID;
+
+            if (index < noOfRoomReservationForm)
+            {
+                shiftPanelContent(index);
+
+                currentReservationPanelID = "PNReservationForm" + noOfRoomReservationForm.ToString();
+            }
+            else
+            {
+                currentReservationPanelID = "PNReservationForm" + index.ToString();
+            }
+
+            Panel PNReservationForm = PNReserveRoom.FindControl(currentReservationPanelID) as Panel;
+
+            PNReservationForm.Visible = false;
+
+            noOfRoomReservationForm--;
+
+        }
+
+        private void shiftPanelContent(int currentIndex)
+        {
+            for(int i = currentIndex; i < noOfRoomReservationForm; i++)
+            {
+                // Get reference for ddlRoomType
+                DropDownList ddlRoomType = PNReserveRoom.FindControl("ddlRoomType" + currentIndex.ToString()) as DropDownList;
+
+                // Get reference for next ddlRoomType
+                DropDownList nextDDLRoomType = PNReserveRoom.FindControl("ddlRoomType" + (currentIndex + 1).ToString()) as DropDownList;
+
+                ddlRoomType.DataSource = nextDDLRoomType.Items;
+
+                ddlRoomType.DataBind();
+
+                ddlRoomType.SelectedIndex = nextDDLRoomType.SelectedIndex;
+
+            }
+        }
+
+        protected void DropDownSelectRoomType(object sender, EventArgs e)
+        {
+            DropDownList ddlRoomType = (DropDownList)sender;
+
+            String id = ddlRoomType.ID;
+
+            int index = id.Last() - '0';
+
+            String currrentLBAddReservationForm = "LBAddReservationForm" + index.ToString();
+
+            LinkButton addReservationForm = PNReserveRoom.FindControl(currrentLBAddReservationForm) as LinkButton;
+
+            if(noOfRoomReservationForm < 3)
+            {
+                if (ddlRoomType.SelectedIndex != 0)
+                {
+                    addReservationForm.Visible = true;
+                }
+                else
+                {
+                    addReservationForm.Visible = false;
+                }
+            }
+            
+        }
+
+        
     }
 }

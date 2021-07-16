@@ -21,6 +21,16 @@
             width:350px;
             height:60px;
         }
+
+        .reservationFormPanel{
+            border: 1px solid rgb(213 213 213);
+            width: 80%;
+            margin: auto;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 40px;
+            margin-top: 20px;
+        }
     </style>
 
     
@@ -136,7 +146,59 @@
                 2. Reserve Room:-
             </div>
 
-        </asp:Panel>
+            <asp:Panel ID="PNReservationForm1" runat="server" Visible="true" CssClass="reservationFormPanel">
+                Test
+
+                <asp:DropDownList ID="ddlRoomType1" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true">
+                    <asp:ListItem>Please Select</asp:ListItem>
+                    <asp:ListItem>Option 1</asp:ListItem>
+                    <asp:ListItem>Option 2</asp:ListItem>
+                    <asp:ListItem>Option 3</asp:ListItem>
+                </asp:DropDownList>
+
+                <asp:LinkButton ID="LBAddReservationForm1" runat="server" OnClick="AddReservationForm" Visible="false">add</asp:LinkButton>
+
+
+            </asp:Panel>
+
+
+            <asp:Panel ID="PNReservationForm2" runat="server" Visible="false" CssClass="reservationFormPanel">
+
+                <asp:DropDownList ID="ddlRoomType2" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true">
+                    <asp:ListItem>Please Select</asp:ListItem>
+                    <asp:ListItem>Option 1</asp:ListItem>
+                    <asp:ListItem>Option 2</asp:ListItem>
+                    <asp:ListItem>Option 3</asp:ListItem>
+                    <asp:ListItem>Option 4</asp:ListItem>
+                </asp:DropDownList>
+
+                <asp:LinkButton ID="LBAddReservationForm2" runat="server" OnClick="AddReservationForm" Visible="false">add</asp:LinkButton>
+
+                <asp:LinkButton ID="LBDeleteReservationForm2" runat="server" OnClick="DeleteReservationForm" Visible="true">delete</asp:LinkButton>
+
+            </asp:Panel>
+
+            <asp:Panel ID="PNReservationForm3" runat="server" Visible="false" CssClass="reservationFormPanel">
+
+                <asp:DropDownList ID="ddlRoomType3" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true">
+                    <asp:ListItem>Please Select</asp:ListItem>
+                    <asp:ListItem>Option 1</asp:ListItem>
+                    <asp:ListItem>Option 2</asp:ListItem>
+                    <asp:ListItem>Option 3</asp:ListItem>
+                    <asp:ListItem>Option 4</asp:ListItem>
+                    <asp:ListItem>Option 5</asp:ListItem>
+                </asp:DropDownList>
+
+                <%--<asp:LinkButton ID="LBAddReservationForm3" runat="server" OnClick="LBAddPNRRF3_Click" Visible="false">add</asp:LinkButton>--%>
+
+                <asp:LinkButton ID="LBDeleteReservationForm3" runat="server" OnClick="DeleteReservationForm" Visible="true">delete</asp:LinkButton>
+
+            </asp:Panel>
+
+                    
+
+            </asp:Panel>
+
 
         <div class="bottomBar">
 
