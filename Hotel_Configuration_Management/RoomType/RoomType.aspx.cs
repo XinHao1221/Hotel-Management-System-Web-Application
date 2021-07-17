@@ -130,12 +130,12 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
                 "WHERE RT.Status LIKE 'Active' " +
                 "ORDER BY RT.RoomTypeID DESC OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
 
-            SqlCommand cmdInsert = new SqlCommand(getRoomType, conn);
-            cmdInsert.Parameters.AddWithValue("@offset", offset);   // Assign start index
-            cmdInsert.Parameters.AddWithValue("@fetch", fetch);     // Assign no of data to be read
+            SqlCommand cmdGetRoomType = new SqlCommand(getRoomType, conn);
+            cmdGetRoomType.Parameters.AddWithValue("@offset", offset);   // Assign start index
+            cmdGetRoomType.Parameters.AddWithValue("@fetch", fetch);     // Assign no of data to be read
 
             // Hold the data read from database
-            SqlDataAdapter sda = new SqlDataAdapter(cmdInsert);
+            SqlDataAdapter sda = new SqlDataAdapter(cmdGetRoomType);
 
 
             DataTable dt = new DataTable();

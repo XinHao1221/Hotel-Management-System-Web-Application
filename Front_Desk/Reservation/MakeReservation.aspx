@@ -10,6 +10,9 @@
     <%--CSS--%>
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
+    <link rel="stylesheet" href="../../StyleSheet/PopupBox.css" />
+    <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
+    <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
 
     <style>
         .guestListDropDown{
@@ -30,6 +33,15 @@
             padding-right: 40px;
             padding-top: 40px;
             margin-top: 20px;
+        }
+
+        /*Format repeater style*/
+        .subFormRepeaterHeader {
+            font-size:15px;
+        }
+
+        .subFormTableContent, .subFormTableContentAlternate{
+            font-size:14.5px;
         }
     </style>
 
@@ -146,6 +158,10 @@
                 2. Reserve Room:-
             </div>
 
+            <div style="width:86%; margin:auto;">
+                <asp:LinkButton ID="LBCheckAvailability" runat="server" OnClick="LBCheckAvailability_Click" CssClass="tableData">check room availability</asp:LinkButton>
+            </div>
+
             <asp:Panel ID="PNReservationForm1" runat="server" Visible="true" CssClass="reservationFormPanel">
                 Test
 
@@ -195,8 +211,6 @@
 
             </asp:Panel>
 
-                    
-
             </asp:Panel>
 
 
@@ -209,9 +223,113 @@
                     
         </div>
 
+        <%--Popup Window--%>
+        <div class="popup">
+
+            <%--Popup Box--%>
+            <asp:Panel ID="PopupBoxRoomAvailability" runat="server" CssClass="popupBox" Visible="false" Width="1000px">
+                    
+                <div class="popupBoxContainer">
+   
+                    <div class="popupBoxHeader">
+                        <%-- Popup Window Title --%>
+                        <div style="float:left;">
+                            <p style="color:#00ce1b;" class="popupBoxTitle">Room Availability</p>
+                        </div>
+
+                        <div style="float:right;">
+                            <asp:ImageButton ID="IBClosePopUpBox" runat="server" ImageUrl="~/Image/delete.png" CssClass="popupBoxCloseIcon" ToolTip="Close" OnClick="IBClosePopUpBox_Click"/>
+
+                        </div>
+                    </div>
+
+                    <div style="clear:both;"></div>
+
+                    <%-- Popup Window Body --%>
+                    <div class="popupBoxBody">
+                        
+                        <%--Display Room Availability--%>
+                        <%--Repeater table header--%>
+                        <div style="width:100%; margin:auto;">
+                            <div style="float:left; width:8%; text-align:center;" class="subFormRepeaterHeader">
+                                No
+                            </div>
+                            <div style="float:left; width:40%;" class="subFormRepeaterHeader">
+                                Room Type
+                            </div>
+                            <div style="float:left; width:20%;" class="subFormRepeaterHeader">
+                                Available
+                            </div>
+                            <div style="float:left; width:20%;" class="subFormRepeaterHeader">
+                                Status
+                            </div>
+                            <div style="float:left; width:12%;" class="subFormRepeaterHeader">
+                                &nbsp;
+                            </div>
+                        </div>  
+
+                        <%--Repeater Table content--%>
+                        <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand" OnItemDataBound="Repeater1_ItemDataBound">
+
+                            <ItemTemplate>
+                                <div style="width:100%; margin:auto;">
+                                    <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
+                                        <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:40%;" class="subFormTableContent">
+                                        <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
+                                        <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:20%;" class="subFormTableContent">
+                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:20%;" class="subFormTableContent">
+                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:12%;" class="subFormTableContent">
+                                        &nbsp;
+                                    </div>
+                                </div>  
+                            </ItemTemplate>
+
+                            <AlternatingItemTemplate>
+                                <div style="width:100%; margin:auto;">
+                                    <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
+                                        <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:40%;" class="subFormTableContentAlternate">
+                                        <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
+                                        <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:20%;" class="subFormTableContentAlternate">
+                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:20%;" class="subFormTableContentAlternate">
+                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:12%;" class="subFormTableContentAlternate">
+                                        &nbsp;
+                                    </div>
+                                </div> 
+                            </AlternatingItemTemplate>
+    
+                        </asp:Repeater> 
+
+                    </div>
+                </div>
+
+            </asp:Panel> 
+        </div>
+
+        <%-- Popup Cover --%>
+        <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
+            &nbsp;
+        </asp:Panel>
+
         <div style="clear:both; width:100%; height:70px;">
             &nbsp;
         </div>
+
 
     </div>
 

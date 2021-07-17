@@ -202,6 +202,7 @@
     <Compile Include="Front_Desk\Guest\ViewGuest.aspx.designer.cs">
       <DependentUpon>ViewGuest.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Front_Desk\Reservation\AvailableRoom.cs" />
     <Compile Include="Front_Desk\Reservation\MakeReservation.aspx.cs">
       <DependentUpon>MakeReservation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
