@@ -31,8 +31,10 @@
             margin: auto;
             padding-left: 40px;
             padding-right: 40px;
-            padding-top: 40px;
+            padding-top: 30px;
+            padding-bottom:30px;
             margin-top: 20px;
+
         }
 
         /*Format repeater style*/
@@ -124,7 +126,7 @@
 
                     <table style="width:90%;">
                         <tr>
-                            <td class="formLabel requiredFieldLabel" style="width:10%;">
+                            <td class="formLabel" style="width:10%;">
                                     IDNo          
                             </td>
                             <td class="tableSeperator" style="width:5%;"></td>
@@ -133,7 +135,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="formLabel">
+                            <td class="formLabel requiredFieldLabel">
                                     Check-Out     
                             </td>
                             <td class="tableSeperator"></td>
@@ -162,57 +164,280 @@
                 <asp:LinkButton ID="LBCheckAvailability" runat="server" OnClick="LBCheckAvailability_Click" CssClass="tableData">check room availability</asp:LinkButton>
             </div>
 
+            <%--1st Reservation Form--%>
             <asp:Panel ID="PNReservationForm1" runat="server" Visible="true" CssClass="reservationFormPanel">
-                Test
+                <%--Display reservation form details--%>
+                <div style="width:100%; margin:auto;">
+                    <div style="width:50%; float:left;">
 
-                <asp:DropDownList ID="ddlRoomType1" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true">
-                    <asp:ListItem>Please Select</asp:ListItem>
-                    <asp:ListItem>Option 1</asp:ListItem>
-                    <asp:ListItem>Option 2</asp:ListItem>
-                    <asp:ListItem>Option 3</asp:ListItem>
-                </asp:DropDownList>
+                        <table style="width:100%;">
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                        Room Type             
+                                </td>
+                                <td class="tableSeperator" style="width:5%;"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlRoomType1" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true" CssClass="dropDownStyle">
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel">
+                                      Quantity    
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <asp:Label ID="lblQty1" runat="server" Text="1" CssClass="tableData"></asp:Label>
+                                    <%--<asp:DropDownList ID="ddlRoomTypeQty1" runat="server" CssClass="dropDownStyle" AutoPostBack="true">
+                                    </asp:DropDownList>--%>
+                                </td>
+                            </tr>
+                        
+                        </table>
 
-                <asp:LinkButton ID="LBAddReservationForm1" runat="server" OnClick="AddReservationForm" Visible="false">add</asp:LinkButton>
+                    </div>
+
+                    <div style="width:50%; float:left;">
+
+                        <table style="width:100%;">
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                        Adults             
+                                </td>
+                                <td class="tableSeperator" style="width:5%;"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlAdults1" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownAdults" AutoPostBack="true"> 
+                                    </asp:DropDownList>
+                                    <asp:TextBox ID="txtAdults1" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="4" Text="4" Width="20%"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel requiredFieldLabel requiredFieldLabel">
+                                        Kids   
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlKids1" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownKids" AutoPostBack="true">
+                                    </asp:DropDownList>
+                                    <asp:TextBox ID="txtKids1" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                    <asp:Label ID="lblExtraBed1" runat="server" Text="ExtraBed" Visible="false"></asp:Label>
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <div style="padding-top:40px;">
+                                        <asp:CheckBox ID="cbExtraBed1" runat="server" AutoPostBack="true" OnCheckedChanged="CheckBoxExtraBed" CssClass="formCheckBoxStyle" Width="50px" Visible="false"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                        </table>
+
+                    </div>
+                </div>
 
 
+
+                <div style="clear:both;"></div>
+
+                <div style="float:right;">
+                    <asp:LinkButton ID="LBAddReservationForm1" runat="server" OnClick="AddReservationForm" Visible="false" CssClass="tableData">add next</asp:LinkButton>
+                </div>
+                
+                <div style="clear:both;"></div>
             </asp:Panel>
 
-
+            <%--2nd Reservation Form--%>
             <asp:Panel ID="PNReservationForm2" runat="server" Visible="false" CssClass="reservationFormPanel">
 
-                <asp:DropDownList ID="ddlRoomType2" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true">
-                    <asp:ListItem>Please Select</asp:ListItem>
-                    <asp:ListItem>Option 1</asp:ListItem>
-                    <asp:ListItem>Option 2</asp:ListItem>
-                    <asp:ListItem>Option 3</asp:ListItem>
-                    <asp:ListItem>Option 4</asp:ListItem>
-                </asp:DropDownList>
+                <%--Display reservation form details--%>
+                <div style="width:100%; margin:auto;">
+                    <div style="width:50%; float:left;">
 
-                <asp:LinkButton ID="LBAddReservationForm2" runat="server" OnClick="AddReservationForm" Visible="false">add</asp:LinkButton>
+                        <table style="width:100%;">
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                        Room Type             
+                                </td>
+                                <td class="tableSeperator" style="width:5%;"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlRoomType2" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true" CssClass="dropDownStyle">
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel">
+                                      Quantity    
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <asp:Label ID="lblQty2" runat="server" Text="1" CssClass="tableData"></asp:Label>
+                                    <%--<asp:DropDownList ID="ddlRoomTypeQty1" runat="server" CssClass="dropDownStyle" AutoPostBack="true">
+                                    </asp:DropDownList>--%>
+                                </td>
+                            </tr>
+                        
+                        </table>
 
-                <asp:LinkButton ID="LBDeleteReservationForm2" runat="server" OnClick="DeleteReservationForm" Visible="true">delete</asp:LinkButton>
+                    </div>
+
+                    <div style="width:50%; float:left;">
+
+                        <table style="width:100%;">
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                        Adults             
+                                </td>
+                                <td class="tableSeperator" style="width:5%;"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlAdults2" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownAdults" AutoPostBack="true"> 
+                                    </asp:DropDownList>
+                                    <asp:TextBox ID="txtAdults2" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="4" Text="4" Width="20%"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel requiredFieldLabel requiredFieldLabel">
+                                        Kids   
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlKids2" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownKids" AutoPostBack="true">
+                                    </asp:DropDownList>
+                                    <asp:TextBox ID="txtKids2" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                    <asp:Label ID="lblExtraBed2" runat="server" Text="ExtraBed" Visible="false"></asp:Label>
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <div style="padding-top:40px;">
+                                        <asp:CheckBox ID="cbExtraBed2" runat="server" AutoPostBack="true" OnCheckedChanged="CheckBoxExtraBed" CssClass="formCheckBoxStyle" Width="50px" Visible="false"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                        </table>
+
+                    </div>
+                </div>
+
+                <div style="clear:both;"></div>
+
+                <div style="float:right;">
+                    <div style="float:left;">
+                        <asp:LinkButton ID="LBDeleteReservationForm2" runat="server" OnClick="DeleteReservationForm" Visible="true" ForeColor="red" CssClass="tableData">delete</asp:LinkButton>
+                    </div>
+                  
+                    <div style="float:left; margin-left:20px;">
+                        <asp:LinkButton ID="LBAddReservationForm2" runat="server" OnClick="AddReservationForm" Visible="false" CssClass="tableData">add next</asp:LinkButton>
+                    </div>
+                    
+                </div>
+                
+                <div style="clear:both;"></div>
 
             </asp:Panel>
 
+            <%--3rd Reservation Form--%>
             <asp:Panel ID="PNReservationForm3" runat="server" Visible="false" CssClass="reservationFormPanel">
 
-                <asp:DropDownList ID="ddlRoomType3" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true">
-                    <asp:ListItem>Please Select</asp:ListItem>
-                    <asp:ListItem>Option 1</asp:ListItem>
-                    <asp:ListItem>Option 2</asp:ListItem>
-                    <asp:ListItem>Option 3</asp:ListItem>
-                    <asp:ListItem>Option 4</asp:ListItem>
-                    <asp:ListItem>Option 5</asp:ListItem>
-                </asp:DropDownList>
+                <%--Display reservation form details--%>
+                <div style="width:100%; margin:auto;">
+                    <div style="width:50%; float:left;">
 
-                <%--<asp:LinkButton ID="LBAddReservationForm3" runat="server" OnClick="LBAddPNRRF3_Click" Visible="false">add</asp:LinkButton>--%>
+                        <table style="width:100%;">
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                        Room Type             
+                                </td>
+                                <td class="tableSeperator" style="width:5%;"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlRoomType3" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true" CssClass="dropDownStyle">
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel">
+                                      Quantity    
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <asp:Label ID="lblQty3" runat="server" Text="1" CssClass="tableData"></asp:Label>
+                                    <%--<asp:DropDownList ID="ddlRoomTypeQty1" runat="server" CssClass="dropDownStyle" AutoPostBack="true">
+                                    </asp:DropDownList>--%>
+                                </td>
+                            </tr>
+                        
+                        </table>
 
-                <asp:LinkButton ID="LBDeleteReservationForm3" runat="server" OnClick="DeleteReservationForm" Visible="true">delete</asp:LinkButton>
+                    </div>
+
+                    <div style="width:50%; float:left;">
+
+                        <table style="width:100%;">
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                        Adults             
+                                </td>
+                                <td class="tableSeperator" style="width:5%;"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlAdults3" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownAdults" AutoPostBack="true"> 
+                                    </asp:DropDownList>
+                                    <asp:TextBox ID="txtAdults3" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="4" Text="4" Width="20%"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel requiredFieldLabel requiredFieldLabel">
+                                        Kids   
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <asp:DropDownList ID="ddlKids3" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownKids" AutoPostBack="true">
+                                    </asp:DropDownList>
+                                    <asp:TextBox ID="txtKids3" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="formLabel requiredFieldLabel">
+                                    <asp:Label ID="lblExtraBed3" runat="server" Text="ExtraBed" Visible="false"></asp:Label>
+                                </td>
+                                <td class="tableSeperator"></td>
+                                <td class="tableData">
+                                    <div style="padding-top:40px;">
+                                        <asp:CheckBox ID="cbExtraBed3" runat="server" AutoPostBack="true" OnCheckedChanged="CheckBoxExtraBed" CssClass="formCheckBoxStyle" Width="50px" Visible="false"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                        </table>
+
+                    </div>
+                </div>
+
+                <div style="clear:both;"></div>
+
+                <div style="float:right;">
+
+                    <div style="float:left;">
+                        <asp:LinkButton ID="LBDeleteReservationForm3" runat="server" OnClick="DeleteReservationForm" Visible="true" ForeColor="red" CssClass="tableData">delete</asp:LinkButton>
+                    </div>
+                    
+                    <div style="float:left; margin-left:20px;">
+                        <asp:LinkButton ID="LBAddReservationForm3" runat="server" OnClick="AddReservationForm" Visible="false" CssClass="tableData">add next</asp:LinkButton>
+                    </div>
+                    
+                </div>
+                
+                <div style="clear:both;"></div>
 
             </asp:Panel>
 
-            </asp:Panel>
-
+        </asp:Panel>
 
         <div class="bottomBar">
 
@@ -222,6 +447,7 @@
             </center>
                     
         </div>
+        
 
         <%--Popup Window--%>
         <div class="popup">
@@ -257,13 +483,19 @@
                             <div style="float:left; width:40%;" class="subFormRepeaterHeader">
                                 Room Type
                             </div>
-                            <div style="float:left; width:20%;" class="subFormRepeaterHeader">
+                            <div style="float:left; width:10%;" class="subFormRepeaterHeader">
                                 Available
                             </div>
-                            <div style="float:left; width:20%;" class="subFormRepeaterHeader">
+                            <div style="float:left; width:12%;" class="subFormRepeaterHeader">
+                                <asp:Label ID="ttBaseOccupancy" runat="server" Text="Base Occ" ToolTip="Base Occupancy"></asp:Label>
+                            </div>
+                            <div style="float:left; width:15%;" class="subFormRepeaterHeader">
+                                <asp:Label ID="ttHigherOccupancy" runat="server" Text="Higher Occ" ToolTip="Higher Occupancy"></asp:Label>
+                            </div>
+                            <div style="float:left; width:15%;" class="subFormRepeaterHeader">
                                 Status
                             </div>
-                            <div style="float:left; width:12%;" class="subFormRepeaterHeader">
+                            <div style="float:left; width:0%;" class="subFormRepeaterHeader">
                                 &nbsp;
                             </div>
                         </div>  
@@ -278,15 +510,21 @@
                                     </div>
                                     <div style="float:left; width:40%;" class="subFormTableContent">
                                         <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
-                                        <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>'></asp:Label>
+                                        <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
                                     </div>
-                                    <div style="float:left; width:20%;" class="subFormTableContent">
-                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:20%;" class="subFormTableContent">
-                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    <div style="float:left; width:10%;" class="subFormTableContent">
+                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
                                     </div>
                                     <div style="float:left; width:12%;" class="subFormTableContent">
+                                        <asp:Label ID="lblBaseOccupancy" runat="server" Text='<%# Eval("BaseOccupancy") %>' ToolTip='<%# Eval("BaseOccupancy") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:15%;" class="subFormTableContent">
+                                        <asp:Label ID="lblHigherOccupancy" runat="server" Text='<%# Eval("HigherOccupancy") %>' ToolTip='<%# Eval("HigherOccupancy") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:15%;" class="subFormTableContent">
+                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>' ToolTip='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:0%;" class="subFormTableContent">
                                         &nbsp;
                                     </div>
                                 </div>  
@@ -299,15 +537,21 @@
                                     </div>
                                     <div style="float:left; width:40%;" class="subFormTableContentAlternate">
                                         <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
-                                        <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>'></asp:Label>
+                                        <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
                                     </div>
-                                    <div style="float:left; width:20%;" class="subFormTableContentAlternate">
-                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:20%;" class="subFormTableContentAlternate">
-                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>'></asp:Label>
+                                    <div style="float:left; width:10%;" class="subFormTableContentAlternate">
+                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
                                     </div>
                                     <div style="float:left; width:12%;" class="subFormTableContentAlternate">
+                                        <asp:Label ID="lblBaseOccupancy" runat="server" Text='<%# Eval("BaseOccupancy") %>' ToolTip='<%# Eval("BaseOccupancy") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:15%;" class="subFormTableContentAlternate">
+                                        <asp:Label ID="lblHigherOccupancy" runat="server" Text='<%# Eval("HigherOccupancy") %>' ToolTip='<%# Eval("HigherOccupancy") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:15%;" class="subFormTableContentAlternate">
+                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>' ToolTip='<%# Eval("status") %>'></asp:Label>
+                                    </div>
+                                    <div style="float:left; width:0%;" class="subFormTableContentAlternate">
                                         &nbsp;
                                     </div>
                                 </div> 

@@ -29,8 +29,11 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         public string roomTypeID { get; set; }
         public string roomType { get; set; }
         public int quantity { get; set; }
+        public int baseOccupancy { get; set; }
+        public int higherOccupancy { get; set; }
+        public string extraBed { get; set; }
         public string status { get; set; }
-
+        
         public void OnLogRequest(Object source, EventArgs e)
         {
             //custom logging logic can go here
@@ -41,11 +44,14 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         }
 
-        public AvailableRoom(string roomTypeID, string roomType, int quantity, string status)
+        public AvailableRoom(string roomTypeID, string roomType, int quantity, int baseOccupancy, int higherOccupancy, string extraBed, string status)
         {
             this.roomTypeID = roomTypeID;
             this.roomType = roomType;
             this.quantity = quantity;
+            this.baseOccupancy = baseOccupancy;
+            this.higherOccupancy = higherOccupancy;
+            this.extraBed = extraBed;
             this.status = status;
         }
     }

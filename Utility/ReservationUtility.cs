@@ -56,7 +56,7 @@ namespace Hotel_Management_System.Utility
             for (int i = 0; i < durationOfStay; i++)
             {
                 DateTime temp = checkInDate.AddDays(i);
-                reservationDate[i] = temp.ToString();
+                reservationDate[i] = formatDate(temp.ToString());
             }
 
             return reservationDate;
