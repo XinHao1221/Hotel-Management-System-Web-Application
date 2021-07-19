@@ -46,7 +46,14 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 // get room availability
                 Session["AvailableRoom"] = new List<AvailableRoom>();
-                
+
+                // get facility availability
+                Session["AvailableFacility"] = new List<AvailableFacility>();
+                Session["AvailableFacility"] = getFacilityAvailability("");
+
+                // define RentedFacilityList
+                Session["RentedFacilityList"] = new List<RentedFacility>();
+
             }
 
             CompareValidator1.Validate();
@@ -119,7 +126,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            
+
+            //Response.Redirect("Payment.aspx");
+
         }
 
         protected void formBtnCancel_Click(object sender, EventArgs e)
@@ -173,6 +182,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 // Set room type into dropdown
                 setRoomType(1);
 
+                // Set facility into dropdown
+                setFacility();
+
                 // Set duration of stay
                 lblDurationOfStay.Text = reservationUtility.getdurationOfStay(txtCheckInDate.Text, txtCheckOutDate.Text).ToString() + " Night";
             }
@@ -219,6 +231,32 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             
         }
 
+        private void setFacility()
+        {
+            // Get reference of the ddlFacility & 
+            DropDownList ddlFacility = PNReserveRoom.FindControl("ddlFacilityName") as DropDownList;
+            DropDownList ddlFacilityQty = PNReserveRoom.FindControl("ddlFacilityQty") as DropDownList;
+
+            // Get facility availability from Session 
+            List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
+
+            // Clear all items
+            ddlFacility.Items.Clear();
+            ddlFacilityQty.Items.Clear();
+
+            // Set first item
+            ddlFacility.Items.Add(new ListItem("-- Please Select --"));
+
+            for (int i = 0; i < availableFacility.Count; i++)
+            {
+                if (availableFacility[i].availableQty > 0)
+                {
+                    ddlFacility.Items.Add(new ListItem(availableFacility[i].facilityName, availableFacility[i].facilityID));
+                }
+            }
+
+        }
+
         protected void LBAddGuest_Click(object sender, EventArgs e)
         {
             // Navigate to add guest
@@ -245,6 +283,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             // Make the panel visible to the user
             PNReservationForm.Visible = true;
+
+            refreshDDLRoomType(index + 1);
 
             // Get 
             LinkButton currentLBAdd = PNReserveRoom.FindControl("LBAddReservationForm" + index.ToString()) as LinkButton;
@@ -285,7 +325,10 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 // If no
                 // shift the content forward on step
                 // Before making the panel invisible to user
-                increaseRoomQty(ddlRoomType.SelectedValue, index);
+                if(ddlRoomType.SelectedValue != "-- Please Select --")
+                {
+                    increaseRoomQty(ddlRoomType.SelectedValue, index);
+                }
 
                 shiftPanelContent(index);
 
@@ -296,6 +339,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 currentLBAdd.Visible = true;
 
                 resetReservationFormData(noOfRoomReservationForm);
+
+                refreshDDLRoomType(index);
             }
             else
             {
@@ -305,9 +350,16 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 currentLBAdd.Visible = true;
 
-                increaseRoomQty(ddlRoomType.SelectedValue, index);
+                if (ddlRoomType.SelectedValue != "-- Please Select --")
+                {
+                    increaseRoomQty(ddlRoomType.SelectedValue, index);
+                }
+
+                //refreshDDLRoomType(index);
 
                 resetReservationFormData(index);
+
+                refreshDDLRoomType(index);
             }
 
             // Make the panel invisible to user
@@ -343,11 +395,19 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             ddlAdults.Items.Clear();
 
+            ddlAdults.Visible = true;
+
             txtAdults.Text = "";
+
+            txtAdults.Visible = false;
 
             ddlKids.Items.Clear();
 
+            ddlKids.Visible = true;
+
             txtKids.Text = "";
+
+            txtKids.Visible = false;
 
             cbExtraBed.Checked = false;
 
@@ -393,9 +453,10 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 Label nextLBLExtraBed = PNReserveRoom.FindControl("lblExtraBed" + (currentIndex + 1).ToString()) as Label;
 
                 // *** ddlRoomType ***
-                ddlRoomType.DataSource = nextDDLRoomType.Items; // Shift the content from previous dropdown to current dropdown
-                ddlRoomType.DataBind();
-                ddlRoomType.SelectedIndex = nextDDLRoomType.SelectedIndex;  // Set the option currently selected
+                ddlRoomType.Items.Clear();
+                ddlRoomType.Items.AddRange(nextDDLRoomType.Items.OfType<ListItem>().ToArray());
+                ddlRoomType.SelectedValue = nextDDLRoomType.SelectedValue;  // Set the option currently selected
+                
 
                 // *** ddlAdults ***
                 ddlAdults.DataSource = nextDDLAdults.Items;
@@ -463,8 +524,14 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     setOccupancy(index);
 
                     reduceRoomQty("ddlRoomType" + index.ToString());
+
+                    refreshDDLRoomType(index);
+
+                    if(!(index < noOfRoomReservationForm))
+                    {
+                        addReservationForm.Visible = true;
+                    }
                     
-                    addReservationForm.Visible = true;
 
                 }
                 else
@@ -472,9 +539,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     // Else
                     // Make it invisible to the user
                     addReservationForm.Visible = false;
+
+                    refreshDDLRoomType(index);
                 }
             }
+
             
+
         }
 
         private void setExtraBedOption(int index)
@@ -644,6 +715,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             PopupCover.Visible = false;
             PopupBoxRoomAvailability.Visible = false;
+            PopupBoxFacilityAvailability.Visible = false;
         }
 
         private void setItemToRepeater1()
@@ -737,6 +809,10 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Get reference of AvailableRoom store inside session
             List<AvailableRoom> availableRoom = (List<AvailableRoom>)Session["AvailableRoom"];
 
+            // Clear all items
+            ddlRoomType.Items.Clear();
+
+            // Set first item
             ddlRoomType.Items.Add(new ListItem("-- Please Select --"));
 
             for (int i = 0; i < availableRoom.Count; i++)
@@ -760,7 +836,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             SqlCommand cmdGetReservedRoomType = new SqlCommand(getReservedRoomType, conn);
 
             cmdGetReservedRoomType.Parameters.AddWithValue("@ID", roomTypeID);
-            cmdGetReservedRoomType.Parameters.AddWithValue("Date", date);
+            cmdGetReservedRoomType.Parameters.AddWithValue("@Date", date);
 
             // Hold the data read from database
             SqlDataReader sdr = cmdGetReservedRoomType.ExecuteReader();
@@ -772,11 +848,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             // If not any reservation found under the category
             return 0;
-        }
-        
-        protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            
         }
 
         protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -939,5 +1010,349 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
         }
 
+        private void refreshDDLRoomType(int currentIndex)
+        {
+            // Get totalNoOFReservation Form
+            int noOfRoomReservationForm = (int)ViewState["NoOfRoomReservationForm"];
+
+            // Get reference of AvailableRoom store inside session
+            List<AvailableRoom> availableRoom = (List<AvailableRoom>)Session["AvailableRoom"];
+
+            DropDownList ddlRoomType = PNReserveRoom.FindControl("ddlRoomType" + currentIndex.ToString()) as DropDownList;
+
+            string selectedRoomTypeID;
+
+            if (ddlRoomType.SelectedValue == "-- Please Select --")
+            {
+                availableRoom = getRoomAvailability();
+
+                for (int i = 1; i < noOfRoomReservationForm; i++)
+                {
+                    if (currentIndex != i)
+                    {
+                        ddlRoomType = PNReserveRoom.FindControl("ddlRoomType" + i.ToString()) as DropDownList;
+
+                        selectedRoomTypeID = ddlRoomType.SelectedValue;
+
+                        for (int j = 0; j < availableRoom.Count; j++)
+                        {
+                            if (availableRoom[j].roomTypeID == selectedRoomTypeID)
+                            {
+                                Session["AvailableRoom"] = availableRoom;
+
+                                setRoomType(i);
+
+                                availableRoom[j].quantity--;
+
+                                ddlRoomType.SelectedValue = selectedRoomTypeID;
+                            }
+
+
+                        }
+                    }
+
+                }
+
+            }
+            else
+            { 
+                for (int i = 1; i <= noOfRoomReservationForm; i++)
+                {
+                    //if (i != currentIndex)
+                    //{
+                        ddlRoomType = PNReserveRoom.FindControl("ddlRoomType" + i.ToString()) as DropDownList;
+
+                        selectedRoomTypeID = ddlRoomType.SelectedValue;
+
+                        if (selectedRoomTypeID != "")
+                        {
+                            for (int j = 0; j < availableRoom.Count; j++)
+                            {
+                                if (availableRoom[j].roomTypeID == selectedRoomTypeID)
+                                {
+                                    availableRoom[j].quantity++;
+                                }
+                            }
+
+                            setRoomType(i);
+
+                            ddlRoomType.SelectedValue = selectedRoomTypeID;
+
+                            for (int j = 0; j < availableRoom.Count; j++)
+                            {
+                                if (availableRoom[j].roomTypeID == selectedRoomTypeID)
+                                {
+                                    availableRoom[j].quantity--;
+                                }
+                            }
+                        }
+
+                    //}
+                }
+            }
+        }
+
+        protected void LBCheckFacilityAvailability_Click(object sender, EventArgs e)
+        {
+            PopupBoxFacilityAvailability.Visible = true;
+            PopupCover.Visible = true;
+
+            txtCheckFacilityDate.Text = txtCheckInDate.Text;
+
+            setItemToRepeater2(txtCheckFacilityDate.Text);
+        }
+
+        private List<AvailableFacility> getFacilityAvailability(string date)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            // Query to get facility availability
+            string getFacility = "SELECT F.FacilityID, F.FacilityName, F.Quantity, F.Price, F.PriceType " +
+                                "FROM Facility F " +
+                                "WHERE F.Status LIKE 'Active'";
+
+            SqlCommand cmdGetFacility = new SqlCommand(getFacility, conn);
+
+            // Hold the data read from database
+            var sdr = cmdGetFacility.ExecuteReader();
+
+            // Get reference of AvailableFacility stored inside session
+            List<AvailableFacility> availableFacility = new List<AvailableFacility>();
+
+            // set all data into list object 
+            while (sdr.Read())
+            {
+
+                AvailableFacility af = new AvailableFacility(
+                    sdr.GetString(sdr.GetOrdinal("FacilityID")),
+                    sdr.GetString(sdr.GetOrdinal("FacilityName")),
+                    sdr.GetInt32(sdr.GetOrdinal("Quantity")),
+                    Convert.ToDouble(sdr.GetDecimal(sdr.GetOrdinal("Price"))),
+                    sdr.GetString(sdr.GetOrdinal("PriceType")),
+                    "Available",
+                    "No");
+
+                availableFacility.Add(af);
+            }
+
+            conn.Close();
+
+            if(date != "")
+            {
+                // Reduce facility quantity there have already been selected by the user.
+                for (int i = 0; i < availableFacility.Count; i++)
+                {
+
+                    conn = new SqlConnection(strCon);
+                    conn.Open();
+
+                    AvailableFacility af = availableFacility.ElementAt(i);
+
+                    int qty = getFacilityRentedQty(af.facilityID, date);
+
+                    af.availableQty -= qty;
+
+                    if (af.availableQty == 0)
+                    {
+                        af.status = "Unavailable";
+                    }
+
+                    conn.Close();
+                }
+            }
+
+            return availableFacility;
+        }
+
+        public int getFacilityRentedQty(string facilityID, string date)
+        {
+            // Query to get the quantity of facility have reserved by other guest
+            String getReservedFacility = "SELECT FacilityID, COUNT(FacilityID) AS RentedQty " + 
+                                        "FROM ReservationFacility " + 
+                                        "WHERE DateRented LIKE @Date AND FacilityID LIKE @FacilityID " + 
+                                        "GROUP BY FacilityID ";
+
+            SqlCommand cmdGetReservedFacility = new SqlCommand(getReservedFacility, conn);
+
+            cmdGetReservedFacility.Parameters.AddWithValue("@FacilityID", facilityID);
+            cmdGetReservedFacility.Parameters.AddWithValue("@Date", date);
+
+            // Hold the data read from database
+            SqlDataReader sdr = cmdGetReservedFacility.ExecuteReader();
+
+            if (sdr.Read())
+            {
+                return sdr.GetInt32(sdr.GetOrdinal("RentedQty"));
+            }
+
+            // If not any reservation found under the category
+            return 0;
+        }
+
+        private void setItemToRepeater2(string date)
+        {
+           // getFacilityAvailability(date);
+
+            // Set data into repeater 1
+            Repeater2.DataSource = getFacilityAvailability(date);
+            Repeater2.DataBind();
+        }
+
+        protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Get control's reference
+            Label lblStatus = e.Item.FindControl("lblStatus") as Label;
+
+            if (lblStatus.Text == "Available")
+            {
+                lblStatus.Style["color"] = "#00ce1b";  // Assign green color
+            }
+            else
+            {
+                lblStatus.Style["color"] = "red";  // Assign red color
+            }
+        }
+
+        protected void txtCheckFacilityDate_TextChanged(object sender, EventArgs e)
+        {
+            
+            setItemToRepeater2(txtCheckFacilityDate.Text);
+        }
+
+        protected void ddlFacilityName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            txtRentDate.Text = txtCheckInDate.Text;
+            txtReturnDate.Text = txtCheckInDate.Text;
+
+            // Get reference of the ddlFacility & 
+            DropDownList ddlFacility = PNReserveRoom.FindControl("ddlFacilityName") as DropDownList;
+            DropDownList ddlFacilityQty = PNReserveRoom.FindControl("ddlFacilityQty") as DropDownList;
+
+            if(ddlFacility.SelectedIndex != 0)
+            {
+                // Get facility availability from Session 
+                List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
+
+                for (int i = 0; i < availableFacility.Count; i++)
+                {
+                    if (availableFacility[i].facilityID == ddlFacility.SelectedValue)
+                    {
+                        for (int j = 1; j <= availableFacility[i].availableQty; j++)
+                        {
+                            ddlFacilityQty.Items.Add(new ListItem(j.ToString()));
+                        }
+
+                        if (availableFacility[i].priceType == "Per Reservation")
+                        {
+                            PNFacilityRentedDate.Visible = true;
+                            CVFacilityRentedDate.Enabled = true;
+                        }
+                        else
+                        {
+                            PNFacilityRentedDate.Visible = false;
+                            CVFacilityRentedDate.Enabled = false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ddlFacilityQty.Items.Clear();
+                PNFacilityRentedDate.Visible = false;
+                CVFacilityRentedDate.Enabled = false;
+            }
+            
+        }
+
+        protected void txtRentDate_TextChanged(object sender, EventArgs e)
+        {
+            // Run the comparevalidator
+            CVFacilityRentedDate.Validate();
+
+            // Check if rent date & return date is valid
+            if (!CVFacilityRentedDate.IsValid)
+            {
+
+                // Style if error occurred
+                txtRentDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                txtRentDate.Style["background-color"] = "rgb(255, 240, 240)";
+
+                txtReturnDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                txtReturnDate.Style["background-color"] = "rgb(255, 240, 240)";
+
+            }
+            else
+            {
+                // Style if no error occurred
+                txtRentDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                txtRentDate.Style["background-color"] = "none";
+
+                txtReturnDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                txtReturnDate.Style["background-color"] = "none";
+            }
+        }
+
+        protected void txtReturnDate_TextChanged(object sender, EventArgs e)
+        {
+            // Run the comparevalidator
+            CVFacilityRentedDate.Validate();
+
+            // Check if rent date & return date is valid
+            if (!CVFacilityRentedDate.IsValid)
+            {
+
+                // Style if error occurred
+                txtRentDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                txtRentDate.Style["background-color"] = "rgb(255, 240, 240)";
+
+                txtReturnDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                txtReturnDate.Style["background-color"] = "rgb(255, 240, 240)";
+
+            }
+            else
+            {
+                // Style if no error occurred
+                txtRentDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                txtRentDate.Style["background-color"] = "none";
+
+                txtReturnDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                txtReturnDate.Style["background-color"] = "none";
+            }
+        }
+
+        protected void btnAddFacility_Click(object sender, EventArgs e)
+        {
+            // Get refernce of RentedFacilityList
+            List<RentedFacility> rentedFacility = (List<RentedFacility>)Session["RentedFacilityList"];
+
+            // Get facility availability from Session 
+            List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
+
+            string temp = ddlFacilityName.SelectedValue;
+
+            for (int i = 0; i < availableFacility.Count; i++)
+            {
+                if(availableFacility[i].facilityID == ddlFacilityName.SelectedValue)
+                {
+                    RentedFacility rf = new RentedFacility(ddlFacilityName.SelectedValue,
+                                                        availableFacility[i].facilityName,
+                                                        int.Parse(ddlFacilityQty.SelectedValue),
+                                                        availableFacility[i].priceType,
+                                                        availableFacility[i].price,
+                                                        txtRentDate.Text,
+                                                        txtReturnDate.Text, 
+                                                        (availableFacility[i].price * int.Parse(ddlFacilityQty.SelectedValue))
+                                                        );
+                }
+            }
+
+            
+
+            
+        }
+
+        
     }
 }
