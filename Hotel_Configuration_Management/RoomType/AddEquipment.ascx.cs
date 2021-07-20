@@ -68,12 +68,12 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
             RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
 
             // Get equipment name for the selected item
-            String equipmentID = (item.FindControl("lblEquipmentID") as Label).Text;
+            String itemIndex = (item.FindControl("lblNumber") as Label).Text;
             String equipmentName = (item.FindControl("lblEquipmentName") as Label).Text;
             String fineCharges = (item.FindControl("lblFineCharges") as Label).Text;
 
-            // Set EquipmentID to ViewState
-            ViewState["EquipmentID"] = equipmentID;
+            // Set index of current selected item to ViewState
+            ViewState["ItemIndex"] = itemIndex;
 
             // Set delete message into popup
             lblPopupDeleteContent.Text = "Equipment: " + equipmentName + "<br />" +

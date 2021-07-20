@@ -42,6 +42,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.LinkButton LBAddGuest;
 
         /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+
+        /// <summary>
         /// PNStayDetails control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCheckInDate;
+
+        /// <summary>
+        /// RFVTxtCheckInDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVTxtCheckInDate;
 
         /// <summary>
         /// lblIDNo control.
@@ -139,6 +157,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRoomType1;
+
+        /// <summary>
+        /// lblNoRoomSelected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoRoomSelected;
 
         /// <summary>
         /// lblQty1 control.
@@ -402,15 +429,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.LinkButton LBDeleteReservationForm3;
 
         /// <summary>
-        /// LBAddReservationForm3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LBAddReservationForm3;
-
-        /// <summary>
         /// LBCheckFacilityAvailability control.
         /// </summary>
         /// <remarks>
@@ -492,6 +510,24 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.Button btnAddFacility;
 
         /// <summary>
+        /// RepeaterRentedFacility control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterRentedFacility;
+
+        /// <summary>
+        /// lblNoItemFound control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoItemFound;
+
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>
@@ -508,6 +544,69 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button formBtnCancel;
+
+        /// <summary>
+        /// PopupDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PopupDelete;
+
+        /// <summary>
+        /// lblPopupDeleteContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPopupDeleteContent;
+
+        /// <summary>
+        /// btnPopupDeleteCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPopupDeleteCancel;
+
+        /// <summary>
+        /// btnPopupDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPopupDelete;
+
+        /// <summary>
+        /// PopupReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PopupReset;
+
+        /// <summary>
+        /// btnPopupResetCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPopupResetCancel;
+
+        /// <summary>
+        /// btnPopupConfirmReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPopupConfirmReset;
 
         /// <summary>
         /// PopupBoxRoomAvailability control.

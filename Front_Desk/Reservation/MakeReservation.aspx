@@ -87,7 +87,8 @@
                     <asp:DropDownList ID="ddlGuest" runat="server" CssClass="guestListDropDown" AutoPostBack="True" OnSelectedIndexChanged="ddlGuest_SelectedIndexChanged">
                     </asp:DropDownList>
                     <asp:LinkButton ID="LBAddGuest" runat="server" CssClass="tableData" OnClick="LBAddGuest_Click">add guest</asp:LinkButton>
-                    
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlGuest" InitialValue="-- Please Select --" ErrorMessage="Please select an item." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                 </td>
             </tr>
         </table>
@@ -122,6 +123,8 @@
                             <td class="tableSeperator"></td>
                             <td class="tableData">
                                 <asp:TextBox ID="txtCheckInDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtCheckInDate_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                <br />
+                                <asp:RequiredFieldValidator ID="RFVTxtCheckInDate" runat="server" ErrorMessage="Please select an date." CssClass="validatorStyle" ControlToValidate="txtCheckInDate" ValidationGroup="save"></asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         
@@ -185,6 +188,8 @@
                                 <td class="tableData">
                                     <asp:DropDownList ID="ddlRoomType1" runat="server" OnSelectedIndexChanged="DropDownSelectRoomType" AutoPostBack="true" CssClass="dropDownStyle">
                                     </asp:DropDownList>
+                                    <br />
+                                    <asp:Label ID="lblNoRoomSelected" runat="server" Text="Please Select an item" CssClass="validatorStyle" Visible="false"></asp:Label>
                                 </td>
                             </tr>
                             <tr>
@@ -434,7 +439,7 @@
                     </div>
                     
                     <div style="float:left; margin-left:20px;">
-                        <asp:LinkButton ID="LBAddReservationForm3" runat="server" OnClick="AddReservationForm" Visible="false" CssClass="tableData">add next</asp:LinkButton>
+                        <%--<asp:LinkButton ID="LBAddReservationForm3" runat="server" OnClick="AddReservationForm" Visible="false" CssClass="tableData">add next</asp:LinkButton>--%>
                     </div>
                     
                 </div>
@@ -505,7 +510,7 @@
                             <td class="tableData">
                                 <asp:TextBox ID="txtReturnDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtReturnDate_TextChanged" AutoPostBack="true"></asp:TextBox>
                                 <br />
-                                <asp:CompareValidator ID="CVFacilityRentedDate" runat="server" ErrorMessage="Return Date must be greater than Rented Date" ControlToCompare="txtRentDate" ControlToValidate="txtReturnDate" Operator="GreaterThanEqual" Type="Date" EnableClientScript="False" CssClass="validatorStyle" ValidationGroup="add" Enabled="false"></asp:CompareValidator>
+                                <asp:CompareValidator ID="CVFacilityRentedDate" runat="server" ErrorMessage="Return Date must be greater than Rented Date" ControlToCompare="txtRentDate" ControlToValidate="txtReturnDate" Operator="GreaterThan" Type="Date" EnableClientScript="False" CssClass="validatorStyle" ValidationGroup="add" Enabled="false"></asp:CompareValidator>
                             </td>
                         </tr>
                     </table>
@@ -547,7 +552,85 @@
                 <div style="float:left; width:9%;" class="subFormRepeaterHeader">
                     &nbsp;
                 </div>
-            </div>  
+            </div>
+            
+            <%--Repeater Table content--%>
+            <asp:Repeater ID="RepeaterRentedFacility" runat="server">
+
+                <ItemTemplate>
+                    <div style="width:86%; margin:auto;">
+                        <div style="float:left; width:6%; text-align:center;" class="subFormTableContent">
+                            <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:20%;" class="subFormTableContent">
+                            <asp:Label ID="lblFacilityID" runat="server" Text='<%# Eval("facilityID") %>' Visible="false"></asp:Label>
+                            <asp:Label ID="lblFacilityName" runat="server" Text='<%# Eval("facilityName") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:10%; text-align:right;" class="subFormTableContent">
+                            <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("price", "{0:N2}") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:10%; text-align:right;" class="subFormTableContent">
+                            <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:15%; text-align:right;" class="subFormTableContent">
+                            <asp:Label ID="lblRentDate" runat="server" Text='<%# Eval("rentDate") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:15%; text-align:right;" class="subFormTableContent">
+                            <asp:Label ID="lblReturnDate" runat="server" Text='<%# Eval("returnDate") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:15%; text-align:right;" class="subFormTableContent">
+                            <asp:Label ID="lblSubTotal" runat="server" Text='<%# Eval("subTotal", "{0:N2}") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:6%;" class="subFormTableContent">
+                            &nbsp;
+                        </div>
+                        <div style="float:left; width:3%;" class="subFormTableContent">
+                            <asp:ImageButton ID="IBDeleteRentedFacility" runat="server" OnClick="IBDeleteRentedFacility_Click" ImageUrl="~/Image/delete_icon.png" CssClass="subFormIcon" ToolTip="Delete"/>
+                        </div>
+                    </div>  
+                </ItemTemplate>
+
+                <AlternatingItemTemplate>
+                    <div style="width:86%; margin:auto;">
+                        <div style="float:left; width:6%; text-align:center;" class="subFormTableContentAlternate">
+                            <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:20%;" class="subFormTableContentAlternate">
+                            <asp:Label ID="lblFacilityID" runat="server" Text='<%# Eval("facilityID") %>' Visible="false"></asp:Label>
+                            <asp:Label ID="lblFacilityName" runat="server" Text='<%# Eval("facilityName") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
+                            <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("price", "{0:N2}") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
+                            <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
+                            <asp:Label ID="lblRentDate" runat="server" Text='<%# Eval("rentDate") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
+                            <asp:Label ID="lblReturnDate" runat="server" Text='<%# Eval("returnDate") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
+                            <asp:Label ID="lblSubTotal" runat="server" Text='<%# Eval("subTotal", "{0:N2}") %>'></asp:Label>
+                        </div>
+                        <div style="float:left; width:6%;" class="subFormTableContentAlternate">
+                            &nbsp;
+                        </div>
+                        <div style="float:left; width:3%;" class="subFormTableContentAlternate">
+                            <asp:ImageButton ID="IBDeleteRentedFacility" runat="server" OnClick="IBDeleteRentedFacility_Click" ImageUrl="~/Image/delete_icon.png" CssClass="subFormIcon" ToolTip="Delete"/>
+                        </div>
+                    </div> 
+                </AlternatingItemTemplate>
+    
+            </asp:Repeater>
+
+            <div style="width: 86%; margin: auto; clear:both;">
+
+                <div class="subFormTableContent" style="padding-left:2%;">
+                    <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>
+                </div>           
+            </div>
 
         </asp:Panel>
 
@@ -560,6 +643,47 @@
                     
         </div>
         
+        <%--Popup Window--%>
+        <div class="popup">
+            <asp:Panel ID="PopupDelete" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:red;" class="popupTitle">Delete</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    <asp:Label ID="lblPopupDeleteContent" runat="server" Text=""></asp:Label>
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnPopupDeleteCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                
+                <asp:Button ID="btnPopupDelete" runat="server" Text="Delete" CssClass="popUpDeleteBtn" OnClick="btnPopupDelete_Click"/>
+            </asp:Panel>
+
+            <asp:Panel ID="PopupReset" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:red;" class="popupTitle">Reset Text Field?</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    <p>All text fields will be reset!</p>
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnPopupResetCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                
+                <asp:Button ID="btnPopupConfirmReset" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirmReset_Click"/>
+            </asp:Panel>
+
+        </div>
 
         <%--Popup Window--%>
         <div class="popup">

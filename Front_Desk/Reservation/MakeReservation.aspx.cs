@@ -57,7 +57,23 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
 
             CompareValidator1.Validate();
-            
+
+            // Check if any facility has rented
+            checkRentedFacilityIsEmpty();
+        }
+
+        private void checkRentedFacilityIsEmpty()
+        {
+            List<RentedFacility> rentedFacility = (List<RentedFacility>)Session["RentedFacilityList"];
+
+            if (rentedFacility.Count == 0)
+            {
+                lblNoItemFound.Visible = true;
+            }
+            else
+            {
+                lblNoItemFound.Visible = false;
+            }
         }
 
         private void setGuestList()
@@ -126,14 +142,29 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-
-            //Response.Redirect("Payment.aspx");
+            if(ddlRoomType1.SelectedIndex == 0)
+            {
+                lblNoRoomSelected.Visible = true;
+            }
+            else
+            {
+                Response.Redirect("Payment.aspx");
+            }
+            
 
         }
 
         protected void formBtnCancel_Click(object sender, EventArgs e)
         {
+            PopupCover.Visible = true;
+            PopupReset.Visible = true;
+        }
 
+        protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupReset.Visible = false;
+            Response.Redirect("MakeReservation.aspx");
         }
 
         protected void txtCheckInDate_TextChanged(object sender, EventArgs e)
@@ -145,6 +176,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 DateTime checkInDate = Convert.ToDateTime(txtCheckInDate.Text);
 
                 txtCheckOutDate.Text = reservationUtility.getNextDate(checkInDate.ToString());
+
+                txtCheckOutDate.Visible = false;
             }
 
             // Run the comparevalidator
@@ -178,6 +211,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 PNReserveRoom.Visible = true;
 
                 Session["AvailableRoom"] = getRoomAvailability();
+
+                // Reset whole reservation form
+                resetAllReservationForm();
 
                 // Set room type into dropdown
                 setRoomType(1);
@@ -192,41 +228,55 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void txtCheckOutDate_TextChanged(object sender, EventArgs e)
         {
-            // Run the comparevalidator
-            CompareValidator1.Validate();
-
-            // Check if check-in and check-out date is valid
-            if (!CompareValidator1.IsValid)
+            if(txtCheckInDate.Text != "")
             {
-                lblDurationOfStay.Text = "";
+                // Run the comparevalidator
+                CompareValidator1.Validate();
 
-                // Style if error occurred
-                txtCheckInDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
-                txtCheckInDate.Style["background-color"] = "rgb(255, 240, 240)";
+                // Check if check-in and check-out date is valid
+                if (!CompareValidator1.IsValid)
+                {
+                    lblDurationOfStay.Text = "";
 
-                txtCheckOutDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
-                txtCheckOutDate.Style["background-color"] = "rgb(255, 240, 240)";
+                    // Style if error occurred
+                    txtCheckInDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                    txtCheckInDate.Style["background-color"] = "rgb(255, 240, 240)";
 
-                lblDurationOfStay.Text = "";
+                    txtCheckOutDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                    txtCheckOutDate.Style["background-color"] = "rgb(255, 240, 240)";
 
-                PNReserveRoom.Visible = false;
+                    lblDurationOfStay.Text = "";
+
+                    PNReserveRoom.Visible = false;
+                }
+                else
+                {
+                    // Style if no error occurred
+                    txtCheckInDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                    txtCheckInDate.Style["background-color"] = "none";
+
+                    txtCheckOutDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                    txtCheckOutDate.Style["background-color"] = "none";
+
+                    // Set duration of stay
+                    lblDurationOfStay.Text = reservationUtility.getdurationOfStay(txtCheckInDate.Text, txtCheckOutDate.Text).ToString() + " Night";
+
+                    PNReserveRoom.Visible = true;
+
+                    Session["AvailableRoom"] = getRoomAvailability();
+
+                    // Reset whole reservation form
+                    resetAllReservationForm();
+
+                    // Set room type into dropdown
+                    setRoomType(1);
+
+                    // Set facility into dropdown
+                    setFacility();
+
+                }
             }
-            else
-            {
-                // Style if no error occurred
-                txtCheckInDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
-                txtCheckInDate.Style["background-color"] = "none";
-
-                txtCheckOutDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
-                txtCheckOutDate.Style["background-color"] = "none";
-
-                // Set duration of stay
-                lblDurationOfStay.Text = reservationUtility.getdurationOfStay(txtCheckInDate.Text, txtCheckOutDate.Text).ToString() + " Night";
-
-                PNReserveRoom.Visible = true;
-
-                Session["AvailableRoom"] = getRoomAvailability();
-            }
+            
 
             
         }
@@ -289,6 +339,10 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Get 
             LinkButton currentLBAdd = PNReserveRoom.FindControl("LBAddReservationForm" + index.ToString()) as LinkButton;
 
+            // Get reference for next ddlRoomType & LBAdd
+            //LinkButton nextLBAdd = PNReserveRoom.FindControl("LBAddReservationForm" + (index + 1).ToString()) as LinkButton;
+            //DropDownList nextDDLRoomType = PNReserveRoom.FindControl("ddlRoomType" + (index + 1).ToString()) as DropDownList;
+
             currentLBAdd.Visible = false;
 
             int i = (int)ViewState["NoOfRoomReservationForm"];
@@ -319,6 +373,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Get reference of the current ddlRoomType
             DropDownList ddlRoomType = PNReserveRoom.FindControl("ddlRoomType" + index.ToString()) as DropDownList;
 
+            // Get reference of the previous ddlRoomType
+            DropDownList previousDDLRoomType = PNReserveRoom.FindControl("ddlRoomType" + (index - 1).ToString()) as DropDownList;
+
             // Check if the panel is last panel
             if (index < noOfRoomReservationForm)
             {
@@ -336,7 +393,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 LinkButton currentLBAdd = PNReserveRoom.FindControl("LBAddReservationForm" + index.ToString()) as LinkButton;
 
-                currentLBAdd.Visible = true;
+                if(ddlRoomType.SelectedValue != "-- Please Select --")
+                {
+                    currentLBAdd.Visible = true;
+                }
+                else
+                {
+                    currentLBAdd.Visible = false;
+                }
+                
 
                 resetReservationFormData(noOfRoomReservationForm);
 
@@ -348,8 +413,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 LinkButton currentLBAdd = PNReserveRoom.FindControl("LBAddReservationForm" + (index - 1).ToString()) as LinkButton;
 
-                currentLBAdd.Visible = true;
-
+                if (previousDDLRoomType.SelectedValue == "-- Please Select --")
+                {
+                    currentLBAdd.Visible = false;
+                }
+                else
+                {
+                    currentLBAdd.Visible = true;
+                }
+                
                 if (ddlRoomType.SelectedValue != "-- Please Select --")
                 {
                     increaseRoomQty(ddlRoomType.SelectedValue, index);
@@ -372,6 +444,21 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             ViewState["NoOfRoomReservationForm"] = noOfRoomReservationForm;
 
+        }
+
+        private void resetAllReservationForm()
+        {
+            resetReservationFormData(1);
+            resetReservationFormData(2);
+            resetReservationFormData(3);
+
+            PNReservationForm2.Visible = false;
+            PNReservationForm3.Visible = false;
+
+            ViewState["NoOfRoomReservationForm"] = 1;
+
+            LBAddReservationForm1.Visible = false;
+            LBAddReservationForm2.Visible = false;
         }
 
         private void resetReservationFormData(int index)
@@ -414,6 +501,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             cbExtraBed.Visible = false;
 
             lblExtraBed.Visible = false;
+
+            if(index < 3)
+            {
+                LinkButton LBAddReservationForm = PNReserveRoom.FindControl("LBAddReservationForm" + index.ToString()) as LinkButton;
+
+                LBAddReservationForm.Visible = false;
+            }
         }
 
         private void shiftPanelContent(int currentIndex)
@@ -507,8 +601,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Get the id of link button for current panel
             String currrentLBAddReservationForm = "LBAddReservationForm" + index.ToString();
 
-            // Get reference to the link button add
-            LinkButton addReservationForm = PNReserveRoom.FindControl(currrentLBAddReservationForm) as LinkButton;
+            LinkButton addReservationForm;
 
             int noOfRoomReservationForm = (int)ViewState["NoOfRoomReservationForm"];
             // If the it is not the last panel
@@ -527,18 +620,68 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                     refreshDDLRoomType(index);
 
-                    if(!(index < noOfRoomReservationForm))
+                    if(!(index < noOfRoomReservationForm) && index < 3)
                     {
+                        // Get reference to the link button add
+                        addReservationForm = PNReserveRoom.FindControl(currrentLBAddReservationForm) as LinkButton;
+
                         addReservationForm.Visible = true;
                     }
-                    
 
+                    lblNoRoomSelected.Visible = false;
                 }
                 else
                 {
                     // Else
                     // Make it invisible to the user
-                    addReservationForm.Visible = false;
+                    if(index < 3)
+                    {
+                        addReservationForm = PNReserveRoom.FindControl(currrentLBAddReservationForm) as LinkButton;
+
+                        addReservationForm.Visible = false;
+                    }
+
+                    // Reset text field
+                    DropDownList ddlAdults = PNReserveRoom.FindControl("ddlAdults" + index.ToString()) as DropDownList;
+
+                    TextBox txtAdults = PNReserveRoom.FindControl("txtAdults" + index.ToString()) as TextBox;
+
+                    DropDownList ddlKids = PNReserveRoom.FindControl("ddlKids" + index.ToString()) as DropDownList;
+
+                    TextBox txtKids = PNReserveRoom.FindControl("txtKids" + index.ToString()) as TextBox;
+
+                    CheckBox cbExtraBed = PNReserveRoom.FindControl("cbExtraBed" + index.ToString()) as CheckBox;
+
+                    Label lblExtraBed = PNReserveRoom.FindControl("lblExtraBed" + index.ToString()) as Label;
+
+                    ddlAdults.Items.Clear();
+
+                    ddlAdults.Visible = true;
+
+                    txtAdults.Text = "";
+
+                    txtAdults.Visible = false;
+
+                    ddlKids.Items.Clear();
+
+                    ddlKids.Visible = true;
+
+                    txtKids.Text = "";
+
+                    txtKids.Visible = false;
+
+                    cbExtraBed.Checked = false;
+
+                    cbExtraBed.Visible = false;
+
+                    lblExtraBed.Visible = false;
+
+                    if (index < 3)
+                    {
+                        LinkButton LBAddReservationForm = PNReserveRoom.FindControl("LBAddReservationForm" + index.ToString()) as LinkButton;
+
+                        LBAddReservationForm.Visible = false;
+                    }
 
                     refreshDDLRoomType(index);
                 }
@@ -1223,9 +1366,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected void ddlFacilityName_SelectedIndexChanged(object sender, EventArgs e)
         {
             
-            txtRentDate.Text = txtCheckInDate.Text;
-            txtReturnDate.Text = txtCheckInDate.Text;
-
             // Get reference of the ddlFacility & 
             DropDownList ddlFacility = PNReserveRoom.FindControl("ddlFacilityName") as DropDownList;
             DropDownList ddlFacilityQty = PNReserveRoom.FindControl("ddlFacilityQty") as DropDownList;
@@ -1246,13 +1386,19 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                         if (availableFacility[i].priceType == "Per Reservation")
                         {
-                            PNFacilityRentedDate.Visible = true;
-                            CVFacilityRentedDate.Enabled = true;
+                            txtRentDate.Text = txtCheckInDate.Text;
+                            txtReturnDate.Text = txtCheckOutDate.Text;
+
+                            PNFacilityRentedDate.Visible = false;
+                            CVFacilityRentedDate.Enabled = false;
                         }
                         else
                         {
-                            PNFacilityRentedDate.Visible = false;
-                            CVFacilityRentedDate.Enabled = false;
+                            txtRentDate.Text = txtCheckInDate.Text;
+                            txtReturnDate.Text = txtCheckOutDate.Text;
+
+                            PNFacilityRentedDate.Visible = true;
+                            CVFacilityRentedDate.Enabled = true;
                         }
                     }
                 }
@@ -1336,23 +1482,97 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             {
                 if(availableFacility[i].facilityID == ddlFacilityName.SelectedValue)
                 {
+                    double subTotal;
+
+                    if (availableFacility[i].priceType == "Per Reservation")
+                    {
+                        subTotal = availableFacility[i].price * int.Parse(ddlFacilityQty.SelectedValue);
+                    }
+                    else
+                    {
+                        int durationOfStay = reservationUtility.getdurationOfStay(txtRentDate.Text, txtReturnDate.Text);
+
+                        subTotal = availableFacility[i].price * (int.Parse(ddlFacilityQty.SelectedValue) * durationOfStay);
+                    }
+
                     RentedFacility rf = new RentedFacility(ddlFacilityName.SelectedValue,
-                                                        availableFacility[i].facilityName,
-                                                        int.Parse(ddlFacilityQty.SelectedValue),
-                                                        availableFacility[i].priceType,
-                                                        availableFacility[i].price,
-                                                        txtRentDate.Text,
-                                                        txtReturnDate.Text, 
-                                                        (availableFacility[i].price * int.Parse(ddlFacilityQty.SelectedValue))
-                                                        );
+                                                    availableFacility[i].facilityName,
+                                                    int.Parse(ddlFacilityQty.SelectedValue),
+                                                    availableFacility[i].priceType,
+                                                    availableFacility[i].price,
+                                                    txtRentDate.Text,
+                                                    txtReturnDate.Text, 
+                                                    subTotal
+                                                    );
+
+                    rentedFacility.Add(rf);
                 }
             }
 
-            
+            RepeaterRentedFacility.DataSource = rentedFacility;
+            RepeaterRentedFacility.DataBind();
 
-            
+            // Reset rent facility form
+            ddlFacilityName.SelectedIndex = 0;
+            ddlFacilityQty.Items.Clear();
+
+            txtRentDate.Text = "";
+            txtReturnDate.Text = "";
+
+            PNFacilityRentedDate.Visible = false;
+            CVFacilityRentedDate.Enabled = false;
+
+            lblNoItemFound.Visible = false;
         }
 
-        
+        protected void IBDeleteRentedFacility_Click(object sender, ImageClickEventArgs e)
+        {
+            RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
+
+            // Get facility info for the selected item
+            String itemIndex = (item.FindControl("lblNumber") as Label).Text;
+            String facilityName = (item.FindControl("lblFacilityName") as Label).Text;
+            String rentDate = (item.FindControl("lblRentDate") as Label).Text;
+            String returnDate = (item.FindControl("lblReturnDate") as Label).Text;
+
+            // Set facilityID to ViewState
+            ViewState["ItemIndex"] = itemIndex;
+
+            // Set delete message into popup
+            lblPopupDeleteContent.Text = "Facility: " + facilityName + "<br />" +
+                "Rent Date: " + rentDate + "<br/>" + "Return Date:" + returnDate + "<br /><br />";
+
+            PopupDelete.Visible = true;
+            PopupCover.Visible = true;
+
+        }
+
+        protected void btnPopupCancel_Click(object sender, EventArgs e)
+        {
+            PopupReset.Visible = false;
+            PopupDelete.Visible = false;
+            PopupCover.Visible = false;
+        }
+
+        protected void btnPopupDelete_Click(object sender, EventArgs e)
+        {
+
+            int itemIndex = int.Parse(ViewState["ItemIndex"].ToString());
+
+            List<RentedFacility> rentedFacility = (List<RentedFacility>)Session["RentedFacilityList"];
+
+            rentedFacility.RemoveAt(itemIndex - 1);
+
+            RepeaterRentedFacility.DataSource = rentedFacility;
+            RepeaterRentedFacility.DataBind();
+
+            checkRentedFacilityIsEmpty();
+
+            PopupCover.Visible = false;
+            PopupDelete.Visible = false;
+
+        }
+
+
     }
 }
