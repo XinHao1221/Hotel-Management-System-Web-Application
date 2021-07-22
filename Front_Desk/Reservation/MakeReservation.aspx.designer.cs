@@ -627,6 +627,51 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.ImageButton IBClosePopUpBox;
 
         /// <summary>
+        /// LBCheckRoomAvailability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBCheckRoomAvailability;
+
+        /// <summary>
+        /// PNBtnAvailability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PNBtnAvailability;
+
+        /// <summary>
+        /// LBCheckRoomPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBCheckRoomPrice;
+
+        /// <summary>
+        /// PNBtnPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PNBtnPrice;
+
+        /// <summary>
+        /// PNDisplayRoomAvailability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PNDisplayRoomAvailability;
+
+        /// <summary>
         /// ttBaseOccupancy control.
         /// </summary>
         /// <remarks>
@@ -645,13 +690,31 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.Label ttHigherOccupancy;
 
         /// <summary>
-        /// Repeater1 control.
+        /// RepeaterRoomAvailability control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater1;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterRoomAvailability;
+
+        /// <summary>
+        /// PNDisplayRoomPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PNDisplayRoomPrice;
+
+        /// <summary>
+        /// txtRoomPriceDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRoomPriceDate;
 
         /// <summary>
         /// PopupBoxFacilityAvailability control.
@@ -681,13 +744,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.TextBox txtCheckFacilityDate;
 
         /// <summary>
-        /// Repeater2 control.
+        /// RepeaterFacilityAvailability control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater2;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterFacilityAvailability;
 
         /// <summary>
         /// PopupCover control.

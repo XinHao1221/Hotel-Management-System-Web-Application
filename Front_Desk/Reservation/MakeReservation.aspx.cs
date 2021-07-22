@@ -31,6 +31,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            getStandardRoomPrice("RT10000002", "2021-07-23");
+
             if (!IsPostBack)
             {
                 // set all guest into drop-down list
@@ -138,7 +140,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             conn.Close();
         }
 
-        
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -850,7 +851,16 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Display the popup that are showing room availability
             PopupBoxRoomAvailability.Visible = true;
             PopupCover.Visible = true;
-            setItemToRepeater1();
+
+            // Set popup box button highlight option
+            PNBtnAvailability.CssClass = "formOptionSelectedBtn";
+            PNBtnPrice.CssClass = "formBackBtn";
+
+            // Display PNAvailableRoom
+            PNDisplayRoomAvailability.Visible = true;
+            PNDisplayRoomPrice.Visible = false;
+
+            setItemToRepeaterRoomAvailability();
         }
 
         protected void IBClosePopUpBox_Click(object sender, ImageClickEventArgs e)
@@ -861,14 +871,14 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             PopupBoxFacilityAvailability.Visible = false;
         }
 
-        private void setItemToRepeater1()
+        private void setItemToRepeaterRoomAvailability()
         {
             // Get reference of AvailableRoom store inside session
             List<AvailableRoom> availableRoom = (List<AvailableRoom>)Session["AvailableRoom"];
 
-            // Set data into repeater 1
-            Repeater1.DataSource = availableRoom;
-            Repeater1.DataBind();
+            // Set data into RepeaterRoomAvailability
+            RepeaterRoomAvailability.DataSource = availableRoom;
+            RepeaterRoomAvailability.DataBind();
 
         }
 
@@ -943,6 +953,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             return availableRoom;
         }
+
+
 
         private void setRoomType(int index)
         {
@@ -1242,7 +1254,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             txtCheckFacilityDate.Text = txtCheckInDate.Text;
 
-            setItemToRepeater2(txtCheckFacilityDate.Text);
+            setItemToRepeaterFacilityAvailability(txtCheckFacilityDate.Text);
         }
 
         private List<AvailableFacility> getFacilityAvailability(string date)
@@ -1333,13 +1345,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             return 0;
         }
 
-        private void setItemToRepeater2(string date)
+        private void setItemToRepeaterFacilityAvailability(string date)
         {
-           // getFacilityAvailability(date);
+            // getFacilityAvailability(date);
 
-            // Set data into repeater 1
-            Repeater2.DataSource = getFacilityAvailability(date);
-            Repeater2.DataBind();
+            // Set data into RepeaterFacilityAvailability
+            RepeaterFacilityAvailability.DataSource = getFacilityAvailability(date);
+            RepeaterFacilityAvailability.DataBind();
         }
 
         protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -1359,8 +1371,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void txtCheckFacilityDate_TextChanged(object sender, EventArgs e)
         {
-            
-            setItemToRepeater2(txtCheckFacilityDate.Text);
+
+            setItemToRepeaterFacilityAvailability(txtCheckFacilityDate.Text);
         }
 
         protected void ddlFacilityName_SelectedIndexChanged(object sender, EventArgs e)
@@ -1573,6 +1585,129 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         }
 
+        private List<ReservationRoomPrice> getReservationRoomPrice(string date)
+        {
+            List<ReservationRoomPrice> roomPriceList = new List<ReservationRoomPrice>();
 
+            // Get room availability from Session 
+            List<AvailableRoom> availableRoom = (List<AvailableRoom>)Session["AvailableRoom"];
+
+
+            for(int i = 0; i < availableRoom.Count; i++)
+            {
+                double roomPrice = getStandardOrSpecialRoomPrice(date, availableRoom[i].roomTypeID);
+
+                ReservationRoomPrice rrp = new ReservationRoomPrice(availableRoom[i].roomTypeID, availableRoom[i].roomType, date, roomPrice);
+
+                roomPriceList.Add(rrp);
+
+            }
+
+            return roomPriceList;
+        }
+
+
+
+        private double getStandardOrSpecialRoomPrice(string date, string roomTypeID)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+
+            double roomPrice = getSpecialRoomPrice(roomTypeID, date);
+
+            if (roomPrice == -1)
+            {
+                roomPrice = getStandardRoomPrice(roomTypeID, date);
+            }
+
+            return roomPrice;
+
+        }
+
+        private double getSpecialRoomPrice(string roomTypeID, string date)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getSpecialRoomPrice = "SELECT Price FROM SpecialRoomPrice WHERE RoomTypeID LIKE @ID AND DATE LIKE @Date";
+
+            SqlCommand cmdGetSpecialRoomPrice = new SqlCommand(getSpecialRoomPrice, conn);
+
+            cmdGetSpecialRoomPrice.Parameters.AddWithValue("@ID", roomTypeID);
+            cmdGetSpecialRoomPrice.Parameters.AddWithValue("@Date", date);
+
+            double roomPrice;
+
+            // See if any specialRoomPrice
+            try
+            {
+                Decimal temp = (Decimal)cmdGetSpecialRoomPrice.ExecuteScalar();
+                roomPrice = Convert.ToDouble(temp); 
+            }
+            catch (Exception ex)
+            {
+                // if no return -1
+                roomPrice = -1;
+            }
+
+            conn.Close();
+
+            return roomPrice;
+        }
+
+        private double getStandardRoomPrice(string roomTypeID, string date)
+        {
+            // Get full weekday name
+            DateTime day = Convert.ToDateTime(date);
+            string dayString = day.ToString("dddd");
+
+            // Open SqlConnection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String getStandardRoomPrice = "SELECT " + dayString + "Price FROM StandardRoomPrice WHERE RoomTypeID LIKE @ID";
+
+            SqlCommand cmdGetStandardRoomPrice = new SqlCommand(getStandardRoomPrice, conn);
+
+            cmdGetStandardRoomPrice.Parameters.AddWithValue("@ID", roomTypeID);
+
+            Decimal temp = (Decimal)cmdGetStandardRoomPrice.ExecuteScalar(); 
+            double roomPrice = Convert.ToDouble(temp);
+
+            conn.Close();
+
+            return roomPrice;
+        }
+
+        protected void LBCheckRoomAvailability_Click(object sender, EventArgs e)
+        {
+            PNBtnAvailability.CssClass = "formOptionSelectedBtn";
+            PNBtnPrice.CssClass = "formBackBtn";
+
+            // Display PNAvailableRoom
+            PNDisplayRoomAvailability.Visible = true;
+            PNDisplayRoomPrice.Visible = false;
+
+            setItemToRepeaterRoomAvailability();
+        }
+
+        protected void LBCheckRoomPrice_Click(object sender, EventArgs e)
+        {
+            PNBtnAvailability.CssClass = "formBackBtn";
+            PNBtnPrice.CssClass = "formOptionSelectedBtn";
+
+            // Display PNAvailableRoom
+            PNDisplayRoomAvailability.Visible = false;
+            PNDisplayRoomPrice.Visible = true;
+
+
+
+        }
+
+        protected void txtRoomPriceDate_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

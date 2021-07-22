@@ -702,6 +702,40 @@
 
                         <div style="float:right;">
                             <asp:ImageButton ID="IBClosePopUpBox" runat="server" ImageUrl="~/Image/delete.png" CssClass="popupBoxCloseIcon" ToolTip="Close" OnClick="IBClosePopUpBox_Click"/>
+                        </div>
+                    </div>
+
+                    <div style="clear:both;"></div>
+
+                    <div>
+                        <div style="float:left;">
+                            <%--Room Availability--%>
+                            <asp:LinkButton ID="LBCheckRoomAvailability" runat="server" CssClass="divLBStyle" ToolTip="Check Room Availability" OnClick="LBCheckRoomAvailability_Click">
+                                <div style="margin-bottom:15px;">
+                                    <asp:Panel ID="PNBtnAvailability" runat="server">
+
+                                            <div style="font-size:15px; text-align:center; margin-top:10px; ">
+                                                Availability
+                                            </div>
+
+                                    </asp:Panel>
+                                    
+                                </div>
+                            </asp:LinkButton>
+                        </div>
+                        <div style="float:left; margin-left:20px;">
+                            <%--Room Price--%>
+                            <asp:LinkButton ID="LBCheckRoomPrice" runat="server" CssClass="divLBStyle" ToolTip="Check Room Price" OnClick="LBCheckRoomPrice_Click">
+                                <div>
+                                    <asp:Panel ID="PNBtnPrice" runat="server">
+
+                                            <div style="font-size:15px; text-align:center; margin-top:10px; ">
+                                                Price
+                                            </div>
+
+                                    </asp:Panel>
+                                </div>
+                            </asp:LinkButton>
 
                         </div>
                     </div>
@@ -711,92 +745,110 @@
                     <%-- Popup Window Body --%>
                     <div class="popupBoxBody">
                        
-
                         <%--Display Room Availability--%>
                         <%--Repeater table header--%>
-                        <div style="width:100%; margin:auto;">
-                            <div style="float:left; width:8%; text-align:center;" class="subFormRepeaterHeader">
-                                No
-                            </div>
-                            <div style="float:left; width:40%;" class="subFormRepeaterHeader">
-                                Room Type
-                            </div>
-                            <div style="float:left; width:10%;" class="subFormRepeaterHeader">
-                                Available
-                            </div>
-                            <div style="float:left; width:12%;" class="subFormRepeaterHeader">
-                                <asp:Label ID="ttBaseOccupancy" runat="server" Text="Base Occ" ToolTip="Base Occupancy"></asp:Label>
-                            </div>
-                            <div style="float:left; width:15%;" class="subFormRepeaterHeader">
-                                <asp:Label ID="ttHigherOccupancy" runat="server" Text="Higher Occ" ToolTip="Higher Occupancy"></asp:Label>
-                            </div>
-                            <div style="float:left; width:15%;" class="subFormRepeaterHeader">
-                                Status
-                            </div>
-                            <div style="float:left; width:0%;" class="subFormRepeaterHeader">
-                                &nbsp;
-                            </div>
-                        </div>  
+                        <asp:Panel ID="PNDisplayRoomAvailability" runat="server">
+                            <div style="width:100%; margin:auto;">
+                                <div style="float:left; width:8%; text-align:center;" class="subFormRepeaterHeader">
+                                    No
+                                </div>
+                                <div style="float:left; width:40%;" class="subFormRepeaterHeader">
+                                    Room Type
+                                </div>
+                                <div style="float:left; width:10%;" class="subFormRepeaterHeader">
+                                    Available
+                                </div>
+                                <div style="float:left; width:12%;" class="subFormRepeaterHeader">
+                                    <asp:Label ID="ttBaseOccupancy" runat="server" Text="Base Occ" ToolTip="Base Occupancy"></asp:Label>
+                                </div>
+                                <div style="float:left; width:15%;" class="subFormRepeaterHeader">
+                                    <asp:Label ID="ttHigherOccupancy" runat="server" Text="Higher Occ" ToolTip="Higher Occupancy"></asp:Label>
+                                </div>
+                                <div style="float:left; width:15%;" class="subFormRepeaterHeader">
+                                    Status
+                                </div>
+                                <div style="float:left; width:0%;" class="subFormRepeaterHeader">
+                                    &nbsp;
+                                </div>
+                            </div>  
 
-                        <%--Repeater Table content--%>
-                        <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="Repeater1_ItemDataBound">
+                            <%--Repeater Table content--%>
+                            <asp:Repeater ID="RepeaterRoomAvailability" runat="server" OnItemDataBound="Repeater1_ItemDataBound">
 
-                            <ItemTemplate>
-                                <div style="width:100%; margin:auto;">
-                                    <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
-                                        <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:40%;" class="subFormTableContent">
-                                        <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
-                                        <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:10%;" class="subFormTableContent">
-                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:12%;" class="subFormTableContent">
-                                        <asp:Label ID="lblBaseOccupancy" runat="server" Text='<%# Eval("BaseOccupancy") %>' ToolTip='<%# Eval("BaseOccupancy") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:15%;" class="subFormTableContent">
-                                        <asp:Label ID="lblHigherOccupancy" runat="server" Text='<%# Eval("HigherOccupancy") %>' ToolTip='<%# Eval("HigherOccupancy") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:15%;" class="subFormTableContent">
-                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>' ToolTip='<%# Eval("status") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:0%;" class="subFormTableContent">
-                                        &nbsp;
-                                    </div>
-                                </div>  
-                            </ItemTemplate>
+                                <ItemTemplate>
+                                    <div style="width:100%; margin:auto;">
+                                        <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
+                                            <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:40%;" class="subFormTableContent">
+                                            <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
+                                            <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:10%;" class="subFormTableContent">
+                                            <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:12%;" class="subFormTableContent">
+                                            <asp:Label ID="lblBaseOccupancy" runat="server" Text='<%# Eval("BaseOccupancy") %>' ToolTip='<%# Eval("BaseOccupancy") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:15%;" class="subFormTableContent">
+                                            <asp:Label ID="lblHigherOccupancy" runat="server" Text='<%# Eval("HigherOccupancy") %>' ToolTip='<%# Eval("HigherOccupancy") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:15%;" class="subFormTableContent">
+                                            <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>' ToolTip='<%# Eval("status") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:0%;" class="subFormTableContent">
+                                            &nbsp;
+                                        </div>
+                                    </div>  
+                                </ItemTemplate>
 
-                            <AlternatingItemTemplate>
-                                <div style="width:100%; margin:auto;">
-                                    <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
-                                        <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:40%;" class="subFormTableContentAlternate">
-                                        <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
-                                        <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:10%;" class="subFormTableContentAlternate">
-                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:12%;" class="subFormTableContentAlternate">
-                                        <asp:Label ID="lblBaseOccupancy" runat="server" Text='<%# Eval("BaseOccupancy") %>' ToolTip='<%# Eval("BaseOccupancy") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:15%;" class="subFormTableContentAlternate">
-                                        <asp:Label ID="lblHigherOccupancy" runat="server" Text='<%# Eval("HigherOccupancy") %>' ToolTip='<%# Eval("HigherOccupancy") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:15%;" class="subFormTableContentAlternate">
-                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>' ToolTip='<%# Eval("status") %>'></asp:Label>
-                                    </div>
-                                    <div style="float:left; width:0%;" class="subFormTableContentAlternate">
-                                        &nbsp;
-                                    </div>
-                                </div> 
-                            </AlternatingItemTemplate>
+                                <AlternatingItemTemplate>
+                                    <div style="width:100%; margin:auto;">
+                                        <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:40%;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
+                                            <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:10%;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:12%;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblBaseOccupancy" runat="server" Text='<%# Eval("BaseOccupancy") %>' ToolTip='<%# Eval("BaseOccupancy") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:15%;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblHigherOccupancy" runat="server" Text='<%# Eval("HigherOccupancy") %>' ToolTip='<%# Eval("HigherOccupancy") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:15%;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("status") %>' ToolTip='<%# Eval("status") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:0%;" class="subFormTableContentAlternate">
+                                            &nbsp;
+                                        </div>
+                                    </div> 
+                                </AlternatingItemTemplate>
     
-                        </asp:Repeater> 
+                            </asp:Repeater> 
+                        </asp:Panel>
 
+                        <asp:Panel ID="PNDisplayRoomPrice" runat="server">
+                            <div style="float:left;">
+                                <table style="width:28%; margin-top:-10px;">
+                                    <tr>
+                                        <td class="formLabel requiredFieldLabel" style="text-align:left; font-size:16px;">
+                                                Date             
+                                        </td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td class="tableData">
+                                            <asp:TextBox ID="txtRoomPriceDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtRoomPriceDate_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="clear:both;"></div>
+                        </asp:Panel>
                     </div>
                 </div>
 
@@ -827,6 +879,7 @@
                                 <td class="formLabel requiredFieldLabel" style="text-align:left; font-size:16px;">
                                         Date             
                                 </td>
+                                <td>&nbsp;&nbsp;</td>
                                 <td class="tableData">
                                     <asp:TextBox ID="txtCheckFacilityDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtCheckFacilityDate_TextChanged" AutoPostBack="true"></asp:TextBox>
                                 </td>
@@ -839,7 +892,7 @@
                     <%-- Popup Window Body --%>
                     <div class="popupBoxBody">
                         
-                        <%--Display Room Availability--%>
+                        <%--Display Facility Availability--%>
                         <%--Repeater table header--%>
                         <div style="width:100%; margin:auto;">
                             <div style="float:left; width:8%; text-align:center;" class="subFormRepeaterHeader">
@@ -869,7 +922,7 @@
                         </div>  
 
                         <%--Repeater Table content--%>
-                        <asp:Repeater ID="Repeater2" runat="server" OnItemDataBound="Repeater2_ItemDataBound">
+                        <asp:Repeater ID="RepeaterFacilityAvailability" runat="server" OnItemDataBound="Repeater2_ItemDataBound">
 
                             <ItemTemplate>
                                 <div style="width:100%; margin:auto;">
