@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -6,7 +7,7 @@ using System.Data;
 
 namespace Hotel_Management_System.Front_Desk.Reservation
 {
-    public class RentedFacility : IHttpModule
+    public class Reservation : IHttpModule
     {
         /// <summary>
         /// You will need to configure this module in the Web.config file of your
@@ -29,14 +30,12 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         #endregion
 
-        public string facilityID { get; set; }
-        public string facilityName { get; set; }
-        public int quantity { get; set; }
-        public string priceType { get; set; }
-        public double price { get; set; }
-        public string rentDate { get; set; }
-        public string returnDate { get; set; }
-        public double subTotal { get; set; }
+        public string guestID { get; set; }
+        public string guestName { get; set; }
+        public string checkInDate { get; set; }
+        public string checkOutDate { get; set; }
+        public List<ReservedRoom> reservedRoom { get; set; }
+        public List<RentedFacility> rentedFacility { get; set; }
 
         // Create connection to database
         SqlConnection conn;
@@ -47,40 +46,39 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             //custom logging logic can go here
         }
 
-        public RentedFacility()
+        public Reservation()
         {
 
         }
 
-        public RentedFacility(string facilityID, string facilityName, int quantity, string priceType, double price, string rentDate, string returnDate, double subTotal)
+        public Reservation(string guestID, string checkInDate, string checkOutDate, List<ReservedRoom> reservedRoom, List<RentedFacility> rentedFacility)
         {
-            this.facilityID = facilityID;
-            this.facilityName = facilityName;
-            this.quantity = quantity;
-            this.priceType = priceType;
-            this.price = price;
-            this.rentDate = rentDate;
-            this.returnDate = returnDate;
-            this.subTotal = subTotal;
+            this.guestID = guestID;
+            this.guestName = setGuestName();
+            this.checkInDate = checkInDate;
+            this.checkOutDate = checkOutDate;
+            this.reservedRoom = reservedRoom;
+            this.rentedFacility = rentedFacility;
         }
 
-        private string getFacilityName(String facilityID)
+        public string setGuestName()
         {
+            // Open Connection
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String getFacilityName = "SELECT FacilityName FROM Facility WHERE FacilityID LIKE @ID";
+            // Get Guest Name
+            string getGuestName = "SELECT Name FROM Guest WHERE GuestID LIKE @ID";
 
-            SqlCommand cmdFacilityName = new SqlCommand(getFacilityName, conn);
+            SqlCommand cmdGetGuestName = new SqlCommand(getGuestName, conn);
 
-            cmdFacilityName.Parameters.AddWithValue("@ID", facilityID);
+            cmdGetGuestName.Parameters.AddWithValue("@ID", guestID);
 
-            String facilityName = (String)cmdFacilityName.ExecuteScalar();
+            string guestName = (string)cmdGetGuestName.ExecuteScalar();
 
             conn.Close();
 
-            return facilityName;
-
+            return guestName;
         }
     }
 }

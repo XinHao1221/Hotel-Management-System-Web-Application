@@ -31,7 +31,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            getStandardRoomPrice("RT10000002", "2021-07-23");
+            // getSpecialRoomPrice("RT10000002", "2021-06-28");
 
             if (!IsPostBack)
             {
@@ -149,9 +149,141 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
             else
             {
+                // Set reservation details to view state
+                // and pass to next page
+                setReservationDetails();
+                //Server.Transfer("Payment.aspx");
                 Response.Redirect("Payment.aspx");
             }
             
+        }
+
+        // Set reservation details before redirect to payment page
+        public void setReservationDetails()
+        {
+            // Set reserved room
+            List<ReservedRoom> reservedRooms = setReservedRoom();
+
+            List<RentedFacility> rentedFacilities = (List<RentedFacility>)Session["RentedFacilityList"];
+
+            Reservation reservation = new Reservation(ddlGuest.SelectedValue, txtCheckInDate.Text, txtCheckOutDate.Text, reservedRooms, rentedFacilities);
+
+            Session["ReservationDetails"] = reservation;
+        }
+
+        // Return reserved room
+        private List<ReservedRoom> setReservedRoom()
+        {
+            List<ReservedRoom> reservedRoom = new List<ReservedRoom>();
+
+            int i;
+
+            // get reserved room details for panel 1
+            List<ReservedRoom> rr = getReservedRoomDetails(1);
+
+            for(i = 0; i < rr.Count; i++)
+            {
+                reservedRoom.Add(rr[i]);
+            }
+
+            // get reserved room details for panel 2
+            if (PNReservationForm2.Visible == true)
+            {
+                rr = getReservedRoomDetails(2);
+
+                for (i = 0; i < rr.Count; i++)
+                {
+                    reservedRoom.Add(rr[i]);
+                }
+            }
+
+            // get reserved room details for panel 3
+            if (PNReservationForm3.Visible == true)
+            {
+                rr = getReservedRoomDetails(3);
+
+                for (i = 0; i < rr.Count; i++)
+                {
+                    reservedRoom.Add(rr[i]);
+                }
+            }
+
+            return reservedRoom;
+
+            
+
+        }
+
+        private List<ReservedRoom> getReservedRoomDetails(int index)
+        {
+            List<ReservedRoom> reservedRooms = new List<ReservedRoom>();
+
+            // Get reference of ddlRoomType
+            DropDownList ddlRoomType = PNReserveRoom.FindControl("ddlRoomType" + index.ToString()) as DropDownList;
+
+            DropDownList ddlAdults = PNReserveRoom.FindControl("ddlAdults" + index.ToString()) as DropDownList;
+
+            TextBox txtAdults = PNReserveRoom.FindControl("txtAdults" + index.ToString()) as TextBox;
+
+            DropDownList ddlKids = PNReserveRoom.FindControl("ddlKids" + index.ToString()) as DropDownList;
+
+            TextBox txtKids = PNReserveRoom.FindControl("txtKids" + index.ToString()) as TextBox;
+
+            CheckBox cbExtraBed = PNReserveRoom.FindControl("cbExtraBed" + index.ToString()) as CheckBox;
+
+            Label lblExtraBed = PNReserveRoom.FindControl("lblExtraBed" + index.ToString()) as Label;
+
+            string[] date = reservationUtility.getReservationDate(txtCheckInDate.Text, txtCheckOutDate.Text);
+
+            if (cbExtraBed.Checked == true)
+            {
+                for (int i = 0; i < date.Length; i++)
+                {
+                    // Set reserved room details
+                    ReservedRoom rr = new ReservedRoom(ddlRoomType.SelectedValue, int.Parse(txtAdults.Text), int.Parse(txtKids.Text));
+
+                    List<ReservationRoomPrice> rrp = getReservationRoomPrice(date[i]);
+
+                    for (int j = 0; j < rrp.Count; j++)
+                    {
+                        if (rrp[j].roomTypeID == rr.roomTypeID)
+                        {
+                            rr.roomPrice = rrp[j].roomPrice;
+                        }
+                    }
+
+                    // Set extra room price to the object
+                    rr.getExtraBedPrice();
+
+                    reservedRooms.Add(rr);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < date.Length; i++)
+                {
+                    // Set reserved room details
+                    ReservedRoom rr = new ReservedRoom(ddlRoomType.SelectedValue, int.Parse(ddlAdults.Text), int.Parse(ddlKids.Text));
+
+                    List<ReservationRoomPrice> rrp = getReservationRoomPrice(date[i]);
+
+                    for (int j = 0; j < rrp.Count; j++)
+                    {
+                        if (rrp[j].roomTypeID == rr.roomTypeID)
+                        {
+                            rr.roomPrice = rrp[j].roomPrice;
+                        }
+                    }
+
+                    // Set extra room price to the object
+                    rr.getExtraBedPrice();
+
+                    reservedRooms.Add(rr);
+                }
+            }
+                
+
+            return reservedRooms;
 
         }
 
@@ -178,7 +310,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 txtCheckOutDate.Text = reservationUtility.getNextDate(checkInDate.ToString());
 
-                txtCheckOutDate.Visible = false;
+                txtCheckOutDate.Visible = true;
             }
 
             // Run the comparevalidator
@@ -1507,6 +1639,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         subTotal = availableFacility[i].price * (int.Parse(ddlFacilityQty.SelectedValue) * durationOfStay);
                     }
 
+
                     RentedFacility rf = new RentedFacility(ddlFacilityName.SelectedValue,
                                                     availableFacility[i].facilityName,
                                                     int.Parse(ddlFacilityQty.SelectedValue),
@@ -1639,17 +1772,28 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             double roomPrice;
 
+            object roomPriceObj = cmdGetSpecialRoomPrice.ExecuteScalar();
+
             // See if any specialRoomPrice
-            try
+            if (roomPriceObj != null)
             {
-                Decimal temp = (Decimal)cmdGetSpecialRoomPrice.ExecuteScalar();
-                roomPrice = Convert.ToDouble(temp); 
+                roomPrice = Convert.ToDouble(roomPriceObj);
             }
-            catch (Exception ex)
+            else
             {
-                // if no return -1
                 roomPrice = -1;
             }
+            
+            //try
+            //{
+            //    Decimal temp = (Decimal)cmdGetSpecialRoomPrice.ExecuteScalar();
+            //    roomPrice = Convert.ToDouble(temp); 
+            //}
+            //catch (Exception ex)
+            //{
+            //    // if no return -1
+            //    roomPrice = -1;
+            //}
 
             conn.Close();
 
@@ -1694,6 +1838,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void LBCheckRoomPrice_Click(object sender, EventArgs e)
         {
+            txtRoomPriceDate.Text = txtCheckInDate.Text;
+
             PNBtnAvailability.CssClass = "formBackBtn";
             PNBtnPrice.CssClass = "formOptionSelectedBtn";
 
@@ -1701,13 +1847,19 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             PNDisplayRoomAvailability.Visible = false;
             PNDisplayRoomPrice.Visible = true;
 
+            List<ReservationRoomPrice> roomPriceList = getReservationRoomPrice(txtRoomPriceDate.Text);
 
+            RepeaterRoomPrice.DataSource = roomPriceList;
+            RepeaterRoomPrice.DataBind();
 
         }
 
         protected void txtRoomPriceDate_TextChanged(object sender, EventArgs e)
         {
+            List<ReservationRoomPrice> roomPriceList = getReservationRoomPrice(txtRoomPriceDate.Text);
 
+            RepeaterRoomPrice.DataSource = roomPriceList;
+            RepeaterRoomPrice.DataBind();
         }
     }
 }

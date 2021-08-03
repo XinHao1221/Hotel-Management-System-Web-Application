@@ -220,7 +220,9 @@
       <DependentUpon>Payment.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front_Desk\Reservation\RentedFacility.cs" />
+    <Compile Include="Front_Desk\Reservation\Reservation.cs" />
     <Compile Include="Front_Desk\Reservation\ReservationRoomPrice.cs" />
+    <Compile Include="Front_Desk\Reservation\ReservedRoom.cs" />
     <Compile Include="Hotel_Configuration_Management\Facility\AddFacility.aspx.cs">
       <DependentUpon>AddFacility.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

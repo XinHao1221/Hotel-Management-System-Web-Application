@@ -149,7 +149,7 @@
                             </td>
                             <td class="tableSeperator"></td>
                             <td class="tableData">
-                                <asp:TextBox ID="txtCheckOutDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtCheckOutDate_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                <asp:TextBox ID="txtCheckOutDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtCheckOutDate_TextChanged" AutoPostBack="true" Visible="false"></asp:TextBox>
                                 <asp:Label ID="lblDurationOfStay" runat="server" Text=""></asp:Label>
                                 <br />
                                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Check-Out Date must be greater than Check-In Date" ControlToCompare="txtCheckInDate" ControlToValidate="txtCheckOutDate" Operator="GreaterThan" Type="Date" EnableClientScript="False" CssClass="validatorStyle" ValidationGroup="save"></asp:CompareValidator>
@@ -229,6 +229,7 @@
                                 <td class="tableSeperator"></td>
                                 <td class="tableData">
                                     <asp:DropDownList ID="ddlKids1" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownKids" AutoPostBack="true">
+                                        <asp:ListItem>0</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtKids1" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
                                 </td>
@@ -316,6 +317,7 @@
                                 <td class="tableSeperator"></td>
                                 <td class="tableData">
                                     <asp:DropDownList ID="ddlKids2" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownKids" AutoPostBack="true">
+                                        <asp:ListItem>0</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtKids2" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
                                 </td>
@@ -409,6 +411,7 @@
                                 <td class="tableSeperator"></td>
                                 <td class="tableData">
                                     <asp:DropDownList ID="ddlKids3" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownKids" AutoPostBack="true">
+                                        <asp:ListItem>0</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtKids3" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
                                 </td>
@@ -832,8 +835,8 @@
                             </asp:Repeater> 
                         </asp:Panel>
 
+                        <%--Display Room Price--%>
                         <asp:Panel ID="PNDisplayRoomPrice" runat="server">
-                            <div style="float:left;">
                                 <table style="width:28%; margin-top:-10px;">
                                     <tr>
                                         <td class="formLabel requiredFieldLabel" style="text-align:left; font-size:16px;">
@@ -845,9 +848,65 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </div>
 
                             <div style="clear:both;"></div>
+
+                            <div style="width:100%; margin:auto;">
+                                <div style="float:left; width:8%; text-align:center;" class="subFormRepeaterHeader">
+                                    No
+                                </div>
+                                <div style="float:left; width:40%;" class="subFormRepeaterHeader">
+                                    Room Type
+                                </div>
+                                <div style="float:left; width:10%; text-align:right;" class="subFormRepeaterHeader">
+                                    Price
+                                </div>
+                                <div style="float:left; width:42%;" class="subFormRepeaterHeader">
+                                    &nbsp;
+                                </div>
+                            </div>  
+
+                            <%--Repeater Table content--%>
+                            <asp:Repeater ID="RepeaterRoomPrice" runat="server">
+
+                                <ItemTemplate>
+                                    <div style="width:100%; margin:auto;">
+                                        <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
+                                            <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:40%;" class="subFormTableContent">
+                                            <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
+                                            <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:10%; text-align:right;" class="subFormTableContent">
+                                            <asp:Label ID="lblRoomPrice" runat="server" Text='<%# Eval("roomPrice") %>' ToolTip='<%# Eval("roomPrice") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:42%;" class="subFormTableContent">
+                                            &nbsp;
+                                        </div>
+                                    </div>  
+                                </ItemTemplate>
+
+                                <AlternatingItemTemplate>
+                                    <div style="width:100%; margin:auto;">
+                                        <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:40%;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
+                                            <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
+                                            <asp:Label ID="lblRoomPrice" runat="server" Text='<%# Eval("roomPrice") %>' ToolTip='<%# Eval("roomPrice") %>'></asp:Label>
+                                        </div>
+                                        <div style="float:left; width:42%;" class="subFormTableContentAlternate">
+                                            &nbsp;
+                                        </div>
+                                    </div> 
+                                </AlternatingItemTemplate>
+    
+                            </asp:Repeater> 
+
                         </asp:Panel>
                     </div>
                 </div>
