@@ -81,6 +81,7 @@
     <Content Include="Front_Desk\Guest\ViewGuest.aspx" />
     <Content Include="Front_Desk\Reservation\MakeReservation.aspx" />
     <Content Include="Front_Desk\Reservation\Payment.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Hotel_Configuration_Management\Facility\AddFacility.aspx" />
     <Content Include="Hotel_Configuration_Management\Facility\EditFacility.aspx" />
     <Content Include="Hotel_Configuration_Management\Facility\Facility.aspx" />
@@ -223,6 +224,9 @@
     <Compile Include="Front_Desk\Reservation\Reservation.cs" />
     <Compile Include="Front_Desk\Reservation\ReservationRoomPrice.cs" />
     <Compile Include="Front_Desk\Reservation\ReservedRoom.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Hotel_Configuration_Management\Facility\AddFacility.aspx.cs">
       <DependentUpon>AddFacility.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

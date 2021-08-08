@@ -237,49 +237,61 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             if (cbExtraBed.Checked == true)
             {
-                for (int i = 0; i < date.Length; i++)
+                if (ddlRoomType.SelectedIndex != 0)
                 {
-                    // Set reserved room details
-                    ReservedRoom rr = new ReservedRoom(ddlRoomType.SelectedValue, int.Parse(txtAdults.Text), int.Parse(txtKids.Text));
-
-                    List<ReservationRoomPrice> rrp = getReservationRoomPrice(date[i]);
-
-                    for (int j = 0; j < rrp.Count; j++)
+                    for (int i = 0; i < date.Length; i++)
                     {
-                        if (rrp[j].roomTypeID == rr.roomTypeID)
+                    
+                        // Set reserved room details
+                        ReservedRoom rr = new ReservedRoom(ddlRoomType.SelectedValue, int.Parse(txtAdults.Text), int.Parse(txtKids.Text));
+
+                        // Set date;
+                        rr.date = date[i];
+
+                        List<ReservationRoomPrice> rrp = getReservationRoomPrice(date[i]);
+
+                        for (int j = 0; j < rrp.Count; j++)
                         {
-                            rr.roomPrice = rrp[j].roomPrice;
+                            if (rrp[j].roomTypeID == rr.roomTypeID)
+                            {
+                                rr.roomPrice = rrp[j].roomPrice;
+                            }
                         }
+
+                        // Set extra room price to the object
+                        rr.getExtraBedPrice();
+
+                        reservedRooms.Add(rr);
                     }
-
-                    // Set extra room price to the object
-                    rr.getExtraBedPrice();
-
-                    reservedRooms.Add(rr);
+                    
                 }
             }
             else
             {
-                for (int i = 0; i < date.Length; i++)
+                if (ddlRoomType.SelectedIndex != 0)
                 {
-                    // Set reserved room details
-                    ReservedRoom rr = new ReservedRoom(ddlRoomType.SelectedValue, int.Parse(ddlAdults.Text), int.Parse(ddlKids.Text));
-
-                    List<ReservationRoomPrice> rrp = getReservationRoomPrice(date[i]);
-
-                    for (int j = 0; j < rrp.Count; j++)
+                    for (int i = 0; i < date.Length; i++)
                     {
-                        if (rrp[j].roomTypeID == rr.roomTypeID)
+                        // Set reserved room details
+                        ReservedRoom rr = new ReservedRoom(ddlRoomType.SelectedValue, int.Parse(ddlAdults.Text), int.Parse(ddlKids.Text));
+
+                        // Set date
+                        rr.date = date[i];
+
+                        List<ReservationRoomPrice> rrp = getReservationRoomPrice(date[i]);
+
+                        for (int j = 0; j < rrp.Count; j++)
                         {
-                            rr.roomPrice = rrp[j].roomPrice;
+                            if (rrp[j].roomTypeID == rr.roomTypeID)
+                            {
+                                rr.roomPrice = rrp[j].roomPrice;
+                            }
                         }
+
+                        reservedRooms.Add(rr);
                     }
-
-                    // Set extra room price to the object
-                    rr.getExtraBedPrice();
-
-                    reservedRooms.Add(rr);
                 }
+                    
             }
                 
 
@@ -737,6 +749,17 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             LinkButton addReservationForm;
 
             int noOfRoomReservationForm = (int)ViewState["NoOfRoomReservationForm"];
+
+            DropDownList ddlAdults = PNReserveRoom.FindControl("ddlAdults" + index.ToString()) as DropDownList;
+
+            TextBox txtAdults = PNReserveRoom.FindControl("txtAdults" + index.ToString()) as TextBox;
+
+            DropDownList ddlKids = PNReserveRoom.FindControl("ddlKids" + index.ToString()) as DropDownList;
+
+            TextBox txtKids = PNReserveRoom.FindControl("txtKids" + index.ToString()) as TextBox;
+
+            CheckBox cbExtraBed = PNReserveRoom.FindControl("cbExtraBed" + index.ToString()) as CheckBox;
+
             // If the it is not the last panel
             if (noOfRoomReservationForm <= 3)
             {
@@ -761,6 +784,20 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         addReservationForm.Visible = true;
                     }
 
+                    cbExtraBed.Checked = false;
+
+                    ddlAdults.Visible = true;
+
+                    txtAdults.Text = "";
+
+                    txtAdults.Visible = false;
+
+                    ddlKids.Visible = true;
+
+                    txtKids.Text = "";
+
+                    txtKids.Visible = false;
+
                     lblNoRoomSelected.Visible = false;
                 }
                 else
@@ -775,16 +812,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     }
 
                     // Reset text field
-                    DropDownList ddlAdults = PNReserveRoom.FindControl("ddlAdults" + index.ToString()) as DropDownList;
-
-                    TextBox txtAdults = PNReserveRoom.FindControl("txtAdults" + index.ToString()) as TextBox;
-
-                    DropDownList ddlKids = PNReserveRoom.FindControl("ddlKids" + index.ToString()) as DropDownList;
-
-                    TextBox txtKids = PNReserveRoom.FindControl("txtKids" + index.ToString()) as TextBox;
-
-                    CheckBox cbExtraBed = PNReserveRoom.FindControl("cbExtraBed" + index.ToString()) as CheckBox;
-
                     Label lblExtraBed = PNReserveRoom.FindControl("lblExtraBed" + index.ToString()) as Label;
 
                     ddlAdults.Items.Clear();
@@ -1523,6 +1550,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 {
                     if (availableFacility[i].facilityID == ddlFacility.SelectedValue)
                     {
+                        ddlFacilityQty.Items.Clear();
                         for (int j = 1; j <= availableFacility[i].availableQty; j++)
                         {
                             ddlFacilityQty.Items.Add(new ListItem(j.ToString()));

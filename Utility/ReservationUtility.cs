@@ -91,6 +91,9 @@ namespace Hotel_Management_System.Utility
 
         public String formatDate(String date)
         {
+            DateTime dateTime = Convert.ToDateTime(date);
+
+            string formtedDate = dateTime.ToString("MM/dd/yyyy h:mm tt");
 
             int[] dateComponent = new int[3];   // day month year
             String temp = "";
@@ -99,9 +102,9 @@ namespace Hotel_Management_System.Utility
 
             for (int i = 0; i < 3; i++)
             {
-                while ((date[j] != '/') && (date[j] != ' '))
+                while ((formtedDate[j] != '/') && (formtedDate[j] != ' ') &&(formtedDate[j] != '-'))
                 {
-                    temp += date[j];
+                    temp += formtedDate[j];
                     j++;
                 }
                 dateComponent[i] = int.Parse(temp);
@@ -115,7 +118,7 @@ namespace Hotel_Management_System.Utility
               dateComponent[2] = year
              */
 
-            String formatedDate = dateComponent[2] + "-" + ((dateComponent[1] < 10 ? "0" : "") + dateComponent[1]) + "-" + ((dateComponent[0] < 10 ? "0" : "") + dateComponent[0]);
+            String formatedDate = dateComponent[2] + "-" + ((dateComponent[0] < 10 ? "0" : "") + dateComponent[0]) + "-" + ((dateComponent[1] < 10 ? "0" : "") + dateComponent[1]);
 
             return formatedDate;
 
