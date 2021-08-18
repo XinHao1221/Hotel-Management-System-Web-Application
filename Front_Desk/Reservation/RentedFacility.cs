@@ -3,6 +3,7 @@ using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using Hotel_Management_System.Utility;
 
 namespace Hotel_Management_System.Front_Desk.Reservation
 {
@@ -42,6 +43,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
+        // Create instance of ReservationUltility class
+        ReservationUtility reservationUtility = new ReservationUtility();
+
         public void OnLogRequest(Object source, EventArgs e)
         {
             //custom logging logic can go here
@@ -64,23 +68,5 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             this.subTotal = subTotal;
         }
 
-        private string getFacilityName(String facilityID)
-        {
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            String getFacilityName = "SELECT FacilityName FROM Facility WHERE FacilityID LIKE @ID";
-
-            SqlCommand cmdFacilityName = new SqlCommand(getFacilityName, conn);
-
-            cmdFacilityName.Parameters.AddWithValue("@ID", facilityID);
-
-            String facilityName = (String)cmdFacilityName.ExecuteScalar();
-
-            conn.Close();
-
-            return facilityName;
-
-        }
     }
 }

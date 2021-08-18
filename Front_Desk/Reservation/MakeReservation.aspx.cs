@@ -1221,6 +1221,11 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 // Set the previous dropdownlist value into textbox
                 txtAdults.Text = ddlAdults.SelectedValue;
                 txtKids.Text = ddlKids.SelectedValue;
+
+                if(txtKids.Text == "")
+                {
+                    txtKids.Text = "0";
+                }
             }
             else
             {

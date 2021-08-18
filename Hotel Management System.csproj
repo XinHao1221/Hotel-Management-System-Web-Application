@@ -72,6 +72,7 @@
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="Dashboard\Dashboard.aspx" />
+    <Content Include="Front_Desk\CheckIn\CheckIn.aspx" />
     <Content Include="Front_Desk\Guest\AddGuest.aspx" />
     <Content Include="Front_Desk\Guest\AddPreference.ascx" />
     <Content Include="Front_Desk\Guest\EditGuest.aspx" />
@@ -154,6 +155,16 @@
     <Compile Include="Dashboard\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Front_Desk\CheckIn\CheckIn.aspx.cs">
+      <DependentUpon>CheckIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\CheckIn\CheckIn.aspx.designer.cs">
+      <DependentUpon>CheckIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\CheckIn\ReservationFacility.cs" />
+    <Compile Include="Front_Desk\CheckIn\ReservationDetail.cs" />
+    <Compile Include="Front_Desk\CheckIn\ReservedRoom.cs" />
     <Compile Include="Front_Desk\Guest\AddGuest.aspx.cs">
       <DependentUpon>AddGuest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

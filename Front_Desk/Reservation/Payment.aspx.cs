@@ -16,7 +16,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         // Create instance of ReservationUltility class
         ReservationUtility reservationUtility = new ReservationUtility();
 
-        // Get reservation object from Session variable
+        // Get ReservationDetail object from Session variable
         Reservation reservation = new Reservation();
 
         // Create instance of IDGerator class
@@ -120,6 +120,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             string nextReservationID = saveReservationDetails();
             saveReservedRoom(nextReservationID);
             saveRentedFacility(nextReservationID);
+            savePayment(nextReservationID);
 
             // ***** Redirect etc do here
         }
@@ -198,7 +199,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 cmdAddReservationRoom.Parameters.AddWithValue("@Date", reservedRooms[i].date);
                 cmdAddReservationRoom.Parameters.AddWithValue("@RoomTypeID", reservedRooms[i].roomTypeID);
                 cmdAddReservationRoom.Parameters.AddWithValue("@ReservationID", nextReservationID);
-                cmdAddReservationRoom.Parameters.AddWithValue("@ReservationRoomID", nextReservationID);
+                cmdAddReservationRoom.Parameters.AddWithValue("@ReservationRoomID", nextReservationRoomID);
 
                 int j = cmdAddReservationRoom.ExecuteNonQuery();
 
@@ -221,7 +222,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             for (int i = 0; i < rentedFacilities.Count; i++)
             {
 
-                if (rentedFacilities[i].priceType == "Per Night" && rentedFacilities[i].priceType == "Per Person")
+                if (rentedFacilities[i].priceType == "Per Night" || rentedFacilities[i].priceType == "Per Person")
                 {
                     string []date = reservationUtility.getReservationDate(rentedFacilities[i].rentDate, rentedFacilities[i].returnDate);
 
@@ -231,12 +232,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     for(int j = 0; j < rentedDuration; j++)
                     {
                         // Rented quantity
-                        for(int q = 0; q < rentedFacilities[i].quantity; i++)
+                        for(int q = 0; q < rentedFacilities[i].quantity; q++)
                         {
                             // get next reservationRoomID
-                            String nextReservationFacilityID = idGenerator.getNextID("ReservationRoomID", "ReservationFacility", "RF");
+                            String nextReservationFacilityID = idGenerator.getNextID("ReservationFacilityID", "ReservationFacility", "RF");
 
-                            double facilityRentedPrice = rentedFacilities[i].price / rentedDuration / rentedFacilities[i].quantity;
+                            //double facilityRentedPrice = rentedFacilities[i].price / rentedDuration / rentedFacilities[i].quantity;
+                            double facilityRentedPrice = rentedFacilities[i].price;
 
                             // Open connection
                             conn = new SqlConnection(strCon);
@@ -246,7 +248,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                             // Add one-by-one 
                             // Each date and quantity
                             addRentedFacility = "INSERT INTO ReservationFacility VALUES (@FacilityID, @ReservationID, @price, " +
-                                "@DateRented, @DateCreated, @ReservationFacilityID)";
+                                "@DateRented, @DateCreated, @ReservationFacilityID, @Group)";
 
                             SqlCommand cmdAddRentedFacility = new SqlCommand(addRentedFacility, conn);
 
@@ -256,6 +258,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                             cmdAddRentedFacility.Parameters.AddWithValue("@DateRented", date[j].ToString());
                             cmdAddRentedFacility.Parameters.AddWithValue("@DateCreated", todaysDate);
                             cmdAddRentedFacility.Parameters.AddWithValue("@ReservationFacilityID", nextReservationFacilityID);
+                            cmdAddRentedFacility.Parameters.AddWithValue("@Group", i + 1);
 
                             int success = cmdAddRentedFacility.ExecuteNonQuery();
 
@@ -276,10 +279,11 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         for(int q = 0; q < rentedFacilities[i].quantity; q++)
                         {
                             // get next reservationRoomID
-                            String nextReservationFacilityID = idGenerator.getNextID("ReservationRoomID", "ReservationFacility", "RF");
+                            String nextReservationFacilityID = idGenerator.getNextID("ReservationFacilityID", "ReservationFacility", "RF");
 
                             // Calculate rent price for the facility
-                            double facilityRentedPrice = rentedFacilities[i].price / rentedFacilities[i].quantity;
+                            //double facilityRentedPrice = rentedFacilities[i].price / rentedFacilities[i].quantity;
+                            double facilityRentedPrice = rentedFacilities[i].price;
 
                             // Open connection
                             conn = new SqlConnection(strCon);
@@ -289,7 +293,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                             // Add one-by-one 
                             // Each date
                             addRentedFacility = "INSERT INTO ReservationFacility VALUES (@FacilityID, @ReservationID, @price, " +
-                                "@DateRented, @DateCreated, @ReservationFacilityID)";
+                                "@DateRented, @DateCreated, @ReservationFacilityID, @Group)";
 
                             SqlCommand cmdAddRentedFacility = new SqlCommand(addRentedFacility, conn);
 
@@ -299,6 +303,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                             cmdAddRentedFacility.Parameters.AddWithValue("@DateRented", date[j].ToString());
                             cmdAddRentedFacility.Parameters.AddWithValue("@DateCreated", todaysDate);
                             cmdAddRentedFacility.Parameters.AddWithValue("@ReservationFacilityID", nextReservationFacilityID);
+                            cmdAddRentedFacility.Parameters.AddWithValue("@Group", i + 1);
 
                             int success = cmdAddRentedFacility.ExecuteNonQuery();
 
@@ -309,6 +314,31 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     
                 }
             }
+        }
+
+        private void savePayment(string nextReservationID) { 
+
+            // get next PaymentID
+            String nextPaymentID = idGenerator.getNextID("PaymentID", "Payment", "P");
+
+            // Open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String addPayment = "INSERT INTO Payment VALUES (@PaymentID, @PaymentMethod, @ReferenceNo, @Amount, @ReservationID)";
+
+            SqlCommand cmdAddPayment = new SqlCommand(addPayment, conn);
+
+            cmdAddPayment.Parameters.AddWithValue("@PaymentID", nextPaymentID);
+            cmdAddPayment.Parameters.AddWithValue("@PaymentMethod", ddlPaymentMethod.SelectedValue);
+            cmdAddPayment.Parameters.AddWithValue("@ReferenceNo", txtReferenceNo.Text);
+            cmdAddPayment.Parameters.AddWithValue("@Amount", Convert.ToDecimal(lblGrandTotal.Text));
+            cmdAddPayment.Parameters.AddWithValue("@ReservationID", nextReservationID);
+
+            int i = cmdAddPayment.ExecuteNonQuery();
+
+            conn.Close();
+
         }
 
         private string generateSecretPassword()
@@ -358,7 +388,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Accumulate facility details
             for(int j = 0; j < rentedFacilities.Count; j++)
             {
-                totalPayment += rentedFacilities[j].price;
+                totalPayment += rentedFacilities[j].subTotal;
             }
 
             // Display total

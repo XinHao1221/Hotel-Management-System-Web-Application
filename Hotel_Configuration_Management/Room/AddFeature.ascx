@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddFeature.ascx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.AddFeature" %>
+﻿
+3<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddFeature.ascx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.AddFeature" %>
 
 <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
 <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
@@ -51,7 +52,7 @@
                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
             </div>
             <div style="float:left; width:84%;" class="subFormTableContent">
-                <asp:Label ID="lblFeature" runat="server" Text='<%# Container.DataItem.ToString() %>'></asp:Label>
+                <asp:Label ID="lblFeature" runat="server" Text='<%# Container.DataItem.ToString() %>' ToolTip='<%# Container.DataItem.ToString() %>'></asp:Label>
             </div>
             <div style="float:left; width:1%;" class="subFormTableContent">
                 &nbsp;
@@ -68,7 +69,7 @@
                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
             </div>
             <div style="float:left; width:84%;" class="subFormTableContentAlternate">
-                <asp:Label ID="lblFeature" runat="server" Text='<%# Container.DataItem.ToString() %>'></asp:Label>
+                <asp:Label ID="lblFeature" runat="server" Text='<%# Container.DataItem.ToString() %>' ToolTip='<%# Container.DataItem.ToString() %>'></asp:Label>
             </div>
             <div style="float:left; width:1%;" class="subFormTableContentAlternate">
                 &nbsp;

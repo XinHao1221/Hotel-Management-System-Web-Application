@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace Hotel_Management_System.Front_Desk.Reservation
+namespace Hotel_Management_System.Front_Desk.CheckIn
 {
     public class ReservedRoom : IHttpModule
     {
@@ -28,37 +28,41 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         }
 
         #endregion
+
+        public string reservationRoomTypeID {get; set;}
         public string roomTypeID { get; set; }
         public string roomTypeName { get; set; }
         public double roomPrice { get; set; }
         public int adults { get; set; }
         public int kids { get; set; }
-        public double extraBedPrice {get; set;}
+        public double extraBedPrice { get; set; }
         public string date { get; set; }
-
 
 
         // Create connection to database
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
+
         public void OnLogRequest(Object source, EventArgs e)
         {
             //custom logging logic can go here
         }
-        
+
         public ReservedRoom()
         {
 
         }
 
-        public ReservedRoom(string roomTypeID, int adults, int kids)
+        public ReservedRoom(string reservationRoomTypeID, string roomTypeID, int adults, int kids, double roomPrice, double extraBedPrice)
         {
+            this.reservationRoomTypeID = reservationRoomTypeID;
             this.roomTypeID = roomTypeID;
             this.roomTypeName = getRoomTypeName(roomTypeID);
             this.adults = adults;
             this.kids = kids;
-            this.extraBedPrice = -1;
+            this.roomPrice = roomPrice;
+            this.extraBedPrice = extraBedPrice;
         }
 
         private string getRoomTypeName(string roomTypeID)
@@ -97,6 +101,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             this.extraBedPrice = Convert.ToDouble(extraBedPrice);
         }
+
+
 
     }
 }

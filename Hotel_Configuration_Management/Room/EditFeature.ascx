@@ -51,7 +51,7 @@
             </div>
             <div style="float:left; width:84%;" class="subFormTableContent">
                 <asp:Label ID="lblFeatureID" runat="server" Text='<%# Eval("FeatureID") %>' Visible="false"></asp:Label>
-                <asp:Label ID="lblFeature" runat="server" Text='<%# Eval("Title") %>'></asp:Label>
+                <asp:Label ID="lblFeature" runat="server" Text='<%# Eval("Title") %>' ToolTip='<%# Eval("Title") %>'></asp:Label>
             </div>
             <div style="float:left; width:1%;" class="subFormTableContent">
                 &nbsp;
@@ -69,7 +69,7 @@
             </div>
             <div style="float:left; width:84%;" class="subFormTableContentAlternate">
                 <asp:Label ID="lblFeatureID" runat="server" Text='<%# Eval("FeatureID") %>' Visible="false"></asp:Label>
-                <asp:Label ID="lblFeature" runat="server" Text='<%# Eval("Title") %>'></asp:Label>
+                <asp:Label ID="lblFeature" runat="server" Text='<%# Eval("Title") %>' ToolTip='<%# Eval("Title") %>'></asp:Label>
             </div>
             <div style="float:left; width:1%;" class="subFormTableContentAlternate">
                 &nbsp;
