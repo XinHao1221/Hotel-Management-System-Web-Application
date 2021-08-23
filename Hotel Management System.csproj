@@ -155,6 +155,7 @@
     <Compile Include="Dashboard\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Front_Desk\CheckIn\AvailableRoom.cs" />
     <Compile Include="Front_Desk\CheckIn\CheckIn.aspx.cs">
       <DependentUpon>CheckIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -33,6 +33,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         public string roomTypeID { get; set; }
         public string roomTypeName { get; set; }
         public double roomPrice { get; set; }
+        public string roomNo { get; set; }
         public int adults { get; set; }
         public int kids { get; set; }
         public double extraBedPrice { get; set; }
@@ -54,7 +55,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         }
 
-        public ReservedRoom(string reservationRoomTypeID, string roomTypeID, int adults, int kids, double roomPrice, double extraBedPrice)
+        public ReservedRoom(string reservationRoomTypeID, string roomTypeID, int adults, int kids, double roomPrice, double extraBedPrice, string date)
         {
             this.reservationRoomTypeID = reservationRoomTypeID;
             this.roomTypeID = roomTypeID;
@@ -63,6 +64,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.kids = kids;
             this.roomPrice = roomPrice;
             this.extraBedPrice = extraBedPrice;
+            this.date = date;
         }
 
         private string getRoomTypeName(string roomTypeID)

@@ -122,6 +122,12 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             saveRentedFacility(nextReservationID);
             savePayment(nextReservationID);
 
+            // Set Session Variable to null
+            Session["AvailableRoom"] = null;
+            Session["AvailableFacility"] = null;
+            Session["AvailableFacility"] = null;
+            Session["RentedFacilityList"] = null;
+
             // ***** Redirect etc do here
         }
 

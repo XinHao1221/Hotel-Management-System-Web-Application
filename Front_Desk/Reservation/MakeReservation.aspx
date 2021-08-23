@@ -51,6 +51,11 @@
             float:left; 
             /*background-color:red;*/
         }
+
+        .popupBox{
+            min-width:1000px;
+            width:80%;
+        }
     </style>
 
     
@@ -693,7 +698,7 @@
 
             <%--Popup Box--%>
             <%--Popup Box Room Availability--%>
-            <asp:Panel ID="PopupBoxRoomAvailability" runat="server" CssClass="popupBox" Visible="false" Width="1000px">
+            <asp:Panel ID="PopupBoxRoomAvailability" runat="server" CssClass="popupBox" Visible="false" Width="">
                     
                 <div class="popupBoxContainer">
    
@@ -914,7 +919,7 @@
             </asp:Panel> 
 
             <%--Popup Box Facility Availability--%>
-            <asp:Panel ID="PopupBoxFacilityAvailability" runat="server" CssClass="popupBox" Visible="false" Width="1000px">
+            <asp:Panel ID="PopupBoxFacilityAvailability" runat="server" CssClass="popupBox" Visible="false" Width="">
                     
                 <div class="popupBoxContainer">
    
