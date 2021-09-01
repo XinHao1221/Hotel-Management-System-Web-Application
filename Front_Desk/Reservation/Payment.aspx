@@ -20,7 +20,9 @@
             height:100%;
             min-height:600px;
             border: 2px solid rgb(180 180 180);
-            background-color: rgb(247 247 247);
+            
+            box-shadow: 5px 10px;
+            box-shadow: 3px 3px 5px rgb(149 149 149);
         }
 
         body{
@@ -146,32 +148,32 @@
 
                         <ItemTemplate>
                             <div style="width:86%; margin:auto;">
-                                <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
+                                <div style="float:left; width:8%; text-align:center; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:15%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:15%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
                                     <asp:Label ID="lblDate" runat="server" Text='<%# Eval("date") %>' ToolTip='<%# Eval("date") %>' ></asp:Label>
                                 </div>
-                                <div style="float:left; width:2.5%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:2.5%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     &nbsp;
                                 </div>
-                                <div style="float:left; width:27%;" class="subFormTableContent">
+                                <div style="float:left; width:27%; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblRoomTypeName" runat="server" Text='<%# Eval("roomTypeName") %>' ToolTip='<%# Eval("roomTypeName") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:10%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:10%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblAdults" runat="server" Text='<%# Eval("adults") %>' ToolTip='<%# Eval("adults") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:10%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:10%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblKids" runat="server" Text='<%# Eval("kids") %>' ToolTip='<%# Eval("kids") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:12.5%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:12.5%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblRoomPrice" runat="server" Text='<%# Eval("roomPrice", "{0:N2}") %>' ToolTip='<%# Eval("roomPrice", "{0:N2}") %>'></asp:Label>
                                 </div>
                                 <div style="float:left; width:1.5%;" class="subFormTableContent">
                                     &nbsp;
                                 </div>
-                                <div style="float:left; width:12.5%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:12.5%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblExtraBedPrice" runat="server" Text='<%# Eval("extraBedPrice", "{0:N2}") %>' ToolTip='<%# Eval("extraBedPrice", "{0:N2}") %>'></asp:Label>
                                 </div>
                                 <div style="float:left; width:1%;" class="subFormTableContent">
@@ -183,32 +185,32 @@
 
                         <AlternatingItemTemplate>
                             <div style="width:86%; margin:auto;">
-                                <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:8%; text-align:center; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:15%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblRoomTypeID" runat="server" Text='<%# Eval("roomTypeID") %>' Visible="false"></asp:Label>
                                     <asp:Label ID="lblDate" runat="server" Text='<%# Eval("date") %>' ToolTip='<%# Eval("date") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:2.5%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:2.5%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     &nbsp;
                                 </div>
-                                <div style="float:left; width:27%;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:27%; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblRoomTypeName" runat="server" Text='<%# Eval("roomTypeName") %>' ToolTip='<%# Eval("roomTypeName") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:10%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblAdults" runat="server" Text='<%# Eval("adults") %>' ToolTip='<%# Eval("adults") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:10%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblKids" runat="server" Text='<%# Eval("kids") %>' ToolTip='<%# Eval("kids") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:12.5%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:12.5%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblRoomPrice" runat="server" Text='<%# Eval("roomPrice", "{0:N2}") %>' ToolTip='<%# Eval("roomPrice", "{0:N2}") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:1.5%;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:1.5%; font-size:90%;" class="subFormTableContentAlternate">
                                     &nbsp;
                                 </div>
-                                <div style="float:left; width:12.5%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:12.5%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblExtraBedPrice" runat="server" Text='<%# Eval("extraBedPrice", "{0:N2}") %>' ToolTip='<%# Eval("extraBedPrice", "{0:N2}") %>'></asp:Label>
                                 </div>
                                 <div style="float:left; width:1%;" class="subFormTableContentAlternate">
@@ -257,26 +259,26 @@
                         <ItemTemplate>
 
                             <div style="width:86%; margin:auto;">
-                                <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
+                                <div style="float:left; width:8%; font-size:90%; text-align:center;" class="subFormTableContent">
                                     <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:25%;" class="subFormTableContent">
+                                <div style="float:left; width:25%; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblFacilityID" runat="server" Text='<%# Eval("facilityID") %>' Visible="false"></asp:Label>
                                     <asp:Label ID="lblFacilityName" runat="server" Text='<%# Eval("facilityName") %>' ToolTip='<%# Eval("facilityName") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:20%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:20%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblRentDate" runat="server" Text='<%# Eval("rentDate") %>' ToolTip='<%# Eval("rentDate") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:20%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:20%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblReturnDate" runat="server" Text='<%# Eval("returnDate") %>' ToolTip='<%# Eval("returnDate") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:10%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:10%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:15%; text-align:right;" class="subFormTableContent">
+                                <div style="float:left; width:15%; text-align:right; font-size:90%;" class="subFormTableContent">
                                     <asp:Label ID="lblSubTotal" runat="server" Text='<%# Eval("subTotal", "{0:N2}") %>' ToolTip='<%# Eval("subTotal", "{0:N2}") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:2%;" class="subFormTableContent">
+                                <div style="float:left; width:2%; font-size:90%;" class="subFormTableContent">
                                     &nbsp;
                                 </div>
                             </div>
@@ -286,26 +288,26 @@
                         <AlternatingItemTemplate>
 
                             <div style="width:86%; margin:auto;">
-                                <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:8%; text-align:center; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:25%;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:25%; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblFacilityID" runat="server" Text='<%# Eval("facilityID") %>' Visible="false"></asp:Label>
                                     <asp:Label ID="lblFacilityName" runat="server" Text='<%# Eval("facilityName") %>' ToolTip='<%# Eval("facilityName") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:20%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:20%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblRentDate" runat="server" Text='<%# Eval("rentDate") %>' ToolTip='<%# Eval("rentDate") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:20%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:20%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblReturnDate" runat="server" Text='<%# Eval("returnDate") %>' ToolTip='<%# Eval("returnDate") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:10%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:15%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
                                     <asp:Label ID="lblSubTotal" runat="server" Text='<%# Eval("subTotal", "{0:N2}") %>' ToolTip='<%# Eval("subTotal", "{0:N2}") %>'></asp:Label>
                                 </div>
-                                <div style="float:left; width:2%;" class="subFormTableContentAlternate">
+                                <div style="float:left; width:2%; font-size:90%;" class="subFormTableContentAlternate">
                                     &nbsp;
                                 </div>
                             </div>
