@@ -34,7 +34,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             {
                 Session["ReservationDetails"] = new ReservationDetail();
 
-                Session["AvailableRoom"] = new List<AvailableRoom>();
+                Session["ReservedRoomType"] = new List<ReservedRoomType>();
 
                 getReservationDetails();
 
@@ -302,8 +302,6 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
             List<ReservedRoom> reservedRooms = reservation.reservedRoom;
 
-            List<AvailableRoom> availableRooms = (List<AvailableRoom>)Session["AvailableRoom"];
-
             for (int i = 0; i < reservedRooms.Count; i++)
             {
                 getAvailableRooms(reservedRooms[i].roomTypeID, reservedRooms[i].date);
@@ -312,32 +310,54 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         private void getAvailableRooms(string roomTypeID, string date)
         {
-            List<AvailableRoom> availableRooms = (List<AvailableRoom>)Session["AvailableRoom"];
+            List<ReservedRoomType> reservedRoomTypes = (List<ReservedRoomType>)Session["ReservedRoomType"];
 
-            conn = new SqlConnection(strCon);
-            conn.Open();
+            int condition = 0;
 
-            String getAvailableRoom = "(SELECT RoomID FROM Room WHERE RoomTypeID LIKE @RoomTypeID AND Status LIKE 'Active') " +
-                                        "EXCEPT " +
-                                        "(SELECT RoomID FROM ReservationRoom WHERE RoomTypeID LIKE @RoomTypeID AND Date LIKE @Date)";
-
-            SqlCommand cmdGetAvailableRoom = new SqlCommand(getAvailableRoom, conn);
-
-            cmdGetAvailableRoom.Parameters.AddWithValue("@RoomTypeID", roomTypeID);
-            cmdGetAvailableRoom.Parameters.AddWithValue("@Date", date);
-
-            SqlDataReader sdr = cmdGetAvailableRoom.ExecuteReader();
-
-            AvailableRoom ar = null;
-
-            while (sdr.Read())
+            // Check if the room avaiability has been retrieved
+            for(int i = 0; i < reservedRoomTypes.Count; i++)
             {
-                ar = new AvailableRoom(sdr["RoomID"].ToString(), roomTypeID, date);
-
-                availableRooms.Add(ar);
+                if(reservedRoomTypes[i].roomTypeID == roomTypeID && reservedRoomTypes[i].date == date)
+                {
+                    condition = 1;
+                }
             }
 
-            conn.Close();
+            // If room availability have not retrieved
+            if(condition != 1)
+            {
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                String getAvailableRoom = "(SELECT RoomID FROM Room WHERE RoomTypeID LIKE @RoomTypeID AND Status LIKE 'Active') " +
+                                            "EXCEPT " +
+                                            "(SELECT RoomID FROM ReservationRoom WHERE RoomTypeID LIKE @RoomTypeID AND Date LIKE @Date)";
+
+                SqlCommand cmdGetAvailableRoom = new SqlCommand(getAvailableRoom, conn);
+
+                cmdGetAvailableRoom.Parameters.AddWithValue("@RoomTypeID", roomTypeID);
+                cmdGetAvailableRoom.Parameters.AddWithValue("@Date", date);
+
+                SqlDataReader sdr = cmdGetAvailableRoom.ExecuteReader();
+
+                List<AvailableRoom> availableRooms = new List<AvailableRoom>();
+
+                ReservedRoomType rrt = null;
+
+                while (sdr.Read())
+                {
+                    AvailableRoom ar = new AvailableRoom(sdr["RoomID"].ToString());
+
+                    availableRooms.Add(ar);
+                }
+
+                rrt = new ReservedRoomType(roomTypeID, date, availableRooms);
+
+                reservedRoomTypes.Add(rrt);
+
+                conn.Close();
+            }
+            
 
         }
 
@@ -371,8 +391,106 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void LBSelectRoom_Click(object sender, EventArgs e)
         {
+            // Display popup box
             PopupBoxSelectRoom.Visible = true;
             PopupCover.Visible = true;
+
+            // Declare AvailableRoom object
+            List<AvailableRoom> ar = new List<AvailableRoom>();
+
+            // Get the reference of repeater
+            RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
+
+            // Get roomType for the selected item
+            string roomType = (item.FindControl("lblRoomType") as Label).Text;
+            string roomTypeID = (item.FindControl("lblRoomTypeID") as Label).Text;
+            String date = (item.FindControl("lblDate") as Label).Text;
+            string convertedDate = reservationUtility.formatDate(date);
+
+            lblPopupBoxRoomType.Text = roomType;
+            lblPopupBoxDate.Text = date;
+
+            List<ReservedRoomType> reservedRoomTypes = (List<ReservedRoomType>)Session["ReservedRoomType"];
+
+            // Get roomTypeID
+            // Check why is four record instead of 2
+
+            for(int i = 0; i < reservedRoomTypes.Count; i++)
+            {
+                if(reservedRoomTypes[i].date == convertedDate && reservedRoomTypes[i].roomTypeID == roomTypeID)
+                { 
+                    RepeaterAvailableRoom.DataSource = reservedRoomTypes[i].availableRooms;
+                    RepeaterAvailableRoom.DataBind();
+                }
+            }
+
+            // ********
+            // Assign only specific roomType and specific date
+            
+
+        }
+
+        private string getRoomFeature(string roomID)
+        {
+            string roomFeatures = "";
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getRoomFeature = "SELECT * FROM Feature WHERE RoomID LIKE @ID";
+
+            SqlCommand cmdGetRoomFeature = new SqlCommand(getRoomFeature, conn);
+
+            cmdGetRoomFeature.Parameters.AddWithValue("@ID", roomID);
+
+            SqlDataReader sdr = cmdGetRoomFeature.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                roomFeatures += sdr["Title"].ToString() + ", ";
+            }
+
+            conn.Close();
+
+            //Remove ", " at the back of the string
+            if (roomFeatures.Length > 0)
+            {
+                roomFeatures = roomFeatures.Substring(0, roomFeatures.Length - 2);
+            }
+
+            return roomFeatures;
+        }
+
+        protected void RepeaterAvailableRoom_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            
+        }
+
+        protected void RepeaterAvailableRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Assign data from RepeaterView
+            DataRowView drv = e.Item.DataItem as DataRowView;
+
+            // Get control's reference
+            Label lblHousekeepingStatus = e.Item.FindControl("lblHousekeepingStatus") as Label;
+            Label lblRoomID = e.Item.FindControl("lblRoomID") as Label;
+            Label lblRoomFeatures = e.Item.FindControl("lblRoomFeatures") as Label;
+
+            // Set room's features
+            string roomFeatures = "";
+            roomFeatures = getRoomFeature(lblRoomID.Text);
+            lblRoomFeatures.Text = roomFeatures.ToString();
+            lblRoomFeatures.ToolTip = roomFeatures.ToString();
+
+            // Set color to housekeeping status
+            if (lblHousekeepingStatus.Text == "Clean")
+            {
+                lblHousekeepingStatus.Style["color"] = "#00ce1b";  // Assign green color
+            }
+            else
+            {
+                lblHousekeepingStatus.Style["color"] = "red";  // Assign red color
+            }
         }
     }
 }

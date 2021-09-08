@@ -80,6 +80,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
             //ddlFloorNumber.DataValueField = "FloorID";
             //ddlFloorNumber.DataBind();
 
+            conn.Close();
         }
 
         private void setRoomType()

@@ -32,9 +32,8 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         public string roomID {get; set;}
         public string roomNo { get; set; }
-        public string roomTypeID { get; set; }
-        public string status { get; set; }
-        public string date { get; set; }
+        public string houseKeepingStatus { get; set; }
+
         Boolean selected { get; set; }
 
         // Create connection to database
@@ -51,13 +50,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         }
 
-        public AvailableRoom(string roomID, string roomTypeID, string date)
+        public AvailableRoom(string roomID)
         {
             this.roomID = roomID;
-            this.roomTypeID = roomTypeID;
-            this.date = date;
             this.selected = false;
             getRoomNo();
+            getHouseKeepingStatus();
         }
 
         private void getRoomNo()
@@ -101,6 +99,22 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             //{
             //    roomFeatures.Remove((roomFeatures.Length - 3), 2);
             //}
+        }
+
+        private void getHouseKeepingStatus()
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getHouseKeepingStatus = "SELECT HousekeepingStatus FROM Room WHERE RoomID LIKE @ID";
+
+            SqlCommand cmdGetHouseKeepingStatus = new SqlCommand(getHouseKeepingStatus, conn);
+
+            cmdGetHouseKeepingStatus.Parameters.AddWithValue("@ID", roomID);
+
+            houseKeepingStatus = (string)cmdGetHouseKeepingStatus.ExecuteScalar();
+
+            conn.Close();
         }
     }
 }

@@ -166,6 +166,7 @@
     <Compile Include="Front_Desk\CheckIn\ReservationFacility.cs" />
     <Compile Include="Front_Desk\CheckIn\ReservationDetail.cs" />
     <Compile Include="Front_Desk\CheckIn\ReservedRoom.cs" />
+    <Compile Include="Front_Desk\CheckIn\ReservedRoomType.cs" />
     <Compile Include="Front_Desk\Guest\AddGuest.aspx.cs">
       <DependentUpon>AddGuest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -347,11 +347,11 @@
                         <div style=" width:50%; float:left;">
                             <table style="width:100%;">
                                 <tr>
-                                    <td class="formLabel requiredFieldLabel" style="text-align:left; font-size:16px;">
+                                    <td class="formLabel requiredFieldLabel" style="text-align:left; font-size:16px; width:20%;">
                                             Room Type            
                                     </td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td class="tableData">
+                                    <td></td>
+                                    <td class="tableData" style="font-size:85%; width:80%;">
                                         <asp:Label ID="lblPopupBoxRoomType" runat="server" Text=""></asp:Label>
                                     </td>
                                 </tr>
@@ -360,11 +360,11 @@
                         <div style="width:50%; float:left;">
                             <table style="width:100%;">
                                 <tr>
-                                    <td class="formLabel requiredFieldLabel" style="text-align:left; font-size:16px;">
+                                    <td class="formLabel requiredFieldLabel" style="text-align:left; font-size:16px; width:10%;">
                                             Date             
                                     </td>
                                     <td>&nbsp;&nbsp;</td>
-                                    <td class="tableData">
+                                    <td class="tableData" style="font-size:85%; width:90%;">
                                         <asp:Label ID="lblPopupBoxDate" runat="server" Text=""></asp:Label>
                                     </td>
                                 </tr>
@@ -390,8 +390,51 @@
                         <div style="float:left; width:5%; font-size:80%;" class="subFormRepeaterHeader">
                             &nbsp;
                         </div>
-                    </div>  
+                    </div>
 
+                    <asp:Repeater ID="RepeaterAvailableRoom" runat="server" OnItemCommand="RepeaterAvailableRoom_ItemCommand" OnItemDataBound="RepeaterAvailableRoom_ItemDataBound">
+
+                        <ItemTemplate>
+                            <div style="float:left; width:8%; text-align:center; font-size:75%;" class="subFormTableContent">
+                                <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                            </div>
+                            <div style="float:left; width:15%; font-size:75%;" class="subFormTableContent">
+                                <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
+                                <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
+                            </div>
+                            <div style="float:left; width:57%; font-size:75%;" class="subFormTableContent">
+                                <asp:Label ID="lblRoomFeatures" runat="server" Text=""></asp:Label>&nbsp;
+                            </div>
+                            <div style="float:left; width:15%; font-size:75%;" class="subFormTableContent">
+                                <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>&nbsp;
+                            </div>
+                            <div style="float:left; width:5%; font-size:75%;" class="subFormTableContent">
+                                &nbsp;
+                            </div>
+
+                        </ItemTemplate>
+
+                        <AlternatingItemTemplate>
+
+                            <div style="float:left; width:8%; text-align:center; font-size:75%;" class="subFormTableContentAlternate">
+                                <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
+                            </div>
+                            <div style="float:left; width:15%; font-size:75%;" class="subFormTableContentAlternate">
+                                <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
+                                <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
+                            </div>
+                            <div style="float:left; width:57%; font-size:75%;" class="subFormTableContentAlternate">
+                                <asp:Label ID="lblRoomFeatures" runat="server" Text=""></asp:Label>&nbsp;
+                            </div>
+                            <div style="float:left; width:15%; font-size:80%;" class="subFormTableContentAlternate">
+                                <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>
+                            </div>
+                            <div style="float:left; width:5%; font-size:80%;" class="subFormTableContentAlternate">
+                                &nbsp;
+                            </div>
+
+                        </AlternatingItemTemplate>
+                    </asp:Repeater>
                 </div>
 
                 <div style="clear:both;">&nbsp;</div>
