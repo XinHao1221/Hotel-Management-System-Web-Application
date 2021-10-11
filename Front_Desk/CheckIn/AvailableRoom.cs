@@ -34,7 +34,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         public string roomNo { get; set; }
         public string houseKeepingStatus { get; set; }
 
-        Boolean selected { get; set; }
+        public Boolean selected { get; set; }
 
         // Create connection to database
         SqlConnection conn;

@@ -137,7 +137,7 @@
                                     </td>
                                     <td class="tableSeperator" style="width:5%;"></td>
                                     <td class="tableData">
-                                        <asp:Label ID="lblReservationRoomTypeID" runat="server" Visible="false" Text='<%# Eval("reservationRoomTypeID") %>'></asp:Label>
+                                        <asp:Label ID="lblReservationRoomID" runat="server" Visible="false" Text='<%# Eval("reservationRoomID") %>'></asp:Label>
                                         <asp:Label ID="lblRoomTypeID" runat="server" Visible="false" Text='<%# Eval("roomTypeID") %>'></asp:Label>
                                         <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomTypeName") %>'></asp:Label>
                                     </td>
@@ -157,7 +157,13 @@
                                     </td>
                                     <td class="tableSeperator"></td>
                                     <td class="tableData">
+                                        <asp:Label ID="lblSelectedRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
+                                        <asp:Label ID="lblSelectedRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
                                         <asp:LinkButton ID="LBSelectRoom" runat="server" ForeColor="#00ce1b" OnClick="LBSelectRoom_Click">Select Room</asp:LinkButton>
+                                        
+                                        <asp:CustomValidator ID="CVSelectedRoomNo" runat="server" ErrorMessage="Please select a room." CssClass="validatorStyle" 
+                                            ValidationGroup="next" ValidateEmptyText="true" EnableClientScript="false" OnServerValidate="CVSelectedRoomNo_ServerValidate">
+                                        </asp:CustomValidator>
                                     </td>
                                 </tr>
                         
@@ -246,7 +252,7 @@
             </div>
         </div>
 
-        <asp:Repeater ID="RepeaterRentedFacility" runat="server">
+        <asp:Repeater ID="RepeaterRentedFacility" runat="server" OnItemDataBound="RepeaterRentedFacility_ItemDataBound" OnItemCommand="RepeaterRentedFacility_ItemCommand">
 
             <ItemTemplate>
 
@@ -278,7 +284,7 @@
                         &nbsp;
                     </div>
                     <div style="float:left; width:3%;" class="subFormTableContent">
-                        <asp:ImageButton ID="IBDeleteRentedFacility" runat="server" OnClick="IBDeleteRentedFacility_Click" ImageUrl="~/Image/delete_icon.png" CssClass="subFormIcon" ToolTip="Delete"/>
+                        <asp:ImageButton ID="IBDeleteRentedFacility" runat="server" OnClick="IBDeleteRentedFacility_Click" ImageUrl="~/Image/delete_icon.png" CssClass="subFormIcon" ToolTip="Delete"/>&nbsp;
                     </div>
                 </div>
                 
@@ -314,7 +320,7 @@
                         &nbsp;
                     </div>
                     <div style="float:left; width:3%;" class="subFormTableContentAlternate">
-                        <asp:ImageButton ID="IBDeleteRentedFacility" runat="server" OnClick="IBDeleteRentedFacility_Click" ImageUrl="~/Image/delete_icon.png" CssClass="subFormIcon" ToolTip="Delete"/>
+                        <asp:ImageButton ID="IBDeleteRentedFacility" runat="server" OnClick="IBDeleteRentedFacility_Click" ImageUrl="~/Image/delete_icon.png" CssClass="subFormIcon" ToolTip="Delete"/>&nbsp;
                     </div>
 
                 </div>
@@ -322,6 +328,14 @@
 
         </asp:Repeater>
 
+        <div class="bottomBar">
+
+            <center>
+                <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="formBtnSave" ToolTip="Save" ValidationGroup="next" />
+                <asp:Button ID="formBtnCancel" runat="server" Text="Reset" OnClick="formBtnCancel_Click" CssClass="formBtnCancel" ToolTip="Reset"/>
+            </center>
+                    
+        </div>
 
         <%--Popup Box--%>
         <asp:Panel ID="PopupBoxSelectRoom" runat="server" CssClass="popupBox" Visible="false" Width="">
@@ -352,6 +366,7 @@
                                     </td>
                                     <td></td>
                                     <td class="tableData" style="font-size:85%; width:80%;">
+                                        <asp:Label ID="lblPopupBoxRoomTypeID" runat="server" Text="" Visible="false"></asp:Label>
                                         <asp:Label ID="lblPopupBoxRoomType" runat="server" Text=""></asp:Label>
                                     </td>
                                 </tr>
@@ -408,10 +423,14 @@
                             <div style="float:left; width:15%; font-size:75%;" class="subFormTableContent">
                                 <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>&nbsp;
                             </div>
-                            <div style="float:left; width:5%; font-size:75%;" class="subFormTableContent">
+                            <div style="float:left; width:2%; font-size:75%;" class="subFormTableContent">
                                 &nbsp;
                             </div>
-
+                            <div style="float:left; width:3%; padding-top:10px; padding-bottom:10px;" class="subFormTableContent">
+                                <div style="line-height:20px; height:20px;">
+                                    <asp:ImageButton ID="IBSelectRoom" runat="server" OnClick="IBSelectRoom_Click" ImageUrl="~/Image/checked_icon.png" CssClass="subFormIcon" ToolTip="Select Room" Width="20px" Height="20px"/>
+                                </div>
+                            </div>
                         </ItemTemplate>
 
                         <AlternatingItemTemplate>
@@ -429,10 +448,16 @@
                             <div style="float:left; width:15%; font-size:80%;" class="subFormTableContentAlternate">
                                 <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>
                             </div>
-                            <div style="float:left; width:5%; font-size:80%;" class="subFormTableContentAlternate">
+                            <div style="float:left; width:2%; font-size:75%;" class="subFormTableContentAlternate">
                                 &nbsp;
                             </div>
+                            <div style="float:left; width:3%; padding-top:10px; padding-bottom:10px;" class="subFormTableContentAlternate">
+                                <div style="line-height:20px; height:20px;">
 
+                                    <asp:ImageButton ID="IBSelectRoom" runat="server" OnClick="IBSelectRoom_Click" ImageUrl="~/Image/checked_icon.png" CssClass="subFormIcon" ToolTip="Select Room" Width="20px" Height="20px"/>
+                            
+                                </div>
+                            </div>
                         </AlternatingItemTemplate>
                     </asp:Repeater>
                 </div>
@@ -448,6 +473,10 @@
         <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
             &nbsp;
         </asp:Panel>
+
+        <div style="clear:both; width:100%; height:70px;">
+            &nbsp;
+        </div>
 
     </div>
 

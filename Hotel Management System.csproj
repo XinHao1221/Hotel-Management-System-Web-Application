@@ -130,6 +130,7 @@
     <Content Include="Image\plus_white.png" />
     <Content Include="Image\pre-loader.gif" />
     <Content Include="Image\search_icon.png" />
+    <Content Include="Image\selection_icon.png" />
     <Content Include="Image\suspend_icon.png" />
     <Content Include="StyleSheet\InputStyle.css" />
     <Content Include="StyleSheet\MainMenuHeader.css" />

@@ -29,11 +29,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         #endregion
 
-        public string reservationRoomTypeID {get; set;}
+        public string reservationRoomID {get; set;}
         public string roomTypeID { get; set; }
         public string roomTypeName { get; set; }
         public double roomPrice { get; set; }
         public string roomNo { get; set; }
+        public string roomID { get; set; }
         public int adults { get; set; }
         public int kids { get; set; }
         public double extraBedPrice { get; set; }
@@ -55,9 +56,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         }
 
-        public ReservedRoom(string reservationRoomTypeID, string roomTypeID, int adults, int kids, double roomPrice, double extraBedPrice, string date)
+        public ReservedRoom(string reservationRoomID, string roomTypeID, int adults, int kids, double roomPrice, double extraBedPrice, string date)
         {
-            this.reservationRoomTypeID = reservationRoomTypeID;
+            this.reservationRoomID = reservationRoomID;
             this.roomTypeID = roomTypeID;
             this.roomTypeName = getRoomTypeName(roomTypeID);
             this.adults = adults;

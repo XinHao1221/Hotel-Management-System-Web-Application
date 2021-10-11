@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
 
 
@@ -391,42 +391,60 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void LBSelectRoom_Click(object sender, EventArgs e)
         {
+            
             // Display popup box
             PopupBoxSelectRoom.Visible = true;
             PopupCover.Visible = true;
 
             // Declare AvailableRoom object
-            List<AvailableRoom> ar = new List<AvailableRoom>();
+            List<AvailableRoom> availableRooms = new List<AvailableRoom>();
 
             // Get the reference of repeater
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
+
+            // Cache ReservationRoomTypeID
+            ViewState["ReservationRoomID"] = (item.FindControl("lblReservationRoomID") as Label).Text;
 
             // Get roomType for the selected item
             string roomType = (item.FindControl("lblRoomType") as Label).Text;
             string roomTypeID = (item.FindControl("lblRoomTypeID") as Label).Text;
             String date = (item.FindControl("lblDate") as Label).Text;
             string convertedDate = reservationUtility.formatDate(date);
+            ViewState["SelectedRoomID"] = (item.FindControl("lblSelectedRoomID") as Label).Text; 
 
             lblPopupBoxRoomType.Text = roomType;
             lblPopupBoxDate.Text = date;
+            lblPopupBoxRoomTypeID.Text = roomTypeID;
 
             List<ReservedRoomType> reservedRoomTypes = (List<ReservedRoomType>)Session["ReservedRoomType"];
 
-            // Get roomTypeID
-            // Check why is four record instead of 2
 
+            // Get roomTypeID
             for(int i = 0; i < reservedRoomTypes.Count; i++)
             {
                 if(reservedRoomTypes[i].date == convertedDate && reservedRoomTypes[i].roomTypeID == roomTypeID)
                 { 
-                    RepeaterAvailableRoom.DataSource = reservedRoomTypes[i].availableRooms;
-                    RepeaterAvailableRoom.DataBind();
+                    availableRooms = reservedRoomTypes[i].availableRooms;
                 }
             }
 
+            // Get a list of available room
+            List<AvailableRoom> ar = new List<AvailableRoom>();
+
+            for(int i = 0; i < availableRooms.Count; i++)
+            {
+                if(availableRooms[i].selected == false)
+                {
+                    ar.Add(availableRooms[i]);
+                }
+            }
+
+            // Set available room into the repeater
+            RepeaterAvailableRoom.DataSource = ar;
+            RepeaterAvailableRoom.DataBind();
+
             // ********
             // Assign only specific roomType and specific date
-            
 
         }
 
@@ -490,6 +508,127 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             else
             {
                 lblHousekeepingStatus.Style["color"] = "red";  // Assign red color
+            }
+        }
+
+        protected void IBSelectRoom_Click(object sender, ImageClickEventArgs e)
+        {
+            // Get the reference of repeater
+            RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
+
+            // Get the reference of reservedRoomTypes
+            List<ReservedRoomType> reservedRoomTypes = (List<ReservedRoomType>)Session["ReservedRoomType"];
+
+            // Get reference of ReservationDetail from view state
+            ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
+            List<ReservedRoom> reservedRooms = new List<ReservedRoom>();
+
+            // Get roomNo for the selected item
+            string roomID = (item.FindControl("lblRoomID") as Label).Text;
+            string roomNo = (item.FindControl("lblRoomNo") as Label).Text;
+
+            reservedRooms = reservation.reservedRoom;
+
+            // Set the selected room into reservedRooms list
+            for(int i = 0; i < reservedRooms.Count; i++)
+            {
+                // Get the correct item from the list
+                if(reservedRooms[i].reservationRoomID == ViewState["ReservationRoomID"].ToString())
+                {
+                    reservedRooms[i].roomID = roomID;
+                    reservedRooms[i].roomNo = roomNo;
+                }
+            }
+
+            // Assign the updated list into reservation object
+            reservation.reservedRoom = reservedRooms;
+
+            // Update room status to no available
+            List<AvailableRoom> ar = new List<AvailableRoom>();
+
+            for(int i = 0; i < reservedRoomTypes.Count; i++)
+            {
+                if (reservedRoomTypes[i].roomTypeID == lblPopupBoxRoomTypeID.Text && reservedRoomTypes[i].date == reservationUtility.formatDate(lblPopupBoxDate.Text))
+                {
+                    ar = reservedRoomTypes[i].availableRooms;
+
+                    for (int j = 0; j < ar.Count; j++)
+                    {
+                        if (ar[j].roomID == roomID)
+                        {
+                            ar[j].selected = true;
+                        }
+                    }
+
+                    reservedRoomTypes[i].availableRooms = ar;
+                }
+            }
+
+            // Reset previous selected roomNo to available
+            if(ViewState["SelectedRoomID"].ToString() != "")
+            {
+                for(int i = 0; i < ar.Count; i++)
+                {
+                    if (ar[i].roomID == ViewState["SelectedRoomID"].ToString())
+                    {
+                        ar[i].selected = false;
+                    }
+                }
+            }
+
+            // Close popup box
+            PopupBoxSelectRoom.Visible = false;
+            PopupCover.Visible = false;
+
+            // Refresh Reservation Room Repeater
+            RepeaterReservedRoom.DataSource = reservation.reservedRoom;
+            RepeaterReservedRoom.DataBind();
+
+            // Reset SelectedRoomNo
+            ViewState["SelectedRoomNo"] = "";
+
+        }
+
+        protected void RepeaterRentedFacility_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
+            Label lblReservationFacilityID = e.Item.FindControl("lblReservationFacilityID") as Label;
+
+            // Get control's reference
+            ImageButton IBDeleteRentedFacility = e.Item.FindControl("IBDeleteRentedFacility") as ImageButton;
+
+            if(lblReservationFacilityID.Text != "")
+            {
+                IBDeleteRentedFacility.Visible = false;
+            }
+        }
+
+        protected void RepeaterRentedFacility_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
+        }
+
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void formBtnCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void CVSelectedRoomNo_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            Label lblSelectedRoomNo = (Label)((RepeaterItem)((Control)source).Parent).FindControl("lblSelectedRoomNo");
+
+            if(lblSelectedRoomNo.Text == "")
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
             }
         }
     }
