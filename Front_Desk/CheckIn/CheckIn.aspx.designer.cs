@@ -78,6 +78,15 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         protected global::System.Web.UI.WebControls.Repeater RepeaterReservedRoom;
 
         /// <summary>
+        /// LBCheckFacilityAvailability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBCheckFacilityAvailability;
+
+        /// <summary>
         /// RepeaterRentedFacility control.
         /// </summary>
         /// <remarks>
@@ -157,6 +166,42 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater RepeaterAvailableRoom;
+
+        /// <summary>
+        /// PopupBoxFacilityAvailability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PopupBoxFacilityAvailability;
+
+        /// <summary>
+        /// ImageButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
+
+        /// <summary>
+        /// txtCheckFacilityDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCheckFacilityDate;
+
+        /// <summary>
+        /// RepeaterFacilityAvailability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterFacilityAvailability;
 
         /// <summary>
         /// PopupCover control.

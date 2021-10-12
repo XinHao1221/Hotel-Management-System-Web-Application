@@ -8,7 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
-
+using Hotel_Management_System.Front_Desk.Reservation;
 
 namespace Hotel_Management_System.Front_Desk.CheckIn
 {
@@ -47,10 +47,13 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
                 displayRentedRoomAndFacility();
 
                 getRooms();
+
+                // get facility availability
+                Session["AvailableFacility"] = new List<AvailableFacility>();
+                Session["AvailableFacility"] = getFacilityAvailability("");
+
             }
             
-
-
         }
 
         private void getReservationDetails()
@@ -292,7 +295,6 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             RepeaterRentedFacility.DataSource = reservation.rentedFacility;
             RepeaterRentedFacility.DataBind();
 
-
         }
 
         public void getRooms()
@@ -385,8 +387,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void IBClosePopUpBox_Click(object sender, ImageClickEventArgs e)
         {
+            // Close Select Room's popup box
             PopupBoxSelectRoom.Visible = false;
             PopupCover.Visible = false;
+
+            // Close facility availability popup box
+            PopupBoxFacilityAvailability.Visible = false;
         }
 
         protected void LBSelectRoom_Click(object sender, EventArgs e)
@@ -629,6 +635,133 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             else
             {
                 args.IsValid = true;
+            }
+        }
+
+        private List<AvailableFacility> getFacilityAvailability(string date)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            // Query to get facility availability
+            string getFacility = "SELECT F.FacilityID, F.FacilityName, F.Quantity, F.Price, F.PriceType " +
+                                "FROM Facility F " +
+                                "WHERE F.Status LIKE 'Active'";
+
+            SqlCommand cmdGetFacility = new SqlCommand(getFacility, conn);
+
+            // Hold the data read from database
+            var sdr = cmdGetFacility.ExecuteReader();
+
+            // Get reference of AvailableFacility stored inside session
+            List<AvailableFacility> availableFacility = new List<AvailableFacility>();
+
+            // set all data into list object 
+            while (sdr.Read())
+            {
+
+                AvailableFacility af = new AvailableFacility(
+                    sdr.GetString(sdr.GetOrdinal("FacilityID")),
+                    sdr.GetString(sdr.GetOrdinal("FacilityName")),
+                    sdr.GetInt32(sdr.GetOrdinal("Quantity")),
+                    Convert.ToDouble(sdr.GetDecimal(sdr.GetOrdinal("Price"))),
+                    sdr.GetString(sdr.GetOrdinal("PriceType")),
+                    "Available",
+                    "No");
+
+                availableFacility.Add(af);
+            }
+
+            conn.Close();
+
+            if (date != "")
+            {
+                // Reduce facility quantity there have already been selected by the user.
+                for (int i = 0; i < availableFacility.Count; i++)
+                {
+
+                    conn = new SqlConnection(strCon);
+                    conn.Open();
+
+                    AvailableFacility af = availableFacility.ElementAt(i);
+
+                    int qty = getFacilityRentedQty(af.facilityID, date);
+
+                    af.availableQty -= qty;
+
+                    if (af.availableQty == 0)
+                    {
+                        af.status = "Unavailable";
+                    }
+
+                    conn.Close();
+                }
+            }
+
+            return availableFacility;
+        }
+
+        public int getFacilityRentedQty(string facilityID, string date)
+        {
+            // Query to get the quantity of facility have reserved by other guest
+            String getReservedFacility = "SELECT FacilityID, COUNT(FacilityID) AS RentedQty " +
+                                        "FROM ReservationFacility " +
+                                        "WHERE DateRented LIKE @Date AND FacilityID LIKE @FacilityID " +
+                                        "GROUP BY FacilityID ";
+
+            SqlCommand cmdGetReservedFacility = new SqlCommand(getReservedFacility, conn);
+
+            cmdGetReservedFacility.Parameters.AddWithValue("@FacilityID", facilityID);
+            cmdGetReservedFacility.Parameters.AddWithValue("@Date", date);
+
+            // Hold the data read from database
+            SqlDataReader sdr = cmdGetReservedFacility.ExecuteReader();
+
+            if (sdr.Read())
+            {
+                return sdr.GetInt32(sdr.GetOrdinal("RentedQty"));
+            }
+
+            // If not any reservation found under the category
+            return 0;
+        }
+
+        protected void LBCheckFacilityAvailability_Click(object sender, EventArgs e)
+        {
+            PopupBoxFacilityAvailability.Visible = true;
+            PopupCover.Visible = true;
+            
+            txtCheckFacilityDate.Text = reservationUtility.formatDate(lblCheckIn.Text);
+
+            setItemToRepeaterFacilityAvailability(txtCheckFacilityDate.Text);
+        }
+
+        private void setItemToRepeaterFacilityAvailability(string date)
+        {
+            // getFacilityAvailability(date);
+
+            // Set data into RepeaterFacilityAvailability
+            RepeaterFacilityAvailability.DataSource = getFacilityAvailability(date);
+            RepeaterFacilityAvailability.DataBind();
+        }
+
+        protected void txtCheckFacilityDate_TextChanged(object sender, EventArgs e)
+        {
+            setItemToRepeaterFacilityAvailability(txtCheckFacilityDate.Text);
+        }
+
+        protected void RepeaterFacilityAvailability_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Get control's reference
+            Label lblStatus = e.Item.FindControl("lblStatus") as Label;
+
+            if (lblStatus.Text == "Available")
+            {
+                lblStatus.Style["color"] = "#00ce1b";  // Assign green color
+            }
+            else
+            {
+                lblStatus.Style["color"] = "red";  // Assign red color
             }
         }
     }
