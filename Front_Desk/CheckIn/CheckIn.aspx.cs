@@ -52,8 +52,26 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
                 Session["AvailableFacility"] = new List<AvailableFacility>();
                 Session["AvailableFacility"] = getFacilityAvailability("");
 
+                setFacility();
+
+                // Check if no any facility rented
+                checkRentedFacilityIsEmpty();
             }
             
+        }
+
+        private void checkRentedFacilityIsEmpty()
+        {
+            List<RentedFacility> rentedFacility = (List<RentedFacility>)Session["RentedFacilityList"];
+
+            if (rentedFacility.Count == 0)
+            {
+                lblNoItemFound.Visible = true;
+            }
+            else
+            {
+                lblNoItemFound.Visible = false;
+            }
         }
 
         private void getReservationDetails()
@@ -370,7 +388,23 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void IBDeleteRentedFacility_Click(object sender, ImageClickEventArgs e)
         {
+            RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
 
+            // Get facility info for the selected item
+            String itemIndex = (item.FindControl("lblNumber") as Label).Text;
+            String facilityName = (item.FindControl("lblFacilityName") as Label).Text;
+            String rentDate = (item.FindControl("lblRentDate") as Label).Text;
+            String returnDate = (item.FindControl("lblReturnDate") as Label).Text;
+
+            // Set facilityID to ViewState
+            ViewState["ItemIndex"] = itemIndex;
+
+            // Set delete message into popup
+            lblPopupDeleteContent.Text = "Facility: " + facilityName + "<br />" +
+                "Rent Date: " + rentDate + "<br/>" + "Return Date:" + returnDate + "<br /><br />";
+
+            PopupDelete.Visible = true;
+            PopupCover.Visible = true;
         }
 
         protected void RepeaterReservedRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -763,6 +797,191 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             {
                 lblStatus.Style["color"] = "red";  // Assign red color
             }
+        }
+
+        // Set facility
+        private void setFacility()
+        {
+
+            // Get facility availability from Session 
+            List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
+
+            // Clear all items
+            ddlFacilityName.Items.Clear();
+            ddlFacilityQty.Items.Clear();
+
+            // Set first item
+            ddlFacilityName.Items.Add(new ListItem("-- Please Select --"));
+
+            for (int i = 0; i < availableFacility.Count; i++)
+            {
+                if (availableFacility[i].availableQty > 0)
+                {
+                    ddlFacilityName.Items.Add(new ListItem(availableFacility[i].facilityName, availableFacility[i].facilityID));
+                }
+            }
+
+        }
+
+        protected void ddlFacilityName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (ddlFacilityName.SelectedIndex != 0)
+            {
+                // Get facility availability from Session 
+                List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
+
+                for (int i = 0; i < availableFacility.Count; i++)
+                {
+                    if (availableFacility[i].facilityID == ddlFacilityName.SelectedValue)
+                    {
+                        ddlFacilityQty.Items.Clear();
+                        for (int j = 1; j <= availableFacility[i].availableQty; j++)
+                        {
+                            ddlFacilityQty.Items.Add(new ListItem(j.ToString()));
+                        }
+
+                        if (availableFacility[i].priceType == "Per Reservation")
+                        {
+                            txtRentDate.Text = reservationUtility.formatDate(lblCheckIn.Text);
+                            txtReturnDate.Text = reservationUtility.formatDate(lblCheckOut.Text);
+
+                            PNFacilityRentedDate.Visible = false;
+                            CVFacilityRentedDate.Enabled = false;
+                        }
+                        else
+                        {
+                            txtRentDate.Text = reservationUtility.formatDate(lblCheckIn.Text);
+                            txtReturnDate.Text = reservationUtility.formatDate(lblCheckOut.Text);
+
+                            PNFacilityRentedDate.Visible = true;
+                            CVFacilityRentedDate.Enabled = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ddlFacilityQty.Items.Clear();
+                PNFacilityRentedDate.Visible = false;
+                CVFacilityRentedDate.Enabled = false;
+            }
+
+        }
+
+        protected void txtRentDate_TextChanged(object sender, EventArgs e)
+        {
+            // Run the comparevalidator
+            CVFacilityRentedDate.Validate();
+
+            // Check if rent date & return date is valid
+            if (!CVFacilityRentedDate.IsValid)
+            {
+
+                // Style if error occurred
+                txtRentDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                txtRentDate.Style["background-color"] = "rgb(255, 240, 240)";
+
+                txtReturnDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                txtReturnDate.Style["background-color"] = "rgb(255, 240, 240)";
+
+            }
+            else
+            {
+                // Style if no error occurred
+                txtRentDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                txtRentDate.Style["background-color"] = "none";
+
+                txtReturnDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                txtReturnDate.Style["background-color"] = "none";
+            }
+        }
+
+        protected void txtReturnDate_TextChanged(object sender, EventArgs e)
+        {
+            // Run the comparevalidator
+            CVFacilityRentedDate.Validate();
+
+            // Check if rent date & return date is valid
+            if (!CVFacilityRentedDate.IsValid)
+            {
+
+                // Style if error occurred
+                txtRentDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                txtRentDate.Style["background-color"] = "rgb(255, 240, 240)";
+
+                txtReturnDate.Style["border-bottom"] = "2px solid rgb(255, 0, 0)";
+                txtReturnDate.Style["background-color"] = "rgb(255, 240, 240)";
+
+            }
+            else
+            {
+                // Style if no error occurred
+                txtRentDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                txtRentDate.Style["background-color"] = "none";
+
+                txtReturnDate.Style["border-bottom"] = "border-bottom: 2px solid rgb(128, 128, 128);";
+                txtReturnDate.Style["background-color"] = "none";
+            }
+        }
+
+        protected void btnAddFacility_Click(object sender, EventArgs e)
+        {
+            // Get refernce of ReservationDetail
+            ReservationDetail reservationDetails = (ReservationDetail)Session["ReservationDetails"];
+
+            // Get facility availability from Session 
+            List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
+
+            // Hold ReservationFacility temporary
+            List<ReservationFacility> reservationFacilities = reservationDetails.rentedFacility;
+
+            for (int i = 0; i < availableFacility.Count; i++)
+            {
+                if (availableFacility[i].facilityID == ddlFacilityName.SelectedValue)
+                {
+                    double subTotal;
+
+                    if (availableFacility[i].priceType == "Per Reservation")
+                    {
+                        subTotal = availableFacility[i].price * int.Parse(ddlFacilityQty.SelectedValue);
+                    }
+                    else
+                    {
+                        int durationOfStay = reservationUtility.getdurationOfStay(txtRentDate.Text, txtReturnDate.Text);
+
+                        subTotal = availableFacility[i].price * (int.Parse(ddlFacilityQty.SelectedValue) * durationOfStay);
+                    }
+
+                    ReservationFacility rf = new ReservationFacility("", availableFacility[i].facilityID, int.Parse(ddlFacilityQty.SelectedValue),
+                                                                    availableFacility[i].price,
+                                                                    txtRentDate.Text,
+                                                                    txtReturnDate.Text);
+
+
+                    reservationFacilities.Add(rf);
+                }
+            }
+
+            // Refresh the facility list
+            RepeaterRentedFacility.DataSource = reservationFacilities;
+            RepeaterRentedFacility.DataBind();
+
+            // Reset rent facility form
+            ddlFacilityName.SelectedIndex = 0;
+            ddlFacilityQty.Items.Clear();
+
+            txtRentDate.Text = "";
+            txtReturnDate.Text = "";
+
+            PNFacilityRentedDate.Visible = false;
+            CVFacilityRentedDate.Enabled = false;
+
+            lblNoItemFound.Visible = false;
+
+            // Set the updated reservationFacilities list into ReservationDetails
+            reservationDetails.rentedFacility = reservationFacilities;
+
         }
     }
 }

@@ -25,6 +25,12 @@
             min-width:1000px;
             width:80%;
         }
+
+        .facilityPanelStyle{
+            width:45%; 
+            float:left; 
+            /*background-color:red;*/
+        }
     </style>
 
     <div>
@@ -227,6 +233,71 @@
 
         <div style="clear:both; height:30px;">&nbsp;</div>
 
+        <div style="width:86%; margin:auto;">
+            <div style="width:40%; float:left;">
+                    
+                <table style="width:100%;">
+                    <tr>
+                        <td class="formLabel requiredFieldLabel" style="width:20%;">
+                                Facility             
+                        </td>
+                        <td class="tableSeperator" style="width:7%;"></td>
+                        <td class="tableData" style="width:63%;">
+                            <asp:DropDownList ID="ddlFacilityName" runat="server" CssClass="dropDownStyle" OnSelectedIndexChanged="ddlFacilityName_SelectedIndexChanged" AutoPostBack="true">
+                            </asp:DropDownList>
+                            <br />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlFacilityName" InitialValue="-- Please Select --" ErrorMessage="Please select an item." ValidationGroup="add" CssClass="validatorStyle"></asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="formLabel requiredFieldLabel">
+                                Quantity     
+                        </td>
+                        <td class="tableSeperator"></td>
+                        <td class="tableData">
+                            <asp:DropDownList ID="ddlFacilityQty" runat="server" CssClass="dropDownStyle">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+                
+            <asp:Panel ID="PNFacilityRentedDate" runat="server" CssClass="facilityPanelStyle" Visible="false">
+                <table style="width:100%;">
+                    <tr>
+                        <td class="formLabel requiredFieldLabel" style="width:20%;">
+                                Rent Date            
+                        </td>
+                        <td class="tableSeperator" style="width:7%;"></td>
+                        <td class="tableData" style="width:63%;">
+                            <asp:TextBox ID="txtRentDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtRentDate_TextChanged" AutoPostBack="true"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="formLabel requiredFieldLabel">
+                                Return Date     
+                        </td>
+                        <td class="tableSeperator"></td>
+                        <td class="tableData">
+                            <asp:TextBox ID="txtReturnDate" runat="server" CssClass="inputStyle inputDateStyle" Width="20%" type="date" Font-Size="16px" OnTextChanged="txtReturnDate_TextChanged" AutoPostBack="true"></asp:TextBox>
+                            <br />
+                            <asp:CompareValidator ID="CVFacilityRentedDate" runat="server" ErrorMessage="Return Date must be greater than Rented Date" ControlToCompare="txtRentDate" ControlToValidate="txtReturnDate" Operator="GreaterThan" Type="Date" EnableClientScript="False" CssClass="validatorStyle" ValidationGroup="add" Enabled="false"></asp:CompareValidator>
+                        </td>
+                    </tr>
+                </table>
+            </asp:Panel>
+
+            <div style="width:15%; float:left; line-height:105px;">
+
+                <asp:Button ID="btnAddFacility" runat="server" Text="Add" CssClass="subFormBtnSave" OnClick="btnAddFacility_Click" ValidationGroup="add" ToolTip="Add Facility" style="vertical-align:bottom;"/>
+
+            </div>
+        </div>
+
+        <div style="clear:both; height:30px;">&nbsp;</div>
+
         <%--Repeater Rented Facility--%>
         <%--Repeater table header--%>
         <div style="width:86%; margin:auto;">
@@ -331,6 +402,14 @@
             </AlternatingItemTemplate>
 
         </asp:Repeater>
+
+        <div style="width: 86%; margin: auto; clear:both;">
+
+            <div class="subFormTableContent" style="padding-left:2%;">
+                <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>
+            </div>   
+            
+        </div>
 
         <div class="bottomBar">
 

@@ -1653,8 +1653,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Get facility availability from Session 
             List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
 
-            string temp = ddlFacilityName.SelectedValue;
-
             for (int i = 0; i < availableFacility.Count; i++)
             {
                 if(availableFacility[i].facilityID == ddlFacilityName.SelectedValue)

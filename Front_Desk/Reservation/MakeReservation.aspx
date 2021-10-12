@@ -466,7 +466,7 @@
                 <asp:LinkButton ID="LBCheckFacilityAvailability" runat="server" OnClick="LBCheckFacilityAvailability_Click" CssClass="tableData">check room availability</asp:LinkButton>
             </div>
 
-            <div style="height:30px;">&nbsp;</div>
+            <div style="clear:both; height:30px;">&nbsp;</div>
 
             <div style="width:86%; margin:auto;">
                 <div style="width:40%; float:left;">
