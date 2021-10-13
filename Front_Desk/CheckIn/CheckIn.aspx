@@ -53,7 +53,7 @@
             </div>
         </asp:LinkButton>
 
-        <div style="clear:both; height:50px;">&nbsp;</div>
+        <div style="clear:both;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px;">
             1. Stay Details:-

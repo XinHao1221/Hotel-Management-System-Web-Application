@@ -327,11 +327,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // get next PaymentID
             String nextPaymentID = idGenerator.getNextID("PaymentID", "Payment", "P");
 
+            // Get current date
+            DateTime dateNow = DateTime.Now;
+            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
             // Open connection
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            String addPayment = "INSERT INTO Payment VALUES (@PaymentID, @PaymentMethod, @ReferenceNo, @Amount, @ReservationID)";
+            String addPayment = "INSERT INTO Payment VALUES (@PaymentID, @PaymentMethod, @ReferenceNo, @Amount, @ReservationID, @Date)";
 
             SqlCommand cmdAddPayment = new SqlCommand(addPayment, conn);
 
@@ -340,6 +344,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             cmdAddPayment.Parameters.AddWithValue("@ReferenceNo", txtReferenceNo.Text);
             cmdAddPayment.Parameters.AddWithValue("@Amount", Convert.ToDecimal(lblGrandTotal.Text));
             cmdAddPayment.Parameters.AddWithValue("@ReservationID", nextReservationID);
+            cmdAddPayment.Parameters.AddWithValue("@Date", todaysDate);
 
             int i = cmdAddPayment.ExecuteNonQuery();
 

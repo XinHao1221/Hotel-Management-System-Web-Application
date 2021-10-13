@@ -129,7 +129,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             {
                 int durationOfStay = reservationUtility.getdurationOfStay(rentedDate, returnDate);
 
-                subTotal = price * (qty * (durationOfStay + 1));
+                subTotal = price * (qty * durationOfStay);
             }
 
             return subTotal;

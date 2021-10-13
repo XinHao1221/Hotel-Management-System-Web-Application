@@ -28,7 +28,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             //reservationID = Request.QueryString["ID"];
             //reservationID = en.decryption(roomID);
 
-            reservationID = "RS10000002";
+            reservationID = "RS10000001";
 
             if (!IsPostBack)
             {
@@ -57,7 +57,6 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
                 // Check if no any facility rented
                 checkRentedFacilityIsEmpty();
             }
-            
         }
 
         private void checkRentedFacilityIsEmpty()

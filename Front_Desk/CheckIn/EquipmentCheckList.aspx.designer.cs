@@ -33,13 +33,13 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         protected global::System.Web.UI.WebControls.Repeater RepeaterReservedRoom;
 
         /// <summary>
-        /// formBtnCancel control.
+        /// formBtnBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button formBtnCancel;
+        protected global::System.Web.UI.WebControls.Button formBtnBack;
 
         /// <summary>
         /// btnNext control.

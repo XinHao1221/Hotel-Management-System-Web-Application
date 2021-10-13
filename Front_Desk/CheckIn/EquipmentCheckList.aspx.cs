@@ -18,7 +18,15 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            setReservedRoomToRepeater();
+            if (!IsPostBack)
+            {
+                setReservedRoomToRepeater();
+            }
+
+            // Navigate to previous page
+            // If back button clicked
+            this.formBtnBack.OnClientClick = "javascript:window.history.go(-1);return false;";
+
         }
 
         private void setReservedRoomToRepeater()
@@ -30,11 +38,6 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
             RepeaterReservedRoom.DataSource = reservedRooms;
             RepeaterReservedRoom.DataBind();
-        }
-
-        protected void LBBack_Click(object sender, EventArgs e)
-        {
-
         }
 
         protected void RepeaterReservedRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -63,22 +66,27 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-
+            if (Page.IsValid)
+            {
+                Response.Redirect("CheckInConfirmation.aspx");
+            }
         }
 
         protected void CVEquipmentCheckList_ServerValidate(object source, ServerValidateEventArgs args)
         {
             CheckBox cbEquipmentCheckList = (CheckBox)((RepeaterItem)((Control)source).Parent).FindControl("cbEquipmentCheckList");
+
             Label lblEquipmentList = (Label)((RepeaterItem)((Control)source).Parent).FindControl("lblEquipmentList");
-            
-            // Check if the checkList is checked
-            if(cbEquipmentCheckList.Checked == false)
+
+
+            if (cbEquipmentCheckList.Checked == false)
             {
                 lblEquipmentList.Style["color"] = "red";
                 args.IsValid = false;
             }
             else
             {
+                lblEquipmentList.Style["color"] = "black";
                 args.IsValid = true;
             }
 

@@ -4,10 +4,7 @@
 
     <%--CSS--%>
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
-    <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
-    <link rel="stylesheet" href="../../StyleSheet/PopupBox.css" />
-    <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
-    <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
+
 
     <style>
         .reservationFormPanel{
@@ -25,6 +22,14 @@
         .cbStyle{
             margin-right : 30px;
         }
+
+        .formBtnCancel{
+            
+        }
+
+        .formBtnSave{
+            margin-left:15px;
+        }
     </style>
 
     <div>
@@ -34,7 +39,7 @@
             Check In
         </div>
 
-        <asp:LinkButton ID="LBBack" runat="server" OnClick="LBBack_Click" CssClass="divLBStyle">
+        <asp:LinkButton ID="LBBack" runat="server" href='javascript:history.go(-1)' CssClass="divLBStyle">
             <div style="margin:20px 0px 20px 0px; margin-left:2.5%;">
                 <div class="formBackBtn" style="float:left;" tooltip="save">
 
@@ -47,7 +52,7 @@
             </div>
         </asp:LinkButton>
 
-        <div style="clear:both; height:50px;">&nbsp;</div>
+        <div style="clear:both;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px;">
             1. Equipment Checklist:-
@@ -108,8 +113,9 @@
                                         <asp:Label ID="lblEquipmentList" runat="server" CssClass="tableData" Text='<%# Eval("Title") %>'></asp:Label>
                                     </div>
 
-                                    <asp:CustomValidator ID="CVEquipmentCheckList" runat="server" ErrorMessage="CustomValidator" EnableClientScript="false" 
+                                    <asp:CustomValidator ID="CVEquipmentCheckList" runat="server" EnableClientScript="false" 
                                         OnServerValidate="CVEquipmentCheckList_ServerValidate" ValidationGroup="next"></asp:CustomValidator>
+                                    
 
                                     <div style="clear:both;"></div>
 
@@ -127,12 +133,12 @@
         </asp:Repeater>
 
         <div class="bottomBar">
-
             <center>
-                <asp:Button ID="formBtnCancel" runat="server" Text="Reset" CssClass="formBtnCancel" ToolTip="Reset"/>
+            
+                <asp:Button ID="formBtnBack" runat="server" Text="Back" CssClass="formBtnCancel" ToolTip="Back"/>
                 <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="formBtnSave" ToolTip="Save" ValidationGroup="next" />
-            </center>
-                    
+
+            </center>         
         </div>
 
     </div>
