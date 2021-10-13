@@ -251,11 +251,19 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
         protected void LBMenuSearchBar_Click(object sender, EventArgs e)
         {
             searchRoom();
+
+            // Reset filtering
+            ddlFloorNumber.SelectedIndex = 0;
+            ddlRoomType.SelectedIndex = 0;
         }
 
         protected void txtSearch_TextChanged(object sender, EventArgs e)
         {
             searchRoom();
+
+            // Reset filtering
+            ddlFloorNumber.SelectedIndex = 0;
+            ddlRoomType.SelectedIndex = 0;
         }
 
         private void searchRoom()

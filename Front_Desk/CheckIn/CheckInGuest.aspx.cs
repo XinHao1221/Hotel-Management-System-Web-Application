@@ -665,7 +665,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void RepeaterRentedFacility_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-
+            // If the Facility is not newly added, then hide delete button
             Label lblReservationFacilityID = e.Item.FindControl("lblReservationFacilityID") as Label;
 
             // Get control's reference
@@ -675,6 +675,20 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             {
                 IBDeleteRentedFacility.Visible = false;
             }
+
+            // Format date according to user's computer
+            // Get control's refernce
+            Label lblRentDate = e.Item.FindControl("lblRentDate") as Label;
+            Label lblReturnDate = e.Item.FindControl("lblReturnDate") as Label;
+
+            // Format date base on date format on user's computer
+            DateTime formatedRentDate = Convert.ToDateTime(lblRentDate.Text);
+            DateTime formatedReturnDate = Convert.ToDateTime(lblReturnDate.Text);
+
+            // Display the formated date
+            lblRentDate.Text = formatedRentDate.ToShortDateString();
+            lblReturnDate.Text = formatedReturnDate.ToShortDateString();
+
         }
 
         protected void RepeaterRentedFacility_ItemCommand(object source, RepeaterCommandEventArgs e)

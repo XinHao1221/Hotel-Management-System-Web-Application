@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="CheckIn.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.CheckIn.CheckIn" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="CheckInGuest.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.CheckIn.CheckIn" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
     <%--CSS--%>

@@ -183,7 +183,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLCheckIn" runat="server" NavigateUrl="~/Front_Desk/CheckIn/CheckIn.aspx">
+                    <asp:HyperLink ID="HLCheckIn" runat="server" NavigateUrl="~/Front_Desk/CheckIn/CheckInGuest.aspx">
                         <div style="float: left; background-color: white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Check-In
@@ -195,7 +195,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLCheckOut" runat="server" NavigateUrl="">
+                    <asp:HyperLink ID="HLCheckOut" runat="server" NavigateUrl="~/Front_Desk/CheckOut/CheckOutGuest.aspx">
                         <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Check-Out
