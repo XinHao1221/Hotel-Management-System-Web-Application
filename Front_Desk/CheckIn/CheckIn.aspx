@@ -56,7 +56,7 @@
         <div style="clear:both; height:50px;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px;">
-            1. Stay Details
+            1. Stay Details:-
         </div>
 
         <%--Display guest details--%>
@@ -689,6 +689,48 @@
             </div>
 
         </asp:Panel> 
+
+        <%--Popup Window--%>
+        <div class="popup">
+            <asp:Panel ID="PopupDelete" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:red;" class="popupTitle">Delete</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    <asp:Label ID="lblPopupDeleteContent" runat="server" Text=""></asp:Label>
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnPopupDeleteCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                
+                <asp:Button ID="btnPopupDelete" runat="server" Text="Delete" CssClass="popUpDeleteBtn" OnClick="btnPopupDelete_Click"/>
+            </asp:Panel>
+
+            <asp:Panel ID="PopupReset" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:red;" class="popupTitle">Reset Text Field?</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    <p>All text fields will be reset!</p>
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnPopupResetCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                
+                <asp:Button ID="btnPopupConfirmReset" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirmReset_Click"/>
+            </asp:Panel>
+
+        </div>
 
         <%-- Popup Cover --%>
         <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">

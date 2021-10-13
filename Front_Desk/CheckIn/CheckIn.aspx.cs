@@ -62,9 +62,13 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         private void checkRentedFacilityIsEmpty()
         {
-            List<RentedFacility> rentedFacility = (List<RentedFacility>)Session["RentedFacilityList"];
+            // Get refernce of ReservationDetail
+            ReservationDetail reservationDetails = (ReservationDetail)Session["ReservationDetails"];
 
-            if (rentedFacility.Count == 0)
+            // Get ReservationFacility
+            List<ReservationFacility> reservationFacilities = reservationDetails.rentedFacility;
+
+            if (reservationFacilities.Count == 0)
             {
                 lblNoItemFound.Visible = true;
             }
@@ -407,6 +411,37 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             PopupCover.Visible = true;
         }
 
+        protected void btnPopupCancel_Click(object sender, EventArgs e)
+        {
+            PopupDelete.Visible = false;
+            PopupReset.Visible = false;
+            PopupCover.Visible = false;
+        }
+
+        protected void btnPopupDelete_Click(object sender, EventArgs e)
+        {
+
+            int itemIndex = int.Parse(ViewState["ItemIndex"].ToString());
+
+            // Get refernce of ReservationDetail
+            ReservationDetail reservationDetails = (ReservationDetail)Session["ReservationDetails"];
+
+            List<ReservationFacility> reservationFacilities = reservationDetails.rentedFacility;
+
+            reservationFacilities.RemoveAt(itemIndex - 1);
+
+            // Set the ReservationFacility into repeater
+            RepeaterRentedFacility.DataSource = reservationFacilities;
+            RepeaterRentedFacility.DataBind();
+
+            checkRentedFacilityIsEmpty();
+
+            PopupCover.Visible = false;
+            PopupDelete.Visible = false;
+
+        }
+
+
         protected void RepeaterReservedRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             // Get control's refernce
@@ -650,12 +685,18 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-
+            if(Page.IsValid == true)
+            {
+                Response.Redirect("EquipmentCheckList.aspx");
+            }
+            
         }
 
         protected void formBtnCancel_Click(object sender, EventArgs e)
         {
-
+            // Show Popup message
+            PopupReset.Visible = true;
+            PopupCover.Visible = true;
         }
 
         protected void CVSelectedRoomNo_ServerValidate(object source, ServerValidateEventArgs args)
@@ -982,6 +1023,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             // Set the updated reservationFacilities list into ReservationDetails
             reservationDetails.rentedFacility = reservationFacilities;
 
+        }
+
+        protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
+        {
+            // Refresh the page
+            Response.Redirect("CheckIn.aspx?ID=" + reservationID);
         }
     }
 }
