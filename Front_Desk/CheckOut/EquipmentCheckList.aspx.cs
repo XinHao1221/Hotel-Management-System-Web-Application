@@ -96,7 +96,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             }
 
 
-            Response.Redirect("CheckInConfirmation.aspx");
+            Response.Redirect("CheckOutConfirmation.aspx");
         }
 
         public static Control FindControlRecursive(Control root, string id)

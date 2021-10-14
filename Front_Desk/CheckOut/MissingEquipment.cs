@@ -65,7 +65,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             this.roomTypeID = roomTypeID;
             this.roomType = roomType;
             this.roomID = roomID;
-            this.roomNO = roomNO;
+            this.roomNO = roomNo;
         }
 
         private double getFineChargesFromDatabase(string equipmentID)
@@ -73,13 +73,13 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getFineCharges = "SELECT FineCharges FROM Eqeuipment WHERE EquipmentID LIKE @ID";
+            string getFineCharges = "SELECT FineCharges FROM Equipment WHERE EquipmentID LIKE @ID";
 
             SqlCommand cmdGetFineCharges = new SqlCommand(getFineCharges, conn);
 
             cmdGetFineCharges.Parameters.AddWithValue("@ID", equipmentID);
 
-            double fineCharges = (double)cmdGetFineCharges.ExecuteScalar();
+            double fineCharges = Convert.ToDouble(cmdGetFineCharges.ExecuteScalar());
 
             conn.Close();
 

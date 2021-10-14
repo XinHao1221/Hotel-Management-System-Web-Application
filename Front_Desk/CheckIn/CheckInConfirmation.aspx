@@ -206,7 +206,7 @@
 
                     <div style="width: 80%; margin: auto; clear:both;">
                         <div class="subFormTableContent" style="padding-left:2%;">
-                            <asp:Label ID="lblNoItemFound" runat="server" Text="No facility rented." Visible="false"></asp:Label>
+                            <asp:Label ID="lblNoItemFound" runat="server" Text="No Missing Equipment." Visible="false"></asp:Label>
                         </div>           
                     </div>
                 </div>

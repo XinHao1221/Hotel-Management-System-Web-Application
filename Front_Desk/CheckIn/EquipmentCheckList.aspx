@@ -81,7 +81,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="formLabel requiredFieldLabel">
+                                    <td class="formLabel">
                                             Room    
                                     </td>
                                     <td class="tableSeperator"></td>
@@ -97,7 +97,7 @@
 
                         <div style="width:50%; float:left; margin-top:15px;">
 
-                            <label class="formLabel">Equipment Checklist:</label>
+                            <label class="formLabel requiredFieldLabel">Equipment Checklist:</label>
 
                             <div style="clear:both; margin-top:10px;">&nbsp;</div>
                             <%--Display Equipment CheckList--%>
