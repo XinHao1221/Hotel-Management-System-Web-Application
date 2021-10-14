@@ -28,7 +28,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             //reservationID = Request.QueryString["ID"];
             //reservationID = en.decryption(roomID);
 
-            reservationID = "RS10000001";
+            reservationID = "RS10000002";
 
             if (!IsPostBack)
             {

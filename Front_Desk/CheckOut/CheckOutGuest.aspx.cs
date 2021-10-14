@@ -39,7 +39,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
             setStayDetails();
 
-            //displayRentedRoomAndFacility();
+            setRentedRoomToRepeater();
 
             setRentedFacilityToRepeater();
         }
@@ -96,11 +96,11 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             {
                 if (sdr["ExtraBed"].ToString() == "True")
                 {
-                    rr = new ReservedRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), Convert.ToDouble(sdr["ExtraBedCharges"]), sdr["Date"].ToString());
+                    rr = new ReservedRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), sdr["RoomID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), Convert.ToDouble(sdr["ExtraBedCharges"]), sdr["Date"].ToString());
                 }
                 else
                 {
-                    rr = new ReservedRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), -1, sdr["Date"].ToString());
+                    rr = new ReservedRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), sdr["RoomID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), -1, sdr["Date"].ToString());
                 }
 
                 reservedRooms.Add(rr);
@@ -271,20 +271,6 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             conn.Close();
         }
 
-        //private void displayRentedRoomAndFacility()
-        //{
-        //    // Get reference of ReservationDetail from view state
-        //    ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
-
-
-        //    RepeaterReservedRoom.DataSource = reservation.reservedRoom;
-        //    RepeaterReservedRoom.DataBind();
-
-        //    RepeaterRentedFacility.DataSource = reservation.rentedFacility;
-        //    RepeaterRentedFacility.DataBind();
-
-        //}
-
         private void setRentedFacilityToRepeater()
         {
             // Get reference of ReservationDetail from view state
@@ -293,9 +279,32 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             // Hold ReservationFacility
             List<ReservationFacility> reservationFacilities = reservation.rentedFacility;
 
-            // Set data to Facility Repeater
-            RepeaterRentedFacility.DataSource = reservationFacilities;
-            RepeaterRentedFacility.DataBind();
+            if (reservationFacilities.Count != 0)
+            {
+                // Set data to Facility Repeater
+                RepeaterRentedFacility.DataSource = reservationFacilities;
+                RepeaterRentedFacility.DataBind();
+
+                lblNoItemFound.Visible = false;
+            }
+            else
+            {
+                lblNoItemFound.Visible = true;
+            }
+            
+        }
+
+        private void setRentedRoomToRepeater()
+        {
+            // Get reference of ReservationDetail from view state
+            ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
+
+            // Hold Reserved Room
+            List<ReservedRoom> reservedRooms = reservation.reservedRoom;
+
+            // Set rented room to repeater
+            RepeaterRentedRoomType.DataSource = reservedRooms;
+            RepeaterRentedRoomType.DataBind();
         }
 
         protected void LBBack_Click(object sender, EventArgs e)
@@ -316,6 +325,29 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             // Display the formated date
             lblRentDate.Text = formatedRentDate.ToShortDateString();
             lblReturnDate.Text = formatedReturnDate.ToShortDateString();
+        }
+
+        protected void RepeaterRentedRoomType_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Get control's reference
+            Label lblDate = e.Item.FindControl("lblDate") as Label;
+            Label lblExtraBedPrice = e.Item.FindControl("lblExtraBedPrice") as Label;
+
+            // Format data base on date format on user's computer
+            DateTime formatedDate = Convert.ToDateTime(lblDate.Text);
+            lblDate.Text = formatedDate.ToShortDateString();
+
+            // Format extraBedPrice
+            if (lblExtraBedPrice.Text == "-1.00")
+            {
+                lblExtraBedPrice.Text = "0.00";
+            }
+
+        }
+
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EquipmentCheckList.aspx");
         }
     }
 }

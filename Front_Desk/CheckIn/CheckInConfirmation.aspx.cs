@@ -26,7 +26,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000001";
+            reservationID = "RS10000002";
 
             setReservationDetails();
 

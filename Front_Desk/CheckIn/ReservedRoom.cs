@@ -68,6 +68,38 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.date = date;
         }
 
+        public ReservedRoom(string reservationRoomID, string roomTypeID, string roomID, int adults, int kids, double roomPrice, double extraBedPrice, string date)
+        {
+            this.reservationRoomID = reservationRoomID;
+            this.roomTypeID = roomTypeID;
+            this.roomTypeName = getRoomTypeName(roomTypeID);
+            this.roomID = roomID;
+            this.roomNo = getRoomNo(roomID);
+            this.adults = adults;
+            this.kids = kids;
+            this.roomPrice = roomPrice;
+            this.extraBedPrice = extraBedPrice;
+            this.date = date;
+        }
+
+        private string getRoomNo(string roomID)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getRoomNumber = "SELECT RoomNumber FROM Room WHERE RoomID LIKE @ID";
+
+            SqlCommand cmdGetRoomNumber = new SqlCommand(getRoomNumber, conn);
+
+            cmdGetRoomNumber.Parameters.AddWithValue("@ID", roomID);
+
+            string roomNo = (string)cmdGetRoomNumber.ExecuteScalar();
+
+            conn.Close();
+
+            return roomNo;
+        }
+
         private string getRoomTypeName(string roomTypeID)
         {
             conn = new SqlConnection(strCon);

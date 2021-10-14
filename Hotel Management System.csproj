@@ -75,7 +75,10 @@
     <Content Include="Front_Desk\CheckIn\CheckInGuest.aspx" />
     <Content Include="Front_Desk\CheckIn\CheckInConfirmation.aspx" />
     <Content Include="Front_Desk\CheckIn\EquipmentCheckList.aspx" />
+    <Content Include="Front_Desk\CheckOut\CheckOutConfirmation.aspx" />
     <Content Include="Front_Desk\CheckOut\CheckOutGuest.aspx" />
+    <Content Include="Front_Desk\CheckOut\EquipmentCheckList.aspx" />
+    <Content Include="Front_Desk\CheckOut\OtherCharges.ascx" />
     <Content Include="Front_Desk\Guest\AddGuest.aspx" />
     <Content Include="Front_Desk\Guest\AddPreference.ascx" />
     <Content Include="Front_Desk\Guest\EditGuest.aspx" />
@@ -185,6 +188,13 @@
     <Compile Include="Front_Desk\CheckIn\ReservationDetail.cs" />
     <Compile Include="Front_Desk\CheckIn\ReservedRoom.cs" />
     <Compile Include="Front_Desk\CheckIn\ReservedRoomType.cs" />
+    <Compile Include="Front_Desk\CheckOut\CheckOutConfirmation.aspx.cs">
+      <DependentUpon>CheckOutConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\CheckOut\CheckOutConfirmation.aspx.designer.cs">
+      <DependentUpon>CheckOutConfirmation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Front_Desk\CheckOut\CheckOutGuest.aspx.cs">
       <DependentUpon>CheckOutGuest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -192,6 +202,22 @@
     <Compile Include="Front_Desk\CheckOut\CheckOutGuest.aspx.designer.cs">
       <DependentUpon>CheckOutGuest.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Front_Desk\CheckOut\EquipmentCheckList.aspx.cs">
+      <DependentUpon>EquipmentCheckList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\CheckOut\EquipmentCheckList.aspx.designer.cs">
+      <DependentUpon>EquipmentCheckList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\CheckOut\MissingEquipment.cs" />
+    <Compile Include="Front_Desk\CheckOut\OtherCharges.ascx.cs">
+      <DependentUpon>OtherCharges.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\CheckOut\OtherCharges.ascx.designer.cs">
+      <DependentUpon>OtherCharges.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\CheckOut\ServiceCharges.cs" />
     <Compile Include="Front_Desk\Guest\AddGuest.aspx.cs">
       <DependentUpon>AddGuest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
