@@ -145,7 +145,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
             for(int i = 0; i < missingEquipments.Count; i++)
             {
-                totalPayment += missingEquipments[i].fineChagrges;
+                totalPayment += missingEquipments[i].fineCharges;
             }
 
             for(int i = 0; i < serviceCharges.Count; i++)
@@ -370,7 +370,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                 cmdSaveFineCharges.Parameters.AddWithValue("@Title", missingEquipments[i].title);
                 cmdSaveFineCharges.Parameters.AddWithValue("@Category", "Fine");
                 cmdSaveFineCharges.Parameters.AddWithValue("@EquipmentID", missingEquipments[i].equipmentID);
-                cmdSaveFineCharges.Parameters.AddWithValue("@Amount", Convert.ToDecimal(missingEquipments[i].fineChagrges));
+                cmdSaveFineCharges.Parameters.AddWithValue("@Amount", Convert.ToDecimal(missingEquipments[i].fineCharges));
                 cmdSaveFineCharges.Parameters.AddWithValue("@ReservationID", reservationID);
 
                 int success = cmdSaveFineCharges.ExecuteNonQuery();

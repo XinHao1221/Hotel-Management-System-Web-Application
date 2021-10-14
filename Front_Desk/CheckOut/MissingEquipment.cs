@@ -33,7 +33,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         public string title { get; set; }
 
-        public double fineChagrges { get; set; }
+        public double fineCharges { get; set; }
 
         public string roomTypeID { get; set; }
 
@@ -61,11 +61,18 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
         {
             this.equipmentID = equipmentID;
             this.title = title;
-            this.fineChagrges = getFineChargesFromDatabase(this.equipmentID);
+            this.fineCharges = getFineChargesFromDatabase(this.equipmentID);
             this.roomTypeID = roomTypeID;
             this.roomType = roomType;
             this.roomID = roomID;
             this.roomNO = roomNo;
+        }
+
+        public MissingEquipment(string equipmentID, string title, double fineCharges)
+        {
+            this.equipmentID = equipmentID;
+            this.title = title;
+            this.fineCharges = fineCharges;
         }
 
         private double getFineChargesFromDatabase(string equipmentID)

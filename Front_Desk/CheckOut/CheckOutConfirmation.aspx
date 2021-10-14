@@ -269,7 +269,7 @@
                                     <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNO") %>' ToolTip='<%# Eval("roomNO") %>'></asp:Label>
                                 </div>
                                 <div style="float:left; width:20%; text-align:right; font-size:90%;" class="subFormTableContent">
-                                    <asp:Label ID="lblFineCharges" runat="server" Text='<%# Eval("fineChagrges", "{0:N2}") %>' ToolTip='<%# Eval("fineChagrges", "{0:N2}") %>'></asp:Label>
+                                    <asp:Label ID="lblFineCharges" runat="server" Text='<%# Eval("fineCharges", "{0:N2}") %>' ToolTip='<%# Eval("fineCharges", "{0:N2}") %>'></asp:Label>
                                 </div>
                                 <div style="float:left; width:22%; font-size:90%;" class="subFormTableContent">
                                     &nbsp;
@@ -292,7 +292,7 @@
                                     <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNO") %>' ToolTip='<%# Eval("roomNO") %>'></asp:Label>
                                 </div>
                                 <div style="float:left; width:20%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
-                                    <asp:Label ID="lblFineCharges" runat="server" Text='<%# Eval("fineChagrges", "{0:N2}") %>' ToolTip='<%# Eval("fineChagrges", "{0:N2}") %>'></asp:Label>
+                                    <asp:Label ID="lblFineCharges" runat="server" Text='<%# Eval("fineCharges", "{0:N2}") %>' ToolTip='<%# Eval("fineCharges", "{0:N2}") %>'></asp:Label>
                                 </div>
                                 <div style="float:left; width:22%; font-size:90%;" class="subFormTableContentAlternate">
                                     &nbsp;

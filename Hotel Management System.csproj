@@ -71,6 +71,7 @@
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="History\ViewTransactionHistory.aspx" />
     <Content Include="Dashboard\Dashboard.aspx" />
     <Content Include="Front_Desk\CheckIn\CheckInGuest.aspx" />
     <Content Include="Front_Desk\CheckIn\CheckInConfirmation.aspx" />
@@ -127,7 +128,9 @@
     <Content Include="Image\close.png" />
     <Content Include="Image\delete.png" />
     <Content Include="Image\delete_icon.png" />
+    <Content Include="Image\edit_blue_icon.png" />
     <Content Include="Image\edit_icon.png" />
+    <Content Include="Image\edit_icon_green.png" />
     <Content Include="Image\edit_white_icon.png" />
     <Content Include="Image\filter_icon.png" />
     <Content Include="Image\home_icon.png" />
@@ -149,11 +152,20 @@
     <Content Include="Template\Template_Icon\dollar.png" />
     <Content Include="Template\Template_Icon\front-desk.png" />
     <Content Include="Template\Template_Icon\help.png" />
+    <Content Include="Template\Template_Icon\history.png" />
     <Content Include="Template\Template_Icon\hotel-configuration.png" />
     <Content Include="Template\Template_Icon\profit-report.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="History\Payment.cs" />
+    <Compile Include="History\ViewTransactionHistory.aspx.cs">
+      <DependentUpon>ViewTransactionHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="History\ViewTransactionHistory.aspx.designer.cs">
+      <DependentUpon>ViewTransactionHistory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

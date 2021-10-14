@@ -195,6 +195,18 @@
                         &nbsp;
                     </div>
 
+                    <asp:HyperLink ID="HLGuestInHouse" runat="server" NavigateUrl="">
+                        <div style="float: left; background-color: white;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                                Guest in House
+                            </div>
+                        </div>
+                    </asp:HyperLink>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+
                     <asp:HyperLink ID="HLCheckOut" runat="server" NavigateUrl="~/Front_Desk/CheckOut/CheckOutGuest.aspx">
                         <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
@@ -210,14 +222,13 @@
             <div class="navBarSeperator">&nbsp;</div>
 
             <!--Cashiering-->
-            <asp:HyperLink ID="HLNavCashiering" runat="server">
+            <asp:HyperLink ID="HLNavCashiering" runat="server" NavigateUrl="~/History/ViewTransactionHistory.aspx">
                 <div class="navOptionContainer">
                     <div style="float:left;">
-                        <asp:Image ID="INavCashiering" runat="server" ImageUrl="~/Template/Template_Icon/dollar.png" CssClass="navIconStyle"/>
+                        <asp:Image ID="INavHistory" runat="server" ImageUrl="~/Template/Template_Icon/history.png" CssClass="navIconStyle"/>
                     </div>
-
                     <div style="float:left; margin-left:15px; margin-top:2.5px;">
-                        Cashiering
+                        History
                     </div>
                 </div>
             </asp:HyperLink>
@@ -326,7 +337,7 @@
                         <asp:Label ID="lblNavReport" runat="server" Text="Report"></asp:Label>
                     </div>
                     <div style="">
-                        <asp:Image ID="INavArrowDown3" runat="server" ImageUrl="~/Template/Template_Icon/arrow_down.png" CssClass="navDropDownIcon"/>
+                        <asp:Image ID="INavArrowDown4" runat="server" ImageUrl="~/Template/Template_Icon/arrow_down.png" CssClass="navDropDownIcon"/>
                     </div>
                 </div>
             </asp:LinkButton>
