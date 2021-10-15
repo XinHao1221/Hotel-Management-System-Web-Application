@@ -34,6 +34,8 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         public string roomNo { get; set; }
         public string houseKeepingStatus { get; set; }
 
+        public int floorNumber { get; set; }
+
         public Boolean selected { get; set; }
 
         // Create connection to database
@@ -56,6 +58,16 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.selected = false;
             getRoomNo();
             getHouseKeepingStatus();
+            getFloorNumber();
+        }
+
+        public AvailableRoom(string roomID, Boolean selected)
+        {
+            this.roomID = roomID;
+            this.selected = selected;
+            getRoomNo();
+            getHouseKeepingStatus();
+            getFloorNumber();
         }
 
         private void getRoomNo()
@@ -113,6 +125,22 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             cmdGetHouseKeepingStatus.Parameters.AddWithValue("@ID", roomID);
 
             houseKeepingStatus = (string)cmdGetHouseKeepingStatus.ExecuteScalar();
+
+            conn.Close();
+        }
+
+        private void getFloorNumber()
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getFloorNumber = "SELECT FloorNumber FROM Floor F, Room R WHERE F.FloorID LIKE R.FloorID AND R.RoomID LIKE @ID";
+
+            SqlCommand cmdGetFloorNumber = new SqlCommand(getFloorNumber, conn);
+
+            cmdGetFloorNumber.Parameters.AddWithValue("@ID", roomID);
+
+            floorNumber = (int)cmdGetFloorNumber.ExecuteScalar();
 
             conn.Close();
         }

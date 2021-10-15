@@ -71,6 +71,7 @@
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="Front_Desk\GuestInHouse\RoomMove.aspx" />
     <Content Include="History\ViewTransactionHistory.aspx" />
     <Content Include="Dashboard\Dashboard.aspx" />
     <Content Include="Front_Desk\CheckIn\CheckInGuest.aspx" />
@@ -158,6 +159,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Front_Desk\GuestInHouse\RoomMove.aspx.cs">
+      <DependentUpon>RoomMove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\GuestInHouse\RoomMove.aspx.designer.cs">
+      <DependentUpon>RoomMove.aspx</DependentUpon>
+    </Compile>
     <Compile Include="History\Payment.cs" />
     <Compile Include="History\ViewTransactionHistory.aspx.cs">
       <DependentUpon>ViewTransactionHistory.aspx</DependentUpon>

@@ -28,7 +28,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             //reservationID = Request.QueryString["ID"];
             //reservationID = en.decryption(roomID);
 
-            reservationID = "RS10000002";
+            reservationID = "RS10000001";
 
             if (!IsPostBack)
             {
@@ -451,6 +451,21 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
             // Display the formated date
             lblDate.Text = formatedDate.ToShortDateString();
+
+            // Check if any extra bed rented
+            Label lblExtraBed = e.Item.FindControl("lblExtraBed") as Label;
+            Label lblTrueFalse = e.Item.FindControl("lblTrueFalse") as Label;
+
+            string temp = lblExtraBed.Text;
+
+            if (lblExtraBed.Text != "-1")
+            {
+                lblTrueFalse.Text = "True";
+            }
+            else
+            {
+                lblTrueFalse.Text = "";
+            }
         }
 
         protected void IBClosePopUpBox_Click(object sender, ImageClickEventArgs e)

@@ -204,10 +204,8 @@
                                     </td>
                                     <td class="tableSeperator"></td>
                                     <td class="tableData">
-                                        <%--<asp:Label ID="lblExtraBed" runat="server" Text='<%# Eval("extraBedPrice") %>'></asp:Label>--%>
-                                        <div style="padding-top:40px;">
-                                            <%--<asp:CheckBox ID="cbExtraBed1" runat="server" AutoPostBack="true" OnCheckedChanged="CheckBoxExtraBed" CssClass="formCheckBoxStyle" Width="50px" Visible="false"/>--%>
-                                        </div>
+                                        <asp:Label ID="lblExtraBed" runat="server" Text='<%# Eval("extraBedPrice") %>' Visible="false"></asp:Label>
+                                        <asp:Label ID="lblTrueFalse" runat="server"></asp:Label>
                                     </td>
                                 </tr>
                             
@@ -479,13 +477,19 @@
                         <div style="float:left; width:15%; font-size:80%;" class="subFormRepeaterHeader">
                             Room No 
                         </div>
-                        <div style="float:left; width:57%; font-size:80%;" class="subFormRepeaterHeader">
+                        <div style="float:left; width:52%; font-size:80%;" class="subFormRepeaterHeader">
                             Room Features
                         </div>
-                        <div style="float:left; width:15%; font-size:80%;" class="subFormRepeaterHeader">
+                        <div style="float:left; width:7%; font-size:80%; text-align:right;" class="subFormRepeaterHeader">
+                            Floor
+                        </div>
+                        <div style="float:left; width:5%; font-size:80%; text-align:right;" class="subFormRepeaterHeader">
+                            &nbsp;
+                        </div>
+                        <div style="float:left; width:10%; font-size:80%;" class="subFormRepeaterHeader">
                             Status
                         </div>
-                        <div style="float:left; width:5%; font-size:80%;" class="subFormRepeaterHeader">
+                        <div style="float:left; width:3%; font-size:80%;" class="subFormRepeaterHeader">
                             &nbsp;
                         </div>
                     </div>
@@ -500,14 +504,17 @@
                                 <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
                                 <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
                             </div>
-                            <div style="float:left; width:57%; font-size:75%;" class="subFormTableContent">
+                            <div style="float:left; width:52%; font-size:75%;" class="subFormTableContent">
                                 <asp:Label ID="lblRoomFeatures" runat="server" Text=""></asp:Label>&nbsp;
                             </div>
-                            <div style="float:left; width:15%; font-size:75%;" class="subFormTableContent">
-                                <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>&nbsp;
+                            <div style="float:left; width:7%; font-size:75%; text-align:right;" class="subFormTableContent">
+                                <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("floorNumber") %>'></asp:Label>
                             </div>
-                            <div style="float:left; width:2%; font-size:75%;" class="subFormTableContent">
+                            <div style="float:left; width:5%; font-size:75%; text-align:right;" class="subFormTableContent">
                                 &nbsp;
+                            </div>
+                            <div style="float:left; width:10%; font-size:75%;" class="subFormTableContent">
+                                <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>&nbsp;
                             </div>
                             <div style="float:left; width:3%; padding-top:10px; padding-bottom:10px;" class="subFormTableContent">
                                 <div style="line-height:20px; height:20px;">
@@ -525,14 +532,17 @@
                                 <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
                                 <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
                             </div>
-                            <div style="float:left; width:57%; font-size:75%;" class="subFormTableContentAlternate">
+                            <div style="float:left; width:52%; font-size:75%;" class="subFormTableContentAlternate">
                                 <asp:Label ID="lblRoomFeatures" runat="server" Text=""></asp:Label>&nbsp;
                             </div>
-                            <div style="float:left; width:15%; font-size:80%;" class="subFormTableContentAlternate">
-                                <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>
+                            <div style="float:left; width:7%; font-size:75%; text-align:right;" class="subFormTableContentAlternate">
+                                <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("floorNumber") %>'></asp:Label>
                             </div>
-                            <div style="float:left; width:2%; font-size:75%;" class="subFormTableContentAlternate">
+                            <div style="float:left; width:5%; font-size:75%; text-align:right;" class="subFormTableContentAlternate">
                                 &nbsp;
+                            </div>
+                            <div style="float:left; width:10%; font-size:80%;" class="subFormTableContentAlternate">
+                                <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>
                             </div>
                             <div style="float:left; width:3%; padding-top:10px; padding-bottom:10px;" class="subFormTableContentAlternate">
                                 <div style="line-height:20px; height:20px;">
@@ -546,8 +556,6 @@
                 </div>
 
                 <div style="clear:both;">&nbsp;</div>
-
-
 
             </div>
         </asp:Panel> 

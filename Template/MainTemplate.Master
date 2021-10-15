@@ -195,7 +195,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLGuestInHouse" runat="server" NavigateUrl="">
+                    <asp:HyperLink ID="HLGuestInHouse" runat="server" NavigateUrl="~/Front_Desk/GuestInHouse/RoomMove.aspx">
                         <div style="float: left; background-color: white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Guest in House
