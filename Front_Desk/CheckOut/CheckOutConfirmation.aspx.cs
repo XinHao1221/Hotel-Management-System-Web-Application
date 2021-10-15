@@ -9,6 +9,8 @@ using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
 using Hotel_Management_System.Front_Desk.CheckIn;
 using System.Configuration;
+using System.Net.Mail;
+using System.IO;
 
 namespace Hotel_Management_System.Front_Desk.CheckOut
 {
@@ -291,24 +293,27 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         protected void btnCheckOut_Click(object sender, EventArgs e)
         {
-            List<ServiceCharges> serviceCharges = (List<ServiceCharges>)Session["ServiceCharges"];
+            //List<ServiceCharges> serviceCharges = (List<ServiceCharges>)Session["ServiceCharges"];
 
-            List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
+            //List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
 
-            if(serviceCharges.Count > 0)
-            {
-                saveOtherCharges();
-            }
+            //if(serviceCharges.Count > 0)
+            //{
+            //    saveOtherCharges();
+            //}
 
-            if(missingEquipments.Count > 0)
-            {
-                saveFineCharges();
-            }
+            //if(missingEquipments.Count > 0)
+            //{
+            //    saveFineCharges();
+            //}
 
-            savePayment();
+            //savePayment();
 
-            // Update reservation status to "Checked Out"
-            updateReservationStatus();
+            //// Update reservation status to "Checked Out"
+            //updateReservationStatus();
+
+            // Send survey form to guest
+            sendSurveyForm();
 
             // Show popup Success Message
             lblPopupCheckedOut.Text = "Check Out Success.";
@@ -428,6 +433,128 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             conn.Close();
 
         }
+
+        // Send Survey Form
+        private void sendSurveyForm()
+        {
+            if (surveyFormEnabled())
+            {
+                // **** Important Note *****
+                // Please set up this three variable b4 sending email
+                // Set receiver email
+                string emailTo = getGuestEmailAddress();
+
+                // Check if guest have any emailAddress
+                if(emailTo.Length > 0)
+                {
+                    // Set sender and receiver email
+                    string emailFrom = "hmsagent1221@gmail.com";
+                    string password = "Asdfg12345@";
+                    try
+                    {
+                        using (MailMessage mail = new MailMessage())
+                        {
+                            mail.From = new MailAddress(emailFrom);
+                            mail.To.Add(emailTo);
+                            mail.Subject = "Guest Satisfactory Survey";
+                            mail.Body = CreateEmailBody();
+                            mail.IsBodyHtml = true;
+
+                            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                            {
+                                smtp.Credentials = new System.Net.NetworkCredential(emailFrom, password);
+                                smtp.EnableSsl = true;
+                                smtp.Send(mail);
+                                Label1.Text = "Mail Sent";
+
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Label1.Text = ex.Message;
+                    }
+                }
+            }
+        }
+
+        private string CreateEmailBody()
+        {
+
+            IDEncryption en = new IDEncryption();
+
+            string encryptedReservationID = en.encryption(reservationID);
+
+            string emailBody = String.Empty;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("Survey (Email).html")))
+            {
+                emailBody = reader.ReadToEnd();
+            }
+
+            // Replace the text in Template.html
+            emailBody = emailBody.Replace("{fname}", "Koh Xin Hao");
+            emailBody = emailBody.Replace("{fage}", "18");
+            emailBody = emailBody.Replace("{femail}", "kohxinhao@gmail.com");
+            emailBody = emailBody.Replace("{link}", "https://localhost:" + Application["LocalHostID"].ToString() + "/Front_Desk/Survey/SurveyForm.aspx?ID=" + encryptedReservationID);
+
+            return emailBody;
+        }
+
+        private Boolean surveyFormEnabled()
+        {
+            // Open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getTotalEnabledQuestion = "SELECT COUNT(*) FROM SurveyQuestion WHERE Status LIKE 'Active'";
+
+            SqlCommand cmdGetTotalEnabledQuestion = new SqlCommand(getTotalEnabledQuestion, conn);
+
+            int count = (int)cmdGetTotalEnabledQuestion.ExecuteScalar();
+
+            conn.Close();
+
+            if(count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private string getGuestEmailAddress()
+        {
+            // Get refernce of ReservationDetail
+            ReservationDetail reservationDetails = (ReservationDetail)Session["ReservationDetails"];
+
+            // Open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getEmailAddress = "SELECT Email FROM Guest WHERE GuestID LIKE @ID";
+
+            SqlCommand cmdGetEmailAddress = new SqlCommand(getEmailAddress, conn);
+
+            cmdGetEmailAddress.Parameters.AddWithValue("@ID", reservationDetails.guestID);
+
+            string emailAddress = "";
+            try
+            {
+               emailAddress  = (string)cmdGetEmailAddress.ExecuteScalar();
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            conn.Close();
+
+            return emailAddress;
+        }
+
 
         protected void btnOK_Click(object sender, EventArgs e)
         {

@@ -40,7 +40,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         public double subTotal { get; set; }
 
         // Create connection to database
+#pragma warning disable CS0169 // The field 'RentedFacility.conn' is never used
         SqlConnection conn;
+#pragma warning restore CS0169 // The field 'RentedFacility.conn' is never used
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         // Create instance of ReservationUltility class

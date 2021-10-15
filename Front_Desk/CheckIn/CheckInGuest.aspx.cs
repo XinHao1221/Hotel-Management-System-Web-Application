@@ -191,9 +191,13 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             // Get reference of ReservationDetail from view state
             ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
 
+#pragma warning disable CS0168 // The variable 'facilityID' is declared but never used
             string rentDate, facilityID, returnDate;
+#pragma warning restore CS0168 // The variable 'facilityID' is declared but never used
             int qty = 0, group;
+#pragma warning disable CS0219 // The variable 'counter' is assigned but its value is never used
             int counter;
+#pragma warning restore CS0219 // The variable 'counter' is assigned but its value is never used
 
             // Check if it contains at least one element
             // Got one default element

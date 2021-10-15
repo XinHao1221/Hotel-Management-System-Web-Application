@@ -222,7 +222,9 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
 
             }
+#pragma warning disable CS0168 // The variable 'i' is declared but never used
             catch (Exception i)
+#pragma warning restore CS0168 // The variable 'i' is declared but never used
             {
                 // If user input is not an integer
                 int number = 1;
@@ -340,7 +342,9 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
 
                 }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
                 catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
                 {
 
                 }

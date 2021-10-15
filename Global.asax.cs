@@ -13,6 +13,7 @@ namespace Hotel_Management_System
         protected void Application_Start(object sender, EventArgs e)
         {
             Application["TaxRate"] = 0.06;
+            Application["LocalHostID"] = "44315";
         }
 
         protected void Session_Start(object sender, EventArgs e)

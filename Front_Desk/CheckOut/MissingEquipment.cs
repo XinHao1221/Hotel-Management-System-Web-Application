@@ -3,7 +3,9 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+#pragma warning disable CS0105 // The using directive for 'System.Data.SqlClient' appeared previously in this namespace
 using System.Data.SqlClient;
+#pragma warning restore CS0105 // The using directive for 'System.Data.SqlClient' appeared previously in this namespace
 
 namespace Hotel_Management_System.Front_Desk.CheckOut
 {

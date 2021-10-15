@@ -26,9 +26,15 @@ namespace Hotel_Management_System.Utility
 
         #endregion
 
+#pragma warning disable CS0169 // The field 'ReservationUtility.year' is never used
         private int year;
+#pragma warning restore CS0169 // The field 'ReservationUtility.year' is never used
+#pragma warning disable CS0169 // The field 'ReservationUtility.month' is never used
         private int month;
+#pragma warning restore CS0169 // The field 'ReservationUtility.month' is never used
+#pragma warning disable CS0169 // The field 'ReservationUtility.day' is never used
         private int day;
+#pragma warning restore CS0169 // The field 'ReservationUtility.day' is never used
 
         public void OnLogRequest(Object source, EventArgs e)
         {

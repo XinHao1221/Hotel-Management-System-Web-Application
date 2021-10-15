@@ -410,6 +410,7 @@
                 <div class="popupBody">
 
                     <asp:Label ID="lblPopupCheckedOut" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="Label1" runat="server" ></asp:Label>
 
                 </div>
 
