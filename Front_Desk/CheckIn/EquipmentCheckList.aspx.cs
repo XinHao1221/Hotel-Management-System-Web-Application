@@ -34,7 +34,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             // Get refernce of ReservationDetail
             ReservationDetail reservationDetails = (ReservationDetail)Session["ReservationDetails"];
 
-            List<ReservedRoom> reservedRooms = reservationDetails.reservedRoom;
+            List<ReservationRoom> reservedRooms = reservationDetails.reservedRoom;
 
             RepeaterReservedRoom.DataSource = reservedRooms;
             RepeaterReservedRoom.DataBind();

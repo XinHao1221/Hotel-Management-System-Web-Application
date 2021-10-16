@@ -77,7 +77,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             // Get reference of ReservationDetail from view state
             ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
 
-            List<ReservedRoom> reservedRooms = new List<ReservedRoom>();
+            List<ReservationRoom> reservedRooms = new List<ReservationRoom>();
 
             conn = new SqlConnection(strCon);
             conn.Open();
@@ -90,17 +90,17 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
             SqlDataReader sdr = cmdGetReservedRoom.ExecuteReader();
 
-            ReservedRoom rr;
+            ReservationRoom rr;
 
             while (sdr.Read())
             {
                 if (sdr["ExtraBed"].ToString() == "True")
                 {
-                    rr = new ReservedRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), sdr["RoomID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), Convert.ToDouble(sdr["ExtraBedCharges"]), sdr["Date"].ToString());
+                    rr = new ReservationRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), sdr["RoomID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), Convert.ToDouble(sdr["ExtraBedCharges"]), sdr["Date"].ToString());
                 }
                 else
                 {
-                    rr = new ReservedRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), sdr["RoomID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), -1, sdr["Date"].ToString());
+                    rr = new ReservationRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), sdr["RoomID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), -1, sdr["Date"].ToString());
                 }
 
                 reservedRooms.Add(rr);
@@ -304,7 +304,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
 
             // Hold Reserved Room
-            List<ReservedRoom> reservedRooms = reservation.reservedRoom;
+            List<ReservationRoom> reservedRooms = reservation.reservedRoom;
 
             // Set rented room to repeater
             RepeaterRentedRoomType.DataSource = reservedRooms;

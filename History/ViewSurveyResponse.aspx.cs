@@ -28,7 +28,15 @@ namespace Hotel_Management_System.History
 
             if (!IsPostBack)
             {
-                ViewState["SurveyResponse"] = new SurveyResponse(reservationID);
+                Session["SurveyResponse"] = new SurveyResponse(reservationID);
+
+                setStayDetails();
+
+                getSurveyResponse();
+
+                setResponseStatus();
+
+                displaySurveyResponse();
             }
         }
 
@@ -40,7 +48,7 @@ namespace Hotel_Management_System.History
         private void getSurveyResponse()
         {
             // Get reference of SurveyResponse object
-            SurveyResponse surveyResponse = (SurveyResponse)ViewState["SurveyResponse"];
+            SurveyResponse surveyResponse = (SurveyResponse)Session["SurveyResponse"];
 
             List<SurveyAnswer> surveyAnswers = new List<SurveyAnswer>();
 
@@ -70,13 +78,77 @@ namespace Hotel_Management_System.History
         private void setStayDetails()
         {
             // Get reference of SurveyResponse object
-            SurveyResponse surveyResponse = (SurveyResponse)ViewState["SurveyResponse"];
+            SurveyResponse surveyResponse = (SurveyResponse)Session["SurveyResponse"];
 
             lblGuestName.Text = surveyResponse.guestName;
             lblIDNo.Text = surveyResponse.idNo;
-            lblCheckIn.Text = surveyResponse.checkInDate;
-            lblCheckOut.Text = surveyResponse.checkOutDate;
+
+            // Format date base on date format on user's computer
+            DateTime formatedCheckInDate = Convert.ToDateTime(surveyResponse.checkInDate);
+            DateTime formatedCheckOutDate = Convert.ToDateTime(surveyResponse.checkOutDate);
+
+            lblCheckIn.Text = formatedCheckInDate.ToShortDateString();
+            lblCheckOut.Text = formatedCheckOutDate.ToShortDateString();
+
+            int durationOfStay = reservationUtility.getdurationOfStay(lblCheckIn.Text, lblCheckOut.Text);
+
+            lblDurationOfStay.Text = durationOfStay.ToString() + " Night";
+
         }
 
+        private void displaySurveyResponse()
+        {
+            // Get reference of SurveyResponse object
+            SurveyResponse surveyResponse = (SurveyResponse)Session["SurveyResponse"];
+
+            List<SurveyAnswer> surveyAnswers = surveyResponse.surveyAnswers;
+
+            RepeaterSurveyResponse.DataSource = surveyAnswers;
+            RepeaterSurveyResponse.DataBind();
+        }
+
+        protected void RepeaterSurveyResponse_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Get control's refernce
+            Label lblAnswer = e.Item.FindControl("lblAnswer") as Label;
+            RadioButtonList rblSurveyAnswer = e.Item.FindControl("rblSurveyAnswer") as RadioButtonList;
+
+            rblSurveyAnswer.SelectedValue = lblAnswer.Text;
+        }
+
+        private void setResponseStatus()
+        {
+            // Get reference of SurveyResponse object
+            SurveyResponse surveyResponse = (SurveyResponse)Session["SurveyResponse"];
+
+            List<SurveyAnswer> surveyAnswers = surveyResponse.surveyAnswers;
+
+            int totalScore = 0;
+
+            // Total up the score of survey response
+            for(int i = 0; i < surveyAnswers.Count; i++)
+            {
+                totalScore += surveyAnswers[i].answer;
+            }
+
+            if((totalScore / surveyAnswers.Count) < 3)
+            {
+                lblStatus.Text = "Bad";
+                lblStatus.Style["color"] = "red";
+                lblStatus.Style["font-weight"] = "bold";
+            }
+            else if((totalScore / surveyAnswers.Count) == 3)
+            {
+                lblStatus.Text = "Average";
+                lblStatus.Style["color"] = "rgb(194, 110, 0)";
+                lblStatus.Style["font-weight"] = "bold";
+            }
+            else
+            {
+                lblStatus.Text = "Good";
+                lblStatus.Style["color"] = "rgb(0, 206, 27)";
+                lblStatus.Style["font-weight"] = "bold";
+            }
+        }
     }
 }

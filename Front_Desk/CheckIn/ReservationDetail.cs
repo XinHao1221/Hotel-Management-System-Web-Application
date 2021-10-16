@@ -34,7 +34,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         public string guestName { get; set; }
         public string checkInDate { get; set; }
         public string checkOutDate { get; set; }
-        public List<ReservedRoom> reservedRoom { get; set; }
+        public List<ReservationRoom> reservedRoom { get; set; }
         public List<ReservationFacility> rentedFacility { get; set; }
 
         // Create connection to database
@@ -51,7 +51,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         }
 
-        public ReservationDetail(string guestID, string checkInDate, string checkOutDate, List<ReservedRoom> reservedRoom, List<ReservationFacility> rentedFacility)
+        public ReservationDetail(string guestID, string checkInDate, string checkOutDate, List<ReservationRoom> reservedRoom, List<ReservationFacility> rentedFacility)
         {
             this.guestID = guestID;
             this.guestName = setGuestName();

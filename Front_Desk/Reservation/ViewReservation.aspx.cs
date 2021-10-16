@@ -8,13 +8,11 @@ using System.Data;
 using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
 using Hotel_Management_System.Front_Desk.CheckIn;
-using Hotel_Management_System.Front_Desk.CheckOut;
 using System.Configuration;
-using Hotel_Management_System.History;
 
-namespace Hotel_Management_System.Cashiering
+namespace Hotel_Management_System.Front_Desk.Reservation
 {
-    public partial class ViewTransactionHistory : System.Web.UI.Page
+    public partial class ViewReservation : System.Web.UI.Page
     {
         // Create connection to database
         SqlConnection conn;
@@ -35,37 +33,19 @@ namespace Hotel_Management_System.Cashiering
 
                 Session["ReservedRoomType"] = new List<ReservedRoomType>();
 
-                Session["ServiceCharges"] = new List<ServiceCharges>();
-
-                Session["MissingEquipments"] = new List<MissingEquipment>();
-
-                Session["Payments"] = new List<Payment>();
-
                 getReservationDetails();
 
                 getReservedRoom();
 
                 getRentedFacilityList();
 
-                getServiceCharges();
-
-                getMissingeEquipment();
-
-                getPayment();
-
                 setStayDetails();
 
                 setRentedRoomToRepeater();
 
-                setPaymentDetailsToRepeater();
-
                 setRentedFacilityToRepeater();
 
-                setServiceChargesToRepeater();
-
-                setMissingEquipmentToRepeater();
             }
-            
         }
 
         protected void LBBack_Click(object sender, EventArgs e)
@@ -258,87 +238,6 @@ namespace Hotel_Management_System.Cashiering
             reservation.rentedFacility = reservationFacilities;
         }
 
-        private void getMissingeEquipment()
-        {
-            List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
-
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            string getMissingEquipment = "SELECT * FROM OtherCharges WHERE ReservationID LIKE @ID AND Category LIKE 'Fine'";
-
-            SqlCommand cmdGetMissingEquipment = new SqlCommand(getMissingEquipment, conn);
-
-            cmdGetMissingEquipment.Parameters.AddWithValue("@ID", reservationID);
-
-            SqlDataReader sdr = cmdGetMissingEquipment.ExecuteReader();
-
-            MissingEquipment me;
-
-            while (sdr.Read())
-            {
-                me = new MissingEquipment(sdr["EquipmentID"].ToString(), sdr["Title"].ToString(), Convert.ToDouble(sdr["Amount"]));
-
-                missingEquipments.Add(me);
-            }
-
-            conn.Close();
-        }
-
-        private void getServiceCharges()
-        {
-            List<ServiceCharges> serviceCharges = (List<ServiceCharges>)Session["ServiceCharges"];
-
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            string getServiceCharges = "SELECT * FROM OtherCharges WHERE ReservationID LIKE @ID AND Category LIKE 'Service'";
-
-            SqlCommand cmdGetServiceCharges = new SqlCommand(getServiceCharges, conn);
-
-            cmdGetServiceCharges.Parameters.AddWithValue("@ID", reservationID);
-
-            SqlDataReader sdr = cmdGetServiceCharges.ExecuteReader();
-
-            ServiceCharges sc;
-
-            while (sdr.Read())
-            {
-                sc = new ServiceCharges(sdr["Title"].ToString(), Convert.ToDouble(sdr["Amount"]));
-
-                serviceCharges.Add(sc);
-            }
-
-            conn.Close();
-        }
-
-        public void getPayment()
-        {
-            List<Payment> payments = (List<Payment>)Session["Payments"];
-
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            string getPaymentDetails = "SELECT * FROM Payment WHERE ReservationID LIKE @ID";
-
-            SqlCommand cmdGetPaymentDetails = new SqlCommand(getPaymentDetails, conn);
-
-            cmdGetPaymentDetails.Parameters.AddWithValue("@ID", reservationID);
-
-            SqlDataReader sdr = cmdGetPaymentDetails.ExecuteReader();
-
-            Payment pay;
-
-            while (sdr.Read())
-            {
-                pay = new Payment(sdr["PaymentID"].ToString(), sdr["PaymentMethod"].ToString(), sdr["ReferenceNo"].ToString(), Convert.ToDouble(sdr["Amount"]), sdr["Date"].ToString());
-
-                payments.Add(pay);
-            }
-
-            conn.Close();
-        }
-
         private void setStayDetails()
         {
             // Get reference of ReservationDetail from view state
@@ -421,58 +320,6 @@ namespace Hotel_Management_System.Cashiering
             RepeaterRentedRoomType.DataBind();
         }
 
-        private void setServiceChargesToRepeater()
-        {
-            List<ServiceCharges> serviceCharges = (List<ServiceCharges>)Session["ServiceCharges"];
-
-            if (serviceCharges.Count != 0)
-            {
-                // Set data to Facility Repeater
-                RepeaterServiceCharges.DataSource = serviceCharges;
-                RepeaterServiceCharges.DataBind();
-
-                lblNoServiceCharges.Visible = false;
-            }
-            else
-            {
-                lblNoServiceCharges.Visible = true;
-            }
-        }
-
-        private void setMissingEquipmentToRepeater()
-        {
-            List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
-
-            if(missingEquipments.Count != 0)
-            {
-                RepeaterMissingEquipment.DataSource = missingEquipments;
-                RepeaterMissingEquipment.DataBind();
-
-                lblNoMissingEquipmentFound.Visible = false;
-            }
-            else
-            {
-                lblNoMissingEquipmentFound.Visible = true;
-            }
-        }
-
-        private void setPaymentDetailsToRepeater()
-        {
-            List<Payment> payments = (List<Payment>)Session["Payments"];
-
-            if(payments.Count != 0)
-            {
-                RepeaterPayment.DataSource = payments;
-                RepeaterPayment.DataBind();
-
-                lblNoPaymentDetails.Visible = false;
-            }
-            else
-            {
-                lblNoPaymentDetails.Visible = true;
-            }
-        }
-
         protected void RepeaterRentedFacility_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             // Get control's refernce
@@ -506,99 +353,9 @@ namespace Hotel_Management_System.Cashiering
 
         }
 
-        protected void IBEditPaymentDetails_Click(object sender, ImageClickEventArgs e)
+        protected void btnCancel_Click(object sender, EventArgs e)
         {
-            // When user click on delete icon
-            RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
-
-            // Get value from repeatear
-            String paymentID = (item.FindControl("lblPaymentID") as Label).Text;
-            String paymentDate = (item.FindControl("lblPaymentDate") as Label).Text;
-            String paymentMethod = (item.FindControl("lblPaymentMethod") as Label).Text;
-            String referenceNo = (item.FindControl("lblReferenceNo") as Label).Text;
-            String amount = (item.FindControl("lblAmount") as Label).Text;
-
-            // Set value to popup box
-            lblPopupBoxPaymentID.Text = paymentID;
-
-            DateTime formatedPaymentDate = Convert.ToDateTime(paymentDate);
-            lblPopupBoxDate.Text = formatedPaymentDate.ToShortDateString();
-
-            lblPopupBoxAmount.Text = amount;
-            ddlPaymentMethod.SelectedValue = paymentMethod;
-            txtReferenceNo.Text = referenceNo;
-
-            // Show Popup Box
-            PopupBoxEditPaymentDetails.Visible = true;
-            PopupCover.Visible = true;
-        }
-
-        protected void IBPopupBoxCloseIcon_Click(object sender, ImageClickEventArgs e)
-        {
-            PopupBoxEditPaymentDetails.Visible = false;
-            PopupCover.Visible = false;
-        }
-
-        protected void btnPopupBoxSave_Click(object sender, EventArgs e)
-        {
-            // Update payment details
-            updatePaymentDetailsToDatabase();
-            updateRepeaterPayment();
-
-            // Close Repeater
-            PopupBoxEditPaymentDetails.Visible = false;
-            PopupCover.Visible = false;
-  
-        }
-
-        private void updatePaymentDetailsToDatabase()
-        {
-            // Update payment method and reference no
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            string updatePaymentDetails = "UPDATE Payment SET PaymentMethod = @PaymentMethod, ReferenceNo = @ReferenceNo " +
-                "WHERE PaymentID LIKE @ID";
-
-            SqlCommand cmdUpdatePaymentDetails = new SqlCommand(updatePaymentDetails, conn);
-
-            cmdUpdatePaymentDetails.Parameters.AddWithValue("@PaymentMethod", ddlPaymentMethod.SelectedValue);
-            cmdUpdatePaymentDetails.Parameters.AddWithValue("@ReferenceNo", txtReferenceNo.Text);
-            cmdUpdatePaymentDetails.Parameters.AddWithValue("@ID", lblPopupBoxPaymentID.Text);
-
-            int i = cmdUpdatePaymentDetails.ExecuteNonQuery();
-
-            conn.Close();
-        }
-
-        private void updateRepeaterPayment()
-        {
-            List<Payment> payments = (List<Payment>)Session["Payments"];
-
-            // Find the specific paymentID from list
-            for(int i = 0; i < payments.Count; i++)
-            {
-                if(payments[i].paymentID == lblPopupBoxPaymentID.Text)
-                {
-                    payments[i].paymentMethod = ddlPaymentMethod.SelectedValue;
-                    payments[i].referenceNo = txtReferenceNo.Text;
-                }
-            }
-
-            // Set data to RepeaterPayment
-            RepeaterPayment.DataSource = payments;
-            RepeaterPayment.DataBind();
-        }
-
-        protected void RepeaterPayment_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            // Get control's reference
-            Label lblPaymentDate = e.Item.FindControl("lblPaymentDate") as Label;
-
-            // Format data base on date format on user's computer
-            DateTime formatedDate = Convert.ToDateTime(lblPaymentDate.Text);
-            lblPaymentDate.Text = formatedDate.ToShortDateString();
-
+            Response.Redirect("Refund.aspx");
         }
     }
 }

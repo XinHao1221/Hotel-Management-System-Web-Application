@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Hotel_Management_System.Front_Desk.CheckIn
 {
-    public class ReservedRoom : IHttpModule
+    public class ReservationRoom : IHttpModule
     {
         /// <summary>
         /// You will need to configure this module in the Web.config file of your
@@ -51,12 +51,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             //custom logging logic can go here
         }
 
-        public ReservedRoom()
+        public ReservationRoom()
         {
 
         }
 
-        public ReservedRoom(string reservationRoomID, string roomTypeID, int adults, int kids, double roomPrice, double extraBedPrice, string date)
+        public ReservationRoom(string reservationRoomID, string roomTypeID, int adults, int kids, double roomPrice, double extraBedPrice, string date)
         {
             this.reservationRoomID = reservationRoomID;
             this.roomTypeID = roomTypeID;
@@ -68,7 +68,11 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.date = date;
         }
 
-        public ReservedRoom(string reservationRoomID, string roomTypeID, string roomID, int adults, int kids, double roomPrice, double extraBedPrice, string date)
+        public ReservationRoom(string temp)
+        {
+
+        }
+        public ReservationRoom(string reservationRoomID, string roomTypeID, string roomID, int adults, int kids, double roomPrice, double extraBedPrice, string date)
         {
             this.reservationRoomID = reservationRoomID;
             this.roomTypeID = roomTypeID;

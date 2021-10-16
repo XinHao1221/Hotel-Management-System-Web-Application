@@ -9,6 +9,57 @@
     <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
 
+    <style>
+
+        .surveyResponseContainer{
+            border: 1px solid rgb(213 213 213);
+            width: 80%;
+            margin: auto;
+            padding:30px;
+            margin-top: 20px;
+            min-height:180px;
+            border-radius:20px;
+            position:relative;
+            z-index:-10;
+        }
+
+        .cover{
+            width: 80%;
+            margin: auto;
+            padding:30px;
+            min-height:180px;
+            border-radius:20px;
+            display:block;
+            position:absolute;
+            top:0;
+            z-index:10;
+        }
+
+        .likertScaleLabel{
+            word-wrap: break-word;
+            font-family: Helvetica, sans-serif;
+            padding-bottom:10px;
+        }
+
+        .LikertScaleStyle{
+            word-wrap: break-word;
+            font-family: Helvetica, sans-serif;
+            padding-bottom:10px;
+            border: 0px;
+            width: 100%;
+            height: 2em;
+        }
+
+        .likerScaleQuestionStyle{
+            min-height: 50px;
+            font-family: Helvetica, sans-serif;
+            font-weight: bold;
+            line-height:50px; 
+            vertical-align:middle;
+        }
+
+    </style>
+
     <div>
 
         <%-- Page content --%>
@@ -108,8 +159,46 @@
         <div style="clear:both;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px">
-            3. Response Details:-
+            2. Response Details:-
         </div>
+
+        <%--Display Reserved Room Details--%>
+        <asp:Repeater ID="RepeaterSurveyResponse" runat="server" OnItemDataBound="RepeaterSurveyResponse_ItemDataBound">
+
+            <ItemTemplate >
+                
+                <div class="surveyResponseContainer">  
+                    <div class="cover">
+                    <div class="likerScaleQuestionStyle" style="margin-left:5%;">
+                        <asp:Label ID="lblQuestionID" runat="server" Text='<%# Eval("questionID") %>' Visible="false"></asp:Label>
+                        <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>.&nbsp;
+                        <asp:Label ID="lblQuestion" runat="server" Text='<%# Eval("question") %>'></asp:Label>
+                    </div>
+                    <div style="height:100px; display:flex; justify-content:center;">
+                        <div style="float:left; line-height:100px; vertical-align:middle; margin-right:3%; font-size:90%;" class="likertScaleLabel">
+                            Strongly Disagree
+                        </div>
+                        <div style="float:left; line-height:100px; vertical-align:middle;" class="likertScaleLabel">
+                            <asp:Label ID="lblAnswer" runat="server" Text='<%# Eval("answer") %>' Visible="false"></asp:Label>
+                            <asp:RadioButtonList ID="rblSurveyAnswer" runat="server" RepeatDirection="Horizontal" CssClass="LikertScaleStyle">
+                                <asp:ListItem Value="1">&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:ListItem>
+                                <asp:ListItem Value="2">&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:ListItem>
+                                <asp:ListItem Value="3">&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:ListItem>
+                                <asp:ListItem Value="4">&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:ListItem>
+                                <asp:ListItem Value="5">&nbsp;5</asp:ListItem>
+                            </asp:RadioButtonList>
+
+                        </div>
+                        <div style="float:left; line-height:100px; vertical-align:middle; margin-left:4%; font-size:90%;" class="likertScaleLabel">
+                            Strongly Agree
+                        </div>
+                    </div>
+</div>
+                </div>
+
+            </ItemTemplate>
+
+        </asp:Repeater>
 
     </div>
 

@@ -104,7 +104,7 @@
             <div style="height:50px;">&nbsp;</div>
 
             <div class="formSectionStyle" style="margin-bottom:25px;">
-                1. Stay Details
+                1. Stay Details:-
             </div>
 
             <%--Display guest details--%>

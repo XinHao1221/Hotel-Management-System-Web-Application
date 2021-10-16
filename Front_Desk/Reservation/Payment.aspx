@@ -60,7 +60,7 @@
                 <div style="width:50%; float:left;">
                     <table style="width:100%;">
                         <tr>
-                            <td class="formLabel requiredFieldLabel">
+                            <td class="formLabel">
                                     Guest Name             
                             </td>
                             <td class="tableSeperator"></td>
@@ -69,7 +69,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="formLabel requiredFieldLabel">
+                            <td class="formLabel">
                                     Check In           
                             </td>
                             <td class="tableSeperator"></td>
@@ -82,7 +82,7 @@
                 <div style="width:50%; float:left;">
                     <table style="width:100%;">
                         <tr>
-                            <td class="formLabel requiredFieldLabel">
+                            <td class="formLabel">
                                     Duration of Stay             
                             </td>
                             <td class="tableSeperator"></td>
@@ -91,7 +91,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="formLabel requiredFieldLabel">
+                            <td class="formLabel">
                                     Check Out           
                             </td>
                             <td class="tableSeperator"></td>
@@ -107,7 +107,7 @@
                 <%--Display Rented Room Details--%>
                 <div>
                     <div class="formSectionStyle" style="margin-bottom:25px;">
-                        1. Rented Room
+                        1. Rented Room:-
                     </div>
 
                     <div style="width:86%; margin:auto;">
@@ -227,7 +227,7 @@
                 <%--Display Rented Facility Details--%>
                 <div>
                     <div class="formSectionStyle" style="margin-bottom:25px;">
-                        2. Rented Facility
+                        2. Rented Facility:-
                     </div>
 
                     <div style="width:86%; margin:auto;">

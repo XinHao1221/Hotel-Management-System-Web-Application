@@ -73,6 +73,9 @@
     </Content>
     <Content Include="Front_Desk\CheckOut\Survey %28Email%29.html" />
     <Content Include="Front_Desk\GuestInHouse\RoomMove.aspx" />
+    <Content Include="Front_Desk\Reservation\Refund.aspx" />
+    <Content Include="Front_Desk\Reservation\Reservation.aspx" />
+    <Content Include="Front_Desk\Reservation\ViewReservation.aspx" />
     <Content Include="Front_Desk\Survey\SurveyForm.aspx" />
     <Content Include="History\ViewSurveyResponse.aspx" />
     <Content Include="History\ViewTransactionHistory.aspx" />
@@ -170,6 +173,27 @@
     <Compile Include="Front_Desk\GuestInHouse\RoomMove.aspx.designer.cs">
       <DependentUpon>RoomMove.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Front_Desk\Reservation\Refund.aspx.cs">
+      <DependentUpon>Refund.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Reservation\Refund.aspx.designer.cs">
+      <DependentUpon>Refund.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Reservation\Reservation.aspx.cs">
+      <DependentUpon>Reservation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Reservation\Reservation.aspx.designer.cs">
+      <DependentUpon>Reservation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Reservation\ViewReservation.aspx.cs">
+      <DependentUpon>ViewReservation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Reservation\ViewReservation.aspx.designer.cs">
+      <DependentUpon>ViewReservation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Front_Desk\Survey\SurveyForm.aspx.cs">
       <DependentUpon>SurveyForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -225,7 +249,7 @@
     </Compile>
     <Compile Include="Front_Desk\CheckIn\ReservationFacility.cs" />
     <Compile Include="Front_Desk\CheckIn\ReservationDetail.cs" />
-    <Compile Include="Front_Desk\CheckIn\ReservedRoom.cs" />
+    <Compile Include="Front_Desk\CheckIn\ReservationRoom.cs" />
     <Compile Include="Front_Desk\CheckIn\ReservedRoomType.cs" />
     <Compile Include="Front_Desk\CheckOut\CheckOutConfirmation.aspx.cs">
       <DependentUpon>CheckOutConfirmation.aspx</DependentUpon>
