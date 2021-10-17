@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true"  AutoEventWireup="true" CodeBehind="Historyaspx.aspx.cs" Inherits="Hotel_Management_System.History.Historyaspx" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true"  AutoEventWireup="true" CodeBehind="History.aspx.cs" Inherits="Hotel_Management_System.History.Historyaspx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
 
