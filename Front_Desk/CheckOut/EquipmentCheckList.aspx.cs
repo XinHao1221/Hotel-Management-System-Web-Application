@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using Hotel_Management_System.Front_Desk.CheckIn;
+using Hotel_Management_System.Utility;
 
 namespace Hotel_Management_System.Front_Desk.CheckOut
 {
@@ -17,8 +18,15 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
+        private string reservationID;
+
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            reservationID = en.decryption(Request.QueryString["ID"]);
+
             if (!IsPostBack)
             {
                 setReservedRoomToRepeater();
@@ -96,7 +104,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             }
 
 
-            Response.Redirect("CheckOutConfirmation.aspx");
+            Response.Redirect("CheckOutConfirmation.aspx?ID=" + en.encryption(reservationID));
         }
 
         public static Control FindControlRecursive(Control root, string id)

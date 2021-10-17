@@ -28,9 +28,12 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         string reservationID;
 
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000001";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
             if (!IsPostBack)
             {
@@ -288,7 +291,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EquipmentCheckList.aspx");
+            Response.Redirect("EquipmentCheckList.aspx?ID=" + en.encryption(reservationID));
         }
 
         protected void btnCheckOut_Click(object sender, EventArgs e)
@@ -465,7 +468,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                                 smtp.Credentials = new System.Net.NetworkCredential(emailFrom, password);
                                 smtp.EnableSsl = true;
                                 smtp.Send(mail);
-                                Label1.Text = "Mail Sent";
+                                Label1.Text = "Survey Form Sent.";
 
                             }
                         }
@@ -558,7 +561,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         protected void btnOK_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("CheckOut.aspx");
         }
     }
 }

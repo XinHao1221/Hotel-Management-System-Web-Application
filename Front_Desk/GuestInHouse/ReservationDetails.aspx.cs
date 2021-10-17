@@ -7,12 +7,12 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
-using Hotel_Management_System.Front_Desk.CheckIn;
 using System.Configuration;
+using Hotel_Management_System.Front_Desk.CheckIn;
 
-namespace Hotel_Management_System.Front_Desk.Reservation
+namespace Hotel_Management_System.Front_Desk.GuestInHouse
 {
-    public partial class ViewReservation : System.Web.UI.Page
+    public partial class ReservationDetails : System.Web.UI.Page
     {
         // Create connection to database
         SqlConnection conn;
@@ -28,10 +28,11 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = en.decryption(Request.QueryString["ID"]);
+            reservationID = "RS10000002";
 
             if (!IsPostBack)
             {
+
                 Session["ReservationDetails"] = new ReservationDetail();
 
                 Session["ReservedRoomType"] = new List<ReservedRoomType>();
@@ -49,11 +50,24 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 setRentedFacilityToRepeater();
 
             }
+            
+
         }
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Reservation.aspx");
+            // Redirect to previous page
+            Response.Redirect("GuestInHouse.aspx");
+        }
+
+        protected void LBRoomMove_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("RoomMove.aspx?ID=" + en.encryption(reservationID));
+        }
+
+        protected void LBCheckOut_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../CheckOut/CheckOutGuest.aspx?ID=" + en.encryption(reservationID));
         }
 
         private void getReservationDetails()
@@ -308,7 +322,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 lblNoFacilityFound.Visible = true;
             }
 
-
         }
 
         private void setRentedRoomToRepeater()
@@ -355,13 +368,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 lblExtraBedPrice.Text = "0.00";
             }
 
-        }
-
-
-        protected void LBRefund_Click(object sender, EventArgs e)
-        {
-            // Redirect to refund page
-            Response.Redirect("Refund.aspx?ID=" + en.encryption(reservationID));
         }
     }
 }

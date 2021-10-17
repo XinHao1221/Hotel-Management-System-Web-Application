@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../StyleSheet/PopupBox.css" />
     <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
+    <link rel="stylesheet" href="../../StyleSheet/MainMenuHeader.css" />
 
     <style>
         .divReservationDetails{
@@ -206,7 +207,7 @@
 
                     <div style="width: 80%; margin: auto; clear:both;">
                         <div class="subFormTableContent" style="padding-left:2%;">
-                            <asp:Label ID="lblNoItemFound" runat="server" Text="No Missing Equipment." Visible="false"></asp:Label>
+                            <asp:Label ID="lblNoItemFound" runat="server" Text="No Facility Rented." Visible="false"></asp:Label>
                         </div>           
                     </div>
                 </div>

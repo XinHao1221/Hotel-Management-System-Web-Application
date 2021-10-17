@@ -23,25 +23,31 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         private String reservationID;
 
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000001";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
-            Session["ReservationDetails"] = new ReservationDetail();
+            if (!IsPostBack)
+            {
+                Session["ReservationDetails"] = new ReservationDetail();
 
-            Session["ReservedRoomType"] = new List<ReservedRoomType>();
+                Session["ReservedRoomType"] = new List<ReservedRoomType>();
 
-            getReservationDetails();
+                getReservationDetails();
 
-            getReservedRoom();
+                getReservedRoom();
 
-            getRentedFacilityList();
+                getRentedFacilityList();
 
-            setStayDetails();
+                setStayDetails();
 
-            setRentedRoomToRepeater();
+                setRentedRoomToRepeater();
 
-            setRentedFacilityToRepeater();
+                setRentedFacilityToRepeater();
+            }
         }
 
         private void getReservationDetails()
@@ -313,7 +319,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("CheckOut.aspx");
         }
 
         protected void RepeaterRentedFacility_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -351,7 +357,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EquipmentCheckList.aspx");
+            Response.Redirect("EquipmentCheckList.aspx?ID=" + en.encryption(reservationID));
         }
     }
 }

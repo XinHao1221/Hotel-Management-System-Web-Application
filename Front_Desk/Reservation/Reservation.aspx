@@ -147,7 +147,8 @@
                                     </div>
                                 </asp:LinkButton>
                                     <div style="min-width:2%; float:left; right:0;" class="tableContent">
-                                        <asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>
+                                        &nbsp;
+                                        <%--<asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>--%>
                                     </div>
                             
                                 </div>
@@ -214,27 +215,11 @@
                                     </div>
                                 </asp:LinkButton>
                                 <div style="width:2%; float:left;" class="tableContentAlternate">
-                                    <asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>
+                                    &nbsp;
+                                    <%--<asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>--%>
                                 </div>
 
                             </div>
-
-                            <asp:Panel ID="TableOptionMenu" runat="server" Visible="false" CssClass="tableOptionMenuAlternate">
-
-                                <asp:LinkButton ID="LBCancelReservation" runat="server" OnClick="LBCancelReservation_Click" CssClass="optionContainer" Font-Underline="false">
-                            
-
-                                    <div class="tableOption" style="color:#FF0000;">
-
-                                        <img src="../../Image/suspend_icon.png" class="tableOptionIcon" />
-                                
-                                        Cancel
-
-                                    </div>
-                            
-                                </asp:LinkButton>
-
-                            </asp:Panel> 
 
                         </AlternatingItemTemplate>
                     </asp:Repeater>

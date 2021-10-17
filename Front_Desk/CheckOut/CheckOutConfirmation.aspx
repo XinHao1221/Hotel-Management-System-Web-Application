@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../StyleSheet/PopupBox.css" />
     <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
     <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
+    <link rel="stylesheet" href="../../StyleSheet/MainMenuHeader.css" />
 
     <style>
         .divReservationDetails{

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="CheckOutGuest.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.CheckOut.CheckOut" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="ReservationDetails.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.GuestInHouse.ReservationDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
 
@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
 
     <div>
+
         <%-- Page content --%>
         <div class="formHeader">
-            Check Out
+            Guest in House
         </div>
 
         <asp:LinkButton ID="LBBack" runat="server" OnClick="LBBack_Click" CssClass="divLBStyle">
@@ -28,7 +29,27 @@
             </div>
         </asp:LinkButton>
 
-        <div style="clear:both;">&nbsp;</div>
+        <asp:LinkButton ID="LBRoomMove" runat="server" CssClass="divLBStyle" OnClick="LBRoomMove_Click">
+            <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px; background-color:rgb(0, 137, 250);">
+                <div style="float:left; margin:12px 0px 0px -5px; font-size:15px;">
+                    <div style="font-size:15px; margin:0px 0px 10px 15px; color:white;">
+                            Room Move
+                    </div>
+                </div>
+            </div>
+        </asp:LinkButton>
+
+        <asp:LinkButton ID="LBCheckOut" runat="server" CssClass="divLBStyle" OnClick="LBCheckOut_Click">
+            <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px; background-color:red;">
+                <div style="float:left; margin:12px 0px 0px 0px; font-size:15px;">
+                    <div style="font-size:15px; margin:0px 0px 10px 15px; color:white;">
+                            Check Out
+                    </div>
+                </div>
+            </div>
+        </asp:LinkButton>
+
+        <div style="clear:both; height:40px;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px;">
             1. Stay Details:-
@@ -94,10 +115,9 @@
 
             </div> 
 
-
         </div>
 
-        <div style="clear:both;">&nbsp;</div>
+        <div style="clear:both; height:40px;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px">
             2. Reserve Room:-
@@ -227,7 +247,7 @@
 
         </div>
         
-        <div style="clear:both;">&nbsp;</div>
+        <div style="clear:both; height:40px;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px">
             3. Rented Facility:-
@@ -300,27 +320,27 @@
             <AlternatingItemTemplate>
                 <div style="width:86%; margin:auto;">
 
-                    <div style="float:left; width:6%; text-align:center; font-size:90%;" class="subFormTableContentAlternate">
+                    <div style="float:left; width:6%; text-align:center;" class="subFormTableContentAlternate">
                         <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
                     </div>
-                    <div style="float:left; width:20%; font-size:90%;" class="subFormTableContentAlternate">
+                    <div style="float:left; width:20%;" class="subFormTableContentAlternate">
                         <asp:Label ID="lblReservationFacilityID" runat="server" Text='<%# Eval("reservationFacilityID") %>' Visible="false"></asp:Label>
                         <asp:Label ID="lblFacilityID" runat="server" Text='<%# Eval("facilityID") %>' Visible="false"></asp:Label>
                         <asp:Label ID="lblFacilityName" runat="server" Text='<%# Eval("facilityName") %>' ToolTip='<%# Eval("facilityName") %>'></asp:Label>
                     </div>
-                    <div style="float:left; width:10%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
+                    <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
                         <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("price", "{0:N2}") %>' ToolTip='<%# Eval("price", "{0:N2}") %>'></asp:Label>
                     </div>
-                    <div style="float:left; width:10%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
+                    <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
                         <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>' ToolTip='<%# Eval("quantity") %>'></asp:Label>
                     </div>
-                    <div style="float:left; width:15%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
+                    <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
                         <asp:Label ID="lblRentDate" runat="server" Text='<%# Eval("rentDate") %>' ToolTip='<%# Eval("rentDate") %>'></asp:Label>
                     </div>
-                    <div style="float:left; width:15%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
+                    <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
                         <asp:Label ID="lblReturnDate" runat="server" Text='<%# Eval("returnDate") %>' ToolTip='<%# Eval("returnDate") %>'></asp:Label>
                     </div>
-                    <div style="float:left; width:15%; text-align:right; font-size:90%;" class="subFormTableContentAlternate">
+                    <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
                         <asp:Label ID="lblSubTotal" runat="server" Text='<%# Eval("subTotal", "{0:N2}") %>' ToolTip='<%# Eval("subTotal", "{0:N2}") %>'></asp:Label>
                     </div>
                     <div style="float:left; width:9%;" class="subFormTableContentAlternate">
@@ -334,18 +354,12 @@
         <div style="width: 86%; margin: auto; clear:both;">
 
             <div class="subFormTableContent" style="padding-left:2%;">
-                <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>
+                <asp:Label ID="lblNoFacilityFound" runat="server" Text="No item found!" Visible="false"></asp:Label>
             </div>   
             
         </div>
 
-        <div class="bottomBar">
-
-            <center>
-                <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="formBtnSave" ToolTip="Next" />
-            </center>
-                    
-        </div>
+        <div style="clear:both; height:40px;">&nbsp;</div>
 
     </div>
 

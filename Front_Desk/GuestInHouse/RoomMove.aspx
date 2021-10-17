@@ -224,9 +224,31 @@
         <div class="bottomBar">
 
             <center>
-                <asp:Button ID="btnSave" runat="server" Text="Next" OnClick="btnSave_Click" CssClass="formBtnSave" ToolTip="Save" ValidationGroup="next" />
+                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="formBtnSave" ToolTip="Save" ValidationGroup="next" />
             </center>
                     
+        </div>
+
+        <%--Popup Window--%>
+        <div class="popup">
+            <asp:Panel ID="PopupRoomMove" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:#00ce1b;" class="popupTitle">Room Moved</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    <asp:Label ID="lblPopupRoomMove" runat="server" Text="Room Number updated."></asp:Label>
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnOK" runat="server" Text="OK" CssClass="popUpCancelBtn" OnClick="btnOK_Click"/>
+                
+                    
+            </asp:Panel>
         </div>
 
         <%--Popup Box--%>

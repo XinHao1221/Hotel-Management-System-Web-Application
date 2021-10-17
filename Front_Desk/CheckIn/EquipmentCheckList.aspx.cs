@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using Hotel_Management_System.Utility;
 
 namespace Hotel_Management_System.Front_Desk.CheckIn
 {
@@ -16,8 +17,15 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
+        private String reservationID;
+
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            reservationID = en.decryption(Request.QueryString["ID"]);
+
             if (!IsPostBack)
             {
                 setReservedRoomToRepeater();
@@ -68,7 +76,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         {
             if (Page.IsValid)
             {
-                Response.Redirect("CheckInConfirmation.aspx");
+                Response.Redirect("CheckInConfirmation.aspx?ID=" + en.encryption(reservationID));
             }
         }
 

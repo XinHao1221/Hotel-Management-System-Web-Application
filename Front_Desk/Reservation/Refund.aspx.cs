@@ -34,6 +34,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             if (!IsPostBack)
             {
+                // Save link for previous page
+                ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
                 setReservationDetails();
 
                 setItemToRepeaterRentedRoomType();
@@ -102,8 +104,18 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             List<ReservationFacility> reservationFacilities = reservationDetails.rentedFacility;
 
-            RepeaterRentedFacility.DataSource = reservationFacilities;
-            RepeaterRentedFacility.DataBind();
+
+            if(reservationFacilities.Count > 0)
+            {
+                RepeaterRentedFacility.DataSource = reservationFacilities;
+                RepeaterRentedFacility.DataBind();
+
+                lblNoItemFound.Visible = false;
+            }
+            else
+            {
+                lblNoItemFound.Visible = true;
+            }
         }
 
         protected void RepeaterReservedRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -140,8 +152,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-            // Redirect to view page
-            Response.Redirect("ViewReservation.aspx?ID=" + en.encryption(reservationID));
+            // Redirect to previous page
+            Response.Redirect(ViewState["PreviousPage"].ToString());
         }
 
         private void calcTotalPayment()
@@ -176,13 +188,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
 
             // Display total
-            lblTotal.Text = string.Format("{0:0.00}", totalPayment);
+            lblTotal.Text = string.Format("{0:0.00}", totalPayment * -1);
 
             // Calculate grand total
             totalPayment += calcTaxCharges(totalPayment);
 
             // Display grand total
-            lblGrandTotal.Text = string.Format("{0:0.00}", totalPayment);
+            lblGrandTotal.Text = string.Format("{0:0.00}", totalPayment * -1);
 
         }
 
@@ -196,9 +208,104 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             tax = totalPayment * (double)Application["TaxRate"];
 
             // Display total tax charges
-            lblTax.Text = string.Format("{0:0.00}", tax);
+            lblTax.Text = string.Format("{0:0.00}", tax * -1);
 
             return tax;
+        }
+
+        private void deletePaymentDetails()
+        {
+            // Open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string deletePaymentDetails = "DELETE FROM Payment WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdDeletePaymentDetails = new SqlCommand(deletePaymentDetails, conn);
+
+            cmdDeletePaymentDetails.Parameters.AddWithValue("@ID", reservationID);
+
+            int i = cmdDeletePaymentDetails.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        private void deleteReservationRoom()
+        {
+            // Open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string deleteReservationReservationRoom = "DELETE FROM ReservationRoom WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdDeleteReservationRoom = new SqlCommand(deleteReservationReservationRoom, conn);
+
+            cmdDeleteReservationRoom.Parameters.AddWithValue("@ID", reservationID);
+
+            int i = cmdDeleteReservationRoom.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        private void deleteReservationFacility()
+        {
+            // Open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string deleteReservationFacility = "DELETE FROM ReservationFacility WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdDeleteReservationFacility = new SqlCommand(deleteReservationFacility, conn);
+
+            cmdDeleteReservationFacility.Parameters.AddWithValue("@ID", reservationID);
+
+            int i = cmdDeleteReservationFacility.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        private void deleteReservationDetails()
+        {
+            // Open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string deleteReservationDetails = "DELETE FROM Reservation WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdDeleteReservationDetails = new SqlCommand(deleteReservationDetails, conn);
+
+            cmdDeleteReservationDetails.Parameters.AddWithValue("@ID", reservationID);
+
+            int i = cmdDeleteReservationDetails.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        protected void btnRefund_Click(object sender, EventArgs e)
+        {
+            PopupRefund.Visible = true;
+            PopupCover.Visible = true;
+        }
+
+        protected void formBtnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Reservation.aspx");
+        }
+
+        protected void btnPopupCancel_Click(object sender, EventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupRefund.Visible = false;
+        }
+
+        protected void btnPopupConfirmCancelReservation_Click(object sender, EventArgs e)
+        {
+            deletePaymentDetails();
+            deleteReservationFacility();
+            deleteReservationRoom();
+            deleteReservationDetails();
+
+            Response.Redirect("Reservation.aspx");
         }
     }
 }

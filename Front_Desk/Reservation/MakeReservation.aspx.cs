@@ -107,7 +107,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("Reservation.aspx");
         }
 
         protected void ddlGuest_SelectedIndexChanged(object sender, EventArgs e)

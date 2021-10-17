@@ -28,6 +28,10 @@
         body{
             height:100%;
         }
+
+        .formBtnSave{
+            background-color:red;
+        }
     </style>
 
     <div>
@@ -352,29 +356,6 @@
                 </table>
 
                 <div style="height:40px;">&nbsp;</div>
-
-                <div style="width:90%; margin:auto;">
-                    <div class="filteringLabel">
-                        Payment Method
-                    </div>
-                    <div style="margin-top:10px;">
-                        <asp:DropDownList ID="ddlPaymentMethod" runat="server" CssClass="dropDownStyle">
-                            <asp:ListItem>Cash</asp:ListItem>
-                            <asp:ListItem>Credit Card</asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
-                </div>
-
-                <div style="height:30px;">&nbsp;</div>
-
-                <div style="width:90%; margin:auto;">
-                    <div class="filteringLabel">
-                        Reference No
-                    </div>
-                    <div style="margin-top:10px;">
-                        <asp:TextBox ID="txtReferenceNo" runat="server" placeholder="R0000001" CssClass="inputStyle" Width="80%"></asp:TextBox>
-                    </div>
-                </div>
                 
 
             </div>
@@ -384,17 +365,17 @@
             &nbsp;
         </div>
 
-        <%--<div class="bottomBar">
+        <div class="bottomBar">
 
             <center>
-                <asp:Button ID="btnPay" runat="server" Text="Pay" OnClick="btnPay_Click" CssClass="formBtnSave" ToolTip="Confirm Payment" />
-                <asp:Button ID="formBtnCancel" runat="server" Text="Cancel" OnClick="formBtnCancel_Click" CssClass="formBtnCancel" ToolTip="Cancel Reservation"/>
+                <asp:Button ID="btnRefund" runat="server" Text="Refund" OnClick="btnRefund_Click" CssClass="formBtnSave" ToolTip="Confirm Refund" />
+                <asp:Button ID="formBtnBack" runat="server" Text="Cancel" OnClick="formBtnBack_Click" CssClass="formBtnCancel" ToolTip="Back"/>
             </center>
                     
-        </div>--%>
+        </div>
 
         <div class="popup">
-            <asp:Panel ID="PopupCancel" runat="server" Visible="False" CssClass="popupWindow">
+            <asp:Panel ID="PopupRefund" runat="server" Visible="False" CssClass="popupWindow">
 
                 <%-- Popup Window Title --%>
                 <p style="color:red;" class="popupTitle">Cancel Reservation</p>
@@ -402,15 +383,15 @@
                 <%-- Popup Window Body --%>
                 <div class="popupBody">
 
-                    <p>Confirm to cancel reservation? Reservation details would not be saved.</p>
+                    <p>Confirm to cancel reservation? The reservation record will be removed.</p>
 
                 </div>
 
                 <div>&nbsp;</div>
 
-                <%--<asp:Button ID="btnPopupCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                <asp:Button ID="btnPopupCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
                 
-                <asp:Button ID="btnPopupConfirmCancelReservation" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirmCancelReservation_Click"/>--%>
+                <asp:Button ID="btnPopupConfirmCancelReservation" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirmCancelReservation_Click"/>
             </asp:Panel>
         </div>
 

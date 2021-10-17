@@ -222,31 +222,49 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.Label lblGrandTotal;
 
         /// <summary>
-        /// ddlPaymentMethod control.
+        /// btnRefund control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMethod;
+        protected global::System.Web.UI.WebControls.Button btnRefund;
 
         /// <summary>
-        /// txtReferenceNo control.
+        /// formBtnBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtReferenceNo;
+        protected global::System.Web.UI.WebControls.Button formBtnBack;
 
         /// <summary>
-        /// PopupCancel control.
+        /// PopupRefund control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupCancel;
+        protected global::System.Web.UI.WebControls.Panel PopupRefund;
+
+        /// <summary>
+        /// btnPopupCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPopupCancel;
+
+        /// <summary>
+        /// btnPopupConfirmCancelReservation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPopupConfirmCancelReservation;
 
         /// <summary>
         /// PopupCover control.

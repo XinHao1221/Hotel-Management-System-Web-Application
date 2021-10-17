@@ -24,9 +24,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         string reservationID;
 
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000002";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
             setReservationDetails();
 
@@ -440,7 +443,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void btnOK_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("CheckIn.aspx");
         }
     }
 }

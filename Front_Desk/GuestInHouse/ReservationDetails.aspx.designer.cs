@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hotel_Management_System.Front_Desk.Reservation
+namespace Hotel_Management_System.Front_Desk.GuestInHouse
 {
 
 
-    public partial class ViewReservation
+    public partial class ReservationDetails
     {
 
         /// <summary>
@@ -24,13 +24,22 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.LinkButton LBBack;
 
         /// <summary>
-        /// LBRefund control.
+        /// LBRoomMove control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LBRefund;
+        protected global::System.Web.UI.WebControls.LinkButton LBRoomMove;
+
+        /// <summary>
+        /// LBCheckOut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBCheckOut;
 
         /// <summary>
         /// lblGuestName control.
@@ -103,6 +112,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label ttRoomType;
+
+        /// <summary>
+        /// ttRoomNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ttRoomNo;
 
         /// <summary>
         /// ttAdults control.

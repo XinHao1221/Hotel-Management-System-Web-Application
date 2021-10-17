@@ -22,12 +22,19 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
         ReservationUtility reservationUtility = new ReservationUtility();
 
         private String reservationID;
+
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000002";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
             if (!IsPostBack)
             {
+                // Save link for previous page
+                ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
+
                 Session["ReservationDetails"] = new ReservationDetail();
 
                 Session["ReservedRoomType"] = new List<ReservedRoomType>();
@@ -48,7 +55,8 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-
+            // Redirect to previous page
+            Response.Redirect(ViewState["PreviousPage"].ToString());
         }
 
         private void getReservationDetails()
@@ -520,6 +528,15 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
                 conn.Close();
             }
+
+            // Show success message
+            PopupRoomMove.Visible = true;
+            PopupCover.Visible = true;
+        }
+
+        protected void btnOK_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ReservationDetails.aspx?ID=" + en.encryption(reservationID));
         }
     }
 

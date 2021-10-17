@@ -23,12 +23,13 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         private String reservationID;
 
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            //reservationID = Request.QueryString["ID"];
-            //reservationID = en.decryption(roomID);
 
-            reservationID = "RS10000001";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
             if (!IsPostBack)
             {
@@ -390,7 +391,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("CheckIn.aspx");
         }
 
         protected void IBDeleteRentedFacility_Click(object sender, ImageClickEventArgs e)
@@ -719,7 +720,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         {
             if(Page.IsValid == true)
             {
-                Response.Redirect("EquipmentCheckList.aspx");
+                Response.Redirect("EquipmentCheckList.aspx?ID=" + en.encryption(reservationID));
             }
             
         }
@@ -1060,7 +1061,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
         {
             // Refresh the page
-            Response.Redirect("CheckIn.aspx?ID=" + reservationID);
+            Response.Redirect("CheckIn.aspx?ID=" + en.encryption(reservationID));
+        }
+
+        protected void LBRefund_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../Reservation/Refund.aspx?ID=" + en.encryption(reservationID));
         }
     }
 }

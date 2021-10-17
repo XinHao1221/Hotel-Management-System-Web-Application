@@ -171,7 +171,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLNavReservation" runat="server" NavigateUrl="~/Front_Desk/Reservation/MakeReservation.aspx">
+                    <asp:HyperLink ID="HLNavReservation" runat="server" NavigateUrl="~/Front_Desk/Reservation/Reservation.aspx">
                         <div style="float: left; background-color: white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Reservation
@@ -183,7 +183,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLCheckIn" runat="server" NavigateUrl="~/Front_Desk/CheckIn/CheckInGuest.aspx">
+                    <asp:HyperLink ID="HLCheckIn" runat="server" NavigateUrl="~/Front_Desk/CheckIn/CheckIn.aspx">
                         <div style="float: left; background-color: white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Check-In
@@ -195,7 +195,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLGuestInHouse" runat="server" NavigateUrl="~/Front_Desk/GuestInHouse/RoomMove.aspx">
+                    <asp:HyperLink ID="HLGuestInHouse" runat="server" NavigateUrl="~/Front_Desk/GuestInHouse/GuestInHouse.aspx">
                         <div style="float: left; background-color: white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Guest in House
@@ -207,7 +207,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLCheckOut" runat="server" NavigateUrl="~/Front_Desk/CheckOut/CheckOutGuest.aspx">
+                    <asp:HyperLink ID="HLCheckOut" runat="server" NavigateUrl="~/Front_Desk/CheckOut/CheckOut.aspx">
                         <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Check-Out

@@ -34,6 +34,16 @@
             </div>
         </asp:LinkButton>
 
+        <asp:LinkButton ID="LBRefund" runat="server" CssClass="divLBStyle" OnClick="LBRefund_Click">
+            <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px; background-color:red;">
+                <div style="float:left; margin:12px 0px 0px 10px; font-size:15px;">
+                    <div style="font-size:15px; margin:0px 0px 10px 15px;">
+                            Refund
+                    </div>
+                </div>
+            </div>
+        </asp:LinkButton>
+
         <div style="clear:both;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px;">
@@ -337,14 +347,6 @@
         </div>
 
         <div style="clear:both; height:40px;">&nbsp;</div>
-
-        <div class="bottomBar">
-
-            <center>
-                <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" CssClass="formBtnSave" ToolTip="Cancel Reservation" ValidationGroup="save" />
-            </center>
-                    
-        </div>
 
     </div>
 

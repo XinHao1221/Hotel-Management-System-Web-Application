@@ -9,9 +9,9 @@ using System.Data;
 using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
 
-namespace Hotel_Management_System.Front_Desk.Reservation
+namespace Hotel_Management_System.Front_Desk.CheckOut
 {
-    public partial class Reservation1 : System.Web.UI.Page
+    public partial class CheckOut1 : System.Web.UI.Page
     {
         // Create instance of Encryption class
         IDEncryption en = new IDEncryption();
@@ -23,14 +23,23 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         // Create instance of RepeaterTableUltility
         RepeaterTableUtility ultility = new RepeaterTableUtility();
 
+        // Create instance of ReservationUltility class
+        ReservationUtility reservationUtility = new ReservationUtility();
+
         ReservationUtility reservation = new ReservationUtility();
 
         int page;
         int offset = 0; // start index of data
         int fetch;      // Number of data to display per page
 
+        private string todaysDate;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Get current date
+            DateTime dateNow = DateTime.Now;
+            todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
             fetch = int.Parse(ddlItemPerPage.SelectedValue.ToString());
             page = getTotalNumberOfPage();
 
@@ -58,12 +67,14 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private int getTotalNumberOfItem()
         {
+
             // Open connection
             conn = new SqlConnection(strCon);
             conn.Open();
 
             // SQL command 
-            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Reservation R, Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID";
+            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Reservation R, " +
+                                    "Guest G WHERE R.GuestID LIKE G.GuestID AND R.CheckOutDate LIKE '" + todaysDate + "'";
 
             SqlCommand cmdGetItemCount = new SqlCommand(getTotalNumebrOfItem, conn);
 
@@ -108,13 +119,14 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private void setItemToRepeater1()
         {
+
             setNoOfDisplayedItem();
 
             conn = new SqlConnection(strCon);
             conn.Open();
 
             String getReservation = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo, R.Status FROM Reservation R, " +
-                            "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID " +
+                            "Guest G WHERE R.GuestID LIKE G.GuestID AND R.CheckOutDate LIKE '" + todaysDate + "' " +
                             "ORDER BY R.ReservationID DESC OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
 
             SqlCommand cmdGetReservation = new SqlCommand(getReservation, conn);
@@ -254,8 +266,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private void searchReservation()
         {
-            // reset filtering
-            txtCheckInDateFilter.Text = "";
 
             String idNo = txtSearch.Text;
 
@@ -266,12 +276,14 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
             else
             {
+
                 conn = new SqlConnection(strCon);
                 conn.Open();
 
                 String searchReservation = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo, R.Status " +
                                     "FROM Reservation R, Guest G " +
-                                    "WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%' " +
+                                    "WHERE R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%' " +
+                                    "AND R.CheckOutDate LIKE '" + todaysDate + "'" +
                                     "ORDER BY R.ReservationID DESC";
 
                 SqlCommand cmdSearchReservation = new SqlCommand(searchReservation, conn);
@@ -301,7 +313,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 displayItemTotal("SELECT COUNT(*) " +
                                     "FROM Reservation R, Guest G " +
-                                    "WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%'");
+                                    "WHERE R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%' " +
+                                    "AND R.CheckOutDate LIKE '" + todaysDate + "'");
             }
         }
 
@@ -326,6 +339,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             Label lblCheckInDate = e.Item.FindControl("lblCheckInDate") as Label;
             Label lblCheckOutDate = e.Item.FindControl("lblCheckOutDate") as Label;
             Label lblReservationDate = e.Item.FindControl("lblReservationDate") as Label;
+            Label lblStatus = e.Item.FindControl("lblStatus") as Label;
+            Label lblStatusDisplay = e.Item.FindControl("lblStatusDisplay") as Label;
 
             // Format date base on date format on user's computer
             DateTime formatedCheckInDate = Convert.ToDateTime(lblCheckInDate.Text);
@@ -336,6 +351,18 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             lblCheckInDate.Text = formatedCheckInDate.ToShortDateString();
             lblCheckOutDate.Text = formatedCheckOutDate.ToShortDateString();
             lblReservationDate.Text = formatedReservationDate.ToShortDateString();
+
+            // Display Status
+            if (lblStatus.Text == "Checked Out")
+            {
+                lblStatusDisplay.Text = "Checked Out";
+                lblStatusDisplay.Style["color"] = "#00ce1b";
+            }
+            else
+            {
+                lblStatusDisplay.Text = "Pending";
+                lblStatusDisplay.Style["color"] = "red";
+            }
         }
 
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -393,96 +420,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             reservationID = en.encryption(reservationID);
 
             // Redirect to view page
-            Response.Redirect("ViewReservation.aspx?ID=" + reservationID);
+            Response.Redirect("CheckOutGuest.aspx?ID=" + reservationID);
         }
 
-        protected void IBMoreOption_Click(object sender, ImageClickEventArgs e)
-        {
-            // Execute when user click on "More Option" button
-            ImageButton btn = (ImageButton)sender;
-
-            RepeaterItem repeater = (RepeaterItem)btn.NamingContainer;
-
-
-            Panel panel = (Panel)repeater.FindControl("TableOptionMenu");
-
-            // Set margin-top for first item on repeater to 40px
-            if (repeater.ItemIndex == 0)
-            {
-                panel.Style["margin-top"] = "90px";
-            }
-        }
-
-        // ********
-
-        protected void txtCheckInDateFilter_TextChanged(object sender, EventArgs e)
-        {
-            string checkInDate = reservation.formatDate(txtCheckInDateFilter.Text);
-
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            if (txtCheckInDateFilter.Text == "")
-            {
-                setItemToRepeater1();
-            }
-            else
-            {
-                // open connection
-                conn = new SqlConnection(strCon);
-                conn.Open();
-
-                string checkInDateFilter = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo FROM Reservation R, " +
-                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%' " + 
-                                "ORDER BY R.ReservationID DESC";
-
-                SqlCommand cmdCheckInDateFilter = new SqlCommand(checkInDateFilter, conn);
-
-                SqlDataAdapter sda = new SqlDataAdapter(cmdCheckInDateFilter);
-
-                DataTable dt = new DataTable();
-
-                sda.Fill(dt);
-
-                // Bind data into repeater to display
-                Repeater1.DataSource = dt;
-                Repeater1.DataBind();
-
-                // Display message it no item was found
-                if (dt.Rows.Count == 0)
-                {
-                    lblNoItemFound.Visible = true;
-                }
-                else
-                {
-                    lblNoItemFound.Visible = false;
-                }
-
-                displayItemTotal("SELECT Count(*) FROM Reservation R, " +
-                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%'");
-
-            }
-        }
-
-        protected void LBCancelReservation_Click(object sender, EventArgs e)
-        {
-            // When user click on delete button in more option panel
-            RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
-
-            // Get reservation details of the selected item
-            String reservationID = (item.FindControl("lblReservationID") as Label).Text;
-            String guestName = (item.FindControl("lblGuestName") as Label).Text;
-            String checkInDate = (item.FindControl("lblCheckInDate") as Label).Text;
-            String checkOutDate = (item.FindControl("lblCheckOutDate") as Label).Text;
-
-            //// Set FacilityName into popup window
-            //lblPopupDeleteContent.Text = "Room Number: " + roomNo + "<br /><br />";
-
-            //ViewState["ReservationID"] = reservationID;
-            //ViewState["RoomNo"] = roomNo;
-
-            //PopupCover.Visible = true;
-            //PopupCancelReservation.Visible = true;
-        }
     }
 }

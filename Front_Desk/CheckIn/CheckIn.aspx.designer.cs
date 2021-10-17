@@ -7,164 +7,164 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hotel_Management_System.Front_Desk.Reservation
+namespace Hotel_Management_System.Front_Desk.CheckIn
 {
 
 
-    public partial class ViewReservation
+    public partial class CheckIn1
     {
 
         /// <summary>
-        /// LBBack control.
+        /// txtSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LBBack;
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
-        /// LBRefund control.
+        /// LBMenuSearchBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LBRefund;
+        protected global::System.Web.UI.WebControls.LinkButton LBMenuSearchBar;
 
         /// <summary>
-        /// lblGuestName control.
+        /// ttGuestName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGuestName;
+        protected global::System.Web.UI.WebControls.Label ttGuestName;
 
         /// <summary>
-        /// lblIDNo control.
+        /// ttIdNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIDNo;
+        protected global::System.Web.UI.WebControls.Label ttIdNo;
 
         /// <summary>
-        /// lblCheckIn control.
+        /// ttCheckIn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCheckIn;
+        protected global::System.Web.UI.WebControls.Label ttCheckIn;
 
         /// <summary>
-        /// lblCheckOut control.
+        /// ttCheckOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCheckOut;
+        protected global::System.Web.UI.WebControls.Label ttCheckOut;
 
         /// <summary>
-        /// lblDurationOfStay control.
+        /// ttReservationDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDurationOfStay;
+        protected global::System.Web.UI.WebControls.Label ttReservationDate;
 
         /// <summary>
-        /// ttNo control.
+        /// ttStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttNo;
+        protected global::System.Web.UI.WebControls.Label ttStatus;
 
         /// <summary>
-        /// ttDate control.
+        /// Repeater1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttDate;
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
 
         /// <summary>
-        /// ttRoomType control.
+        /// lblNoItemFound control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttRoomType;
+        protected global::System.Web.UI.WebControls.Label lblNoItemFound;
 
         /// <summary>
-        /// ttAdults control.
+        /// IBArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttAdults;
+        protected global::System.Web.UI.WebControls.ImageButton IBArrowLeft;
 
         /// <summary>
-        /// ttKids control.
+        /// txtPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttKids;
+        protected global::System.Web.UI.WebControls.TextBox txtPage;
 
         /// <summary>
-        /// ttPrice control.
+        /// lblPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttPrice;
+        protected global::System.Web.UI.WebControls.Label lblPage;
 
         /// <summary>
-        /// ttExtraBed control.
+        /// IBArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttExtraBed;
+        protected global::System.Web.UI.WebControls.ImageButton IBArrowRight;
 
         /// <summary>
-        /// RepeaterRentedRoomType control.
+        /// ddlItemPerPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterRentedRoomType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlItemPerPage;
 
         /// <summary>
-        /// RepeaterRentedFacility control.
+        /// lblItemDisplayed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterRentedFacility;
+        protected global::System.Web.UI.WebControls.Label lblItemDisplayed;
 
         /// <summary>
-        /// lblNoFacilityFound control.
+        /// lblTotalNoOfItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoFacilityFound;
+        protected global::System.Web.UI.WebControls.Label lblTotalNoOfItem;
     }
 }
