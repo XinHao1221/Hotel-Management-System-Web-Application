@@ -23,8 +23,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
+        string reservationID;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            reservationID = en.decryption(Request.QueryString["ID"]);
+
             if (!IsPostBack)
             {
                 setReservationDetails();
@@ -33,7 +40,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 setItemToRepeaterRentedFacility();
 
-                //calcTotalPayment();
+                calcTotalPayment();
             }
             
         }
@@ -129,6 +136,69 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Display the formated date
             lblRentDate.Text = formatedRentDate.ToShortDateString();
             lblReturnDate.Text = formatedReturnDate.ToShortDateString();
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+            // Redirect to view page
+            Response.Redirect("ViewReservation.aspx?ID=" + en.encryption(reservationID));
+        }
+
+        private void calcTotalPayment()
+        {
+            // Calculate total payment and display on screen
+            
+            double totalPayment = 0;
+
+            // Get the list of rented room and facility entered previously
+            // Get refernce of ReservationDetail
+            ReservationDetail reservationDetails = (ReservationDetail)Session["ReservationDetails"];
+
+            List<ReservationFacility> reservationFacilities = reservationDetails.rentedFacility;
+
+            List<ReservationRoom> reservationRooms = reservationDetails.reservedRoom;
+
+            // Accumulate total room price
+            for (int i = 0; i < reservationRooms.Count; i++)
+            {
+                totalPayment += reservationRooms[i].roomPrice;
+
+                if (reservationRooms[i].extraBedPrice != -1)
+                {
+                    totalPayment += reservationRooms[i].extraBedPrice;
+                }
+            }
+
+            // Accumulate facility details
+            for (int j = 0; j < reservationFacilities.Count; j++)
+            {
+                totalPayment += reservationFacilities[j].subTotal;
+            }
+
+            // Display total
+            lblTotal.Text = string.Format("{0:0.00}", totalPayment);
+
+            // Calculate grand total
+            totalPayment += calcTaxCharges(totalPayment);
+
+            // Display grand total
+            lblGrandTotal.Text = string.Format("{0:0.00}", totalPayment);
+
+        }
+
+        private double calcTaxCharges(double totalPayment)
+        {
+            // Calculate tax
+
+            double tax = 0;
+
+            // Get the tax rate from application variable
+            tax = totalPayment * (double)Application["TaxRate"];
+
+            // Display total tax charges
+            lblTax.Text = string.Format("{0:0.00}", tax);
+
+            return tax;
         }
     }
 }

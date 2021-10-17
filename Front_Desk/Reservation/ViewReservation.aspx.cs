@@ -23,9 +23,12 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private String reservationID;
 
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000001";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
             if (!IsPostBack)
             {
@@ -50,7 +53,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("Reservation.aspx");
         }
 
         private void getReservationDetails()
@@ -355,7 +358,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Refund.aspx");
+            // Redirect to refund page
+            Response.Redirect("Refund.aspx?ID=" + en.encryption(reservationID));
+
         }
     }
 }

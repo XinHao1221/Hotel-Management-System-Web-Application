@@ -22,7 +22,7 @@
                 <%--Search Bar--%>
                 <div class="mainMenuSearchBar">
                     <div style="display:flex; justify-content:center;">
-                        <asp:TextBox ID="txtSearch" runat="server" placeholder="Room Number" CssClass="searchBarStyle" AutoPostBack="True" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
+                        <asp:TextBox ID="txtSearch" runat="server" placeholder="ID Number" CssClass="searchBarStyle" AutoPostBack="True" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
                         <asp:LinkButton ID="LBMenuSearchBar" runat="server" OnClick="LBMenuSearchBar_Click" CssClass="optionContainer" ToolTip="Search">
                             <div class="searchIconContainer">
                                 <img src="../../Image/search_icon.png" class="searchIconStyle" />
@@ -56,7 +56,7 @@
                             Check in
                         </div>
                         <div>
-                            <asp:TextBox ID="txtCheckInDateFilter" runat="server" CssClass="filteringDropDown" Type="Date" OnTextChanged="txtCheckInDateFilter_TextChanged"></asp:TextBox>
+                            <asp:TextBox ID="txtCheckInDateFilter" runat="server" CssClass="filteringDropDown" Type="Date" OnTextChanged="txtCheckInDateFilter_TextChanged" AutoPostBack="true"></asp:TextBox>
                         </div>
                     </div>
                 </div>

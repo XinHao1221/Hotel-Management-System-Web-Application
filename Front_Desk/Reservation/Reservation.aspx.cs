@@ -254,8 +254,10 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private void searchReservation()
         {
+            // reset filtering
+            txtCheckInDateFilter.Text = "";
+
             String idNo = txtSearch.Text;
-            idNo = idNo.ToUpper();
 
             if (idNo == "")
             {
@@ -299,8 +301,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 displayItemTotal("SELECT COUNT(*) " +
                                     "FROM Reservation R, Guest G " +
-                                    "WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%' " +
-                                    "ORDER BY R.ReservationID DESC");
+                                    "WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%'");
             }
         }
 
@@ -392,7 +393,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             reservationID = en.encryption(reservationID);
 
             // Redirect to view page
-            Response.Redirect("../ReservationDetails/ViewReservation.aspx?ID=" + reservationID);
+            Response.Redirect("ViewReservation.aspx?ID=" + reservationID);
         }
 
         protected void IBMoreOption_Click(object sender, ImageClickEventArgs e)
@@ -432,7 +433,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 conn.Open();
 
                 string checkInDateFilter = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo FROM Reservation R, " +
-                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '2021-09-01' " +
+                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%' " + 
                                 "ORDER BY R.ReservationID DESC";
 
                 SqlCommand cmdCheckInDateFilter = new SqlCommand(checkInDateFilter, conn);
@@ -458,8 +459,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 }
 
                 displayItemTotal("SELECT Count(*) FROM Reservation R, " +
-                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '2021-09-01' " +
-                                "ORDER BY R.ReservationID DESC");
+                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%'");
 
             }
         }

@@ -96,15 +96,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.Label ttRoomType;
 
         /// <summary>
-        /// ttRoomNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttRoomNo;
-
-        /// <summary>
         /// ttAdults control.
         /// </summary>
         /// <remarks>
