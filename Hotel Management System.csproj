@@ -155,6 +155,7 @@
     <Content Include="Image\pre-loader.gif" />
     <Content Include="Image\search_icon.png" />
     <Content Include="Image\selection_icon.png" />
+    <Content Include="Image\survey_icon.png" />
     <Content Include="Image\suspend_icon.png" />
     <Content Include="StyleSheet\InputStyle.css" />
     <Content Include="StyleSheet\MainMenuHeader.css" />
@@ -181,6 +182,7 @@
     <Compile Include="Front_Desk\CheckIn\CheckIn.aspx.designer.cs">
       <DependentUpon>CheckIn.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Front_Desk\CheckIn\RoomEquipment.cs" />
     <Compile Include="Front_Desk\CheckOut\CheckOut.aspx.cs">
       <DependentUpon>CheckOut.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

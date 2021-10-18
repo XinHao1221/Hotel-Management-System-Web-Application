@@ -25,12 +25,24 @@ namespace Hotel_Management_System.Cashiering
 
         private String reservationID;
 
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000001";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
             if (!IsPostBack)
             {
+                if (surveyResponseExists())
+                {
+                    LBSurveyResponse.Visible = true;
+                }
+                else
+                {
+                    LBSurveyResponse.Visible = false;
+                }
+
                 Session["ReservationDetails"] = new ReservationDetail();
 
                 Session["ReservedRoomType"] = new List<ReservedRoomType>();
@@ -68,9 +80,36 @@ namespace Hotel_Management_System.Cashiering
             
         }
 
+        private Boolean surveyResponseExists()
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getTotalSurveyAnswer = "SELECT COUNT(*) " +
+                                            "FROM SurveyAnswer SA, Survey S " +
+                                            "WHERE S.ReservationID LIKE @ID AND S.SurveyID LIKE SA.SurveyID";
+
+            SqlCommand cmdGetTotalSurveyAnswer = new SqlCommand(getTotalSurveyAnswer, conn);
+
+            cmdGetTotalSurveyAnswer.Parameters.AddWithValue("@ID", reservationID);
+
+            int count = (int)cmdGetTotalSurveyAnswer.ExecuteScalar();
+
+            conn.Close();
+
+            if (count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         protected void LBBack_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("History.aspx");
         }
 
         private void getReservationDetails()
@@ -599,6 +638,11 @@ namespace Hotel_Management_System.Cashiering
             DateTime formatedDate = Convert.ToDateTime(lblPaymentDate.Text);
             lblPaymentDate.Text = formatedDate.ToShortDateString();
 
+        }
+
+        protected void LBSurveyResponse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ViewSurveyResponse.aspx?ID=" + en.encryption(reservationID));
         }
     }
 }

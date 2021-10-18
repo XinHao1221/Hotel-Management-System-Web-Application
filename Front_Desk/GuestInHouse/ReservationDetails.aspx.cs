@@ -28,7 +28,7 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000002";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
             if (!IsPostBack)
             {

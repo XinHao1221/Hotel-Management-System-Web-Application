@@ -41,6 +41,16 @@
             </div>
         </asp:LinkButton>
 
+        <asp:LinkButton ID="LBSurveyResponse" runat="server" CssClass="divLBStyle" OnClick="LBSurveyResponse_Click">
+            <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px;">
+
+                <img src="../../Image/survey_icon.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;" />
+                <div style="float:left; margin:12px 0px 0px 10px; font-size:15px;">
+                    Survey
+                </div>
+            </div>
+        </asp:LinkButton>
+
         <div style="clear:both;">&nbsp;</div>
 
         <div class="formSectionStyle" style="margin-bottom:25px;">

@@ -183,7 +183,7 @@
                                 </div>
                                 <div style="float:left; width:12%;" class="tableContentAlternate">
                                     <div style="margin-left:5%;" class="textOverflowStyle">
-                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status")%>' ToolTip='<%# Eval("Status") %>'></asp:Label>
+                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status")%>' ToolTip='<%# Eval("Status") %>' Visible="false"></asp:Label>
                                         <asp:Label ID="lblStatusDisplay" runat="server" Text='<%# Eval("Status")%>' ToolTip='<%# Eval("Status") %>'></asp:Label>
                                     </div>
                                 </div>

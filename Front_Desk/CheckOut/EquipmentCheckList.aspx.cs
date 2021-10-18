@@ -39,14 +39,51 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             this.formBtnBack.OnClientClick = "javascript:window.history.go(-1);return false;";
         }
 
-        private void setReservedRoomToRepeater()
+        private List<RoomEquipment> getRoomNoRented()
         {
             // Get refernce of ReservationDetail
             ReservationDetail reservationDetails = (ReservationDetail)Session["ReservationDetails"];
 
             List<ReservationRoom> reservedRooms = reservationDetails.reservedRoom;
 
-            RepeaterReservedRoom.DataSource = reservedRooms;
+            List<RoomEquipment> roomEquipment = new List<RoomEquipment>();
+
+            // Set the first item into RoomEquipment
+            roomEquipment.Add(new RoomEquipment(reservedRooms[0].reservationRoomID, reservedRooms[0].roomTypeID,
+                reservedRooms[0].roomTypeName, reservedRooms[0].roomNo, reservedRooms[0].roomID));
+
+            if (reservedRooms.Count > 1)
+            {
+                for (int i = 0; i < reservedRooms.Count; i++)
+                {
+                    // check if same, 1 = same, 0 = not same
+                    int condition = 0;
+
+                    for (int j = 0; j < roomEquipment.Count; j++)
+                    {
+
+                        if (reservedRooms[i].roomID == roomEquipment[j].roomID)
+                        {
+                            condition = 1;
+                        }
+                    }
+
+                    if (condition != 1)
+                    {
+                        roomEquipment.Add(new RoomEquipment(reservedRooms[i].reservationRoomID, reservedRooms[i].roomTypeID,
+                        reservedRooms[i].roomTypeName, reservedRooms[i].roomNo, reservedRooms[i].roomID));
+                    }
+
+                }
+            }
+
+            return roomEquipment;
+
+        }
+
+        private void setReservedRoomToRepeater()
+        {
+            RepeaterReservedRoom.DataSource = getRoomNoRented();
             RepeaterReservedRoom.DataBind();
         }
 
@@ -93,12 +130,19 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                     Label lblEquipmentID = (Label)FindControlRecursive(item, "lblEquipmentID");
                     CheckBox cbEquipmentCheckList = (CheckBox)FindControlRecursive(item, "cbEquipmentCheckList");
 
-                    if(cbEquipmentCheckList.Checked == false)
+                    try
                     {
-                        MissingEquipment me = new MissingEquipment(lblEquipmentID.Text, lblEquipmentList.Text,
-                            lblRoomTypeID.Text, lblRoomType.Text, lblSelectedRoomID.Text, lblSelectedRoomNo.Text);
+                        if (cbEquipmentCheckList.Checked == false)
+                        {
+                            MissingEquipment me = new MissingEquipment(lblEquipmentID.Text, lblEquipmentList.Text,
+                                lblRoomTypeID.Text, lblRoomType.Text, lblSelectedRoomID.Text, lblSelectedRoomNo.Text);
 
-                        missingEquipments.Add(me);
+                            missingEquipments.Add(me);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+
                     }
                 }
             }

@@ -22,9 +22,12 @@ namespace Hotel_Management_System.History
 
         private String reservationID;
 
+        // Create instance of IDEncryption class
+        IDEncryption en = new IDEncryption();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            reservationID = "RS10000001";
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
             if (!IsPostBack)
             {
@@ -42,7 +45,7 @@ namespace Hotel_Management_System.History
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("ViewTransactionHistory.aspx?ID=" + en.encryption(reservationID));
         }
 
         private void getSurveyResponse()
