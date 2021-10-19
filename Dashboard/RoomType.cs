@@ -78,7 +78,7 @@ namespace Hotel_Management_System.Dashboard
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getRooms = "SELECT RoomID FROM Room WHERE RoomTypeID LIKE @RoomTypeID";
+            string getRooms = "SELECT RoomID FROM Room WHERE RoomTypeID LIKE @RoomTypeID AND Status IN ('Active', 'Blocked')";
 
             SqlCommand cmdGetRooms = new SqlCommand(getRooms, conn);
 

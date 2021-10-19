@@ -8,6 +8,8 @@ using Hotel_Management_System.Utility;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using System.Web.UI.DataVisualization.Charting;
+using System.Drawing;
 
 namespace Hotel_Management_System.Dashboard
 {
@@ -35,8 +37,8 @@ namespace Hotel_Management_System.Dashboard
             //DateTime dateNow = DateTime.Now;
             //todaysDate = reservationUtility.formatDate(dateNow.ToString());
 
-            if (!IsPostBack)
-            {
+            //if (!IsPostBack)
+            //{
                 // Declare Session Variable
                 Session["RoomType"] = new List<RoomType>();
 
@@ -60,7 +62,11 @@ namespace Hotel_Management_System.Dashboard
                 displayRoomAvailability();
 
                 displayOccupiedRoom();
-            }
+
+                setItemToRepeaterRoomAvailability();
+
+                displayGuestInHouseChart();
+            //}
             
         }
 
@@ -90,7 +96,7 @@ namespace Hotel_Management_System.Dashboard
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getTotalArrival = "SELECT COUNT(*) FROM Reservation WHERE CheckInDate LIKE @todaysDate";
+            string getTotalArrival = "SELECT COUNT(*) FROM Reservation WHERE CheckInDate LIKE @todaysDate AND Status IN ('Created', 'Checked In')";
 
             SqlCommand cmdGetTotalArrival = new SqlCommand(getTotalArrival, conn);
 
@@ -126,7 +132,7 @@ namespace Hotel_Management_System.Dashboard
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getTotalDeparture = "SELECT COUNT(*) FROM Reservation WHERE CheckOutDate LIKE @todaysDate";
+            string getTotalDeparture = "SELECT COUNT(*) FROM Reservation WHERE CheckOutDate LIKE @todaysDate AND Status IN ('Checked In', 'Checked Out')";
 
             SqlCommand cmdGetTotalDeparture = new SqlCommand(getTotalDeparture, conn);
 
@@ -159,18 +165,27 @@ namespace Hotel_Management_System.Dashboard
 
         private int getTotalAdults()
         {
+            totalAdults = 0;
+
             conn = new SqlConnection(strCon);
             conn.Open();
 
             string getTotalAdults = "SELECT SUM(RR.Adults) " +
                                     "FROM Reservation R, ReservationRoom RR " +
-                                    "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID AND RR.Date LIKE @todaysDate";
+                                    "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID";
 
             SqlCommand cmdGetTotalAdults = new SqlCommand(getTotalAdults, conn);
 
             cmdGetTotalAdults.Parameters.AddWithValue("@todaysDate", todaysDate);
 
-            int totalAdults = (int)cmdGetTotalAdults.ExecuteScalar();
+            try
+            {
+                totalAdults = (int)cmdGetTotalAdults.ExecuteScalar();
+            }
+            catch
+            {
+
+            }
 
             conn.Close();
 
@@ -179,18 +194,28 @@ namespace Hotel_Management_System.Dashboard
 
         private int getTotalKids()
         {
+            totalKids = 0;
+
             conn = new SqlConnection(strCon);
             conn.Open();
 
             string getTotalKids = "SELECT SUM(RR.Kids) " +
                                     "FROM Reservation R, ReservationRoom RR " +
-                                    "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID AND RR.Date LIKE @todaysDate";
+                                    "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID";
 
             SqlCommand cmdGetTotalKids = new SqlCommand(getTotalKids, conn);
 
             cmdGetTotalKids.Parameters.AddWithValue("@todaysDate", todaysDate);
 
-            int totalKids = (int)cmdGetTotalKids.ExecuteScalar();
+            try
+            {
+                totalKids = (int)cmdGetTotalKids.ExecuteScalar();
+            }
+            catch
+            {
+
+            }
+            
 
             conn.Close();
 
@@ -209,7 +234,7 @@ namespace Hotel_Management_System.Dashboard
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getAllRoomTypes = "SELECT RoomTypeID FROM RoomType";
+            string getAllRoomTypes = "SELECT RoomTypeID FROM RoomType WHERE Status LIKE 'Active'";
 
             SqlCommand cmdGetAllRoomTypes = new SqlCommand(getAllRoomTypes, conn);
 
@@ -239,7 +264,9 @@ namespace Hotel_Management_System.Dashboard
                 {
                     string roomID = roomOccupancy[j].roomID;
 
-                    string checkIfRented = "SELECT COUNT(*) FROM ReservationRoom WHERE RoomID LIKE @RoomID AND Date LIKE @todaysDate";
+                    string checkIfRented = "SELECT COUNT(*) FROM ReservationRoom RR, Reservation R " +
+                                            "WHERE RR.RoomID LIKE @RoomID AND RR.Date LIKE @todaysDate " +
+                                            "AND R.ReservationID LIKE RR.ReservationID AND R.Status IN ('Created', 'Checked In')";
 
                     SqlCommand cmdCheckIfRented = new SqlCommand(checkIfRented, conn);
 
@@ -330,5 +357,111 @@ namespace Hotel_Management_System.Dashboard
             lblTotalBlockedRoom.Text = getTotalBlockedRoom();
         }
 
+        private void setItemToRepeaterRoomAvailability()
+        {
+            List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
+
+            RepeaterRoomAvailability.DataSource = roomTypes;
+            RepeaterRoomAvailability.DataBind();
+        }
+
+        protected void RepeaterRoomAvailability_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            int total = 0, sold = 0;
+
+            // Get control's reference
+            Label lblRoomTypeID = e.Item.FindControl("lblRoomTypeID") as Label;
+            Label lblAvailableRoom = e.Item.FindControl("lblAvailableRoom") as Label;
+            Label lblSold = e.Item.FindControl("lblSold") as Label;
+            Label lblStatus = e.Item.FindControl("lblStatus") as Label;
+
+            List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
+
+            for(int i = 0; i < roomTypes.Count; i++)
+            {
+                if(roomTypes[i].roomTypeID == lblRoomTypeID.Text)
+                {
+                    List<RoomOccupancy> roomOccupancies = roomTypes[i].roomOccupancies;
+
+                    for (int j = 0; j < roomOccupancies.Count; j++)
+                    {
+                        if(roomOccupancies[j].status == "Active")
+                        {
+                            total += 1;
+                        }
+
+                    }
+
+                    conn = new SqlConnection(strCon);
+                    conn.Open();
+
+                    string getSoldRoom = "SELECT COUNT(*) FROM ReservationRoom RR, Reservation R " +
+                                            "WHERE RR.RoomTypeID LIKE @RoomTypeID AND RR.Date LIKE @todaysDate AND " +
+                                            "R.ReservationID LIKE RR.ReservationID " +
+                                            "AND R.Status IN ('Created', 'Checked In')";
+
+                    SqlCommand cmdGetSoldRoom = new SqlCommand(getSoldRoom, conn);
+
+                    cmdGetSoldRoom.Parameters.AddWithValue("@RoomTypeID", roomTypes[i].roomTypeID);
+                    cmdGetSoldRoom.Parameters.AddWithValue("@todaysDate", todaysDate);
+
+                    sold = (int)cmdGetSoldRoom.ExecuteScalar();
+
+                    conn.Close();
+                }
+            }
+
+            lblAvailableRoom.Text = (total - sold).ToString();
+            lblSold.Text = sold.ToString();
+
+            if(total > sold)
+            {
+                lblStatus.Text = "Available";
+                lblStatus.Style["color"] = "rgb(0, 206, 27)";
+            }
+            else
+            {
+                lblStatus.Text = "Sold Out";
+                lblStatus.Style["color"] = "red";
+            }
+            
+        }
+
+        private void displayGuestInHouseChart()
+        {
+            //ChartGuestInHouse
+
+            String[] x = { "Adults", "Kids" };
+            int[] y = { totalAdults, totalKids };
+
+            ChartGuestInHouse.Series[0].Points.DataBindXY(x, y);
+
+            ChartGuestInHouse.Series[0].BorderWidth = 5;
+            ChartGuestInHouse.Series[0].ChartType = SeriesChartType.Pie;
+
+            ChartGuestInHouse.Legends[0].Enabled = true;
+
+            // Set chart's tooltip
+            foreach(Series s in ChartGuestInHouse.Series)
+            {
+                s.Label = "#VALX #VALY";
+                s["PieLabelStyle"] = "Outside";
+                s.ToolTip = "#VALX\n\nPercentage: #PERCENT\n\nTotal: #VALY";
+            }
+
+            // Code to customize color of pie chart
+            foreach (Series charts in ChartGuestInHouse.Series)
+            {
+                foreach (DataPoint dp in charts.Points)
+                {
+                    switch (dp.AxisLabel)
+                    {
+                        case "Adults": dp.Color = System.Drawing.Color.FromArgb(255, 203, 59); break;
+                        case "Kids": dp.Color = System.Drawing.Color.FromArgb(255, 72, 0); break;
+                    }
+
+                }
+            }
+        }
     }
 }

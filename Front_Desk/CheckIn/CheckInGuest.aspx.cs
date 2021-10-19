@@ -359,7 +359,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
                 String getAvailableRoom = "(SELECT RoomID FROM Room WHERE RoomTypeID LIKE @RoomTypeID AND Status LIKE 'Active') " +
                                             "EXCEPT " +
-                                            "(SELECT RoomID FROM ReservationRoom WHERE RoomTypeID LIKE @RoomTypeID AND Date LIKE @Date)";
+                                            "(SELECT RR.RoomID FROM ReservationRoom RR, Reservation R " +
+                                            "WHERE RR.RoomTypeID LIKE @RoomTypeID AND RR.Date LIKE @Date AND R.ReservationID LIKE RR.ReservationID AND " +
+                                            "R.Status LIKE 'Checked In')";
 
                 SqlCommand cmdGetAvailableRoom = new SqlCommand(getAvailableRoom, conn);
 
