@@ -175,6 +175,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dashboard\RoomOccupancy.cs" />
+    <Compile Include="Dashboard\RoomType.cs" />
     <Compile Include="Front_Desk\CheckIn\CheckIn.aspx.cs">
       <DependentUpon>CheckIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -619,6 +621,7 @@
     <Compile Include="Template\MainTemplate.Master.designer.cs">
       <DependentUpon>MainTemplate.Master</DependentUpon>
     </Compile>
+    <Compile Include="Utility\DateUtility.cs" />
     <Compile Include="Utility\IDEncryption.cs" />
     <Compile Include="Utility\IDGenerator.cs" />
     <Compile Include="Utility\RepeaterTableUtility.cs" />
