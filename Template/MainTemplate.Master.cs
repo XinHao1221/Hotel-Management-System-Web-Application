@@ -25,7 +25,13 @@ namespace Hotel_Management_System.Template
             else
             {
                 pnNavFrontDesk.Visible = true;
+
+                pnNavHotelConfiguration.Visible = false;
+                pnNavReport.Visible = false;
                 lblNavFrontDesk.Style["font-weight"] = "600";
+
+                lblNavHotelConfiguration.Style["font-weight"] = "0";
+                lblNavReport.Style["font-weight"] = "0";
             }
         }
 
@@ -40,7 +46,14 @@ namespace Hotel_Management_System.Template
             else
             {
                 pnNavHotelConfiguration.Visible = true;
+
+                pnNavFrontDesk.Visible = false;
+                pnNavReport.Visible = false;
+
                 lblNavHotelConfiguration.Style["font-weight"] = "600";
+
+                lblNavFrontDesk.Style["font-weight"] = "0";
+                lblNavReport.Style["font-weight"] = "0";
             }
         }
 
@@ -55,7 +68,14 @@ namespace Hotel_Management_System.Template
             else
             {
                 pnNavReport.Visible = true;
+
+                pnNavFrontDesk.Visible = false;
+                pnNavHotelConfiguration.Visible = false;
+
                 lblNavReport.Style["font-weight"] = "600";
+
+                lblNavHotelConfiguration.Style["font-weight"] = "0";
+                lblNavFrontDesk.Style["font-weight"] = "0";
             }
         }
     }

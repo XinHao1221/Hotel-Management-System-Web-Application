@@ -28,6 +28,7 @@
             font-family: "Open Sans", sans-serif;
             padding: 20px 10px 0px 10px;
             z-index:1;
+            overflow-y:auto;
         }
 
         .pageContent{
