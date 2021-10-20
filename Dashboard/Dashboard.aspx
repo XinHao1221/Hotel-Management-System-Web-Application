@@ -90,88 +90,98 @@
         <div style="width:78%; float:left; height:400px;">
 
             <%--First Row--%>
-            <div class="infoContainer">
-                <%--Total Arrival--%>
-                <div class="mainInfo">
-                    <div class="totalStyle" style="color:rgb(0, 206, 27);">
-                        <asp:Label ID="lblTotalArrival" runat="server" Text=""></asp:Label>
-                        <div style="font-size:70%; margin-top:5%; color:black;">
-                            Total Arrival
+            <%--Total Arrival--%>
+            <asp:HyperLink ID="HLTotalArrival" runat="server" NavigateUrl="~/Front_Desk/CheckIn/CheckIn.aspx">
+                <div class="infoContainer">
+                    <div class="mainInfo">
+                        <div class="totalStyle" style="color:rgb(0, 206, 27);">
+                            <asp:Label ID="lblTotalArrival" runat="server" Text=""></asp:Label>
+                            <div style="font-size:70%; margin-top:5%; color:black;">
+                                Total Arrival
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subInfo">
+                        <div class="summaryStyle">
+                            Arrived: 
+                            <asp:Label ID="lblTotalArrived" runat="server" Text=""></asp:Label>
                         </div>
                     </div>
                 </div>
-                <div class="subInfo">
-                    <div class="summaryStyle">
-                        Arrived: 
-                        <asp:Label ID="lblTotalArrived" runat="server" Text=""></asp:Label>
-                    </div>
-                </div>
-            </div>
-
+            </asp:HyperLink>
+                
             <div style="width:5%; float:left;">
                 &nbsp;
             </div>
 
             <%--Departures--%>
-            <div class="infoContainer">
-                <div class="mainInfo">
-                    <div class="totalStyle" style="color:rgb(255, 0, 0);">
-                        <asp:Label ID="lblTotalDeparture" runat="server" Text=""></asp:Label>
-                        <div style="font-size:70%; margin-top:5%; color:black;">
-                            Departures
+            <asp:HyperLink ID="HLDepartures" runat="server" NavigateUrl="~/Front_Desk/CheckOut/CheckOut.aspx">
+                <div class="infoContainer">
+                    <div class="mainInfo">
+                        <div class="totalStyle" style="color:rgb(255, 0, 0);">
+                            <asp:Label ID="lblTotalDeparture" runat="server" Text=""></asp:Label>
+                            <div style="font-size:70%; margin-top:5%; color:black;">
+                                Departures
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subInfo">
+                        <div class="summaryStyle">
+                            Departed: 
+                            <asp:Label ID="lblTotalDeparted" runat="server" Text=""></asp:Label>
                         </div>
                     </div>
                 </div>
-                <div class="subInfo">
-                    <div class="summaryStyle">
-                        Departed: 
-                        <asp:Label ID="lblTotalDeparted" runat="server" Text=""></asp:Label>
-                    </div>
-                </div>
-            </div>
+            </asp:HyperLink>
+            
 
             <div style="width:4%; float:left;">
                 &nbsp;
             </div>
 
             <%--Guest in House--%>
-            <div class="infoContainer">
-                <div class="mainInfo">
-                    <div class="totalStyle" style="color:rgb(0, 133, 255);">
-                        <asp:Label ID="lblTotalInHouseGuest" runat="server" Text=""></asp:Label>
-                        <div style="font-size:70%; margin-top:5%; color:black;">
-                            Guest in House
+            <asp:HyperLink ID="HLGuestInHouse" runat="server" NavigateUrl="~/Front_Desk/GuestInHouse/GuestInHouse.aspx">
+                <div class="infoContainer">
+                    <div class="mainInfo">
+                        <div class="totalStyle" style="color:rgb(0, 133, 255);">
+                            <asp:Label ID="lblTotalInHouseGuest" runat="server" Text=""></asp:Label>
+                            <div style="font-size:70%; margin-top:5%; color:black;">
+                                Guest in House
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subInfo">
+                        <div class="summaryStyle">
+                            &nbsp;
                         </div>
                     </div>
                 </div>
-                <div class="subInfo">
-                    <div class="summaryStyle">
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
+            </asp:HyperLink>
+            
 
             <%--Seperator--%>
             <div style="width:100%; height:9%; float:left;">&nbsp;</div>
 
             <%--Second Row--%>
-            <div class="infoContainer">
-                <div class="mainInfo">
-                    <div class="totalStyle" style="color:rgb(187, 0, 0);">
-                        <asp:Label ID="lblTotalAvailableRoom" runat="server" Text=""></asp:Label>
-                        <div style="font-size:70%; margin-top:5%; color:black;">
-                            Available Room
+            <asp:HyperLink ID="HLAvailableRoom" runat="server" NavigateUrl="~/Dashboard/RoomAvailability.aspx">
+                <div class="infoContainer">
+                    <div class="mainInfo">
+                        <div class="totalStyle" style="color:rgb(187, 0, 0);">
+                            <asp:Label ID="lblTotalAvailableRoom" runat="server" Text=""></asp:Label>
+                            <div style="font-size:70%; margin-top:5%; color:black;">
+                                Available Room
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subInfo">
+                        <div class="summaryStyle">
+                            Room: 
+                            <asp:Label ID="lblRoomAvailability" runat="server" Text=""></asp:Label>
                         </div>
                     </div>
                 </div>
-                <div class="subInfo">
-                    <div class="summaryStyle">
-                        Room: 
-                        <asp:Label ID="lblRoomAvailability" runat="server" Text=""></asp:Label>
-                    </div>
-                </div>
-            </div>
-
+            </asp:HyperLink>
+            
             <div style="width:5%; float:left;">
                 &nbsp;
             </div>

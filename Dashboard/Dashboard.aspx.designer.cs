@@ -15,6 +15,15 @@ namespace Hotel_Management_System.Dashboard
     {
 
         /// <summary>
+        /// HLTotalArrival control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLTotalArrival;
+
+        /// <summary>
         /// lblTotalArrival control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace Hotel_Management_System.Dashboard
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalArrived;
+
+        /// <summary>
+        /// HLDepartures control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLDepartures;
 
         /// <summary>
         /// lblTotalDeparture control.
@@ -51,6 +69,15 @@ namespace Hotel_Management_System.Dashboard
         protected global::System.Web.UI.WebControls.Label lblTotalDeparted;
 
         /// <summary>
+        /// HLGuestInHouse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLGuestInHouse;
+
+        /// <summary>
         /// lblTotalInHouseGuest control.
         /// </summary>
         /// <remarks>
@@ -58,6 +85,15 @@ namespace Hotel_Management_System.Dashboard
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalInHouseGuest;
+
+        /// <summary>
+        /// HLAvailableRoom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLAvailableRoom;
 
         /// <summary>
         /// lblTotalAvailableRoom control.

@@ -429,7 +429,6 @@ namespace Hotel_Management_System.Dashboard
 
         private void displayGuestInHouseChart()
         {
-            //ChartGuestInHouse
 
             String[] x = { "Adults", "Kids" };
             int[] y = { totalAdults, totalKids };

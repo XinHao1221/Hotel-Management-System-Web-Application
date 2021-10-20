@@ -62,6 +62,13 @@ namespace Hotel_Management_System.Dashboard
             available = true;
         }
 
+        public RoomOccupancy(string roomID, Boolean available)
+        {
+            this.roomID = roomID;
+            this.available = available;
+            getRoomInformation();
+        }
+
         private void getRoomInformation()
         {
             conn = new SqlConnection(strCon);

@@ -23,7 +23,6 @@
             height:100%;
             min-height:600px;
             border: 2px solid rgb(180 180 180);
-            
             box-shadow: 5px 10px;
             box-shadow: 3px 3px 5px rgb(149 149 149);
         }
@@ -222,18 +221,21 @@
                     <tr>
                         <td style="width:50%; text-align:left;" class="formLabel">Total</td>
                         <td class="tableData" style="text-align:right;">
+                            RM
                             <asp:Label ID="lblTotal" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td style="width:50%; text-align:left;" class="formLabel">Tax(6%)</td>
                         <td class="tableData" style="text-align:right;">
+                            RM
                             <asp:Label ID="lblTax" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>
                     <tr>
                         <td style="width:50%; text-align:left; font-size:20px;" class="formLabel requiredFieldLabel">Grand Total</td>
                         <td class="tableData requiredFieldLabel" style="text-align:right; font-size:20px; font-weight:600;">
+                            RM
                             <asp:Label ID="lblGrandTotal" runat="server" Text=""></asp:Label>
                         </td>
                     </tr>

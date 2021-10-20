@@ -222,7 +222,7 @@
             <div class="navBarSeperator">&nbsp;</div>
 
             <!--Cashiering-->
-            <asp:HyperLink ID="HLNavCashiering" runat="server" NavigateUrl="~/History/ViewTransactionHistory.aspx">
+            <asp:HyperLink ID="HLNavCashiering" runat="server" NavigateUrl="~/History/History.aspx">
                 <div class="navOptionContainer">
                     <div style="float:left;">
                         <asp:Image ID="INavHistory" runat="server" ImageUrl="~/Template/Template_Icon/history.png" CssClass="navIconStyle"/>
@@ -344,24 +344,37 @@
 
             <asp:Panel ID="pnNavReport" runat="server" CssClass="dropdown-container" Visible="false">
                 <div>
-                    <a href="#">
+                    <asp:HyperLink ID="HLHotelReport" runat="server" NavigateUrl="~/Reporting/Hotel Report/HotelReport.aspx">
                         <div style="float:left; background-color:white; border-start-end-radius:5px; border-start-start-radius:5px;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
-                                Link 1
+                                Hotel Report
                             </div>
                         </div>
-                    </a>
+                    </asp:HyperLink>
 
                     <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
                         &nbsp;
                     </div>
-                    <a href="#">
-                        <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
+
+                    <asp:HyperLink ID="HLReservationReport" runat="server" NavigateUrl="~/Reporting/Reservation Report/ReservationReport.aspx">
+                        <div style="float:left; background-color:white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
-                                Link 2
+                                Reservation Report
                             </div>
                         </div>
-                    </a>
+                    </asp:HyperLink>
+
+                    <div style="float: left; width: 100%; height: 1px; background-color:rgb(228 228 228)">
+                        &nbsp;
+                    </div>
+
+                    <asp:HyperLink ID="HLRevenueReport" runat="server" NavigateUrl="~/Reporting/Revenue Report/RevenueReport.aspx">
+                        <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
+                            <div style="margin-left:15px;">
+                               Revenue Report
+                            </div>
+                        </div>
+                    </asp:HyperLink>
                 </div>
             </asp:Panel>
 
