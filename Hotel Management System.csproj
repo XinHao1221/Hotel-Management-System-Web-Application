@@ -634,6 +634,7 @@
     <Compile Include="Reporting\Reservation Report\ReservationReport.aspx.designer.cs">
       <DependentUpon>ReservationReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reporting\Reservation Report\ReservedRoomType.cs" />
     <Compile Include="Reporting\Revenue Report\RevenueReport.aspx.cs">
       <DependentUpon>RevenueReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
