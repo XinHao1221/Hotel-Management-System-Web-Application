@@ -78,6 +78,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {
+
             totalReservationProfit = getReservationProfit(txtDate.Text);
             totalFaclityProfit = getFacilityProfit(txtDate.Text);
             totalFineCharges = getTotalFineCharges(txtDate.Text);
@@ -86,10 +87,16 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             displayRevenueDetails();
 
             displayChartProfit();
+
+            displayRoomProfitDetails(txtDate.Text);
+            displayFacilityProfitDetails(txtDate.Text);
+            displayFineChargesDetails(txtDate.Text);
+            displayServicesDetails(txtDate.Text);
         }
 
         protected void txtYearMonth_TextChanged(object sender, EventArgs e)
         {
+
             totalReservationProfit = getReservationProfit(txtYearMonth.Text);
             totalFaclityProfit = getFacilityProfit(txtYearMonth.Text);
             totalFineCharges = getTotalFineCharges(txtYearMonth.Text);
@@ -98,6 +105,11 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             displayRevenueDetails();
 
             displayChartProfit();
+
+            displayRoomProfitDetails(txtYearMonth.Text);
+            displayFacilityProfitDetails(txtYearMonth.Text);
+            displayFineChargesDetails(txtYearMonth.Text);
+            displayServicesDetails(txtYearMonth.Text);
         }
 
         protected void ddlYear_TextChanged(object sender, EventArgs e)
@@ -110,10 +122,18 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             displayRevenueDetails();
 
             displayChartProfit();
+
+            displayRoomProfitDetails(ddlYear.SelectedValue);
+            displayFacilityProfitDetails(ddlYear.SelectedValue);
+            displayFineChargesDetails(ddlYear.SelectedValue);
+            displayServicesDetails(ddlYear.SelectedValue);
         }
 
         protected void ddlReportType_TextChanged(object sender, EventArgs e)
         {
+            PNReportDetails.Visible = false;
+            lblNoDetailsFound.Visible = false;
+
             lblRoomTotal.Text = "0.00";
             lblFacilityTotal.Text = "0.00";
             lblFineChargesTotal.Text = "0.00";
@@ -288,7 +308,10 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
         private void displayRevenueDetails()
         {
-            if(totalReservationProfit > 0)
+            PNReportDetails.Visible = false;
+            lblNoDetailsFound.Visible = false;
+
+            if (totalReservationProfit > 0)
             {
                 lblRoomTotal.Text = string.Format("{0:0.00}", totalReservationProfit);
             }
@@ -318,6 +341,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             if(totalServicesCharges > 0)
             {
                 lblServicesTotal.Text = string.Format("{0:0.00}", totalServicesCharges);
+                
             }
             else
             {
@@ -329,14 +353,14 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             if(profit > 0)
             {
                 lblProfit.Text = string.Format("{0:0.00}", profit);
+                PNReportDetails.Visible = true;
             }
             else
             {
                 lblProfit.Text = "0.00";
+                lblNoDetailsFound.Visible = true;
             }
-            
-
-            
+           
         }
 
         private void displayChartProfit()
@@ -376,6 +400,222 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
                     }
                 }
             }
+        }
+
+        private void displayRoomProfitDetails(string date)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getRoomProfitDetails = "SELECT Date, RoomTypeID, RoomPrice, ExtraBedCharges " +
+                                            "FROM ReservationRoom " +
+                                            "WHERE Date LIKE '" + date + "%'";
+
+            SqlCommand cmdGetRoomProfitDetails = new SqlCommand(getRoomProfitDetails, conn);
+
+            SqlDataReader sdr = cmdGetRoomProfitDetails.ExecuteReader();
+
+            // Set date to repeater
+            if (sdr.HasRows)
+            {
+                // Set date to repeater
+                RepeaterRoom.DataSource = sdr;
+                RepeaterRoom.DataBind();
+
+                lblNoRoomFound.Visible = false;
+            }
+            else
+            {
+                // Set repeater as null
+                RepeaterRoom.DataSource = null;
+                RepeaterRoom.DataBind();
+
+                lblNoRoomFound.Visible = true;
+            }
+
+            conn.Close();
+        }
+
+        protected void RepeaterRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Label lblRoomTypeID = e.Item.FindControl("lblRoomTypeID") as Label;
+            Label lblRoomTypeName = e.Item.FindControl("lblRoomTypeName") as Label;
+            Label lblRoomPrice = e.Item.FindControl("lblRoomPrice") as Label;
+            Label lblExtraBedPrice = e.Item.FindControl("lblExtraBedPrice") as Label;
+            Label lblSubTotal = e.Item.FindControl("lblSubTotal") as Label;
+            Label lblDate = e.Item.FindControl("lblDate") as Label;
+
+            // Get Room Type Name
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getRoomTypeName = "SELECT Title FROM RoomType WHERE RoomTypeID LIKE @RoomTypeID";
+
+            SqlCommand cmdGetRoomTypeName = new SqlCommand(getRoomTypeName, conn);
+
+            cmdGetRoomTypeName.Parameters.AddWithValue("@RoomTypeID", lblRoomTypeID.Text);
+
+            lblRoomTypeName.Text = (string)cmdGetRoomTypeName.ExecuteScalar();
+
+            conn.Close();
+
+
+            // Calculate subtotal
+            double subTotal = Convert.ToDouble(lblRoomPrice.Text) + Convert.ToDouble(lblExtraBedPrice.Text);
+
+            // Display subtotal
+            lblSubTotal.Text = string.Format("{0:0.00}", subTotal);
+
+
+            // Format date
+            // Format date base on date format on user's computer
+            DateTime formatedDate = Convert.ToDateTime(lblDate.Text);
+
+            // Display the formated date
+            lblDate.Text = formatedDate.ToShortDateString();
+
+        }
+
+        private void displayFacilityProfitDetails(string date)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getFacilityProfitDetails = "SELECT FacilityID, DateRented, Price FROM ReservationFacility " +
+                                                "WHERE DateCreated LIKE '" + date + "%'";
+
+            SqlCommand cmdGetFacilityProfitDetails = new SqlCommand(getFacilityProfitDetails, conn);
+
+            SqlDataReader sdr = cmdGetFacilityProfitDetails.ExecuteReader();
+
+            if (sdr.HasRows)
+            {
+                RepeaterFacility.DataSource = sdr;
+                RepeaterFacility.DataBind();
+
+                lblNoFacilityFound.Visible = false;
+            }
+            else
+            {
+                RepeaterFacility.DataSource = null;
+                RepeaterFacility.DataBind();
+
+                lblNoFacilityFound.Visible = true;
+            }
+            
+
+            conn.Close();
+        }
+
+        protected void RepeaterFacility_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Label lblFacilityID = e.Item.FindControl("lblFacilityID") as Label;
+            Label lblDateRented = e.Item.FindControl("lblDateRented") as Label;
+            Label lblFacilityName = e.Item.FindControl("lblFacilityName") as Label;
+
+            // Get Facility Name
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getFacilityName = "SELECT FacilityName FROM Facility WHERE FacilityID LIKE @FacilityID";
+
+            SqlCommand cmdGetFacilityName = new SqlCommand(getFacilityName, conn);
+
+            cmdGetFacilityName.Parameters.AddWithValue("@FacilityID", lblFacilityID.Text);
+
+            lblFacilityName.Text = (string)cmdGetFacilityName.ExecuteScalar();
+
+            conn.Close();
+
+            // Format date
+            // Format date base on date format on user's computer
+            DateTime formatedDate = Convert.ToDateTime(lblDateRented.Text);
+
+            // Display the formated date
+            lblDateRented.Text = formatedDate.ToShortDateString();
+        }
+
+        private void displayFineChargesDetails(string date)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getFineCharges = "SELECT Title, DateCreated, Amount FROM OtherCharges " +
+                                    "WHERE Category LIKE 'Fine' AND DateCreated LIKE '" + date + "%'";
+
+            SqlCommand cmdGetFineCharges = new SqlCommand(getFineCharges, conn);
+
+            SqlDataReader sdr = cmdGetFineCharges.ExecuteReader();
+
+            if (sdr.HasRows)
+            {
+                RepeaterFine.DataSource = sdr;
+                RepeaterFine.DataBind();
+
+                lblNoFineCharges.Visible = false;
+            }
+            else
+            {
+                RepeaterFine.DataSource = null;
+                RepeaterFine.DataBind();
+
+                lblNoFineCharges.Visible = true;
+            }
+
+            conn.Close();
+        }
+
+        protected void RepeaterFine_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Label lblDate = e.Item.FindControl("lblDate") as Label;
+
+            // Format date
+            // Format date base on date format on user's computer
+            DateTime formatedDate = Convert.ToDateTime(lblDate.Text);
+
+            // Display the formated date
+            lblDate.Text = formatedDate.ToShortDateString();
+        }
+
+        private void displayServicesDetails(string date)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getServicesDetails = "SELECT Title, Amount, DateCreated FROM OtherCharges " +
+                                        "WHERE Category LIKE 'Service' AND DateCreated LIKE '" + date + "%'";
+
+            SqlCommand cmdGetServicesDetails = new SqlCommand(getServicesDetails, conn);
+
+            SqlDataReader sdr = cmdGetServicesDetails.ExecuteReader();
+
+            if (sdr.HasRows)
+            {
+                RepeaterServices.DataSource = sdr;
+                RepeaterServices.DataBind();
+
+                lblNoServicesCharges.Visible = false;
+            }
+            else
+            {
+                RepeaterServices.DataSource = null;
+                RepeaterServices.DataBind();
+
+                lblNoServicesCharges.Visible = true;
+            }
+
+        }
+
+        protected void RepeaterServices_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Label lblDate = e.Item.FindControl("lblDate") as Label;
+
+            // Format date
+            // Format date base on date format on user's computer
+            DateTime formatedDate = Convert.ToDateTime(lblDate.Text);
+
+            // Display the formated date
+            lblDate.Text = formatedDate.ToShortDateString();
         }
     }
 }
