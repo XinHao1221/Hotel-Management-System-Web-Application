@@ -84,6 +84,7 @@
     <Content Include="Front_Desk\Reservation\Refund.aspx" />
     <Content Include="Front_Desk\Reservation\Reservation.aspx" />
     <Content Include="Front_Desk\Reservation\ViewReservation.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx" />
     <Content Include="Front_Desk\Survey\SurveyForm.aspx" />
     <Content Include="History\History.aspx" />
     <Content Include="History\ViewSurveyResponse.aspx" />
@@ -153,6 +154,7 @@
     <Content Include="Image\edit_icon_green.png" />
     <Content Include="Image\edit_white_icon.png" />
     <Content Include="Image\filter_icon.png" />
+    <Content Include="Image\help_icon.png" />
     <Content Include="Image\home_icon.png" />
     <Content Include="Image\more_icon.png" />
     <Content Include="Image\plus_white.png" />
@@ -254,6 +256,13 @@
     </Compile>
     <Compile Include="Front_Desk\Reservation\ViewReservation.aspx.designer.cs">
       <DependentUpon>ViewReservation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx.cs">
+      <DependentUpon>SelfCheckIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx.designer.cs">
+      <DependentUpon>SelfCheckIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front_Desk\Survey\SurveyForm.aspx.cs">
       <DependentUpon>SurveyForm.aspx</DependentUpon>
@@ -682,7 +691,9 @@
     </None>
     <Content Include="Web.sitemap" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Front_Desk\Self-CheckIn\Staff\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
