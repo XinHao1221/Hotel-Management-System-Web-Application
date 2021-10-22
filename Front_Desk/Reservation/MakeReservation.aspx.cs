@@ -117,6 +117,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             // Get selected guestID
             String guestID = ddlGuest.SelectedValue;
+            Session["GuestID"] = guestID;
 
             conn = new SqlConnection(strCon);
             conn.Open();
@@ -138,24 +139,29 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
 
             conn.Close();
+
+            // Display special preferneces
+            PC1.setPreferences();
         }
 
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if(ddlRoomType1.SelectedIndex == 0)
+            if (Page.IsValid)
             {
-                lblNoRoomSelected.Visible = true;
+                if (ddlRoomType1.SelectedIndex == 0)
+                {
+                    lblNoRoomSelected.Visible = true;
+                }
+                else
+                {
+                    // Set reservation details to view state
+                    // and pass to next page
+                    setReservationDetails();
+                    //Server.Transfer("Payment.aspx");
+                    Response.Redirect("Payment.aspx");
+                }
             }
-            else
-            {
-                // Set reservation details to view state
-                // and pass to next page
-                setReservationDetails();
-                //Server.Transfer("Payment.aspx");
-                Response.Redirect("Payment.aspx");
-            }
-            
         }
 
         // Set reservation details before redirect to payment page
@@ -1892,5 +1898,237 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             RepeaterRoomPrice.DataSource = roomPriceList;
             RepeaterRoomPrice.DataBind();
         }
+
+        protected void CVAdults1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int digit;
+
+            // 1st panel
+            if (ddlRoomType1.SelectedIndex != 0)
+            {
+                if (ddlAdults1.Visible)
+                {
+                    if (ddlAdults1.SelectedIndex != 0)
+                    {
+                        args.IsValid = true;
+                    }
+                    else
+                    {
+                        CVAdults1.ErrorMessage = "Please select an item.";
+                        args.IsValid = false;
+                    }
+
+                }
+                else
+                {
+                    if (txtAdults1.Text != "" && int.TryParse(txtAdults1.Text, out digit))
+                    {
+                        if(int.Parse(txtAdults1.Text) <= 0)
+                        {
+                            CVAdults1.ErrorMessage = "Value must be greater than 0.";
+                            args.IsValid = false;
+                        }
+                        else
+                        {
+                            args.IsValid = true;
+                        }
+                    }
+                    else
+                    {
+                        CVAdults1.ErrorMessage = "Please enter a digit";
+                        args.IsValid = false;
+                    }
+                }
+
+            }
+                
+        }
+
+        protected void CVAdults2_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int digit;
+
+            // 2nd Panel
+            if (PNReservationForm2.Visible == true)
+            {
+                if (ddlRoomType2.SelectedIndex != 0)
+                {
+                    if (ddlAdults2.Visible)
+                    {
+                        if (ddlAdults2.SelectedIndex != 0)
+                        {
+                            CVAdults2.IsValid = true;
+                        }
+                        else
+                        {
+                            CVAdults2.ErrorMessage = "Please select an item.";
+                            args.IsValid = false;
+                        }
+
+                    }
+                    else
+                    {
+                        if (txtAdults2.Text != "" && int.TryParse(txtAdults2.Text, out digit))
+                        {
+                            if (int.Parse(txtAdults2.Text) <= 0)
+                            {
+                                CVAdults2.ErrorMessage = "Value must be greater than 0.";
+                                args.IsValid = false;
+                            }
+                            else
+                            {
+                                args.IsValid = true;
+                            }
+                        }
+                        else
+                        {
+                            CVAdults2.ErrorMessage = "Please enter a digit";
+                            args.IsValid = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void CVAdults3_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int digit;
+
+            // 3rd Panel
+            if (PNReservationForm3.Visible == true)
+            {
+                if (ddlRoomType3.SelectedIndex != 0)
+                {
+                    if (ddlAdults3.Visible)
+                    {
+                        if (ddlAdults3.SelectedIndex != 0)
+                        {
+                            args.IsValid = true;
+                        }
+                        else
+                        {
+                            CVAdults3.ErrorMessage = "Please select an item.";
+                            args.IsValid = false;
+                        }
+
+                    }
+                    else
+                    {
+                        if (txtAdults3.Text != "" && int.TryParse(txtAdults3.Text, out digit))
+                        {
+                            if (int.Parse(txtAdults3.Text) <= 0)
+                            {
+                                CVAdults3.ErrorMessage = "Value must be greater than 0.";
+                                args.IsValid = false;
+                            }
+                            else
+                            {
+                                args.IsValid = true;
+                            }
+                        }
+                        else
+                        {
+                            CVAdults3.ErrorMessage = "Please enter a digit";
+                            args.IsValid = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void CVKids1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int digit;
+
+            // 1st Panel
+            if (ddlRoomType1.SelectedIndex != 0)
+            {
+
+                if (ddlKids1.Visible)
+                {
+                    args.IsValid = true;
+                }
+                else
+                {
+                    if (txtKids1.Text != "" && int.TryParse(txtKids1.Text, out digit))
+                    {
+
+                        args.IsValid = true;
+                    }
+                    else
+                    {
+                        CVKids1.ErrorMessage = "Please enter a digit";
+                        args.IsValid = false;
+                    }
+                }
+            
+            }
+        }
+
+        protected void CVKids2_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int digit;
+
+            // 2nd Panel
+            if (PNReservationForm2.Visible == true)
+            {
+                if (ddlRoomType2.SelectedIndex != 0)
+                {
+
+                    if (ddlKids2.Visible)
+                    {
+                        args.IsValid = true;
+                    }
+                    else
+                    {
+                        if (txtKids2.Text != "" && int.TryParse(txtKids2.Text, out digit))
+                        {
+
+                            args.IsValid = true;
+                        }
+                        else
+                        {
+                            CVKids2.ErrorMessage = "Please enter a digit";
+                            args.IsValid = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void CVKids3_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int digit;
+
+            // 3rd Panel
+            if (PNReservationForm3.Visible == true)
+            {
+                if (ddlRoomType3.SelectedIndex != 0)
+                {
+
+                    if (ddlKids3.Visible)
+                    {
+                        args.IsValid = true;
+                    }
+                    else
+                    {
+                        if (txtKids3.Text != "" && int.TryParse(txtKids3.Text, out digit))
+                        {
+
+                            args.IsValid = true;
+                        }
+                        else
+                        {
+                            CVKids3.ErrorMessage = "Please enter a digit";
+                            args.IsValid = false;
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+
     }
 }

@@ -386,6 +386,14 @@
                             </div>
                         </AlternatingItemTemplate>
                     </asp:Repeater>
+
+                    <div style="width: 90%; margin: auto; clear:both;">
+
+                        <div class="subFormTableContent" style="">
+                            <asp:Label ID="lblNoAvailableRoom" runat="server" Text="No room found!" Visible="false"></asp:Label>
+                        </div>   
+            
+                    </div>
                 </div>
 
                 <div style="clear:both;">&nbsp;</div>

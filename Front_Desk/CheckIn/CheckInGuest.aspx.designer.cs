@@ -186,6 +186,15 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         protected global::System.Web.UI.WebControls.Label lblNoItemFound;
 
         /// <summary>
+        /// PC1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Hotel_Management_System.Front_Desk.Reservation.EditPreference PC1;
+
+        /// <summary>
         /// btnNext control.
         /// </summary>
         /// <remarks>
@@ -256,6 +265,15 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater RepeaterAvailableRoom;
+
+        /// <summary>
+        /// lblNoAvailableRoom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoAvailableRoom;
 
         /// <summary>
         /// PopupBoxFacilityAvailability control.

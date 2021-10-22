@@ -24,15 +24,21 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
 
         private List<ReservedRoomType> reservedRoomTypes = new List<ReservedRoomType>();
 
+        private List<ReservedFacility> reservedFacilities = new List<ReservedFacility>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
             getRoomType();
+            getFacility();
 
             if (!IsPostBack)
             {
                 setDDLYear();
             }
+
+            PNReservationReportDetails.Visible = false;
+
+            lblNoFacilityFound.Visible = false;
+            lblNoRoomTypeFound.Visible = false;
         }
 
         private void setDDLYear()
@@ -77,34 +83,81 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
 
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {
+            PNReservationReportDetails.Visible = true;
+
             getReservedRoomTypeQuantity(txtDate.Text);
             // Sort list from small to large
-            sorting();
-            displayChartProfit();
+            sortRoomType();
+            displayChartRoomType();
 
             RepeaterRentedRoomType.DataSource = reservedRoomTypes;
             RepeaterRentedRoomType.DataBind();
+
+
+            getReservedFacilityQty(txtDate.Text);
+            sortFacility();
+            displayChartFacility();
+
+            RepeaterFacility.DataSource = reservedFacilities;
+            RepeaterFacility.DataBind();
+
+            checkIfEmpty();
 
         }
 
         protected void txtYearMonth_TextChanged(object sender, EventArgs e)
         {
-            getReservedRoomTypeQuantity(txtDate.Text);
-            sorting();
-            displayChartProfit();
+            PNReservationReportDetails.Visible = true;
 
+            getReservedRoomTypeQuantity(txtYearMonth.Text);
+            sortRoomType();
+            displayChartRoomType();
+
+            RepeaterRentedRoomType.DataSource = reservedRoomTypes;
+            RepeaterRentedRoomType.DataBind();
+
+
+            getReservedFacilityQty(txtYearMonth.Text);
+            sortFacility();
+            displayChartFacility();
+
+            RepeaterFacility.DataSource = reservedFacilities;
+            RepeaterFacility.DataBind();
+
+            checkIfEmpty();
         }
 
         protected void ddlYear_TextChanged(object sender, EventArgs e)
         {
-            getReservedRoomTypeQuantity(txtDate.Text);
-            sorting();
-            displayChartProfit();
+            if(ddlYear.SelectedIndex != 0)
+            {
+                PNReservationReportDetails.Visible = true;
+
+                getReservedRoomTypeQuantity(ddlYear.SelectedValue);
+                sortRoomType();
+                displayChartRoomType();
+
+                RepeaterRentedRoomType.DataSource = reservedRoomTypes;
+                RepeaterRentedRoomType.DataBind();
+
+
+                getReservedFacilityQty(ddlYear.SelectedValue);
+                sortFacility();
+                displayChartFacility();
+
+                RepeaterFacility.DataSource = reservedFacilities;
+                RepeaterFacility.DataBind();
+
+                checkIfEmpty();
+            }
+
+            
+
         }
 
         protected void ddlReportType_TextChanged(object sender, EventArgs e)
         {
-            
+            PNReservationReportDetails.Visible = false;
 
             if (ddlReportType.SelectedValue == "Daily")
             {
@@ -161,7 +214,7 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
             }
         }
 
-        private void displayChartProfit()
+        private void displayChartRoomType()
         {
             List<String> x = new List<string>();
             List<int> y = new List<int>();
@@ -205,7 +258,7 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getRoomTypes = "SELECT DISTINCT(RoomTypeID), Title FROM RoomType ORDER BY RoomTypeID DESC";
+            string getRoomTypes = "SELECT DISTINCT(RoomTypeID), Title FROM RoomType";
 
             SqlCommand cmdGetRoomTypes = new SqlCommand(getRoomTypes, conn);
 
@@ -219,23 +272,115 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
             conn.Close();
         }
 
-        private void sorting()
+        private void sortRoomType()
         {
-            // Before sorted
+            reservedRoomTypes.Sort((x, y) => y.quantity.CompareTo(x.quantity));
+        }
+
+        private void sortFacility()
+        {
+            reservedFacilities.Sort((x, y) => y.quantity.CompareTo(x.quantity));
+        }
+
+        private void getFacility()
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getFacility = "SELECT FacilityID, FacilityName FROM Facility";
+
+            SqlCommand cmdGetFacility = new SqlCommand(getFacility, conn);
+
+            SqlDataReader sdr = cmdGetFacility.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                reservedFacilities.Add(new ReservedFacility(sdr["FacilityID"].ToString(), sdr["FacilityName"].ToString()));
+            }
+
+            conn.Close();
+        }
+
+        private void getReservedFacilityQty(string date)
+        {
+            for(int i = 0; i < reservedFacilities.Count; i++)
+            {
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                string getReservedFacilityQty = "SELECT COUNT(*) FROM ReservationFacility " +
+                                                "WHERE FacilityID LIKE @FacilityID AND DateRented LIKE '" + date + "%'";
+
+                SqlCommand cmdGetReservedFacility = new SqlCommand(getReservedFacilityQty, conn);
+
+                cmdGetReservedFacility.Parameters.AddWithValue("@FacilityID", reservedFacilities[i].facilityID);
+
+                reservedFacilities[i].quantity = (int)cmdGetReservedFacility.ExecuteScalar();
+
+                conn.Close();
+            }
+        }
+
+        private void displayChartFacility()
+        {
+            List<String> x = new List<string>();
+            List<int> y = new List<int>();
+
+            // Set data for x & y axis
+            for (int i = 0; i < reservedFacilities.Count; i++)
+            {
+                if (reservedFacilities[i].quantity > 0)
+                {
+                    x.Add(reservedFacilities[i].facilityName);
+                    y.Add(reservedFacilities[i].quantity);
+                }
+            }
+
+            ChartFacility.Series[0].Points.DataBindXY(x, y);
+
+            ChartFacility.Series[0].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
+
+            ChartFacility.ChartAreas["ChartArea1"].AxisX.MajorGrid.Enabled = false;
+            ChartFacility.ChartAreas["ChartArea1"].AxisY.MajorGrid.Enabled = false;
+
+            ChartFacility.ChartAreas["ChartArea1"].AxisX.Title = "Facility";
+            ChartFacility.ChartAreas["ChartArea1"].AxisY.Title = "Quantity";
+
+            ChartFacility.Legends[0].Enabled = false;
+
+            // Set chart's tooltip
+            foreach (Series s in ChartRoomType.Series)
+            {
+                s.Label = "#VALX   #PERCENT";
+                s["PieLabelStyle"] = "Outside";
+                s.ToolTip = "Facility: #VALX\n\nPercentage: #PERCENT\n\nQuantity: #VALY";
+            }
+        }
+
+        private void checkIfEmpty()
+        {
+            lblNoRoomTypeFound.Visible = true;
+
             for(int i = 0; i < reservedRoomTypes.Count; i++)
             {
-                string temp = reservedRoomTypes[i].roomTypeName;
-                int qty = reservedRoomTypes[i].quantity;
+                if (reservedRoomTypes[i].quantity > 0){
+
+                    lblNoRoomTypeFound.Visible = false;
+
+                }
             }
 
-            reservedRoomTypes.Sort((x, y) => y.quantity.CompareTo(x.quantity));
+            lblNoFacilityFound.Visible = true;
 
-            for (int i = 0; i < reservedRoomTypes.Count; i++)
+            for (int i = 0; i < reservedFacilities.Count; i++)
             {
-                string temp = reservedRoomTypes[i].roomTypeName;
-                int qty = reservedRoomTypes[i].quantity;
-            }
+                if (reservedFacilities[i].quantity > 0)
+                {
 
+                    lblNoFacilityFound.Visible = false;
+
+                }
+            }
         }
     }
 }

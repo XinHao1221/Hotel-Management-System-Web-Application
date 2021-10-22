@@ -34,6 +34,8 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
                 setDDLYear();
 
             }
+
+            PNReportDetails.Visible = false;
         }
 
         private void setDDLYear()
@@ -92,6 +94,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             displayFacilityProfitDetails(txtDate.Text);
             displayFineChargesDetails(txtDate.Text);
             displayServicesDetails(txtDate.Text);
+
         }
 
         protected void txtYearMonth_TextChanged(object sender, EventArgs e)
@@ -114,19 +117,33 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
         protected void ddlYear_TextChanged(object sender, EventArgs e)
         {
-            totalReservationProfit = getReservationProfit(ddlYear.SelectedValue);
-            totalFaclityProfit = getFacilityProfit(ddlYear.SelectedValue);
-            totalFineCharges = getTotalFineCharges(ddlYear.SelectedValue);
-            totalServicesCharges = getTotalServicesCharges(ddlYear.SelectedValue);
+            if (ddlYear.SelectedIndex != 0)
+            {
+                totalReservationProfit = getReservationProfit(ddlYear.SelectedValue);
+                totalFaclityProfit = getFacilityProfit(ddlYear.SelectedValue);
+                totalFineCharges = getTotalFineCharges(ddlYear.SelectedValue);
+                totalServicesCharges = getTotalServicesCharges(ddlYear.SelectedValue);
 
-            displayRevenueDetails();
+                displayRevenueDetails();
 
-            displayChartProfit();
+                displayChartProfit();
 
-            displayRoomProfitDetails(ddlYear.SelectedValue);
-            displayFacilityProfitDetails(ddlYear.SelectedValue);
-            displayFineChargesDetails(ddlYear.SelectedValue);
-            displayServicesDetails(ddlYear.SelectedValue);
+                displayRoomProfitDetails(ddlYear.SelectedValue);
+                displayFacilityProfitDetails(ddlYear.SelectedValue);
+                displayFineChargesDetails(ddlYear.SelectedValue);
+                displayServicesDetails(ddlYear.SelectedValue);
+            }
+            else
+            {
+                PNReportDetails.Visible = false;
+
+                lblRoomTotal.Text = "0.00";
+                lblFacilityTotal.Text = "0.00";
+                lblFineChargesTotal.Text = "0.00";
+                lblServicesTotal.Text = "0.00";
+                lblProfit.Text = "0.00";
+            }
+                
         }
 
         protected void ddlReportType_TextChanged(object sender, EventArgs e)
@@ -617,5 +634,6 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             // Display the formated date
             lblDate.Text = formatedDate.ToShortDateString();
         }
+
     }
 }

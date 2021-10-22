@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="MakeReservation.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Reservation.MakeReservation" %>
+<%@ Register TagPrefix="Preference" TagName="Control" Src="~/Front_Desk/Reservation/EditPreference.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
 
@@ -225,6 +226,9 @@
                                     <asp:DropDownList ID="ddlAdults1" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownAdults" AutoPostBack="true"> 
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtAdults1" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="4" Text="4" Width="20%"></asp:TextBox>
+                                    <br />
+                                    <asp:CustomValidator ID="CVAdults1" runat="server" ErrorMessage="CustomValidator" CssClass="validatorStyle" ValidationGroup="save" 
+                                        EnableClientScript="false" OnServerValidate="CVAdults1_ServerValidate"></asp:CustomValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -237,6 +241,9 @@
                                         <asp:ListItem>0</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtKids1" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
+                                    <br />
+                                    <asp:CustomValidator ID="CVKids1" runat="server" ErrorMessage="CustomValidator" CssClass="validatorStyle" ValidationGroup="save" 
+                                        EnableClientScript="false" OnServerValidate="CVKids1_ServerValidate"></asp:CustomValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -313,6 +320,9 @@
                                     <asp:DropDownList ID="ddlAdults2" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownAdults" AutoPostBack="true"> 
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtAdults2" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="4" Text="4" Width="20%"></asp:TextBox>
+                                    <br />
+                                    <asp:CustomValidator ID="CVAdults2" runat="server" ErrorMessage="CustomValidator" CssClass="validatorStyle" ValidationGroup="save" 
+                                        EnableClientScript="false" OnServerValidate="CVAdults2_ServerValidate"></asp:CustomValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -325,6 +335,9 @@
                                         <asp:ListItem>0</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtKids2" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
+                                    <br />
+                                    <asp:CustomValidator ID="CVKids2" runat="server" ErrorMessage="CustomValidator" CssClass="validatorStyle" ValidationGroup="save" 
+                                        EnableClientScript="false" OnServerValidate="CVKids2_ServerValidate"></asp:CustomValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -407,6 +420,9 @@
                                     <asp:DropDownList ID="ddlAdults3" runat="server" Visible="true" CssClass="dropDownStyle" OnSelectedIndexChanged="DropDownAdults" AutoPostBack="true"> 
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtAdults3" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="4" Text="4" Width="20%"></asp:TextBox>
+                                    <br />
+                                    <asp:CustomValidator ID="CVAdults3" runat="server" ErrorMessage="CustomValidator" CssClass="validatorStyle" ValidationGroup="save" 
+                                        EnableClientScript="false" OnServerValidate="CVAdults3_ServerValidate"></asp:CustomValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -419,6 +435,9 @@
                                         <asp:ListItem>0</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:TextBox ID="txtKids3" runat="server" typr="number" Visible="false" CssClass="inputStyle" placeholder="2" Text="0" Width="20%"></asp:TextBox>
+                                    <br />
+                                    <asp:CustomValidator ID="CVKids3" runat="server" ErrorMessage="CustomValidator" CssClass="validatorStyle" ValidationGroup="save" 
+                                        EnableClientScript="false" OnServerValidate="CVKids3_ServerValidate"></asp:CustomValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -639,6 +658,14 @@
                     <asp:Label ID="lblNoItemFound" runat="server" Text="No item found!" Visible="false"></asp:Label>
                 </div>           
             </div>
+
+            <div style="clear:both; height:30px;">&nbsp;</div>
+
+            <div class="formSectionStyle" style="margin-bottom:25px">
+                4. Preferences:-
+            </div>
+
+            <Preference:Control ID="PC1" runat="server"></Preference:Control>
 
         </asp:Panel>
 

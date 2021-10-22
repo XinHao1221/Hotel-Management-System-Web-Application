@@ -9,14 +9,10 @@ using System.Data.SqlClient;
 using System.Data;
 using Hotel_Management_System.Utility;
 
-namespace Hotel_Management_System.Front_Desk.Guest
+namespace Hotel_Management_System.Front_Desk.Reservation
 {
     public partial class EditPreference : System.Web.UI.UserControl
     {
-        // Create instance of IDEncryption class
-        IDEncryption en = new IDEncryption();
-        private String guestID;
-
         // Create connection to database
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -26,19 +22,13 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            guestID = Request.QueryString["ID"];
-            guestID = en.decryption(guestID);
 
-            //guestID = "G10000001";
-
-            if (!IsPostBack)
-            {
-                setPreference();
-            }
         }
 
-        private void setPreference()
+        public void setPreferences()
         {
+            string guestID = Session["GuestID"].ToString();
+
             // Open database connection
             conn = new SqlConnection(strCon);
             conn.Open();
@@ -50,83 +40,30 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
             cmdGetPreference.Parameters.AddWithValue("@ID", guestID);
 
+            SqlDataReader sdr = cmdGetPreference.ExecuteReader();
 
-            // Hold the data read from database
-            SqlDataAdapter sda = new SqlDataAdapter(cmdGetPreference);
-
-
-            DataTable dt = new DataTable();
-
-            // Assign the data from database into dataTable
-            sda.Fill(dt);
-
-            // Bind data into repeater to display
-            Repeater1.DataSource = dt;
-            Repeater1.DataBind();
-
-            if (dt.Rows.Count <= 0)
+            if (sdr.HasRows)
             {
-                lblNoItemFound.Visible = true;
+                RepeaterPreferences.DataSource = sdr;
+                RepeaterPreferences.DataBind();
+
+                lblNoPReference.Visible = false;
+            }
+            else
+            {
+                RepeaterPreferences.DataSource = null;
+                RepeaterPreferences.DataBind();
+
+                lblNoPReference.Visible = true;
             }
 
             conn.Close();
-
-            
-        }
-
-        protected void IBDeletePreference_Click(object sender, ImageClickEventArgs e)
-        {
-            RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
-
-            // Get preference for the selected item
-            String preferenceID = (item.FindControl("lblPreferenceID") as Label).Text;
-            String preference = (item.FindControl("lblPreference") as Label).Text;
-
-            // Set Preference ID to ViewState
-            ViewState["PreferenceID"] = preferenceID;
-
-            // Set delete message into popup
-            lblPopupDeleteContent.Text = "Preference: " + preference + "<br /><br />";
-
-            PopupCover.Visible = true;
-            PopupDelete.Visible = true;
-
-        }
-
-        protected void btnDeletePreference_Click(object sender, EventArgs e)
-        {
-            // Delete selected feature
-            String preferenceID = ViewState["PreferenceID"].ToString();
-
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            String deletePreference = "DELETE FROM Preference WHERE PreferenceID LIKE @ID";
-
-            SqlCommand cmdDeletePreference = new SqlCommand(deletePreference, conn);
-
-            cmdDeletePreference.Parameters.AddWithValue("@ID", preferenceID);
-
-            int i = cmdDeletePreference.ExecuteNonQuery();
-
-            conn.Close();
-
-            // Close popup message
-            PopupCover.Visible = false;
-            PopupDelete.Visible = false;
-
-            // Refresh preference list
-            setPreference();
-        }
-
-        protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            PopupCover.Visible = false;
-            PopupDelete.Visible = false;
         }
 
         protected void btnSavePreference_Click(object sender, EventArgs e)
         {
+            string guestID = Session["GuestID"].ToString();
+
             // Generate next preference id
             String nextPreferenceID = idGenerator.getNextID("PreferenceID", "Preference", "P");
 
@@ -152,7 +89,57 @@ namespace Hotel_Management_System.Front_Desk.Guest
             txtPreference.Text = null;
 
             // Refresh feature's list
-            setPreference();
+            setPreferences();
+        }
+
+        protected void IBDeletePreference_Click(object sender, ImageClickEventArgs e)
+        {
+            RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
+
+            // Get preference for the selected item
+            String preferenceID = (item.FindControl("lblPreferenceID") as Label).Text;
+            String preference = (item.FindControl("lblPreference") as Label).Text;
+
+            // Set Preference ID to ViewState
+            ViewState["PreferenceID"] = preferenceID;
+
+            // Set delete message into popup
+            lblPopupDeleteContent.Text = "Preference: " + preference + "<br /><br />";
+
+            PopupCover.Visible = true;
+            PopupDelete.Visible = true;
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupDelete.Visible = false;
+        }
+
+        protected void btnDeletePreference_Click(object sender, EventArgs e)
+        {
+            // Delete selected feature
+            String preferenceID = ViewState["PreferenceID"].ToString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            String deletePreference = "DELETE FROM Preference WHERE PreferenceID LIKE @ID";
+
+            SqlCommand cmdDeletePreference = new SqlCommand(deletePreference, conn);
+
+            cmdDeletePreference.Parameters.AddWithValue("@ID", preferenceID);
+
+            int i = cmdDeletePreference.ExecuteNonQuery();
+
+            conn.Close();
+
+            // Close popup message
+            PopupCover.Visible = false;
+            PopupDelete.Visible = false;
+
+            // Refresh preference list
+            setPreferences();
         }
     }
 }

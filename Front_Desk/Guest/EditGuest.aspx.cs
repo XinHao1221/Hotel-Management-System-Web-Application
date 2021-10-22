@@ -37,6 +37,8 @@ namespace Hotel_Management_System.Front_Desk.Guest
                 //PopupCover.Visible = false;
                 setData();
             }
+
+            
         }
 
         private void setData()

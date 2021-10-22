@@ -78,6 +78,24 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
         protected global::System.Web.UI.WebControls.DropDownList ddlYear;
 
         /// <summary>
+        /// PNReservationReportDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PNReservationReportDetails;
+
+        /// <summary>
+        /// lblNoRoomTypeFound control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoRoomTypeFound;
+
+        /// <summary>
         /// ChartRoomType control.
         /// </summary>
         /// <remarks>
@@ -94,5 +112,32 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater RepeaterRentedRoomType;
+
+        /// <summary>
+        /// lblNoFacilityFound control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoFacilityFound;
+
+        /// <summary>
+        /// ChartFacility control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart ChartFacility;
+
+        /// <summary>
+        /// RepeaterFacility control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterFacility;
     }
 }

@@ -102,57 +102,130 @@
                 </div>
             </asp:Panel>
 
-            <div style="clear:both; height:40px;"></div>
+            <div style="clear:both; height:20px;"></div>
 
-            <%--Display Reservation Details--%>
-            <div class="divReservationDetails">
-
-                 <%--Display Pie Chart--%>
-                <div style="text-align:center;">
-                    <asp:Chart ID="ChartRoomType" runat="server" width="700px" height="500px">
-                        <Series>
-                            <asp:Series Name="Series1"></asp:Series> 
-                        </Series>
-                        <ChartAreas>
-                            <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
-                        </ChartAreas>
-                        <Legends>
-                            <asp:Legend Alignment="Center" Docking="Bottom" IsTextAutoFit="false" Name="Defualt" LegendStyle="Row" />
-                        </Legends>
-                    </asp:Chart>
+            <%--Reservation Report--%>
+            <asp:Panel ID="PNReservationReportDetails" runat="server" Visible="false">
+                <%--Room Type--%>
+                <div class="formSectionStyle" style="margin-bottom:25px;">
+                    1. Room Type:-
                 </div>
 
-            </div>
+                <%--Display Reservation Details--%>
+                <div class="divReservationDetails">                
 
-            <%--Display Rented Room Type Quantity--%>
-            <div class="divPaymentDetails">
+                    <div style="width: 80%; margin: auto; clear:both;">
+                        <div class="subFormTableContent" style="padding-left:2%;">
+                            <asp:Label ID="lblNoRoomTypeFound" runat="server" Text="No record found." Visible="false"></asp:Label>
+                        </div>           
+                    </div>
 
-                <div style="height:20px;">&nbsp;</div>
+                     <%--Display Pie Chart--%>
+                    <div style="text-align:center;">
+                        <asp:Chart ID="ChartRoomType" runat="server" width="700px" height="500px">
+                            <Series>
+                                <asp:Series Name="Series1"></asp:Series> 
+                            </Series>
+                            <ChartAreas>
+                                <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                            </ChartAreas>
+                            <Legends>
+                                <asp:Legend Alignment="Center" Docking="Bottom" IsTextAutoFit="false" Name="Defualt" LegendStyle="Row" />
+                            </Legends>
+                        </asp:Chart>
+                    </div>
+                </div>
+
+                <%--Display Rented Room Type Quantity--%>
+                <div class="divPaymentDetails">
+
+                    <div style="height:20px;">&nbsp;</div>
                 
-                <div style="width:90%; margin-auto;">
+                    <div style="width:90%; margin-auto;">
 
-                    <asp:Repeater ID="RepeaterRentedRoomType" runat="server">
+                        <asp:Repeater ID="RepeaterRentedRoomType" runat="server">
 
-                        <ItemTemplate>
-                            <table style="width:90%; margin:auto;">
-                                <tr>
-                                    <td style="width:50%; text-align:left;" class="formLabel">
-                                        <asp:Label ID="lblRoomTypeName" runat="server" Text='<%# Eval("roomTypeName") %>'></asp:Label>
-                                    </td>
-                                    <td class="tableData" style="text-align:right;">
-                                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
-                                    </td>
-                                </tr>
-                            </table>
-                        </ItemTemplate>
+                            <ItemTemplate>
+                                <table style="width:90%; margin:auto;">
+                                    <tr>
+                                        <td style="width:50%; text-align:left;" class="formLabel">
+                                            <asp:Label ID="lblRoomTypeName" runat="server" Text='<%# Eval("roomTypeName") %>'></asp:Label>
+                                        </td>
+                                        <td class="tableData" style="text-align:right;">
+                                            <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ItemTemplate>
 
-                    </asp:Repeater>
+                        </asp:Repeater>
                     
 
+                    </div>
+
                 </div>
 
-            </div>
+                <div style="clear:both;"></div>
 
+                <%--Facility--%>
+                <div class="formSectionStyle" style="margin-bottom:25px;">
+                    2. Facility:-
+                </div>
+
+                <%--Display Reservation Details--%>
+                <div class="divReservationDetails">
+
+                    <div style="width: 80%; margin: auto; clear:both;">
+                        <div class="subFormTableContent" style="padding-left:2%;">
+                            <asp:Label ID="lblNoFacilityFound" runat="server" Text="No record found." Visible="false"></asp:Label>
+                        </div>           
+                    </div>
+
+                     <%--Display Pie Chart--%>
+                    <div style="text-align:center;">
+                        <asp:Chart ID="ChartFacility" runat="server" width="700px" height="500px">
+                            <Series>
+                                <asp:Series Name="Series1"></asp:Series> 
+                            </Series>
+                            <ChartAreas>
+                                <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                            </ChartAreas>
+                            <Legends>
+                                <asp:Legend Alignment="Center" Docking="Bottom" IsTextAutoFit="false" Name="Defualt" LegendStyle="Row" />
+                            </Legends>
+                        </asp:Chart>
+                    </div>
+                </div>
+
+                <%--Display Rented Room Type Quantity--%>
+                <div class="divPaymentDetails">
+
+                    <div style="height:20px;">&nbsp;</div>
+                
+                    <div style="width:90%; margin-auto;">
+
+                        <asp:Repeater ID="RepeaterFacility" runat="server">
+
+                            <ItemTemplate>
+                                <table style="width:90%; margin:auto;">
+                                    <tr>
+                                        <td style="width:50%; text-align:left;" class="formLabel">
+                                            <asp:Label ID="Label1" runat="server" Text='<%# Eval("facilityName") %>'></asp:Label>
+                                        </td>
+                                        <td class="tableData" style="text-align:right;">
+                                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("quantity") %>'></asp:Label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ItemTemplate>
+
+                        </asp:Repeater>
+                    
+
+                    </div>
+
+                </div>
+            </asp:Panel>
         </div>
 
     </div>

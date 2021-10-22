@@ -328,8 +328,21 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
             }
 
             // Set available room into the repeater
-            RepeaterAvailableRoom.DataSource = ar;
-            RepeaterAvailableRoom.DataBind();
+            if(ar.Count > 0)
+            {
+                RepeaterAvailableRoom.DataSource = ar;
+                RepeaterAvailableRoom.DataBind();
+
+                lblNoAvailableRoom.Visible = false;
+            }
+            else
+            {
+                RepeaterAvailableRoom.DataSource = null ;
+                RepeaterAvailableRoom.DataBind();
+
+                lblNoAvailableRoom.Visible = true;
+            }
+            
 
             // ********
             // Assign only specific roomType and specific date

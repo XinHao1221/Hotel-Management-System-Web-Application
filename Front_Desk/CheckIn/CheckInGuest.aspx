@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="CheckInGuest.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.CheckIn.CheckIn" %>
 
+<%@ Register TagPrefix="Preference" TagName="Control" Src="~/Front_Desk/Reservation/EditPreference.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
     <%--CSS--%>
     <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
@@ -419,6 +421,14 @@
             
         </div>
 
+        <div style="clear:both; height:30px;">&nbsp;</div>
+
+        <div class="formSectionStyle" style="margin-bottom:25px">
+            4. Preferences:-
+        </div>
+
+        <Preference:Control ID="PC1" runat="server"></Preference:Control>
+
         <div class="bottomBar">
 
             <center>
@@ -563,6 +573,14 @@
                             </div>
                         </AlternatingItemTemplate>
                     </asp:Repeater>
+
+                    <div style="width: 90%; margin: auto; clear:both;">
+
+                        <div class="subFormTableContent" style="">
+                            <asp:Label ID="lblNoAvailableRoom" runat="server" Text="No room found!" Visible="false"></asp:Label>
+                        </div>   
+            
+                    </div>
                 </div>
 
                 <div style="clear:both;">&nbsp;</div>

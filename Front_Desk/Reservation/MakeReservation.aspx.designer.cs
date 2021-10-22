@@ -195,6 +195,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.TextBox txtAdults1;
 
         /// <summary>
+        /// CVAdults1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CVAdults1;
+
+        /// <summary>
         /// ddlKids1 control.
         /// </summary>
         /// <remarks>
@@ -211,6 +220,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtKids1;
+
+        /// <summary>
+        /// CVKids1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CVKids1;
 
         /// <summary>
         /// lblExtraBed1 control.
@@ -285,6 +303,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.TextBox txtAdults2;
 
         /// <summary>
+        /// CVAdults2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CVAdults2;
+
+        /// <summary>
         /// ddlKids2 control.
         /// </summary>
         /// <remarks>
@@ -301,6 +328,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtKids2;
+
+        /// <summary>
+        /// CVKids2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CVKids2;
 
         /// <summary>
         /// lblExtraBed2 control.
@@ -384,6 +420,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.TextBox txtAdults3;
 
         /// <summary>
+        /// CVAdults3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CVAdults3;
+
+        /// <summary>
         /// ddlKids3 control.
         /// </summary>
         /// <remarks>
@@ -400,6 +445,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtKids3;
+
+        /// <summary>
+        /// CVKids3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CVKids3;
 
         /// <summary>
         /// lblExtraBed3 control.
@@ -526,6 +580,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNoItemFound;
+
+        /// <summary>
+        /// PC1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Hotel_Management_System.Front_Desk.Reservation.EditPreference PC1;
 
         /// <summary>
         /// btnSave control.

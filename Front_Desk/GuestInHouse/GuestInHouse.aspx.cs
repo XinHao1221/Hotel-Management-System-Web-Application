@@ -336,6 +336,7 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
             Label lblAdults = e.Item.FindControl("lblAdults") as Label;
             Label lblKids = e.Item.FindControl("lblKids") as Label;
             Label lblReservationID = e.Item.FindControl("lblReservationID") as Label;
+            Label lblStatus = e.Item.FindControl("lblStatus") as Label;
 
             // Format date base on date format on user's computer
             DateTime formatedCheckInDate = Convert.ToDateTime(lblCheckInDate.Text);
@@ -353,6 +354,21 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
             // Get total Kids
             lblKids.Text = getTotalKids(reservationRooms, durationOfStay);
+
+            // Check if overtime
+            // Get todays date
+            DateTime dateNow = DateTime.Now;
+            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
+            if(Convert.ToDateTime(todaysDate) > Convert.ToDateTime(lblCheckOutDate.Text))
+            {
+                lblStatus.Text = "Overtime";
+                lblStatus.Style["color"] = "red";
+            }
+            else
+            {
+                lblStatus.Text = "";
+            }
         }
 
         private List<ReservationRoom> getReservationRoom(string reservationID)

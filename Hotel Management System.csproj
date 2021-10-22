@@ -80,6 +80,7 @@
     <Content Include="Front_Desk\GuestInHouse\GuestInHouse.aspx" />
     <Content Include="Front_Desk\GuestInHouse\ReservationDetails.aspx" />
     <Content Include="Front_Desk\GuestInHouse\RoomMove.aspx" />
+    <Content Include="Front_Desk\Reservation\EditPreference.ascx" />
     <Content Include="Front_Desk\Reservation\Refund.aspx" />
     <Content Include="Front_Desk\Reservation\Reservation.aspx" />
     <Content Include="Front_Desk\Reservation\ViewReservation.aspx" />
@@ -225,6 +226,13 @@
     </Compile>
     <Compile Include="Front_Desk\GuestInHouse\RoomMove.aspx.designer.cs">
       <DependentUpon>RoomMove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Reservation\EditPreference.ascx.cs">
+      <DependentUpon>EditPreference.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Reservation\EditPreference.ascx.designer.cs">
+      <DependentUpon>EditPreference.ascx</DependentUpon>
     </Compile>
     <Compile Include="Front_Desk\Reservation\Refund.aspx.cs">
       <DependentUpon>Refund.aspx</DependentUpon>
@@ -634,6 +642,7 @@
     <Compile Include="Reporting\Reservation Report\ReservationReport.aspx.designer.cs">
       <DependentUpon>ReservationReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reporting\Reservation Report\ReservedFacility.cs" />
     <Compile Include="Reporting\Reservation Report\ReservedRoomType.cs" />
     <Compile Include="Reporting\Revenue Report\RevenueReport.aspx.cs">
       <DependentUpon>RevenueReport.aspx</DependentUpon>

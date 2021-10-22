@@ -270,6 +270,11 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
             setGuestInformation(reservation.guestID);
 
+            // Display guest's preferences
+            Session["GuestID"] = reservation.guestID;
+
+            PC1.setPreferences();
+
             // Format date base on date format on user's computer
             DateTime formatedCheckInDate = Convert.ToDateTime(reservation.checkInDate);
             DateTime formatedCheckOutDate = Convert.ToDateTime(reservation.checkOutDate);
@@ -536,8 +541,21 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             }
 
             // Set available room into the repeater
-            RepeaterAvailableRoom.DataSource = ar;
-            RepeaterAvailableRoom.DataBind();
+            if(ar.Count > 0)
+            {
+                RepeaterAvailableRoom.DataSource = ar;
+                RepeaterAvailableRoom.DataBind();
+
+                lblNoAvailableRoom.Visible = false;
+            }
+            else
+            {
+                RepeaterAvailableRoom.DataSource = null ;
+                RepeaterAvailableRoom.DataBind();
+
+                lblNoAvailableRoom.Visible = true;
+            }
+            
 
             // ********
             // Assign only specific roomType and specific date

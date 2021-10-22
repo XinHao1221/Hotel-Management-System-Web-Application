@@ -111,7 +111,7 @@
 
                 <asp:Panel ID="PNReportDetails" runat="server" Visible="false">
                     <div style="font-family: Helvetica, sans-serif; font-size:120%; font-weight:bold; margin-left:5%; margin-bottom:-40px;">
-                        Profit
+                        Profit 
                     </div>
                 
                     <%--Display Pie Chart--%>
