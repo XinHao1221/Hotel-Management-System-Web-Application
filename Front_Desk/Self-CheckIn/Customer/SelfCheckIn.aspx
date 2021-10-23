@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-</head>
+
+    <link rel="stylesheet" href="../../../StyleSheet/InputStyle.css" />
 
     <style>
         .welcomeMsg{
@@ -14,7 +15,6 @@
             font-family: Helvetica, sans-serif;
             margin-top:5%;
             font-weight:bold;
-            
         }
 
         .textBoxStyle{
@@ -37,11 +37,24 @@
         }
 
         .iconHelp{
-            width:2%;
-            height:2%;
+            width:15px;
+            height:15px;
             margin-left:1%;
         }
+
+        .iconHelp:hover{
+            cursor:pointer;
+            opacity:0.7;
+        }
+
+        .validatorStyle{
+            
+        }
+
     </style>
+</head>
+
+    
 
 <body>
     <form id="form1" runat="server">
@@ -59,15 +72,17 @@
                 </div>
                 <div>
                     <asp:TextBox ID="txtSecretPassword" runat="server" CssClass="textBoxStyle" placeholder="Enter Password Here..."></asp:TextBox>
+                    <br />
+                    <div style="font-family: Helvetica, sans-serif; width:50%; margin-left:auto; margin-right:auto; text-align:start;">
+                        <asp:CustomValidator ID="CVPassword" runat="server" ErrorMessage="CustomValidator" EnableClientScript="false" 
+                        OnServerValidate="CVPassword_ServerValidate" CssClass="validatorStyle"></asp:CustomValidator>
+                    </div>
+                    
                 </div>
                
                 <div style="height:50px;">&nbsp;</div>
 
-                <asp:Button ID="btnNext" runat="server" Text="Start" CssClass="nextBtnStyle"/>
-
-                <%--<div style="font-family: Helvetica, sans-serif; width:48%; margin-left:auto; margin-right:auto; font-size:80%; color:rgb(128 128 128);">
-                    Note: Password can be obtain from email.
-                </div>--%>
+                <asp:Button ID="btnNext" runat="server" Text="Start" CssClass="nextBtnStyle" OnClick="btnNext_Click"/>
 
             </div>
             

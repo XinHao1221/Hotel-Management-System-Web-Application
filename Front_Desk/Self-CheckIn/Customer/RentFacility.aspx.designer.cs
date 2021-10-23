@@ -11,7 +11,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 {
 
 
-    public partial class SelfCheckIn
+    public partial class RentFacility
     {
 
         /// <summary>
@@ -24,40 +24,13 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// lblGuestName control.
+        /// btnBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGuestName;
-
-        /// <summary>
-        /// Image1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image1;
-
-        /// <summary>
-        /// txtSecretPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSecretPassword;
-
-        /// <summary>
-        /// CVPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator CVPassword;
+        protected global::System.Web.UI.WebControls.Button btnBack;
 
         /// <summary>
         /// btnNext control.

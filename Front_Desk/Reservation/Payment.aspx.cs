@@ -8,6 +8,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Net.Mail;
+using System.IO;
 
 namespace Hotel_Management_System.Front_Desk.Reservation
 {
@@ -25,6 +27,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         // Create connection to database
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+        // Instantiate random number generator.  
+        private readonly Random _random = new Random();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -117,6 +122,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void btnPay_Click(object sender, EventArgs e)
         {
+            Reservation reservation = (Reservation)Session["ReservationDetails"];
+
             string nextReservationID = saveReservationDetails();
             saveReservedRoom(nextReservationID);
             saveRentedFacility(nextReservationID);
@@ -127,6 +134,16 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             Session["AvailableFacility"] = null;
             Session["AvailableFacility"] = null;
             Session["RentedFacilityList"] = null;
+
+            // Send Self-check-in link
+            // Check if check in date same as today's date
+            DateTime dateNow = DateTime.Now;
+            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
+            if (todaysDate != reservationUtility.formatDate(reservation.checkInDate))
+            {
+                sendSelfCheckInLink(nextReservationID);
+            }
 
             // ***** Redirect etc do here
         }
@@ -354,9 +371,122 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private string generateSecretPassword()
         {
-            return "ABC";
+            return (_random.Next(100000, 999999)).ToString();
         }
 
+        private void sendSelfCheckInLink(string nextReservationID)
+        {
+            // **** Important Note *****
+            // Please set up this three variable b4 sending email
+            // Set receiver email
+            string emailTo = getGuestEmailAddress();
+
+            // Check if guest have any emailAddress
+            if (emailTo.Length > 0)
+            {
+                // Set sender and receiver email
+                string emailFrom = "hmsagent1221@gmail.com";
+                string password = "Asdfg12345@";
+                try
+                {
+                    using (MailMessage mail = new MailMessage())
+                    {
+                        mail.From = new MailAddress(emailFrom);
+                        mail.To.Add(emailTo);
+                        mail.Subject = "Guest Satisfactory Survey";
+                        mail.Body = CreateEmailBody(nextReservationID);
+                        mail.IsBodyHtml = true;
+
+                        using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                        {
+                            smtp.Credentials = new System.Net.NetworkCredential(emailFrom, password);
+                            smtp.EnableSsl = true;
+                            smtp.Send(mail);
+                            //Label1.Text = "Survey Form Sent.";
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Label1.Text = ex.Message;
+                }
+            }
+
+        }
+
+        private string CreateEmailBody(string nextReservationID)
+        {
+
+            IDEncryption en = new IDEncryption();
+
+            string encryptedReservationID = en.encryption(nextReservationID);
+
+            string emailBody = String.Empty;
+
+            using (StreamReader reader = new StreamReader(Server.MapPath("SelfCheckIn (Email).html")))
+            {
+                emailBody = reader.ReadToEnd();
+            }
+
+            // Replace the text in Template.html
+            emailBody = emailBody.Replace("{fname}", "Koh Xin Hao");
+            emailBody = emailBody.Replace("{fage}", "18");
+            emailBody = emailBody.Replace("{femail}", "kohxinhao@gmail.com");
+            emailBody = emailBody.Replace("{fPassword}", getPasswordFromDatabase(nextReservationID));
+            emailBody = emailBody.Replace("{link}", "https://localhost:" + Application["LocalHostID"].ToString() + "/Front_Desk/Self-CheckIn/Customer/SelfCheckIn.aspx?ID=" + encryptedReservationID);
+
+            return emailBody;
+        }
+
+        private string getGuestEmailAddress()
+        {
+            string guestID = Session["GuestID"].ToString();
+
+            // Open connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getEmailAddress = "SELECT Email FROM Guest WHERE GuestID LIKE @ID";
+
+            SqlCommand cmdGetEmailAddress = new SqlCommand(getEmailAddress, conn);
+
+            cmdGetEmailAddress.Parameters.AddWithValue("@ID", guestID);
+
+            string emailAddress = "";
+            try
+            {
+                emailAddress = (string)cmdGetEmailAddress.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            conn.Close();
+
+            return emailAddress;
+        }
+
+        private string getPasswordFromDatabase(string nextReservationID)
+        {
+            string password = "";
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getPassowrd = "SELECT SecretPassword FROM Reservation WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdGetPassword = new SqlCommand(getPassowrd, conn);
+
+            cmdGetPassword.Parameters.AddWithValue("@ID", nextReservationID);
+
+            password = (string)cmdGetPassword.ExecuteScalar();
+
+            conn.Close();
+
+            return password;
+        }
         protected void formBtnCancel_Click(object sender, EventArgs e)
         {
             PopupCover.Visible = true;

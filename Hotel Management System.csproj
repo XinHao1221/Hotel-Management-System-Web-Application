@@ -83,8 +83,13 @@
     <Content Include="Front_Desk\Reservation\EditPreference.ascx" />
     <Content Include="Front_Desk\Reservation\Refund.aspx" />
     <Content Include="Front_Desk\Reservation\Reservation.aspx" />
+    <Content Include="Front_Desk\Reservation\SelfCheckIn %28Email%29.html" />
     <Content Include="Front_Desk\Reservation\ViewReservation.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Customer\Completed.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Customer\RentFacility.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Customer\SelectRoom.aspx" />
     <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckInStyle.css" />
     <Content Include="Front_Desk\Survey\SurveyForm.aspx" />
     <Content Include="History\History.aspx" />
     <Content Include="History\ViewSurveyResponse.aspx" />
@@ -141,6 +146,7 @@
     <Content Include="Image\arrow_left.png" />
     <Content Include="Image\arrow_right.png" />
     <Content Include="Image\Back.png" />
+    <Content Include="Image\bed.png" />
     <Content Include="Image\bed_icon.png" />
     <Content Include="Image\booking.png" />
     <Content Include="Image\cashback_icon.png" />
@@ -149,10 +155,16 @@
     <Content Include="Image\close.png" />
     <Content Include="Image\delete.png" />
     <Content Include="Image\delete_icon.png" />
+    <Content Include="Image\done_icon_black.png" />
+    <Content Include="Image\done_icon_green.png" />
+    <Content Include="Image\done_icon_grey.png" />
     <Content Include="Image\edit_blue_icon.png" />
     <Content Include="Image\edit_icon.png" />
     <Content Include="Image\edit_icon_green.png" />
     <Content Include="Image\edit_white_icon.png" />
+    <Content Include="Image\facility_icon_black.png" />
+    <Content Include="Image\facility_icon_green.png" />
+    <Content Include="Image\facility_icon_grey.png" />
     <Content Include="Image\filter_icon.png" />
     <Content Include="Image\help_icon.png" />
     <Content Include="Image\home_icon.png" />
@@ -256,6 +268,27 @@
     </Compile>
     <Compile Include="Front_Desk\Reservation\ViewReservation.aspx.designer.cs">
       <DependentUpon>ViewReservation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\Completed.aspx.cs">
+      <DependentUpon>Completed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\Completed.aspx.designer.cs">
+      <DependentUpon>Completed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\RentFacility.aspx.cs">
+      <DependentUpon>RentFacility.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\RentFacility.aspx.designer.cs">
+      <DependentUpon>RentFacility.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\SelectRoom.aspx.cs">
+      <DependentUpon>SelectRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\SelectRoom.aspx.designer.cs">
+      <DependentUpon>SelectRoom.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx.cs">
       <DependentUpon>SelfCheckIn.aspx</DependentUpon>
