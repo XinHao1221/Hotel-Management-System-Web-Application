@@ -31,11 +31,20 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
             if (!IsPostBack)
             {
-                setStayDetails();
+                //// Save link for previous page
+                //ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
 
-                displayReservedRoom();
+                //string previousPage = ViewState["PreviousPage"].ToString();
 
-                getRooms();
+                //if(!(("https://localhost:" + Application["LocalHostID"].ToString() + "/Front_Desk/Self-CheckIn/Customer/RentFacility.aspx") == previousPage.Substring(0, 72)))
+                //{
+                    setStayDetails();
+
+                    displayReservedRoom();
+
+                    getRooms();
+                //}
+                
             }
 
         }
@@ -98,8 +107,11 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-
-            Response.Redirect("RentFacility.aspx");
+            if (Page.IsValid)
+            {
+                Response.Redirect("RentFacility.aspx?ID=" + en.encryption(reservationID));
+            }
+            
         }
 
         protected void LBSelectRoom_Click(object sender, EventArgs e)
@@ -146,7 +158,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
             for (int i = 0; i < availableRooms.Count; i++)
             {
-                if (availableRooms[i].selected == false)
+                if (availableRooms[i].selected == false && availableRooms[i].houseKeepingStatus == "Clean")
                 {
                     ar.Add(availableRooms[i]);
                 }
@@ -176,7 +188,16 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
         protected void CVSelectedRoomNo_ServerValidate(object source, ServerValidateEventArgs args)
         {
+            Label lblSelectedRoomNo = (Label)((RepeaterItem)((Control)source).Parent).FindControl("lblSelectedRoomNo");
 
+            if (lblSelectedRoomNo.Text == "")
+            {
+                args.IsValid = false;
+            }
+            else
+            {
+                args.IsValid = true;
+            }
         }
 
         protected void RepeaterReservedRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -272,6 +293,132 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
             }
 
 
+        }
+
+        protected void IBClosePopUpBox_Click(object sender, ImageClickEventArgs e)
+        {
+            PopupCover.Visible = false;
+            PopupBoxSelectRoom.Visible = false;
+        }
+
+        protected void RepeaterAvailableRoom_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
+        }
+
+        protected void RepeaterAvailableRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Label lblRoomID = e.Item.FindControl("lblRoomID") as Label;
+            Label lblRoomFeatures = e.Item.FindControl("lblRoomFeatures") as Label;
+
+            // Display room features
+            lblRoomFeatures.Text = getRoomFeatures(lblRoomID.Text);
+        }
+
+        private string getRoomFeatures(string roomID)
+        {
+            string features;
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getRoomFeatures = "SELECT F.Title FROM Room R, Feature F WHERE R.RoomID LIKE F.RoomID AND R.RoomID LIKE @RoomID";
+
+            SqlCommand cmdGetRoomFeatures = new SqlCommand(getRoomFeatures, conn);
+
+            cmdGetRoomFeatures.Parameters.AddWithValue("@RoomID", roomID);
+
+            SqlDataReader sdr = cmdGetRoomFeatures.ExecuteReader();
+
+            features = "<ul>";
+
+            while (sdr.Read())
+            {
+                features += "<li>" + sdr["Title"].ToString() + "</li>";
+            }
+
+            features += "</ul>";
+
+            conn.Close();
+
+            return features;
+        }
+
+        protected void LBSelectRoomNo_Click(object sender, EventArgs e)
+        {
+            // Get the reference of repeater
+            RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
+
+            // Get the reference of reservedRoomTypes
+            List<ReservedRoomType> reservedRoomTypes = (List<ReservedRoomType>)Session["ReservedRoomType"];
+
+            // Get reference of ReservationDetail from view state
+            ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
+            List<ReservationRoom> reservedRooms = new List<ReservationRoom>();
+
+            // Get roomNo for the selected item
+            string roomID = (item.FindControl("lblRoomID") as Label).Text;
+            string roomNo = (item.FindControl("lblRoomNo") as Label).Text;
+
+            reservedRooms = reservation.reservedRoom;
+
+            // Set the selected room into reservedRooms list
+            for (int i = 0; i < reservedRooms.Count; i++)
+            {
+                // Get the correct item from the list
+                if (reservedRooms[i].reservationRoomID == ViewState["ReservationRoomID"].ToString())
+                {
+                    reservedRooms[i].roomID = roomID;
+                    reservedRooms[i].roomNo = roomNo;
+                }
+            }
+
+            // Assign the updated list into reservation object
+            reservation.reservedRoom = reservedRooms;
+
+            // Update room status to no available
+            List<AvailableRoom> ar = new List<AvailableRoom>();
+
+            for (int i = 0; i < reservedRoomTypes.Count; i++)
+            {
+                if (reservedRoomTypes[i].roomTypeID == lblPopupBoxRoomTypeID.Text && reservedRoomTypes[i].date == reservationUtility.formatDate(lblPopupBoxDate.Text))
+                {
+                    ar = reservedRoomTypes[i].availableRooms;
+
+                    for (int j = 0; j < ar.Count; j++)
+                    {
+                        if (ar[j].roomID == roomID)
+                        {
+                            ar[j].selected = true;
+                        }
+                    }
+
+                    reservedRoomTypes[i].availableRooms = ar;
+                }
+            }
+
+            // Reset previous selected roomNo to available
+            if (ViewState["SelectedRoomID"].ToString() != "")
+            {
+                for (int i = 0; i < ar.Count; i++)
+                {
+                    if (ar[i].roomID == ViewState["SelectedRoomID"].ToString())
+                    {
+                        ar[i].selected = false;
+                    }
+                }
+            }
+
+            // Close popup box
+            PopupBoxSelectRoom.Visible = false;
+            PopupCover.Visible = false;
+
+            // Refresh Reservation Room Repeater
+            RepeaterReservedRoom.DataSource = reservation.reservedRoom;
+            RepeaterReservedRoom.DataBind();
+
+            // Reset SelectedRoomNo
+            ViewState["SelectedRoomNo"] = "";
         }
     }
 }

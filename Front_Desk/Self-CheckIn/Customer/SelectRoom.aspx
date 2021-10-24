@@ -37,6 +37,34 @@
             float:left; 
             /*background-color:red;*/
         }
+
+        .selectRoomContainer{
+            border: 1px solid black;
+            background-color:rgb(248 248 248);
+            float:left;
+            width:48%; 
+            margin-right:2%; 
+            margin-bottom:2%; 
+            height:200px; 
+            overflow-y:auto;
+
+        }
+
+        .selectRoomContainerAlternate{
+            border: 1px solid black;
+            background-color:rgb(248 248 248);
+            float:left;
+            width:48%; 
+            margin-bottom:2%; 
+            height:200px; 
+            overflow-y:auto;
+        }
+
+        .selectRoomContainer:hover, .selectRoomContainerAlternate:hover{
+            cursor:pointer;
+            opacity:0.7;
+            box-shadow: 3px 3px 5px rgb(149 149 149);
+        }
     </style>
 
 </head>
@@ -195,7 +223,7 @@
                                                     <asp:Label ID="lblSelectedRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
                                                     <asp:Label ID="lblSelectedRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
                                                     <asp:LinkButton ID="LBSelectRoom" runat="server" ForeColor="#00ce1b" OnClick="LBSelectRoom_Click">Select Room</asp:LinkButton>
-                                        
+
                                                     <asp:CustomValidator ID="CVSelectedRoomNo" runat="server" ErrorMessage="Please select a room." CssClass="validatorStyle" 
                                                         ValidationGroup="next" ValidateEmptyText="true" EnableClientScript="false" OnServerValidate="CVSelectedRoomNo_ServerValidate">
                                                     </asp:CustomValidator>
@@ -254,10 +282,12 @@
 
                 <div style="height:60px;">&nbsp;
 
-                    <asp:Button ID="btnNext" runat="server" Text="Next" CssClass="nextBtnStyle" OnClick="btnNext_Click"/>
+                    <asp:Button ID="btnNext" runat="server" Text="Next" CssClass="nextBtnStyle" OnClick="btnNext_Click" ValidationGroup="next"/>
 
                 </div>
             </div>
+
+            <div style="clear:both; height:70px;">&nbsp;</div>
 
         </div>
 
@@ -276,9 +306,9 @@
                         <asp:ImageButton ID="IBClosePopUpBox" runat="server" ImageUrl="~/Image/delete.png" CssClass="popupBoxCloseIcon" ToolTip="Close" OnClick="IBClosePopUpBox_Click"/>
                     </div>
                 </div>
-
-                <div style="clear:both;"></div>
                 
+                <div style="clear:both;"></div>
+
                 <%-- Popup Window Body --%>
                 <div class="popupBoxBody">
                     <div style="width:100%; margin-top:-10px;">
@@ -313,88 +343,68 @@
 
                     <div style="clear:both; height:10px;">&nbsp;</div>
 
-                    <div style="width:100%; margin:auto;">
-                        <div style="float:left; width:8%; text-align:center; font-size:80%;" class="subFormRepeaterHeader">
-                            No
-                        </div>
-                        <div style="float:left; width:15%; font-size:80%;" class="subFormRepeaterHeader">
-                            Room No 
-                        </div>
-                        <div style="float:left; width:52%; font-size:80%;" class="subFormRepeaterHeader">
-                            Room Features
-                        </div>
-                        <div style="float:left; width:7%; font-size:80%; text-align:right;" class="subFormRepeaterHeader">
-                            Floor
-                        </div>
-                        <div style="float:left; width:5%; font-size:80%; text-align:right;" class="subFormRepeaterHeader">
-                            &nbsp;
-                        </div>
-                        <div style="float:left; width:10%; font-size:80%;" class="subFormRepeaterHeader">
-                            Status
-                        </div>
-                        <div style="float:left; width:3%; font-size:80%;" class="subFormRepeaterHeader">
-                            &nbsp;
-                        </div>
-                    </div>
-
                     <asp:Repeater ID="RepeaterAvailableRoom" runat="server" OnItemCommand="RepeaterAvailableRoom_ItemCommand" OnItemDataBound="RepeaterAvailableRoom_ItemDataBound">
 
                         <ItemTemplate>
-                            <div style="float:left; width:8%; text-align:center; font-size:75%;" class="subFormTableContent">
-                                <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
-                            </div>
-                            <div style="float:left; width:15%; font-size:75%;" class="subFormTableContent">
-                                <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
-                                <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
-                            </div>
-                            <div style="float:left; width:52%; font-size:75%;" class="subFormTableContent">
-                                <asp:Label ID="lblRoomFeatures" runat="server" Text=""></asp:Label>&nbsp;
-                            </div>
-                            <div style="float:left; width:7%; font-size:75%; text-align:right;" class="subFormTableContent">
-                                <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("floorNumber") %>'></asp:Label>
-                            </div>
-                            <div style="float:left; width:5%; font-size:75%; text-align:right;" class="subFormTableContent">
-                                &nbsp;
-                            </div>
-                            <div style="float:left; width:10%; font-size:75%;" class="subFormTableContent">
-                                <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>&nbsp;
-                            </div>
-                            <div style="float:left; width:3%; padding-top:10px; padding-bottom:10px;" class="subFormTableContent">
-                                <div style="line-height:20px; height:20px;">
-                                    <asp:ImageButton ID="IBSelectRoom" runat="server" OnClick="IBSelectRoom_Click" ImageUrl="~/Image/checked_icon.png" CssClass="subFormIcon" ToolTip="Select Room" Width="20px" Height="20px"/>
+
+                            <asp:LinkButton ID="LBSelectRoomNo" runat="server" OnClick="LBSelectRoomNo_Click" CssClass="optionContainer selectRoomContainer">
+                                <div style="">
+
+                                    <div style="padding:5%;">
+                                        <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
+
+                                        <div style="font-weight:bold; margin-bottom:3%;">
+                                            <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
+                                        </div>
+
+                                        <div style="font-size:90%;">
+                                            Floor: 
+                                            <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("floorNumber") %>'></asp:Label>
+                                        </div>
+                                    
+                                        <div style="font-size:90%;">
+                                            <asp:Label ID="lblRoomFeatures" runat="server" Text=""></asp:Label>
+                                        </div>
+                                    
+                                    </div>
                                 </div>
-                            </div>
+                            </asp:LinkButton>
+                            
+                                
+                           
+                            
                         </ItemTemplate>
 
                         <AlternatingItemTemplate>
 
-                            <div style="float:left; width:8%; text-align:center; font-size:75%;" class="subFormTableContentAlternate">
-                                <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
-                            </div>
-                            <div style="float:left; width:15%; font-size:75%;" class="subFormTableContentAlternate">
-                                <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
-                                <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
-                            </div>
-                            <div style="float:left; width:52%; font-size:75%;" class="subFormTableContentAlternate">
-                                <asp:Label ID="lblRoomFeatures" runat="server" Text=""></asp:Label>&nbsp;
-                            </div>
-                            <div style="float:left; width:7%; font-size:75%; text-align:right;" class="subFormTableContentAlternate">
-                                <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("floorNumber") %>'></asp:Label>
-                            </div>
-                            <div style="float:left; width:5%; font-size:75%; text-align:right;" class="subFormTableContentAlternate">
-                                &nbsp;
-                            </div>
-                            <div style="float:left; width:10%; font-size:80%;" class="subFormTableContentAlternate">
-                                <asp:Label ID="lblHousekeepingStatus" runat="server" Text='<%# Eval("housekeepingStatus") %>'></asp:Label>
-                            </div>
-                            <div style="float:left; width:3%; padding-top:10px; padding-bottom:10px;" class="subFormTableContentAlternate">
-                                <div style="line-height:20px; height:20px;">
+                            <asp:LinkButton ID="LBSelectRoomNo" runat="server" OnClick="LBSelectRoomNo_Click" CssClass="optionContainer selectRoomContainerAlternate">
 
-                                    <asp:ImageButton ID="IBSelectRoom" runat="server" OnClick="IBSelectRoom_Click" ImageUrl="~/Image/checked_icon.png" CssClass="subFormIcon" ToolTip="Select Room" Width="20px" Height="20px"/>
-                            
+                                <div style="">
+
+                                    <div style="padding:5%;">
+                                        <asp:Label ID="lblRoomID" runat="server" Text='<%# Eval("roomID") %>' Visible="false"></asp:Label>
+
+                                        <div style="font-weight:bold; margin-bottom:3%;">
+                                            <asp:Label ID="lblRoomNo" runat="server" Text='<%# Eval("roomNo") %>'></asp:Label>
+                                        </div>
+
+                                        <div style="font-size:90%;">
+                                            Floor: 
+                                            <asp:Label ID="lblFloorNumber" runat="server" Text='<%# Eval("floorNumber") %>'></asp:Label>
+                                        </div>
+                                    
+                                        <div style="font-size:90%;">
+                                            <asp:Label ID="lblRoomFeatures" runat="server" Text=""></asp:Label>
+                                        </div>
+                                    
+                                    </div>
                                 </div>
-                            </div>
+
+                            </asp:LinkButton>
+                            
+
                         </AlternatingItemTemplate>
+
                     </asp:Repeater>
 
                     <div style="width: 90%; margin: auto; clear:both;">

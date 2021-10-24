@@ -85,9 +85,11 @@
     <Content Include="Front_Desk\Reservation\Reservation.aspx" />
     <Content Include="Front_Desk\Reservation\SelfCheckIn %28Email%29.html" />
     <Content Include="Front_Desk\Reservation\ViewReservation.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Customer\CheckedIn.html" />
     <Content Include="Front_Desk\Self-CheckIn\Customer\Completed.aspx" />
     <Content Include="Front_Desk\Self-CheckIn\Customer\RentFacility.aspx" />
     <Content Include="Front_Desk\Self-CheckIn\Customer\SelectRoom.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn%28Error%29.aspx" />
     <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx" />
     <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckInStyle.css" />
     <Content Include="Front_Desk\Survey\SurveyForm.aspx" />
@@ -162,6 +164,7 @@
     <Content Include="Image\edit_icon.png" />
     <Content Include="Image\edit_icon_green.png" />
     <Content Include="Image\edit_white_icon.png" />
+    <Content Include="Image\error_icon.png" />
     <Content Include="Image\facility_icon_black.png" />
     <Content Include="Image\facility_icon_green.png" />
     <Content Include="Image\facility_icon_grey.png" />
@@ -173,6 +176,8 @@
     <Content Include="Image\pre-loader.gif" />
     <Content Include="Image\search_icon.png" />
     <Content Include="Image\selection_icon.png" />
+    <Content Include="Image\select_icon.png" />
+    <Content Include="Image\success_icon.png" />
     <Content Include="Image\survey_icon.png" />
     <Content Include="Image\suspend_icon.png" />
     <Content Include="Reporting\Hotel Report\HotelReport.aspx" />
@@ -289,6 +294,13 @@
     </Compile>
     <Compile Include="Front_Desk\Self-CheckIn\Customer\SelectRoom.aspx.designer.cs">
       <DependentUpon>SelectRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn%28Error%29.aspx.cs">
+      <DependentUpon>SelfCheckIn%28Error%29.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn%28Error%29.aspx.designer.cs">
+      <DependentUpon>SelfCheckIn%28Error%29.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx.cs">
       <DependentUpon>SelfCheckIn.aspx</DependentUpon>

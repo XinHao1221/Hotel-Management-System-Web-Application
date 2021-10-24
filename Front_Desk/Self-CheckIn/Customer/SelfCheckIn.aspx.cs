@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Data;
 using Hotel_Management_System.Utility;
 using Hotel_Management_System.Front_Desk.CheckIn;
+using Hotel_Management_System.Front_Desk.Reservation;
 
 namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 {
@@ -117,20 +118,101 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
         {
             if (Page.IsValid)
             {
-                Session["ReservationDetails"] = new ReservationDetail();
+                if (isToday())
+                {
+                    if (!isCheckedIn())
+                    {
+                        Session["ReservationDetails"] = new ReservationDetail();
 
-                Session["ReservedRoomType"] = new List<ReservedRoomType>();
+                        Session["ReservedRoomType"] = new List<ReservedRoomType>();
 
-                getReservationDetails();
+                        getReservationDetails();
 
-                getReservedRoom();
+                        getReservedRoom();
 
-                getRentedFacilityList();
+                        getRentedFacilityList();
 
-                Response.Redirect("SelectRoom.aspx?ID=" + en.encryption(reservationID));
+                        // get facility availability
+                        Session["AvailableFacility"] = new List<AvailableFacility>();
+                        Session["AvailableFacility"] = getFacilityAvailability("");
+
+                        Response.Redirect("SelectRoom.aspx?ID=" + en.encryption(reservationID));
+                    }
+                    else
+                    {
+                        Response.Redirect("CheckedIn.html");
+                    }
+                }
+                else
+                {
+                    Response.Redirect("SelfCheckIn(Error).aspx?Date=" + ViewState["CheckInDate"].ToString());
+                }
+                
+                
             }
             
         }
+
+        private Boolean isToday()
+        {
+            // Check if check in date same as today's date
+
+            DateTime dateNow = DateTime.Now;
+            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
+            // Get Check in date
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getCheckInDate = "SELECT CheckInDate FROM Reservation WHERE ReservationID LIKE @ReservationID";
+
+            SqlCommand cmdGetCheckInDate = new SqlCommand(getCheckInDate, conn);
+
+            cmdGetCheckInDate.Parameters.AddWithValue("@ReservationID", reservationID);
+
+            string checkInDate = (string)cmdGetCheckInDate.ExecuteScalar();
+
+            conn.Close();
+
+            if(todaysDate == checkInDate)
+            {
+                return true;
+            }
+            else
+            {
+                // Store check in date into ViewState
+                ViewState["CheckInDate"] = Convert.ToDateTime(checkInDate).ToShortDateString().ToString();
+
+                return false;
+            }
+        }
+
+        private Boolean isCheckedIn()
+        {
+            // Check if guest already checked in
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getReservationStatus = "SELECT Status FROM Reservation WHERE ReservationID LIKE @ReservationID";
+
+            SqlCommand cmdGetReservationStatus = new SqlCommand(getReservationStatus, conn);
+
+            cmdGetReservationStatus.Parameters.AddWithValue("@ReservationID", reservationID);
+
+            string status = (string)cmdGetReservationStatus.ExecuteScalar();
+
+            conn.Close();
+
+            if(status == "Check In")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         private void getReservationDetails()
         {
@@ -314,6 +396,95 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
             }
 
             reservation.rentedFacility = reservationFacilities;
+        }
+
+        private List<AvailableFacility> getFacilityAvailability(string date)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            // Query to get facility availability
+            string getFacility = "SELECT F.FacilityID, F.FacilityName, F.Quantity, F.Price, F.PriceType " +
+                                "FROM Facility F " +
+                                "WHERE F.Status LIKE 'Active'";
+
+            SqlCommand cmdGetFacility = new SqlCommand(getFacility, conn);
+
+            // Hold the data read from database
+            var sdr = cmdGetFacility.ExecuteReader();
+
+            // Get reference of AvailableFacility stored inside session
+            List<AvailableFacility> availableFacility = new List<AvailableFacility>();
+
+            // set all data into list object 
+            while (sdr.Read())
+            {
+
+                AvailableFacility af = new AvailableFacility(
+                    sdr.GetString(sdr.GetOrdinal("FacilityID")),
+                    sdr.GetString(sdr.GetOrdinal("FacilityName")),
+                    sdr.GetInt32(sdr.GetOrdinal("Quantity")),
+                    Convert.ToDouble(sdr.GetDecimal(sdr.GetOrdinal("Price"))),
+                    sdr.GetString(sdr.GetOrdinal("PriceType")),
+                    "Available",
+                    "No");
+
+                availableFacility.Add(af);
+            }
+
+            conn.Close();
+
+            if (date != "")
+            {
+                // Reduce facility quantity there have already been selected by the user.
+                for (int i = 0; i < availableFacility.Count; i++)
+                {
+
+                    conn = new SqlConnection(strCon);
+                    conn.Open();
+
+                    AvailableFacility af = availableFacility.ElementAt(i);
+
+                    int qty = getFacilityRentedQty(af.facilityID, date);
+
+                    af.availableQty -= qty;
+
+                    if (af.availableQty == 0)
+                    {
+                        af.status = "Unavailable";
+                    }
+
+                    conn.Close();
+                }
+            }
+
+            return availableFacility;
+        }
+
+        public int getFacilityRentedQty(string facilityID, string date)
+        {
+
+            // Query to get the quantity of facility have reserved by other guest
+            String getReservedFacility = "SELECT FacilityID, COUNT(FacilityID) AS RentedQty " +
+                                        "FROM ReservationFacility " +
+                                        "WHERE DateRented LIKE @Date AND FacilityID LIKE @FacilityID " +
+                                        "GROUP BY FacilityID ";
+
+            SqlCommand cmdGetReservedFacility = new SqlCommand(getReservedFacility, conn);
+
+            cmdGetReservedFacility.Parameters.AddWithValue("@FacilityID", facilityID);
+            cmdGetReservedFacility.Parameters.AddWithValue("@Date", date);
+
+            // Hold the data read from database
+            SqlDataReader sdr = cmdGetReservedFacility.ExecuteReader();
+
+            if (sdr.Read())
+            {
+                return sdr.GetInt32(sdr.GetOrdinal("RentedQty"));
+            }
+
+            // If not any reservation found under the category
+            return 0;
         }
     }
 }
