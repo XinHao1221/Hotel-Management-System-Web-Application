@@ -358,6 +358,11 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
                 lblStatusDisplay.Text = "Checked In";
                 lblStatusDisplay.Style["color"] = "#00ce1b";
             }
+            else if(lblStatus.Text == "Check In")
+            {
+                lblStatusDisplay.Text = "Check In";
+                lblStatusDisplay.Style["color"] = "rgb(194, 110, 0)";
+            }
             else
             {
                 lblStatusDisplay.Text = "Pending";
@@ -423,7 +428,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             if(checkInStatus == "Checked In")
             {
                 Response.Redirect("../GuestInHouse/ReservationDetails.aspx?ID=" + reservationID);
-            }else
+            }
+            else if(checkInStatus == "Check In")
+            {
+                Response.Redirect("../Self-CheckIn/Staff/CheckInGuest(SelfCheckIn).aspx?ID=" + reservationID);
+            }
+            else
             {
                 // Redirect to check in
                 Response.Redirect("CheckInGuest.aspx?ID=" + reservationID);

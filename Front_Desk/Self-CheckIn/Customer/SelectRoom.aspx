@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SelectRoom.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.SelectRoom" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true"MaintainScrollPositionOnPostback="true"  CodeBehind="SelectRoom.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.SelectRoom" %>
 
 <!DOCTYPE html>
 

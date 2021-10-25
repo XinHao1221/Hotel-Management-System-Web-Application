@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Completed.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.Completed" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="Completed.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.Completed" %>
 
 <!DOCTYPE html>
 

@@ -92,6 +92,9 @@
     <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn%28Error%29.aspx" />
     <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx" />
     <Content Include="Front_Desk\Self-CheckIn\Customer\SelfCheckInStyle.css" />
+    <Content Include="Front_Desk\Self-CheckIn\Staff\CheckInConfirmation.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Staff\CheckInGuest%28SelfCheckIn%29.aspx" />
+    <Content Include="Front_Desk\Self-CheckIn\Staff\EquipmentCheckList.aspx" />
     <Content Include="Front_Desk\Survey\SurveyForm.aspx" />
     <Content Include="History\History.aspx" />
     <Content Include="History\ViewSurveyResponse.aspx" />
@@ -308,6 +311,27 @@
     </Compile>
     <Compile Include="Front_Desk\Self-CheckIn\Customer\SelfCheckIn.aspx.designer.cs">
       <DependentUpon>SelfCheckIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Staff\CheckInConfirmation.aspx.cs">
+      <DependentUpon>CheckInConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Staff\CheckInConfirmation.aspx.designer.cs">
+      <DependentUpon>CheckInConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Staff\CheckInGuest%28SelfCheckIn%29.aspx.cs">
+      <DependentUpon>CheckInGuest%28SelfCheckIn%29.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Staff\CheckInGuest%28SelfCheckIn%29.aspx.designer.cs">
+      <DependentUpon>CheckInGuest%28SelfCheckIn%29.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Staff\EquipmentCheckList.aspx.cs">
+      <DependentUpon>EquipmentCheckList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\Self-CheckIn\Staff\EquipmentCheckList.aspx.designer.cs">
+      <DependentUpon>EquipmentCheckList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front_Desk\Survey\SurveyForm.aspx.cs">
       <DependentUpon>SurveyForm.aspx</DependentUpon>
@@ -736,9 +760,7 @@
     </None>
     <Content Include="Web.sitemap" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Front_Desk\Self-CheckIn\Staff\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

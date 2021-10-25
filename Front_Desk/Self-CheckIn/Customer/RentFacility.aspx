@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RentFacility.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.RentFacility" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="RentFacility.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.RentFacility" %>
 
 <!DOCTYPE html>
 

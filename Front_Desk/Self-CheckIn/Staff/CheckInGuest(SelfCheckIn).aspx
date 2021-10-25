@@ -1,14 +1,15 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="CheckInGuest.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.CheckIn.CheckIn" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="CheckInGuest(SelfCheckIn).aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Staff.CheckInGuest_SelfCheckIn_" %>
 
 <%@ Register TagPrefix="Preference" TagName="Control" Src="~/Front_Desk/Reservation/EditPreference.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
+
     <%--CSS--%>
-    <link rel="stylesheet" href="../../StyleSheet/InputStyle.css" />
-    <link rel="stylesheet" href="../../StyleSheet/PopupWindow.css" />
-    <link rel="stylesheet" href="../../StyleSheet/PopupBox.css" />
-    <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
-    <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
+    <link rel="stylesheet" href="../../../StyleSheet/InputStyle.css" />
+    <link rel="stylesheet" href="../../../StyleSheet/PopupWindow.css" />
+    <link rel="stylesheet" href="../../../StyleSheet/PopupBox.css" />
+    <link rel="stylesheet" href="../../../StyleSheet/SubFormStyle.css" />
+    <link rel="stylesheet" href="../../../StyleSheet/RepeaterTable.css" />
     
     <style>
         .reservationFormPanel{
@@ -35,6 +36,7 @@
         }
     </style>
 
+
     <div>
 
         <%-- Page content --%>
@@ -46,21 +48,11 @@
             <div style="margin:20px 0px 20px 0px; margin-left:2.5%;">
                 <div class="formBackBtn" style="float:left;" tooltip="save">
 
-                    <img src="../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
+                    <img src="../../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
                     <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
                         Back
                     </div>
                         
-                </div>
-            </div>
-        </asp:LinkButton>
-
-        <asp:LinkButton ID="LBRefund" runat="server" CssClass="divLBStyle" OnClick="LBRefund_Click">
-            <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px; background-color:red;">
-                <div style="float:left; margin:12px 0px 0px 10px; font-size:15px;">
-                    <div style="font-size:15px; margin:0px 0px 10px 15px;">
-                            Refund
-                    </div>
                 </div>
             </div>
         </asp:LinkButton>
@@ -236,6 +228,7 @@
         <div class="formSectionStyle" style="margin-bottom:25px">
             3. Rented Facility:-
         </div>
+
 
         <div style="width:86%; margin:auto;">
             <asp:LinkButton ID="LBCheckFacilityAvailability" runat="server" OnClick="LBCheckFacilityAvailability_Click" CssClass="tableData">check room availability</asp:LinkButton>
@@ -776,6 +769,7 @@
         <div style="clear:both; width:100%; height:70px;">
             &nbsp;
         </div>
+
 
     </div>
 

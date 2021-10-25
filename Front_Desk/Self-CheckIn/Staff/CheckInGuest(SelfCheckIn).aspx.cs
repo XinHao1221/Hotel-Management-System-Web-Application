@@ -9,10 +9,11 @@ using System.Data;
 using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
 using Hotel_Management_System.Front_Desk.Reservation;
+using Hotel_Management_System.Front_Desk.CheckIn;
 
-namespace Hotel_Management_System.Front_Desk.CheckIn
+namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Staff
 {
-    public partial class CheckIn : System.Web.UI.Page
+    public partial class CheckInGuest_SelfCheckIn_ : System.Web.UI.Page
     {
         // Create connection to database
         SqlConnection conn;
@@ -28,8 +29,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //reservationID = en.decryption(Request.QueryString["ID"]);
 
-            reservationID = en.decryption(Request.QueryString["ID"]);
+            reservationID = "RS10000010";
 
             if (!IsPostBack)
             {
@@ -130,11 +132,11 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             {
                 if (sdr["ExtraBed"].ToString() == "True")
                 {
-                    rr = new ReservationRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), Convert.ToDouble(sdr["ExtraBedCharges"]), sdr["Date"].ToString());
+                    rr = new ReservationRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), sdr["RoomID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), Convert.ToDouble(sdr["ExtraBedCharges"]), sdr["Date"].ToString());
                 }
                 else
                 {
-                    rr = new ReservationRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), -1, sdr["Date"].ToString());
+                    rr = new ReservationRoom(sdr["ReservationRoomID"].ToString(), sdr["RoomTypeID"].ToString(), sdr["RoomID"].ToString(), Convert.ToInt32(sdr["Adults"]), Convert.ToInt32(sdr["Kids"]), Convert.ToDouble(sdr["RoomPrice"]), -1, sdr["Date"].ToString());
                 }
 
                 reservedRooms.Add(rr);
@@ -149,6 +151,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         private List<ReservationFacility> getReservationFacility()
         {
             List<ReservationFacility> reservationFacility = new List<ReservationFacility>();
+
+            // Get reference of ReservationDetail from view state
+            ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
 
             conn = new SqlConnection(strCon);
             conn.Open();
@@ -165,9 +170,24 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
             while (sdr.Read())
             {
-                rf = new ReservationFacility(sdr["ReservationFacilityID"].ToString(), sdr["FacilityID"].ToString(), Convert.ToDouble(sdr["Price"]), sdr["DateRented"].ToString(), Convert.ToInt32(sdr["Group"]));
+                // Check if the facility is newly added
+                if(sdr["DateCreated"].ToString() == reservation.checkInDate)
+                {
+                    int temp = Convert.ToInt32(sdr["Group"]);
 
-                reservationFacility.Add(rf);
+                    rf = new ReservationFacility("", sdr["FacilityID"].ToString(), Convert.ToDouble(sdr["Price"]), sdr["DateRented"].ToString(), Convert.ToInt32(sdr["Group"]), true);
+
+                    reservationFacility.Add(rf);
+                }
+                else
+                {
+                    int temp = Convert.ToInt32(sdr["Group"]);
+
+                    rf = new ReservationFacility(sdr["ReservationFacilityID"].ToString(), sdr["FacilityID"].ToString(), Convert.ToDouble(sdr["Price"]), sdr["DateRented"].ToString(), Convert.ToInt32(sdr["Group"]), false);
+
+                    reservationFacility.Add(rf);
+                }
+                
             }
 
             conn.Close();
@@ -249,7 +269,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
                     returnDate = reservationUtility.getNextDate(returnDate);
 
                     ReservationFacility rf = new ReservationFacility(temp[i].reservationFacilityID, temp[i].facilityID,
-                                                                            qty, temp[i].price, rentDate, returnDate);
+                                                                            qty, temp[i].price, rentDate, returnDate, temp[i].group, temp[i].newlyAdded);
 
                     reservationFacilities.Add(rf);
 
@@ -338,6 +358,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             for (int i = 0; i < reservedRooms.Count; i++)
             {
                 getAvailableRooms(reservedRooms[i].roomTypeID, reservedRooms[i].date);
+                getSelectedRoom(reservedRooms[i].roomTypeID, reservedRooms[i].date);
             }
         }
 
@@ -348,16 +369,16 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             int condition = 0;
 
             // Check if the room avaiability has been retrieved
-            for(int i = 0; i < reservedRoomTypes.Count; i++)
+            for (int i = 0; i < reservedRoomTypes.Count; i++)
             {
-                if(reservedRoomTypes[i].roomTypeID == roomTypeID && reservedRoomTypes[i].date == date)
+                if (reservedRoomTypes[i].roomTypeID == roomTypeID && reservedRoomTypes[i].date == date)
                 {
                     condition = 1;
                 }
             }
 
             // If room availability have not retrieved
-            if(condition != 1)
+            if (condition != 1)
             {
                 conn = new SqlConnection(strCon);
                 conn.Open();
@@ -375,13 +396,13 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
                 SqlDataReader sdr = cmdGetAvailableRoom.ExecuteReader();
 
-                List<AvailableRoom> availableRooms = new List<AvailableRoom>();
+                List<CheckIn.AvailableRoom> availableRooms = new List<CheckIn.AvailableRoom>();
 
                 ReservedRoomType rrt = null;
 
                 while (sdr.Read())
                 {
-                    AvailableRoom ar = new AvailableRoom(sdr["RoomID"].ToString());
+                    CheckIn.AvailableRoom ar = new CheckIn.AvailableRoom(sdr["RoomID"].ToString());
 
                     availableRooms.Add(ar);
                 }
@@ -392,8 +413,54 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
                 conn.Close();
             }
-            
 
+
+        }
+
+        private void getSelectedRoom(string roomTypeID, string date)
+        {
+            List<ReservedRoomType> reservedRoomTypes = (List<ReservedRoomType>)Session["ReservedRoomType"];
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getSelectedRoom = "SELECT RoomID FROM ReservationRoom WHERE ReservationID LIKE @ReservationID " +
+                                    "AND RoomTypeID LIKE @RoomTypeID AND Date LIKE @Date";
+
+            SqlCommand cmdGetSelectedRoom = new SqlCommand(getSelectedRoom, conn);
+
+            cmdGetSelectedRoom.Parameters.AddWithValue("@ReservationID", reservationID);
+            cmdGetSelectedRoom.Parameters.AddWithValue("@RoomTypeID", roomTypeID);
+            cmdGetSelectedRoom.Parameters.AddWithValue("@Date", date);
+
+            SqlDataReader sdr = cmdGetSelectedRoom.ExecuteReader();
+
+            // Get available room for specific room type
+            List<CheckIn.AvailableRoom> availableRooms = new List<CheckIn.AvailableRoom>();
+
+            for (int i = 0; i < reservedRoomTypes.Count; i++)
+            {
+                if(reservedRoomTypes[i].roomTypeID == roomTypeID)
+                {
+                    availableRooms = reservedRoomTypes[i].availableRooms;
+                }
+            }
+
+            while (sdr.Read())
+            {
+                availableRooms.Add(new CheckIn.AvailableRoom(sdr["RoomID"].ToString(), true));
+            }
+
+            conn.Close();
+
+            // Set the updated available room list into object
+            for (int i = 0; i < reservedRoomTypes.Count; i++)
+            {
+                if (reservedRoomTypes[i].roomTypeID == roomTypeID)
+                {
+                    reservedRoomTypes[i].availableRooms = availableRooms;
+                }
+            }
         }
 
         protected void LBBack_Click(object sender, EventArgs e)
@@ -439,6 +506,18 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
             List<ReservationFacility> reservationFacilities = reservationDetails.rentedFacility;
 
+            // Check if the facility is rented via self-check-in process
+            ReservationFacility rf = reservationFacilities[itemIndex - 1];
+
+            string temp = rf.facilityID;
+            int i = rf.group;
+            
+
+            if (rf.newlyAdded == true)
+            {
+                removeReservationFacilityFromDatabase(rf.facilityID, rf.group);   
+            }
+
             reservationFacilities.RemoveAt(itemIndex - 1);
 
             // Set the ReservationFacility into repeater
@@ -450,6 +529,25 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             PopupCover.Visible = false;
             PopupDelete.Visible = false;
 
+        }
+
+        private void removeReservationFacilityFromDatabase(string facilityID, int group)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string deleteReservationFacility = "DELETE FROM ReservationFacility " +
+                                         "WHERE ReservationID LIKE @ReservationID AND FacilityID LIKE @FacilityID AND [Group] = @Group";
+
+            SqlCommand cmdDeleteReservationFacility = new SqlCommand(deleteReservationFacility, conn);
+
+            cmdDeleteReservationFacility.Parameters.AddWithValue("@ReservationID", reservationID);
+            cmdDeleteReservationFacility.Parameters.AddWithValue("@FacilityID", facilityID);
+            cmdDeleteReservationFacility.Parameters.AddWithValue("@Group", group);
+
+            int i = cmdDeleteReservationFacility.ExecuteNonQuery();
+
+            conn.Close();
         }
 
 
@@ -492,13 +590,13 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void LBSelectRoom_Click(object sender, EventArgs e)
         {
-            
+
             // Display popup box
             PopupBoxSelectRoom.Visible = true;
             PopupCover.Visible = true;
 
             // Declare AvailableRoom object
-            List<AvailableRoom> availableRooms = new List<AvailableRoom>();
+            List<CheckIn.AvailableRoom> availableRooms = new List<CheckIn.AvailableRoom>();
 
             // Get the reference of repeater
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
@@ -511,7 +609,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             string roomTypeID = (item.FindControl("lblRoomTypeID") as Label).Text;
             String date = (item.FindControl("lblDate") as Label).Text;
             string convertedDate = reservationUtility.formatDate(date);
-            ViewState["SelectedRoomID"] = (item.FindControl("lblSelectedRoomID") as Label).Text; 
+            ViewState["SelectedRoomID"] = (item.FindControl("lblSelectedRoomID") as Label).Text;
 
             lblPopupBoxRoomType.Text = roomType;
             lblPopupBoxDate.Text = date;
@@ -521,27 +619,27 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
 
             // Get roomTypeID
-            for(int i = 0; i < reservedRoomTypes.Count; i++)
+            for (int i = 0; i < reservedRoomTypes.Count; i++)
             {
-                if(reservedRoomTypes[i].date == convertedDate && reservedRoomTypes[i].roomTypeID == roomTypeID)
-                { 
+                if (reservedRoomTypes[i].date == convertedDate && reservedRoomTypes[i].roomTypeID == roomTypeID)
+                {
                     availableRooms = reservedRoomTypes[i].availableRooms;
                 }
             }
 
             // Get a list of available room
-            List<AvailableRoom> ar = new List<AvailableRoom>();
+            List<CheckIn.AvailableRoom> ar = new List<CheckIn.AvailableRoom>();
 
-            for(int i = 0; i < availableRooms.Count; i++)
+            for (int i = 0; i < availableRooms.Count; i++)
             {
-                if(availableRooms[i].selected == false)
+                if (availableRooms[i].selected == false)
                 {
                     ar.Add(availableRooms[i]);
                 }
             }
 
             // Set available room into the repeater
-            if(ar.Count > 0)
+            if (ar.Count > 0)
             {
                 RepeaterAvailableRoom.DataSource = ar;
                 RepeaterAvailableRoom.DataBind();
@@ -550,12 +648,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             }
             else
             {
-                RepeaterAvailableRoom.DataSource = null ;
+                RepeaterAvailableRoom.DataSource = null;
                 RepeaterAvailableRoom.DataBind();
 
                 lblNoAvailableRoom.Visible = true;
             }
-            
+
 
             // ********
             // Assign only specific roomType and specific date
@@ -595,7 +693,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void RepeaterAvailableRoom_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            
+
         }
 
         protected void RepeaterAvailableRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -644,10 +742,10 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             reservedRooms = reservation.reservedRoom;
 
             // Set the selected room into reservedRooms list
-            for(int i = 0; i < reservedRooms.Count; i++)
+            for (int i = 0; i < reservedRooms.Count; i++)
             {
                 // Get the correct item from the list
-                if(reservedRooms[i].reservationRoomID == ViewState["ReservationRoomID"].ToString())
+                if (reservedRooms[i].reservationRoomID == ViewState["ReservationRoomID"].ToString())
                 {
                     reservedRooms[i].roomID = roomID;
                     reservedRooms[i].roomNo = roomNo;
@@ -658,9 +756,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             reservation.reservedRoom = reservedRooms;
 
             // Update room status to no available
-            List<AvailableRoom> ar = new List<AvailableRoom>();
+            List<CheckIn.AvailableRoom> ar = new List<CheckIn.AvailableRoom>();
 
-            for(int i = 0; i < reservedRoomTypes.Count; i++)
+            for (int i = 0; i < reservedRoomTypes.Count; i++)
             {
                 if (reservedRoomTypes[i].roomTypeID == lblPopupBoxRoomTypeID.Text && reservedRoomTypes[i].date == reservationUtility.formatDate(lblPopupBoxDate.Text))
                 {
@@ -679,9 +777,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             }
 
             // Reset previous selected roomNo to available
-            if(ViewState["SelectedRoomID"].ToString() != "")
+            if (ViewState["SelectedRoomID"].ToString() != "")
             {
-                for(int i = 0; i < ar.Count; i++)
+                for (int i = 0; i < ar.Count; i++)
                 {
                     if (ar[i].roomID == ViewState["SelectedRoomID"].ToString())
                     {
@@ -711,7 +809,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             // Get control's reference
             ImageButton IBDeleteRentedFacility = e.Item.FindControl("IBDeleteRentedFacility") as ImageButton;
 
-            if(lblReservationFacilityID.Text != "")
+            if (lblReservationFacilityID.Text != "")
             {
                 IBDeleteRentedFacility.Visible = false;
             }
@@ -738,11 +836,11 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
-            if(Page.IsValid == true)
+            if (Page.IsValid == true)
             {
                 Response.Redirect("EquipmentCheckList.aspx?ID=" + en.encryption(reservationID));
             }
-            
+
         }
 
         protected void formBtnCancel_Click(object sender, EventArgs e)
@@ -756,7 +854,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         {
             Label lblSelectedRoomNo = (Label)((RepeaterItem)((Control)source).Parent).FindControl("lblSelectedRoomNo");
 
-            if(lblSelectedRoomNo.Text == "")
+            if (lblSelectedRoomNo.Text == "")
             {
                 args.IsValid = false;
             }
@@ -858,7 +956,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         {
             PopupBoxFacilityAvailability.Visible = true;
             PopupCover.Visible = true;
-            
+
             txtCheckFacilityDate.Text = reservationUtility.formatDate(lblCheckIn.Text);
 
             setItemToRepeaterFacilityAvailability(txtCheckFacilityDate.Text);
@@ -1077,16 +1175,10 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             reservationDetails.rentedFacility = reservationFacilities;
 
         }
-
         protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
         {
             // Refresh the page
-            Response.Redirect("CheckIn.aspx?ID=" + en.encryption(reservationID));
-        }
-
-        protected void LBRefund_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("../Reservation/Refund.aspx?ID=" + en.encryption(reservationID));
+            Response.Redirect("CheckInGuest(SelfCheckIn).aspx?ID=" + en.encryption(reservationID));
         }
     }
 }

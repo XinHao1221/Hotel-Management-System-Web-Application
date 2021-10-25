@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SelfCheckIn(Error).aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.SelfCheckIn_Error_" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="SelfCheckIn(Error).aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.SelfCheckIn_Error_" %>
 
 <!DOCTYPE html>
 

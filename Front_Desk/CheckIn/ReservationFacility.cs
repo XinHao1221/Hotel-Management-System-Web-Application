@@ -41,6 +41,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         public double subTotal { get; set; }
         public int group { get; set; }
 
+        // True if the facility is rented via self-check in process
+        public Boolean newlyAdded { get; set; }
+
         // Create connection to database
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -67,6 +70,16 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.group = group;
         }
 
+        public ReservationFacility(string reservationFacilityID, string facilityID, double price, string date, int group, Boolean newlyAdded)
+        {
+            this.reservationFacilityID = reservationFacilityID;
+            this.facilityID = facilityID;
+            this.price = price;
+            this.rentDate = date;
+            this.group = group;
+            this.newlyAdded = newlyAdded;
+        }
+
         public ReservationFacility(string reservationFacilityID, string facilityID, int quantity, double price, string rentedDate, string returnDate)
         {
             this.reservationFacilityID = reservationFacilityID;
@@ -78,6 +91,21 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.rentDate = rentedDate;
             this.returnDate = returnDate;
             this.subTotal = calculateSubTotal(rentedDate, returnDate, quantity, price, priceType);
+        }
+
+        public ReservationFacility(string reservationFacilityID, string facilityID, int quantity, double price, string rentedDate, string returnDate, int group, Boolean newlyAdded)
+        {
+            this.reservationFacilityID = reservationFacilityID;
+            this.facilityID = facilityID;
+            this.facilityName = getFacilityName(facilityID);
+            this.quantity = quantity;
+            this.priceType = getPriceType(facilityID);
+            this.price = price;
+            this.rentDate = rentedDate;
+            this.returnDate = returnDate;
+            this.subTotal = calculateSubTotal(rentedDate, returnDate, quantity, price, priceType);
+            this.group = group;
+            this.newlyAdded = newlyAdded;
         }
 
         private string getFacilityName(String facilityID)
