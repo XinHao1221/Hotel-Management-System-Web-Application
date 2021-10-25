@@ -428,7 +428,12 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             if(reservationFacilities.Count > 0)
             {
                 saveRentedFacility();
-                savePayment();
+
+                // If there is no any pending payment, skip this 
+                if (ddlPaymentMethod.Enabled == true)
+                {
+                    savePayment();
+                }
             }
 
             saveRentedRoom();

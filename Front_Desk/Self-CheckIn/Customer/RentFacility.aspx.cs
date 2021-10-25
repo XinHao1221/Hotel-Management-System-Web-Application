@@ -289,6 +289,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
             int availableQty = 0;
 
+            // Minus remaining facility's quantity with newly added facility
             for (int i = 0; i < availableFacility.Count; i++)
             {
                 if(availableFacility[i].facilityID == facilityID)
@@ -309,6 +310,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
             Boolean available = true;
 
+            
             if (availableQty < 0)
             {
                 PopupFacilityNoAvailable.Visible = true;
@@ -318,6 +320,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
             }
             else
             {
+                // Check facility availability from database
                 DateTime checkInDate = Convert.ToDateTime(reservationDetails.checkInDate);
                 DateTime checkOutDate = Convert.ToDateTime(reservationDetails.checkOutDate);
 

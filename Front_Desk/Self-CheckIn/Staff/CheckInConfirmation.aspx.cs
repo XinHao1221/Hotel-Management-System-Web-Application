@@ -372,8 +372,6 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Staff
             int i = cmdUpdateReservationStatus.ExecuteNonQuery();
 
             conn.Close();
-
-
         }
 
         private void savePayment()
@@ -433,7 +431,12 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Staff
             if (reservationFacilities.Count > 0)
             {
                 saveRentedFacility();
-                savePayment();
+
+                // If there is no any pending payment, skip this 
+                if (ddlPaymentMethod.Enabled == true)
+                {
+                    savePayment();
+                }
             }
 
             saveRentedRoom();
@@ -448,7 +451,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Staff
 
         protected void btnOK_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CheckIn.aspx");
+            Response.Redirect("../../CheckIn/CheckIn.aspx");
         }
     }
 }

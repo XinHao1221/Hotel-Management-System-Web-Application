@@ -416,11 +416,20 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
             // Get ReservationID of the selected item
             String reservationID = (item.FindControl("lblReservationID") as Label).Text;
+            string checkInStatus = (item.FindControl("lblStatusDisplay") as Label).Text;
 
             reservationID = en.encryption(reservationID);
 
-            // Redirect to view page
-            Response.Redirect("CheckOutGuest.aspx?ID=" + reservationID);
+            if (checkInStatus == "Checked Out")
+            {
+                Response.Redirect("../../History/ViewTransactionHistory.aspx?ID=" + reservationID);
+            }
+            else
+            {
+                // Redirect to check in
+                Response.Redirect("CheckOutGuest.aspx?ID=" + reservationID);
+            }
+
         }
 
     }

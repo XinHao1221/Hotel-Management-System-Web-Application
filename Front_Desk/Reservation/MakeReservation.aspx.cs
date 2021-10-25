@@ -1659,35 +1659,38 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Get facility availability from Session 
             List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
 
-            for (int i = 0; i < availableFacility.Count; i++)
+            if (facilityAvailable())
             {
-                if(availableFacility[i].facilityID == ddlFacilityName.SelectedValue)
+                for (int i = 0; i < availableFacility.Count; i++)
                 {
-                    double subTotal;
-
-                    if (availableFacility[i].priceType == "Per Reservation")
+                    if (availableFacility[i].facilityID == ddlFacilityName.SelectedValue)
                     {
-                        subTotal = availableFacility[i].price * int.Parse(ddlFacilityQty.SelectedValue);
+                        double subTotal;
+
+                        if (availableFacility[i].priceType == "Per Reservation")
+                        {
+                            subTotal = availableFacility[i].price * int.Parse(ddlFacilityQty.SelectedValue);
+                        }
+                        else
+                        {
+                            int durationOfStay = reservationUtility.getdurationOfStay(txtRentDate.Text, txtReturnDate.Text);
+
+                            subTotal = availableFacility[i].price * (int.Parse(ddlFacilityQty.SelectedValue) * durationOfStay);
+                        }
+
+
+                        RentedFacility rf = new RentedFacility(ddlFacilityName.SelectedValue,
+                                                        availableFacility[i].facilityName,
+                                                        int.Parse(ddlFacilityQty.SelectedValue),
+                                                        availableFacility[i].priceType,
+                                                        availableFacility[i].price,
+                                                        txtRentDate.Text,
+                                                        txtReturnDate.Text,
+                                                        subTotal
+                                                        );
+
+                        rentedFacility.Add(rf);
                     }
-                    else
-                    {
-                        int durationOfStay = reservationUtility.getdurationOfStay(txtRentDate.Text, txtReturnDate.Text);
-
-                        subTotal = availableFacility[i].price * (int.Parse(ddlFacilityQty.SelectedValue) * durationOfStay);
-                    }
-
-
-                    RentedFacility rf = new RentedFacility(ddlFacilityName.SelectedValue,
-                                                    availableFacility[i].facilityName,
-                                                    int.Parse(ddlFacilityQty.SelectedValue),
-                                                    availableFacility[i].priceType,
-                                                    availableFacility[i].price,
-                                                    txtRentDate.Text,
-                                                    txtReturnDate.Text, 
-                                                    subTotal
-                                                    );
-
-                    rentedFacility.Add(rf);
                 }
             }
 
@@ -1707,6 +1710,75 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             lblNoItemFound.Visible = false;
         }
 
+        private Boolean facilityAvailable()
+        {
+            string facilityID = ddlFacilityName.SelectedValue;
+
+            // Get facility availability from Session 
+            List<AvailableFacility> availableFacility = (List<AvailableFacility>)Session["AvailableFacility"];
+
+            // Get refernce of RentedFacilityList
+            List<RentedFacility> rentedFacility = (List<RentedFacility>)Session["RentedFacilityList"];
+
+            int availableQty = 0;
+
+            // Minus remaining facility's quantity with newly added facility
+            for (int i = 0; i < availableFacility.Count; i++)
+            {
+                if (availableFacility[i].facilityID == facilityID)
+                {
+                    availableQty = availableFacility[i].availableQty;
+
+                    for (int j = 0; j < rentedFacility.Count; j++)
+                    {
+                        if (rentedFacility[j].facilityID == facilityID)
+                        {
+                            availableQty -= rentedFacility[j].quantity;
+                        }
+                    }
+                }
+            }
+
+            availableQty -= int.Parse(ddlFacilityQty.Text);
+
+            Boolean available = true;
+
+            if (availableQty < 0)
+            {
+                PopupFacilityNoAvailable.Visible = true;
+                PopupCover.Visible = true;
+
+                return false;
+            }
+            else
+            {
+                // Check facility availability from database
+                DateTime rentDate = Convert.ToDateTime(txtRentDate.Text);
+                DateTime returnDate = Convert.ToDateTime(txtReturnDate.Text);
+
+                int durationOfStay = reservationUtility.getdurationOfStay(rentDate.ToShortDateString(), returnDate.ToShortDateString());
+
+                for (int i = 0; i < durationOfStay; i++)
+                {
+                    conn = new SqlConnection(strCon);
+                    conn.Open();
+
+                    available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(rentDate.AddDays(i).ToShortDateString()))) >= 0;
+
+                    conn.Close();
+                }
+
+                if (available == false)
+                {
+                    PopupFacilityNoAvailable.Visible = true;
+                    PopupCover.Visible = true;
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
         protected void IBDeleteRentedFacility_Click(object sender, ImageClickEventArgs e)
         {
             RepeaterItem item = (sender as ImageButton).NamingContainer as RepeaterItem;
@@ -2129,6 +2201,10 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
         }
 
-
+        protected void btnOK_Click(object sender, EventArgs e)
+        {
+            PopupFacilityNoAvailable.Visible = false;
+            PopupCover.Visible = false;
+        }
     }
 }

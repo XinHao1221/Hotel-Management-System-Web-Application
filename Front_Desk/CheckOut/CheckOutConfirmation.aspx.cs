@@ -296,24 +296,28 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         protected void btnCheckOut_Click(object sender, EventArgs e)
         {
-            //List<ServiceCharges> serviceCharges = (List<ServiceCharges>)Session["ServiceCharges"];
+            List<ServiceCharges> serviceCharges = (List<ServiceCharges>)Session["ServiceCharges"];
 
-            //List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
+            List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
 
-            //if(serviceCharges.Count > 0)
-            //{
-            //    saveOtherCharges();
-            //}
+            if(serviceCharges.Count > 0)
+            {
+                saveOtherCharges();
+            }
 
-            //if(missingEquipments.Count > 0)
-            //{
-            //    saveFineCharges();
-            //}
+            if(missingEquipments.Count > 0)
+            {
+                saveFineCharges();
+            }
 
-            //savePayment();
-
-            //// Update reservation status to "Checked Out"
-            //updateReservationStatus();
+            // Save Payment Details, if there is any amount due
+            if(serviceCharges.Count > 0 || missingEquipments.Count > 0)
+            {
+                savePayment();
+            }
+            
+            // Update reservation status to "Checked Out"
+            updateReservationStatus();
 
             // Send survey form to guest
             sendSurveyForm();
@@ -328,6 +332,10 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
         {
             List<ServiceCharges> serviceCharges = (List<ServiceCharges>)Session["ServiceCharges"];
 
+            // Get current date
+            DateTime dateNow = DateTime.Now;
+            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
             // Save a list of service charges
             for (int i = 0; i < serviceCharges.Count; i++)
             {
@@ -338,8 +346,8 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                 conn = new SqlConnection(strCon);
                 conn.Open();
 
-                string saveServiceCharges = "INSERT INTO OtherCharges (ChargesID, Title, Category, Amount, ReservationID) " +
-                                            "VALUES (@ChargesID, @Title, @Category, @Amount, @ReservationID)";
+                string saveServiceCharges = "INSERT INTO OtherCharges (ChargesID, Title, Category, Amount, ReservationID, DateCreated) " +
+                                            "VALUES (@ChargesID, @Title, @Category, @Amount, @ReservationID, @Date)";
 
                 SqlCommand cmdSaveFineCharges = new SqlCommand(saveServiceCharges, conn);
 
@@ -348,6 +356,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                 cmdSaveFineCharges.Parameters.AddWithValue("@Category", "Service");
                 cmdSaveFineCharges.Parameters.AddWithValue("@Amount", Convert.ToDecimal(serviceCharges[i].charges));
                 cmdSaveFineCharges.Parameters.AddWithValue("@ReservationID", reservationID);
+                cmdSaveFineCharges.Parameters.AddWithValue("@Date", todaysDate);
 
                 int success = cmdSaveFineCharges.ExecuteNonQuery();
 
@@ -360,6 +369,10 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
         {
             List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
 
+            // Get current date
+            DateTime dateNow = DateTime.Now;
+            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
             // Save a list of service charges
             for (int i = 0; i < missingEquipments.Count; i++)
             {
@@ -370,7 +383,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                 conn = new SqlConnection(strCon);
                 conn.Open();
 
-                string saveFineCharges = "INSERT INTO OtherCharges VALUES (@ChargesID, @Title, @Category, @EquipmentID, @Amount, @ReservationID)";
+                string saveFineCharges = "INSERT INTO OtherCharges VALUES (@ChargesID, @Title, @Category, @EquipmentID, @Amount, @ReservationID, @Date)";
 
                 SqlCommand cmdSaveFineCharges = new SqlCommand(saveFineCharges, conn);
 
@@ -380,6 +393,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                 cmdSaveFineCharges.Parameters.AddWithValue("@EquipmentID", missingEquipments[i].equipmentID);
                 cmdSaveFineCharges.Parameters.AddWithValue("@Amount", Convert.ToDecimal(missingEquipments[i].fineCharges));
                 cmdSaveFineCharges.Parameters.AddWithValue("@ReservationID", reservationID);
+                cmdSaveFineCharges.Parameters.AddWithValue("@Date", todaysDate);
 
                 int success = cmdSaveFineCharges.ExecuteNonQuery();
 
@@ -468,14 +482,14 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                                 smtp.Credentials = new System.Net.NetworkCredential(emailFrom, password);
                                 smtp.EnableSsl = true;
                                 smtp.Send(mail);
-                                Label1.Text = "Survey Form Sent.";
+                                lblEmailStatus.Text = "Survey Form Sent.";
 
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        Label1.Text = ex.Message;
+                        lblEmailStatus.Text = ex.Message;
                     }
                 }
             }

@@ -1082,9 +1082,30 @@
                 </div>
 
             </asp:Panel> 
+
+            <asp:Panel ID="PopupFacilityNoAvailable" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:red;" class="popupTitle">Facility Unavailable</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    Facility no available. Please try different quantity.
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnOK" runat="server" Text="OK" CssClass="popUpCancelBtn" OnClick="btnOK_Click"/>
+                
+                    
+            </asp:Panel>
+
         </div>
 
         <%-- Popup Cover --%>
+
         <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
             &nbsp;
         </asp:Panel>
