@@ -137,6 +137,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             // Send Self-check-in link
             // Check if check in date same as today's date
+            // Only send when the check in date is not today's date
             DateTime dateNow = DateTime.Now;
             string todaysDate = reservationUtility.formatDate(dateNow.ToString());
 
@@ -145,7 +146,10 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 sendSelfCheckInLink(nextReservationID);
             }
 
-            // ***** Redirect etc do here
+            // Show popup Success Message
+            lblPopupReservationSuccess.Text = "Reservation Saved.";
+            PopupCheckOut.Visible = true;
+            PopupCover.Visible = true;
         }
 
         private string saveReservationDetails()
@@ -393,7 +397,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     {
                         mail.From = new MailAddress(emailFrom);
                         mail.To.Add(emailTo);
-                        mail.Subject = "Guest Satisfactory Survey";
+                        mail.Subject = "Self-Check-In";
                         mail.Body = CreateEmailBody(nextReservationID);
                         mail.IsBodyHtml = true;
 
@@ -402,14 +406,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                             smtp.Credentials = new System.Net.NetworkCredential(emailFrom, password);
                             smtp.EnableSsl = true;
                             smtp.Send(mail);
-                            //Label1.Text = "Survey Form Sent.";
-
+                            lblEmailStatus.Text = "Self-Check-In Link Emailed.";
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    //Label1.Text = ex.Message;
+                    lblEmailStatus.Text = ex.Message;
                 }
             }
 
@@ -417,6 +420,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private string CreateEmailBody(string nextReservationID)
         {
+            Reservation reservation = (Reservation)Session["ReservationDetails"];
 
             IDEncryption en = new IDEncryption();
 
@@ -430,9 +434,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
 
             // Replace the text in Template.html
-            emailBody = emailBody.Replace("{fname}", "Koh Xin Hao");
-            emailBody = emailBody.Replace("{fage}", "18");
-            emailBody = emailBody.Replace("{femail}", "kohxinhao@gmail.com");
+            emailBody = emailBody.Replace("{fname}", reservation.guestName);
             emailBody = emailBody.Replace("{fPassword}", getPasswordFromDatabase(nextReservationID));
             emailBody = emailBody.Replace("{link}", "https://localhost:" + Application["LocalHostID"].ToString() + "/Front_Desk/Self-CheckIn/Customer/SelfCheckIn.aspx?ID=" + encryptedReservationID);
 
@@ -556,6 +558,11 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             lblTax.Text = string.Format("{0:0.00}", tax);
 
             return tax;
+        }
+
+        protected void btnOK_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Reservation.aspx");
         }
     }
 }

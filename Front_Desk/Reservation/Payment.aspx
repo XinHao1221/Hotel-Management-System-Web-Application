@@ -414,6 +414,27 @@
                 
                 <asp:Button ID="btnPopupConfirmCancelReservation" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirmCancelReservation_Click"/>
             </asp:Panel>
+
+            <asp:Panel ID="PopupCheckOut" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:#00ce1b;" class="popupTitle">Chceked Out</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    <asp:Label ID="lblPopupReservationSuccess" runat="server" Text=""></asp:Label>
+                    <asp:Label ID="lblEmailStatus" runat="server" ></asp:Label>
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnOK" runat="server" Text="OK" CssClass="popUpCancelBtn" OnClick="btnOK_Click"/>
+                
+                    
+            </asp:Panel>
+
         </div>
 
         <%-- Popup Cover --%>

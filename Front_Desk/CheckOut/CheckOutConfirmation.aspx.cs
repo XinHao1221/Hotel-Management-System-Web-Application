@@ -300,22 +300,22 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
             List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
 
-            if(serviceCharges.Count > 0)
+            if (serviceCharges.Count > 0)
             {
                 saveOtherCharges();
             }
 
-            if(missingEquipments.Count > 0)
+            if (missingEquipments.Count > 0)
             {
                 saveFineCharges();
             }
 
             // Save Payment Details, if there is any amount due
-            if(serviceCharges.Count > 0 || missingEquipments.Count > 0)
+            if (serviceCharges.Count > 0 || missingEquipments.Count > 0)
             {
                 savePayment();
             }
-            
+
             // Update reservation status to "Checked Out"
             updateReservationStatus();
 
@@ -451,7 +451,6 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         }
 
-        // Send Survey Form
         private void sendSurveyForm()
         {
             if (surveyFormEnabled())
@@ -461,8 +460,9 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                 // Set receiver email
                 string emailTo = getGuestEmailAddress();
 
+
                 // Check if guest have any emailAddress
-                if(emailTo.Length > 0)
+                if (emailTo.Length > 0)
                 {
                     // Set sender and receiver email
                     string emailFrom = "hmsagent1221@gmail.com";
@@ -492,11 +492,14 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
                         lblEmailStatus.Text = ex.Message;
                     }
                 }
+
             }
         }
 
         private string CreateEmailBody()
         {
+            // Get refernce of ReservationDetail
+            ReservationDetail reservationDetails = (ReservationDetail)Session["ReservationDetails"];
 
             IDEncryption en = new IDEncryption();
 
@@ -510,9 +513,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             }
 
             // Replace the text in Template.html
-            emailBody = emailBody.Replace("{fname}", "Koh Xin Hao");
-            emailBody = emailBody.Replace("{fage}", "18");
-            emailBody = emailBody.Replace("{femail}", "kohxinhao@gmail.com");
+            emailBody = emailBody.Replace("{fname}", getGuestName(reservationDetails.guestID));
             emailBody = emailBody.Replace("{link}", "https://localhost:" + Application["LocalHostID"].ToString() + "/Front_Desk/Survey/SurveyForm.aspx?ID=" + encryptedReservationID);
 
             return emailBody;

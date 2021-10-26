@@ -5,71 +5,64 @@
     <meta charset="utf-8" />
     <title></title>
 
-    <style>
-        .button {
-            border-radius: 2px;
-        }
-
-            .button a {
-                padding: 8px 12px;
-                border: 1px solid #ED2939;
-                border-radius: 2px;
-                font-family: Helvetica, Arial, sans-serif;
-                font-size: 14px;
-                color: #ffffff;
-                text-decoration: none;
-                font-weight: bold;
-                display: inline-block;
-            }
-    </style>
 </head>
 <body>
 
-    <table>
-        <tr>
-            <td>
-                Name
-            </td>
-            <td>
-                {fname}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Age
-            </td>
-            <td>
-                {fage}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Email
-            </td>
-            <td>
-                {femail}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Password
-            </td>
-            <td>
-                {fPassword}
-            </td>
-        </tr>
-    </table>
+    <div style="width: 100%; background-color: white; height: max-content; background-color:rgb(227 255 253);">
+
+        <div style="background-color: rgb(227 255 253);">
+
+            <div>
+                <div style="font-family: Helvetica, sans-serif; font-size: 110%;">
+                    Hi {fname},
+
+                    <br /><br />
+
+                    Thanks for choosing our Hotel.
+
+                    <br /><br />
+
+                    You can perform self-check-in on the actual check-in date with the following link:
+
+                    <br /><br />
+
+                          <b>
+                              The password is: {fPassword}
+                          </b>
+
+                    <br /><br />
+                    <a class="link" href="{link}" style="text-decoration:none; color:white; font-weight:bold;">
+                        <div style="width: 250px; height: 50px; background-color: rgb(0, 206, 27); color: white; border: none; border-radius: 10px; line-height: 50px; text-align: center; font-family: Helvetica, sans-serif; font-size: 100%;">
+                            Check in Now!
+                        </div>
+                    </a>
+
+                    <br /><br />
+
+                    You can also check in at our hotel's counter on the actual date. Our friendly staff is pleased to serve you.
+
+                    <br /><br />
+
+                    Thank you.
+                </div>
 
 
-    <!--<button onclick="window.location.href='{link}'">
-        Click Here
-    </button>-->
+                <br />
+                <br />
 
-    <button style="color:white;">
-        <a class="link" href="{link}" style="text-decoration:none; color:black;">
-            Click
-        </a>
-    </button>
+                <center>
+
+                    
+
+                </center>
+            </div>
+
+        </div>
+
+        <div style="clear:both;">
+            &nbsp;
+        </div>
+    </div>
 
 
 </body>
