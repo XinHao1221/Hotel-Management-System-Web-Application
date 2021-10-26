@@ -35,6 +35,9 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Guest In House";
+
             fetch = int.Parse(ddlItemPerPage.SelectedValue.ToString());
             page = getTotalNumberOfPage();
 

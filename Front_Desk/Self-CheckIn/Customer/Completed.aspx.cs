@@ -31,6 +31,9 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Completed";
+
             reservationID = en.decryption(Request.QueryString["ID"]);
 
             displayReservedRoom();

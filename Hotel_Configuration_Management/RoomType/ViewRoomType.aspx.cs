@@ -23,6 +23,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Room Type Details";
+
             //roomTypeID = "RT10000001";
 
             roomTypeID = Request.QueryString["ID"];

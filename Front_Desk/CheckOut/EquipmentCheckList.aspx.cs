@@ -27,16 +27,15 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Equipment Checklist";
+
             if (!IsPostBack)
             {
                 setReservedRoomToRepeater();
 
                 Session["MissingEquipments"] = new List<MissingEquipment>();
             }
-
-            // Navigate to previous page
-            // If back button clicked
-            this.formBtnBack.OnClientClick = "javascript:window.history.go(-1);return false;";
         }
 
         private List<RoomEquipment> getRoomNoRented()
@@ -182,5 +181,14 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
         }
 
+        protected void formBtnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CheckOutGuest.aspx?ID=" + en.encryption(reservationID));
+        }
+
+        protected void LBBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CheckOutGuest.aspx?ID=" + en.encryption(reservationID));
+        }
     }
 }

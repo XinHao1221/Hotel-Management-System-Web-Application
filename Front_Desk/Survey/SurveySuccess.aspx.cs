@@ -11,7 +11,8 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Survey
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // Page TItle
+            Page.Title = "Thank You";
         }
     }
 }

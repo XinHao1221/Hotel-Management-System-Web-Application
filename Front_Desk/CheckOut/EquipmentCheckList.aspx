@@ -38,7 +38,7 @@
             Check Out
         </div>
 
-        <asp:LinkButton ID="LBBack" runat="server" href='javascript:history.go(-1)' CssClass="divLBStyle">
+        <asp:LinkButton ID="LBBack" runat="server" CssClass="divLBStyle" OnClick="LBBack_Click">
             <div style="margin:20px 0px 20px 0px; margin-left:2.5%;">
                 <div class="formBackBtn" style="float:left;" tooltip="save">
 
@@ -135,7 +135,7 @@
         <div class="bottomBar">
             <center>
             
-                <asp:Button ID="formBtnBack" runat="server" Text="Back" CssClass="formBtnCancel" ToolTip="Back"/>
+                <asp:Button ID="formBtnBack" runat="server" Text="Back" CssClass="formBtnCancel" ToolTip="Back" OnClick="formBtnBack_Click"/>
                 <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" CssClass="formBtnSave" ToolTip="Save" ValidationGroup="next" />
 
             </center>         

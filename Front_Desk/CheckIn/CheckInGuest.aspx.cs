@@ -28,8 +28,10 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             reservationID = en.decryption(Request.QueryString["ID"]);
+
+            // Page TItle
+            Page.Title = "Check In Guest";
 
             if (!IsPostBack)
             {

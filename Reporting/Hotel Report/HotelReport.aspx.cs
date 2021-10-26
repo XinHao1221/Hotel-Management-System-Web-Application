@@ -17,7 +17,8 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
         ReservationUtility reservationUtility = new ReservationUtility();
 
         // Hold today's date
-        private string todaysDate = "2021-10-18";
+        //private string todaysDate = "2021-10-18";
+        private string todaysDate;
         private int totalAdults;
         private int totalKids;
 
@@ -28,12 +29,13 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
         protected void Page_Load(object sender, EventArgs e)
         {
             // Get current date
-            //DateTime dateNow = DateTime.Now;
-            //todaysDate = reservationUtility.formatDate(dateNow.ToString());
+            DateTime dateNow = DateTime.Now;
+            todaysDate = reservationUtility.formatDate(dateNow.ToString());
 
             // Display current date
 
-       
+            // Page TItle
+            Page.Title = "Hotel Report";
 
             if (!IsPostBack)
             {

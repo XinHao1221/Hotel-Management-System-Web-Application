@@ -25,7 +25,8 @@ namespace Hotel_Management_System.Dashboard
         // Create instance of ReservationUltility class
         ReservationUtility reservationUtility = new ReservationUtility();
 
-        private string todaysDate = "2021-10-18";
+        //private string todaysDate = "2021-10-18";
+        private string todaysDate;
         private int totalAdults;
         private int totalKids;
         private int totalRoom = 0;
@@ -34,13 +35,16 @@ namespace Hotel_Management_System.Dashboard
         protected void Page_Load(object sender, EventArgs e)
         {
             // Get current date
-            //DateTime dateNow = DateTime.Now;
-            //todaysDate = reservationUtility.formatDate(dateNow.ToString());
+            DateTime dateNow = DateTime.Now;
+            todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
+            // Page TItle
+            Page.Title = "Dashboard";
 
             //if (!IsPostBack)
             //{
-                // Declare Session Variable
-                Session["RoomType"] = new List<RoomType>();
+            // Declare Session Variable
+            Session["RoomType"] = new List<RoomType>();
 
                 totalAdults = getTotalAdults();
                 totalKids = getTotalKids();

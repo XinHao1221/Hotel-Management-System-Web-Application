@@ -31,6 +31,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Reservation";
+
             fetch = int.Parse(ddlItemPerPage.SelectedValue.ToString());
             page = getTotalNumberOfPage();
 

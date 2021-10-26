@@ -29,6 +29,9 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Revenue Report";
+
             if (!IsPostBack)
             {
                 setDDLYear();

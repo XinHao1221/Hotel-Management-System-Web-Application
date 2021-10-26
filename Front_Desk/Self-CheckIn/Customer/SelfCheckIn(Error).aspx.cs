@@ -12,6 +12,9 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
         string checkInDate;
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Error";
+
             // Display check in date 
             checkInDate = Request.QueryString["Date"];
 

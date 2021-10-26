@@ -30,6 +30,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Edit Special Price";
+
             if (!IsPostBack)
             {
 

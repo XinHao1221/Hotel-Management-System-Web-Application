@@ -29,9 +29,10 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Staff
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //reservationID = en.decryption(Request.QueryString["ID"]);
+            reservationID = en.decryption(Request.QueryString["ID"]);
 
-            reservationID = "RS10000010";
+            // Page TItle
+            Page.Title = "Check In Guest";
 
             if (!IsPostBack)
             {

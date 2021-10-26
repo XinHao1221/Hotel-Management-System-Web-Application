@@ -36,6 +36,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Check In";
+
             // Get current date
             DateTime dateNow = DateTime.Now;
             todaysDate = reservationUtility.formatDate(dateNow.ToString());

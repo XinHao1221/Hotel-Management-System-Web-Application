@@ -18,6 +18,9 @@ namespace Hotel_Management_System.Dashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Room Availability";
+
             if (!IsPostBack)
             {
                 setItemToRepeaterRoomAvailability();

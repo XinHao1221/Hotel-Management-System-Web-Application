@@ -25,6 +25,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Add Room Type";
+
             PopupReset.Visible = false;
             PopupCover.Visible = false;
             PopupBack.Visible = false;

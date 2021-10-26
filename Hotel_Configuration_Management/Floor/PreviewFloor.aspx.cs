@@ -24,6 +24,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Floor Details";
+
             floorID = en.decryption(Request.QueryString["ID"]);
 
             setText();

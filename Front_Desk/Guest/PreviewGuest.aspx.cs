@@ -25,6 +25,9 @@ namespace Hotel_Management_System.Front_Desk.Guest
         {
             guestID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Guest Details";
+
             //guestID = "G10000001";
 
             setText();

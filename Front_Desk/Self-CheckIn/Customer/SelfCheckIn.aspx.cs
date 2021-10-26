@@ -31,6 +31,9 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Welcome";
+
             displayGuestName();
 
         }

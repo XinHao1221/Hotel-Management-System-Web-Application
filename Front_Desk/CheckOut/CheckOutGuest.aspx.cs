@@ -30,6 +30,9 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Check Out Guest";
+
             if (!IsPostBack)
             {
                 Session["ReservationDetails"] = new ReservationDetail();

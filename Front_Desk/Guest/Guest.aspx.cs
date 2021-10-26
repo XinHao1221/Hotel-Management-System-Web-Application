@@ -30,9 +30,11 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Guest";
+
             fetch = int.Parse(ddlItemPerPage.SelectedValue.ToString());
             page = getTotalNumberOfPage();
-
 
             // Execute when page is first loaded
             if (!IsPostBack)

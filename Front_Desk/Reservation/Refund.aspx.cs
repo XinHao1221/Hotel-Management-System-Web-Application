@@ -30,7 +30,11 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             reservationID = en.decryption(Request.QueryString["ID"]);
+
+            // Page TItle
+            Page.Title = "Refund";
 
             if (!IsPostBack)
             {

@@ -31,7 +31,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // getSpecialRoomPrice("RT10000002", "2021-06-28");
+            // Page TItle
+            Page.Title = "Make Reservation";
 
             if (!IsPostBack)
             {

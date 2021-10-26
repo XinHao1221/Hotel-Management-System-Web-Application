@@ -48,7 +48,7 @@
             <div style="margin:20px 0px 20px 0px; margin-left:2.5%;">
                 <div class="formBackBtn" style="float:left;" tooltip="save">
 
-                    <img src="./../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
+                    <img src="../../../Image/Back.png" width="15px" height="15px" style="float:left; margin:12.5px 0px 0px 15px;"/>
                     <div style="float:left; margin:12.5px 0px 0px 10px; font-size:15px;">
                         Back
                     </div>

@@ -29,6 +29,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Facility";
+
             fetch = int.Parse(ddlItemPerPage.SelectedValue.ToString());
             page = getTotalNumberOfPage();
 

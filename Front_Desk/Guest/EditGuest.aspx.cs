@@ -23,6 +23,9 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Edit Guest";
+
             guestID = Request.QueryString["ID"];
 
             guestID = en.decryption(guestID);

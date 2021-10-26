@@ -33,6 +33,9 @@ namespace Hotel_Management_System.Front_Desk
         {
             reservationID = Request.QueryString["ID"];
 
+            // Page TItle
+            Page.Title = "Survey Form";
+
             reservationID = en.decryption(reservationID);
 
             if (!IsPostBack)

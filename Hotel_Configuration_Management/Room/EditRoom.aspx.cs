@@ -23,6 +23,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Edit Room";
+
             roomID = Request.QueryString["ID"];
             roomID = en.decryption(roomID);
 

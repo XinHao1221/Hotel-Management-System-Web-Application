@@ -26,6 +26,9 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Add Guest";
+
             PopupReset.Visible = false;
             PopupCover.Visible = false;
             PopupBack.Visible = false;
@@ -65,7 +68,7 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
             conn.Close();
 
-            //Response.Redirect("PreviewGuest.aspx?ID=" + en.encryption(nextGuestID));
+            Response.Redirect("PreviewGuest.aspx?ID=" + en.encryption(nextGuestID));
         }
 
 

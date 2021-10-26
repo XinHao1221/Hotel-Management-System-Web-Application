@@ -35,6 +35,9 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Save Check Out";
+
             if (!IsPostBack)
             {
                 Session["ServiceCharges"] = new List<ServiceCharges>();

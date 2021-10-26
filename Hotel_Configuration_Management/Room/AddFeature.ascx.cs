@@ -11,6 +11,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 Session["FeatureList"] = new List<String>();

@@ -26,6 +26,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Equipment Checklist";
+
             if (!IsPostBack)
             {
                 setReservedRoomToRepeater();

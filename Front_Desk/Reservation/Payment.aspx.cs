@@ -33,6 +33,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Payment";
+
             reservation = (Reservation)Session["ReservationDetails"];
 
             setReservationDetails();

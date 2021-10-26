@@ -23,6 +23,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Facility Details";
+
             facilityID = en.decryption(Request.QueryString["ID"]);
 
             setText();

@@ -30,6 +30,9 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Reservation Details";
+
             if (!IsPostBack)
             {
 

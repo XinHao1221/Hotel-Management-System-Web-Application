@@ -32,6 +32,9 @@ namespace Hotel_Management_System.Cashiering
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Transaction History Details";
+
             if (!IsPostBack)
             {
                 if (surveyResponseExists())

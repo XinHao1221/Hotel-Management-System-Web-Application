@@ -30,9 +30,11 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Page TItle
+            Page.Title = "Edit Regular Price";
+
             if (!IsPostBack)
             {
-
                 setRoomType();
                 ddlRoomType.Items.Insert(0, new ListItem("-- Please Select --", "-- Please Select --"));
 

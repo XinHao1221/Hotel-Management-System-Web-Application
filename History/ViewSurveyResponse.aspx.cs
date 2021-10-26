@@ -29,6 +29,9 @@ namespace Hotel_Management_System.History
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Survey Response";
+
             if (!IsPostBack)
             {
                 Session["SurveyResponse"] = new SurveyResponse(reservationID);

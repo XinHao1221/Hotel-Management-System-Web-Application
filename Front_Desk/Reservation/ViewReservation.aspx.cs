@@ -30,6 +30,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Reservation Details";
+
             if (!IsPostBack)
             {
                 Session["ReservationDetails"] = new ReservationDetail();

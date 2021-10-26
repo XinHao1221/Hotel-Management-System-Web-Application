@@ -32,6 +32,9 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Staff
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Page TItle
+            Page.Title = "Save Check In";
+
             setReservationDetails();
 
             setAddOnsFacilityToRepeater();
