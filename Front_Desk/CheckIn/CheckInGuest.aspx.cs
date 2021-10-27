@@ -1166,7 +1166,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         protected void btnPopupConfirmReset_Click(object sender, EventArgs e)
         {
             // Refresh the page
-            Response.Redirect("CheckIn.aspx?ID=" + en.encryption(reservationID));
+            Response.Redirect("CheckInGuest.aspx?ID=" + en.encryption(reservationID));
         }
 
         protected void LBRefund_Click(object sender, EventArgs e)

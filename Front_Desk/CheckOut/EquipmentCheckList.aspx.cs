@@ -119,30 +119,36 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             {
                 if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
                 {
-                    // Find control from RepeaterReservedRoom
-                    Label lblRoomTypeID = item.FindControl("lblRoomTypeID") as Label;
-                    Label lblRoomType = item.FindControl("lblRoomType") as Label;
-                    Label lblSelectedRoomID = item.FindControl("lblSelectedRoomID") as Label;
-                    Label lblSelectedRoomNo = item.FindControl("lblSelectedRoomNo") as Label;
+                    Repeater RepeaterEquipmentCheckList = item.FindControl("RepeaterEquipmentCheckList") as Repeater;
 
-                    Label lblEquipmentList = (Label)FindControlRecursive(item, "lblEquipmentList");
-                    Label lblEquipmentID = (Label)FindControlRecursive(item, "lblEquipmentID");
-                    CheckBox cbEquipmentCheckList = (CheckBox)FindControlRecursive(item, "cbEquipmentCheckList");
-
-                    try
+                    foreach(RepeaterItem childItem in RepeaterEquipmentCheckList.Items)
                     {
-                        if (cbEquipmentCheckList.Checked == false)
-                        {
-                            MissingEquipment me = new MissingEquipment(lblEquipmentID.Text, lblEquipmentList.Text,
-                                lblRoomTypeID.Text, lblRoomType.Text, lblSelectedRoomID.Text, lblSelectedRoomNo.Text);
+                        // Find control from RepeaterReservedRoom
+                        Label lblRoomTypeID = item.FindControl("lblRoomTypeID") as Label;
+                        Label lblRoomType = item.FindControl("lblRoomType") as Label;
+                        Label lblSelectedRoomID = item.FindControl("lblSelectedRoomID") as Label;
+                        Label lblSelectedRoomNo = item.FindControl("lblSelectedRoomNo") as Label;
 
-                            missingEquipments.Add(me);
+                        Label lblEquipmentList = (Label)FindControlRecursive(childItem, "lblEquipmentList");
+                        Label lblEquipmentID = (Label)FindControlRecursive(childItem, "lblEquipmentID");
+                        CheckBox cbEquipmentCheckList = (CheckBox)FindControlRecursive(childItem, "cbEquipmentCheckList");
+
+                        try
+                        {
+                            if (cbEquipmentCheckList.Checked == false)
+                            {
+                                MissingEquipment me = new MissingEquipment(lblEquipmentID.Text, lblEquipmentList.Text,
+                                    lblRoomTypeID.Text, lblRoomType.Text, lblSelectedRoomID.Text, lblSelectedRoomNo.Text);
+
+                                missingEquipments.Add(me);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
                         }
                     }
-                    catch(Exception ex)
-                    {
-
-                    }
+                    
                 }
             }
 

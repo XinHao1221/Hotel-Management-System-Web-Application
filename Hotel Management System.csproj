@@ -183,9 +183,9 @@
     <Content Include="Image\success_icon.png" />
     <Content Include="Image\survey_icon.png" />
     <Content Include="Image\suspend_icon.png" />
-    <Content Include="Reporting\Hotel Report\HotelReport.aspx" />
-    <Content Include="Reporting\Reservation Report\ReservationReport.aspx" />
-    <Content Include="Reporting\Revenue Report\RevenueReport.aspx" />
+    <Content Include="Reporting\Hotel_Report\HotelReport.aspx" />
+    <Content Include="Reporting\Reservation_Report\ReservationReport.aspx" />
+    <Content Include="Reporting\Revenue_Report\RevenueReport.aspx" />
     <Content Include="StyleSheet\InputStyle.css" />
     <Content Include="StyleSheet\MainMenuHeader.css" />
     <Content Include="StyleSheet\PopupBox.css" />
@@ -707,27 +707,27 @@
       <DependentUpon>SurveySuccess.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reporting\Hotel Report\HotelReport.aspx.cs">
+    <Compile Include="Reporting\Hotel_Report\HotelReport.aspx.cs">
       <DependentUpon>HotelReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reporting\Hotel Report\HotelReport.aspx.designer.cs">
+    <Compile Include="Reporting\Hotel_Report\HotelReport.aspx.designer.cs">
       <DependentUpon>HotelReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reporting\Reservation Report\ReservationReport.aspx.cs">
+    <Compile Include="Reporting\Reservation_Report\ReservationReport.aspx.cs">
       <DependentUpon>ReservationReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reporting\Reservation Report\ReservationReport.aspx.designer.cs">
+    <Compile Include="Reporting\Reservation_Report\ReservationReport.aspx.designer.cs">
       <DependentUpon>ReservationReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reporting\Reservation Report\ReservedFacility.cs" />
-    <Compile Include="Reporting\Reservation Report\ReservedRoomType.cs" />
-    <Compile Include="Reporting\Revenue Report\RevenueReport.aspx.cs">
+    <Compile Include="Reporting\Reservation_Report\ReservedFacility.cs" />
+    <Compile Include="Reporting\Reservation_Report\ReservedRoomType.cs" />
+    <Compile Include="Reporting\Revenue_Report\RevenueReport.aspx.cs">
       <DependentUpon>RevenueReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reporting\Revenue Report\RevenueReport.aspx.designer.cs">
+    <Compile Include="Reporting\Revenue_Report\RevenueReport.aspx.designer.cs">
       <DependentUpon>RevenueReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Temp.aspx.cs">

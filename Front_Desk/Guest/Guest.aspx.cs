@@ -402,8 +402,8 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
             guestID = en.encryption(guestID);
 
-            // Redirect to view page
-            Response.Redirect("ViewGuest.aspx?ID=" + guestID);
+            // Redirect to edit page
+            Response.Redirect("EditGuest.aspx?ID=" + guestID);
         }
 
         protected void LBChangeStatus_Click(object sender, EventArgs e)
@@ -413,7 +413,8 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
         protected void LBMakeReservation_Click(object sender, EventArgs e)
         {
-
+            // Redirect to Make Reservation Page
+            Response.Redirect("../Reservation/MakeReservation.aspx");
         }
     }
 }

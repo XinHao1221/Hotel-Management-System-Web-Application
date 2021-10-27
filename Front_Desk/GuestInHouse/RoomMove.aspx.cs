@@ -510,13 +510,15 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
             // Room availability for each room types
             List<ReservedRoomType> reservedRoomTypes = (List<ReservedRoomType>)Session["ReservedRoomType"];
 
+            // Reserved Room
             for(int i = 0; i < reservedRooms.Count; i++)
             {
+                // Reserved Room Type
                 for(int j = 0; j < reservedRoomTypes.Count; j++)
                 {
-                    if (reservedRooms[i].roomTypeID == reservedRoomTypes[j].roomTypeID)
+                    if (reservedRooms[i].roomTypeID == reservedRoomTypes[j].roomTypeID && reservedRooms[i].date == reservedRoomTypes[j].date)
                     {
-                        List<AvailableRoom> ar = reservedRoomTypes[i].availableRooms;
+                        List<AvailableRoom> ar = reservedRoomTypes[j].availableRooms;
 
                         ar.Add(new AvailableRoom(reservedRooms[i].roomID, true));
 

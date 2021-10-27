@@ -239,7 +239,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             conn.Open();
 
             string getFacilityProfit = "SELECT SUM(Price) AS Price FROM ReservationFacility " +
-                                        "WHERE DateCreated LIKE '" + date + "%'";
+                                        "WHERE DateRented LIKE '" + date + "%'";
 
             SqlCommand cmdGetFacilityProfit = new SqlCommand(getFacilityProfit, conn);
 
@@ -502,7 +502,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             conn.Open();
 
             string getFacilityProfitDetails = "SELECT FacilityID, DateRented, Price FROM ReservationFacility " +
-                                                "WHERE DateCreated LIKE '" + date + "%'";
+                                                "WHERE DateRented LIKE '" + date + "%'";
 
             SqlCommand cmdGetFacilityProfitDetails = new SqlCommand(getFacilityProfitDetails, conn);
 

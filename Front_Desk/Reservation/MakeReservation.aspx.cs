@@ -1097,23 +1097,32 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Reduce room quantity there have already been selected by the user.
             for (int i = 0; i < availableRoom.Count; i++)
             {
-                for(int j = 0; j < reservationDate.Length; j++)
+                // Store the original quantity
+                AvailableRoom ar = availableRoom.ElementAt(i);
+                int originalQty = ar.quantity;
+
+                if(originalQty > 0)
                 {
-                    conn = new SqlConnection(strCon);
-                    conn.Open();
-
-                    AvailableRoom ar = availableRoom.ElementAt(i);
-
-                    int qty = getReservedRoomTypeQty(ar.roomTypeID, reservationDate[j]);
-
-                    ar.quantity -= qty;
-
-                    if (ar.quantity == 0)
+                    for (int j = 0; j < reservationDate.Length; j++)
                     {
-                        ar.status = "Unavailable";
-                    }
+                        conn = new SqlConnection(strCon);
+                        conn.Open();
 
-                    conn.Close();
+                        int qty = getReservedRoomTypeQty(ar.roomTypeID, reservationDate[j]);
+
+                        // If the new available quantity is less than the current qty
+                        if((originalQty - qty) < ar.quantity)
+                        {
+                            ar.quantity = (originalQty - qty);
+                        }
+
+                        if (ar.quantity == 0)
+                        {
+                            ar.status = "Unavailable";
+                        }
+
+                        conn.Close();
+                    }
                 }
             }
 
@@ -1176,6 +1185,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             // Get control's reference
             Label lblStatus = e.Item.FindControl("lblStatus") as Label;
+            Label lblQuantity = e.Item.FindControl("lblQuantity") as Label;
 
             if (lblStatus.Text == "Available")
             {
@@ -1184,6 +1194,12 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             else
             {
                 lblStatus.Style["color"] = "red";  // Assign red color
+            }
+
+            // Set to '0' if it is less than 0
+            if(int.Parse(lblQuantity.Text) < 0)
+            {
+                lblQuantity.Text = "0";
             }
         }
 

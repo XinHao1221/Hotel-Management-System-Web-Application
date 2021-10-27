@@ -31,6 +31,8 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            //reservationID = "RS10000016";
+
             // Page TItle
             Page.Title = "Welcome";
 
@@ -159,9 +161,10 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
         private Boolean isToday()
         {
             // Check if check in date same as today's date
-
             DateTime dateNow = DateTime.Now;
             string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
+            //string todaysDate = "2021-10-27";
 
             // Get Check in date
             conn = new SqlConnection(strCon);

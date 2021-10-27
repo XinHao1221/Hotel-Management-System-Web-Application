@@ -357,7 +357,7 @@
                 <div style="clear:both; height:20px;"></div>
                 <div style="width:100%; text-align: center;">
 
-                    <asp:Chart ID="ChartGuestInHouse" runat="server">
+                    <asp:Chart ID="ChartGuestInHouse" runat="server" OnCustomize="ChartGuestInHouse_Customize">
                         <Series>
                             <asp:Series Name="Series1"></asp:Series>
                         </Series>

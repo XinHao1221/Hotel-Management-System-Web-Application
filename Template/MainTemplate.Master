@@ -345,7 +345,7 @@
 
             <asp:Panel ID="pnNavReport" runat="server" CssClass="dropdown-container" Visible="false">
                 <div>
-                    <asp:HyperLink ID="HLHotelReport" runat="server" NavigateUrl="~/Reporting/Hotel Report/HotelReport.aspx">
+                    <asp:HyperLink ID="HLHotelReport" runat="server" NavigateUrl="~/Reporting/Hotel_Report/HotelReport.aspx">
                         <div style="float:left; background-color:white; border-start-end-radius:5px; border-start-start-radius:5px;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Hotel Report
@@ -357,7 +357,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLReservationReport" runat="server" NavigateUrl="~/Reporting/Reservation Report/ReservationReport.aspx">
+                    <asp:HyperLink ID="HLReservationReport" runat="server" NavigateUrl="~/Reporting/Reservation_Report/ReservationReport.aspx">
                         <div style="float:left; background-color:white;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                 Reservation Report
@@ -369,7 +369,7 @@
                         &nbsp;
                     </div>
 
-                    <asp:HyperLink ID="HLRevenueReport" runat="server" NavigateUrl="~/Reporting/Revenue Report/RevenueReport.aspx">
+                    <asp:HyperLink ID="HLRevenueReport" runat="server" NavigateUrl="~/Reporting/Revenue_Report/RevenueReport.aspx">
                         <div style="float: left; background-color: white; border-end-end-radius:5px; border-end-start-radius:5px;" class="dropdown-optionContainer">
                             <div style="margin-left:15px;">
                                Revenue Report

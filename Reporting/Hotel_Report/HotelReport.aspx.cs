@@ -8,6 +8,7 @@ using Hotel_Management_System.Utility;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using Hotel_Management_System.Dashboard;
 
 namespace Hotel_Management_System.Reporting.Hotel_Report
 {
@@ -39,9 +40,15 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
             if (!IsPostBack)
             {
+                Session["GuestInHouse"] = new List<GuestInHouse>();
+
                 displayTotalArrival();
                 displayTotalDeparture();
+
+                getTotalGuestInHouse();
+                calcTotalAdultsAndKids();
                 displayTotalInHouseGuest();
+
                 displayRoomType();
                 displayFacility();
             }
@@ -83,68 +90,78 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
         }
 
-        private int getTotalAdults()
+        private void getTotalGuestInHouse()
         {
+            List<GuestInHouse> guestInHouses = (List<GuestInHouse>)Session["GuestInHouse"];
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getGuestInHouse = "SELECT R.ReservationID, RR.Adults, RR.Kids, RR.RoomID " +
+                                    "FROM Reservation R, ReservationRoom RR " +
+                                    "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID";
+
+            SqlCommand cmdGetGuestInHouse = new SqlCommand(getGuestInHouse, conn);
+
+            SqlDataReader sdr = cmdGetGuestInHouse.ExecuteReader();
+
+            // Hold the data into object temporary.
+            List<GuestInHouse> temp = new List<GuestInHouse>();
+
+            while (sdr.Read())
+            {
+                temp.Add(new GuestInHouse(sdr["ReservationID"].ToString(), sdr["RoomID"].ToString(), int.Parse(sdr["Adults"].ToString()),
+                                        int.Parse(sdr["Kids"].ToString())));
+            }
+
+            conn.Close();
+
+            // Set actual adults and kids into session object
+            // Save the first record
+            if (temp.Count > 0)
+            {
+                guestInHouses.Add(new GuestInHouse(temp[0].reservationID, temp[0].roomID, temp[0].adults, temp[0].kids));
+
+                for (int i = 1; i < temp.Count; i++)
+                {
+                    Boolean exists = false;
+
+                    for (int j = 0; j < guestInHouses.Count; j++)
+                    {
+                        if (temp[i].reservationID == guestInHouses[j].reservationID && temp[i].roomID == guestInHouses[j].roomID)
+                        {
+                            // If exits
+                            exists = true;
+                        }
+                    }
+
+                    // If record is not exists in the list
+                    if (exists == false)
+                    {
+                        guestInHouses.Add(new GuestInHouse(temp[i].reservationID, temp[i].roomID, temp[i].adults, temp[i].kids));
+                    }
+                }
+            }
+
+        }
+        private void calcTotalAdultsAndKids()
+        {
+
+            List<GuestInHouse> guestInHouses = (List<GuestInHouse>)Session["GuestInHouse"];
+
             totalAdults = 0;
 
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            string getTotalAdults = "SELECT SUM(RR.Adults) " +
-                                    "FROM Reservation R, ReservationRoom RR " +
-                                    "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID";
-
-            SqlCommand cmdGetTotalAdults = new SqlCommand(getTotalAdults, conn);
-
-            cmdGetTotalAdults.Parameters.AddWithValue("@todaysDate", todaysDate);
-
-            try
+            for (int i = 0; i < guestInHouses.Count; i++)
             {
-                totalAdults = (int)cmdGetTotalAdults.ExecuteScalar();
-            }
-            catch
-            {
-
+                totalAdults += guestInHouses[i].adults;
+                totalKids += guestInHouses[i].kids;
             }
 
-            conn.Close();
-
-            return totalAdults;
-        }
-
-        private int getTotalKids()
-        {
-            totalKids = 0;
-
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            string getTotalKids = "SELECT SUM(RR.Kids) " +
-                                    "FROM Reservation R, ReservationRoom RR " +
-                                    "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID";
-
-            SqlCommand cmdGetTotalKids = new SqlCommand(getTotalKids, conn);
-
-            cmdGetTotalKids.Parameters.AddWithValue("@todaysDate", todaysDate);
-
-            try
-            {
-                totalKids = (int)cmdGetTotalKids.ExecuteScalar();
-            }
-            catch
-            {
-
-            }
-
-
-            conn.Close();
-
-            return totalKids;
         }
 
         private void displayTotalInHouseGuest()
         {
-            lblTotalInHouseGuest.Text = (getTotalAdults() + getTotalKids()).ToString();
+            lblTotalInHouseGuest.Text = (totalAdults + totalKids).ToString();
         }
 
         private void displayRoomType()

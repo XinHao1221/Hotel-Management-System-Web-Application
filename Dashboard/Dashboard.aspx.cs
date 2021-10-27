@@ -45,9 +45,10 @@ namespace Hotel_Management_System.Dashboard
             //{
             // Declare Session Variable
             Session["RoomType"] = new List<RoomType>();
+            Session["GuestInHouse"] = new List<GuestInHouse>();
 
-                totalAdults = getTotalAdults();
-                totalKids = getTotalKids();
+            getTotalGuestInHouse();
+            calcTotalAdultsAndKids();
 
                 displayDate();
 
@@ -167,33 +168,73 @@ namespace Hotel_Management_System.Dashboard
             return totalDeparted.ToString();
         }
 
-        private int getTotalAdults()
+        private void getTotalGuestInHouse()
         {
-            totalAdults = 0;
+            List<GuestInHouse> guestInHouses = (List<GuestInHouse>)Session["GuestInHouse"];
 
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getTotalAdults = "SELECT SUM(RR.Adults) " +
+            string getGuestInHouse = "SELECT R.ReservationID, RR.Adults, RR.Kids, RR.RoomID " +
                                     "FROM Reservation R, ReservationRoom RR " +
                                     "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID";
 
-            SqlCommand cmdGetTotalAdults = new SqlCommand(getTotalAdults, conn);
+            SqlCommand cmdGetGuestInHouse = new SqlCommand(getGuestInHouse, conn);
 
-            cmdGetTotalAdults.Parameters.AddWithValue("@todaysDate", todaysDate);
+            SqlDataReader sdr = cmdGetGuestInHouse.ExecuteReader();
 
-            try
+            // Hold the data into object temporary.
+            List<GuestInHouse> temp = new List<GuestInHouse>();
+
+            while (sdr.Read())
             {
-                totalAdults = (int)cmdGetTotalAdults.ExecuteScalar();
-            }
-            catch
-            {
-
+                temp.Add(new GuestInHouse(sdr["ReservationID"].ToString(), sdr["RoomID"].ToString(), int.Parse(sdr["Adults"].ToString()),
+                                        int.Parse(sdr["Kids"].ToString())));
             }
 
             conn.Close();
 
-            return totalAdults;
+            // Set actual adults and kids into session object
+            // Save the first record
+            if(temp.Count > 0)
+            {
+                guestInHouses.Add(new GuestInHouse(temp[0].reservationID, temp[0].roomID, temp[0].adults, temp[0].kids));
+
+                for(int i = 1; i < temp.Count; i++)
+                {
+                    Boolean exists = false;
+
+                    for (int j = 0; j < guestInHouses.Count; j++)
+                    {
+                        if(temp[i].reservationID == guestInHouses[j].reservationID && temp[i].roomID == guestInHouses[j].roomID)
+                        {
+                            // If exits
+                            exists = true;
+                        }
+                    }
+
+                    // If record is not exists in the list
+                    if (exists == false)
+                    {
+                        guestInHouses.Add(new GuestInHouse(temp[i].reservationID, temp[i].roomID, temp[i].adults, temp[i].kids));
+                    }
+                }
+            }
+
+        }
+        private void calcTotalAdultsAndKids()
+        {
+
+            List<GuestInHouse> guestInHouses = (List<GuestInHouse>)Session["GuestInHouse"];
+
+            totalAdults = 0;
+
+            for(int i = 0; i < guestInHouses.Count; i++)
+            {
+                totalAdults += guestInHouses[i].adults;
+                totalKids += guestInHouses[i].kids;
+            }
+
         }
 
         private int getTotalKids()
@@ -463,6 +504,23 @@ namespace Hotel_Management_System.Dashboard
                         case "Kids": dp.Color = System.Drawing.Color.FromArgb(255, 72, 0); break;
                     }
 
+                }
+            }
+        }
+
+        protected void ChartGuestInHouse_Customize(object sender, EventArgs e)
+        {
+            //hide label value if zero
+            foreach (System.Web.UI.DataVisualization.Charting.Series series in ChartGuestInHouse.Series)
+            {
+                foreach (System.Web.UI.DataVisualization.Charting.DataPoint point in series.Points)
+                {
+                    if (point.YValues.Length > 0 && (double)point.YValues.GetValue(0) == 0)
+                    {
+                        point.LegendText = point.AxisLabel;//In case you have legend
+                        point.AxisLabel = string.Empty;
+                        point.Label = string.Empty;
+                    }
                 }
             }
         }

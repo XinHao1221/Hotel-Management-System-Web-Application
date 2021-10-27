@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode url="Dashboard/Dashboard.aspx" title="Dashboard"  description="">
-    
+
+	  <!--Room Availability-->
+	  <siteMapNode url="Dashboard/RoomAvailability.aspx" title="Room Availability"  description="" />
+	  
     <!--Floor Management-->
     <siteMapNode url="Hotel_Configuration_Management/Floor/Floor.aspx" title="Floor"  description="">
       <siteMapNode url="Hotel_Configuration_Management/Floor/AddFloor.aspx" title="Add Floor"  description="">
@@ -60,7 +63,68 @@
       <siteMapNode url="Front_Desk/Guest/EditGuest.aspx" title="Edit Guest"  description="" />
       <siteMapNode url="Front_Desk/Guest/ViewGuest.aspx" title="Guest Details"  description="" />
     </siteMapNode>
-    
-    <siteMapNode url="" title=""  description="" />
+
+	  <!--Reservation-->
+	  <siteMapNode url="Front_Desk/Reservation/Reservation.aspx" title="Reservation"  description="">
+		  <siteMapNode url="Front_Desk/Reservation/MakeReservation.aspx" title="Make Reservation"  description="">
+			<siteMapNode url="Front_Desk/Reservation/Payment.aspx" title="Payment"  description=""/>
+		  </siteMapNode>
+		  
+		  <siteMapNode url="Front_Desk/Reservation/ViewReservation.aspx" title="Reservation Details"  description="">
+			  <siteMapNode url="Front_Desk/Reservation/Refund.aspx" title="Refund"  description=""/>
+		  </siteMapNode>
+	  </siteMapNode>
+	  
+	  <!--Check In-->
+	  <siteMapNode url="Front_Desk/CheckIn/CheckIn.aspx" title="Check In"  description="">
+		  <!--Check In-->
+		  <siteMapNode url="Front_Desk/CheckIn/CheckInGuest.aspx" title="Check-in Guest"  description="">
+			  <siteMapNode url="Front_Desk/CheckIn/EquipmentCheckList.aspx" title="Equipment Checklist"  description="">
+				  <siteMapNode url="Front_Desk/CheckIn/CheckInConfirmation.aspx" title="Check In Confirmation"  description=""/>
+			  </siteMapNode>
+		  </siteMapNode>
+
+		  <!--Self Check In--> 
+		  <siteMapNode url="Front_Desk/Self-CheckIn/Staff/CheckInGuest(SelfCheckIn).aspx" title="Check-in Guest"  description="">
+			  <siteMapNode url="Front_Desk/Self-CheckIn/Staff/EquipmentCheckList.aspx" title="Equipment Checklist"  description="">
+				  <siteMapNode url="Front_Desk/Self-CheckIn/Staff/CheckInConfirmation.aspx" title="Check In Confirmation"  description=""/>
+			  </siteMapNode>
+		  </siteMapNode>
+		  
+	  </siteMapNode>
+
+	  <!--Check Out-->
+	  <siteMapNode url="Front_Desk/CheckOut/CheckOut.aspx" title="Check Out"  description="">
+		  <siteMapNode url="Front_Desk/CheckOut/CheckOutGuest.aspx" title="Check-out Guest"  description="">
+			  <siteMapNode url="Front_Desk/CheckOut/EquipmentCheckList.aspx" title="Equipment Checklist"  description="">
+				  <siteMapNode url="Front_Desk/CheckOut/CheckOutConfirmation.aspx" title="Check Out Confirmation"  description=""/>
+			  </siteMapNode>
+		  </siteMapNode>
+	  </siteMapNode>
+
+	  <!--Guest In House-->
+	  <siteMapNode url="Front_Desk/GuestInHouse/GuestInHouse.aspx" title="Guest In House"  description="">
+		  <siteMapNode url="Front_Desk/GuestInHouse/ReservationDetails.aspx" title="Reservation Details"  description="">
+			  <siteMapNode url="Front_Desk/GuestInHouse/RoomMove.aspx" title="Room Move"  description=""/>
+		  </siteMapNode>
+	  </siteMapNode>
+  
+	  <!--History-->
+	  <siteMapNode url="History/History.aspx" title="History"  description="">
+		  <siteMapNode url="History/ViewTransactionHistory.aspx" title="Transaction History Details"  description="">
+				<siteMapNode url="History/ViewSurveyResponse.aspx" title="Survey Response"  description=""/>
+		  </siteMapNode>
+	  </siteMapNode>
+	  
+	  
+	 <!--Hotel Report-->
+	  <siteMapNode url="Reporting/Hotel_Report/HotelReport.aspx" title="Hotel Report"  description="" />
+
+	  <!--Reservation Report-->
+	  <siteMapNode url="Reporting/Reservation_Report/ReservationReport.aspx" title="Reservation Report"  description="" />
+
+	  <!--Revenue Report-->
+	  <siteMapNode url="Reporting/Revenue_Report/RevenueReport.aspx" title="Revenue Report"  description="" />
+	  
   </siteMapNode>
 </siteMap>

@@ -39,6 +39,17 @@ namespace Hotel_Management_System.Dashboard
             //custom logging logic can go here
         }
 
+        public GuestInHouse()
+        {
 
+        }
+
+        public GuestInHouse(string reservationID, string roomID, int adults, int kids)
+        {
+            this.reservationID = reservationID;
+            this.roomID = roomID;
+            this.kids = kids;
+            this.adults = adults;
+        }
     }
 }
