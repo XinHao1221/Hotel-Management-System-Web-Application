@@ -386,7 +386,7 @@
         <div style="margin-left:220px; height:50px;">
             <%--Site Map--%>
             <div style="float:left; width:68%; height:50px; line-height: 50px;" class="siteMapStyle">
-                <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath>
+                <asp:SiteMapPath ID="SiteMapPath1" runat="server" Enabled="False"></asp:SiteMapPath>
                 <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
             </div>
             <div style="float:left; width:30%; height:50px;">
