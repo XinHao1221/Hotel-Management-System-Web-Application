@@ -61,7 +61,7 @@
                 <td class="formInput">
                     <asp:TextBox ID="txtPrice" runat="server" CssClass="inputStyle" placeholder="150.00" Width="30%"></asp:TextBox>
                     <br />
-                    <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Price must be in decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                    <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Enter a positive decimal value." CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                 </td>
             </tr>

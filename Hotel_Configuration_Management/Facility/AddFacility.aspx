@@ -52,7 +52,7 @@
                     <td class="formInput">
                         <asp:TextBox ID="txtQty" runat="server" CssClass="inputStyle" placeholder="10" Width="30%" Text="0"></asp:TextBox>
                         <br />
-                        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Quantity must be a digit!" CssClass="validatorStyle" ControlToValidate="txtQty" Type="Integer" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Quantity must be a positive value!" CssClass="validatorStyle" ControlToValidate="txtQty" Type="Integer" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -79,7 +79,7 @@
                     <td class="formInput">
                         <asp:TextBox ID="txtPrice" runat="server" CssClass="inputStyle" placeholder="50.00" Width="30%"></asp:TextBox>
                         <br />
-                        <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Price must be in decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                        <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Price must be a postive decimal value!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                     </td>
                 </tr>

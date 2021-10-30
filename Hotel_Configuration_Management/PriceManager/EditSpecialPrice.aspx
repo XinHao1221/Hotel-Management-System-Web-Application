@@ -64,7 +64,7 @@
                         <div style="float:left; width:100px;">
                             <asp:TextBox ID="txtPrice" runat="server" CssClass="inputStyle" Width="100%" Text='<%# Eval("Price") %>'></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
                         </div>
                     </div>
                 </ItemTemplate>
@@ -84,7 +84,7 @@
                         <div style="float:left; width:100px;">
                             <asp:TextBox ID="txtPrice" runat="server" CssClass="inputStyle" Width="100%" Text='<%# Eval("Price") %>'></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
                         </div>
                     </div>
                 </ItemTemplate>

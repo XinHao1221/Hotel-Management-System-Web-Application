@@ -46,7 +46,7 @@
                 </div>
                 <asp:TextBox ID="txtMonPrice" runat="server" CssClass="inputStyle2" Width="91%"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtMonPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtMonPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtMonPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
             </div>
             <div style="float:left; width:150px; margin-right:40px; height:100px;">
                 <div class="formLabel2">
@@ -54,7 +54,7 @@
                 </div>
                 <asp:TextBox ID="txtTuePrice" runat="server" CssClass="inputStyle2" Width="91%"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtTuePrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtTuePrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtTuePrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
             </div>
             <div style="float:left; width:150px; margin-right:40px; height:100px;">
                 <div class="formLabel2">
@@ -62,7 +62,7 @@
                 </div>
                 <asp:TextBox ID="txtWedPrice" runat="server" CssClass="inputStyle2" Width="91%"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtWedPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtWedPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtWedPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
             </div>
             <div style="float:left; width:150px; margin-right:40px; height:100px;">
                 <div class="formLabel2">
@@ -70,7 +70,7 @@
                 </div>
                 <asp:TextBox ID="txtThuPrice" runat="server" CssClass="inputStyle2" Width="91%"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtThuPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtThuPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtThuPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
             </div>
             <div style="float:left; width:150px; margin-right:40px; height:100px;">
                 <div class="formLabel2">
@@ -78,7 +78,7 @@
                 </div>
                 <asp:TextBox ID="txtFriPrice" runat="server" CssClass="inputStyle2" Width="91%"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtFriPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtFriPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtFriPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
             </div>
             <div style="float:left; width:150px; margin-right:40px; height:100px;">
                 <div class="formLabel2">
@@ -86,7 +86,7 @@
                 </div>
                 <asp:TextBox ID="txtSatPrice" runat="server" CssClass="inputStyle2" Width="91%"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtSatPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtSatPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtSatPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
             </div>
             <div style="float:left; width:150px; margin-right:40px; height:100px;">
                 <div class="formLabel2">
@@ -94,7 +94,7 @@
                 </div>
                 <asp:TextBox ID="txtSunPrice" runat="server" CssClass="inputStyle2" Width="91%"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtSunPrice" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
-                <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="Enter a decimal!" CssClass="validatorStyle" ControlToValidate="txtSunPrice" Type="Double" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="Enter a positive decimal!" CssClass="validatorStyle" ControlToValidate="txtSunPrice" Type="Double" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
             </div>
 
             <div style="clear:both; width:100%; height:70px;">
