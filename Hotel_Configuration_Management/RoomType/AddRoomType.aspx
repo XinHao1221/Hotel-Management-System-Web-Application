@@ -77,7 +77,7 @@
                 <td></td>
                 <td class="formInput">
                     <asp:TextBox ID="txtBaseOccupancy" runat="server" CssClass="inputStyle" placeholder="2" Width="30%" ></asp:TextBox> <br />
-                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Please enter a digit!" CssClass="validatorStyle" ControlToValidate="txtBaseOccupancy" Type="Integer" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Please enter a postive digit!" CssClass="validatorStyle" ControlToValidate="txtBaseOccupancy" Type="Integer" ValidationGroup="save" Operator="GreaterThan" ValueToCompare="0"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtBaseOccupancy" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
                 </td>
             </tr>
@@ -86,8 +86,9 @@
                 <td></td>
                 <td class="formInput">
                     <asp:TextBox ID="txtHigherOccupancy" runat="server" CssClass="inputStyle" placeholder="4" Width="30%" ></asp:TextBox> <br />
-                    <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Please enter a digit!" CssClass="validatorStyle" ControlToValidate="txtHigherOccupancy" Type="Integer" ValidationGroup="save" Operator="DataTypeCheck"></asp:CompareValidator>
+                    <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Please enter a postive digit!" CssClass="validatorStyle" ControlToValidate="txtHigherOccupancy" Type="Integer" ValidationGroup="save" Operator="GreaterThanEqual" ValueToCompare="0"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtHigherOccupancy" ErrorMessage="Please enter a value." ValidationGroup="save" CssClass="validatorStyle"></asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="Higher occupancy should not less than base occupancy." ControlToCompare="txtBaseOccupancy" Type="String" Operator="GreaterThanEqual" ControlToValidate="txtHigherOccupancy" CssClass="validatorStyle" ValidationGroup="save"></asp:CompareValidator>
                 </td>
             </tr>
             <tr>
