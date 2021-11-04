@@ -83,39 +83,68 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {
+            // If there is any data being selected
+            if(txtDate.Text != "")
+            {
+                totalReservationProfit = getReservationProfit(txtDate.Text);
+                totalFaclityProfit = getFacilityProfit(txtDate.Text);
+                totalFineCharges = getTotalFineCharges(txtDate.Text);
+                totalServicesCharges = getTotalServicesCharges(txtDate.Text);
 
-            totalReservationProfit = getReservationProfit(txtDate.Text);
-            totalFaclityProfit = getFacilityProfit(txtDate.Text);
-            totalFineCharges = getTotalFineCharges(txtDate.Text);
-            totalServicesCharges = getTotalServicesCharges(txtDate.Text);
+                displayRevenueDetails();
 
-            displayRevenueDetails();
+                displayChartProfit();
 
-            displayChartProfit();
+                displayRoomProfitDetails(txtDate.Text);
+                displayFacilityProfitDetails(txtDate.Text);
+                displayFineChargesDetails(txtDate.Text);
+                displayServicesDetails(txtDate.Text);
+            }
+            else
+            {
+                PNReportDetails.Visible = false;
 
-            displayRoomProfitDetails(txtDate.Text);
-            displayFacilityProfitDetails(txtDate.Text);
-            displayFineChargesDetails(txtDate.Text);
-            displayServicesDetails(txtDate.Text);
+                // Reset all price to zero
+                lblRoomTotal.Text = "0.00";
+                lblFacilityTotal.Text = "0.00";
+                lblFineChargesTotal.Text = "0.00";
+                lblServicesTotal.Text = "0.00";
+                lblProfit.Text = "0.00";
+            }
+            
 
         }
 
         protected void txtYearMonth_TextChanged(object sender, EventArgs e)
         {
+            if(txtYearMonth.Text != "")
+            {
+                totalReservationProfit = getReservationProfit(txtYearMonth.Text);
+                totalFaclityProfit = getFacilityProfit(txtYearMonth.Text);
+                totalFineCharges = getTotalFineCharges(txtYearMonth.Text);
+                totalServicesCharges = getTotalServicesCharges(txtYearMonth.Text);
 
-            totalReservationProfit = getReservationProfit(txtYearMonth.Text);
-            totalFaclityProfit = getFacilityProfit(txtYearMonth.Text);
-            totalFineCharges = getTotalFineCharges(txtYearMonth.Text);
-            totalServicesCharges = getTotalServicesCharges(txtYearMonth.Text);
+                displayRevenueDetails();
 
-            displayRevenueDetails();
+                displayChartProfit();
 
-            displayChartProfit();
+                displayRoomProfitDetails(txtYearMonth.Text);
+                displayFacilityProfitDetails(txtYearMonth.Text);
+                displayFineChargesDetails(txtYearMonth.Text);
+                displayServicesDetails(txtYearMonth.Text);
+            }
+            else
+            {
+                PNReportDetails.Visible = false;
 
-            displayRoomProfitDetails(txtYearMonth.Text);
-            displayFacilityProfitDetails(txtYearMonth.Text);
-            displayFineChargesDetails(txtYearMonth.Text);
-            displayServicesDetails(txtYearMonth.Text);
+                // Reset all price to zero
+                lblRoomTotal.Text = "0.00";
+                lblFacilityTotal.Text = "0.00";
+                lblFineChargesTotal.Text = "0.00";
+                lblServicesTotal.Text = "0.00";
+                lblProfit.Text = "0.00";
+            }
+            
         }
 
         protected void ddlYear_TextChanged(object sender, EventArgs e)
@@ -637,6 +666,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             // Display the formated date
             lblDate.Text = formatedDate.ToShortDateString();
         }
+
 
     }
 }

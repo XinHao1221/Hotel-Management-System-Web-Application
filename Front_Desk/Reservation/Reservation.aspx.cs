@@ -420,10 +420,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void txtCheckInDateFilter_TextChanged(object sender, EventArgs e)
         {
-            string checkInDate = reservation.formatDate(txtCheckInDateFilter.Text);
 
-            conn = new SqlConnection(strCon);
-            conn.Open();
 
             if (txtCheckInDateFilter.Text == "")
             {
@@ -431,6 +428,11 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
             else
             {
+                string checkInDate = reservation.formatDate(txtCheckInDateFilter.Text);
+
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
                 // open connection
                 conn = new SqlConnection(strCon);
                 conn.Open();

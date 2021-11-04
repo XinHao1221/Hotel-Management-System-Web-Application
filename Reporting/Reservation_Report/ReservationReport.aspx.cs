@@ -86,48 +86,65 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
 
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {
-            PNReservationReportDetails.Visible = true;
+            // If there is any date has been selected
+            if(txtDate.Text != "")
+            {
+                PNReservationReportDetails.Visible = true;
 
-            getReservedRoomTypeQuantity(txtDate.Text);
-            // Sort list from small to large
-            sortRoomType();
-            displayChartRoomType();
+                getReservedRoomTypeQuantity(txtDate.Text);
+                // Sort list from small to large
+                sortRoomType();
+                displayChartRoomType();
 
-            RepeaterRentedRoomType.DataSource = reservedRoomTypes;
-            RepeaterRentedRoomType.DataBind();
+                RepeaterRentedRoomType.DataSource = reservedRoomTypes;
+                RepeaterRentedRoomType.DataBind();
 
 
-            getReservedFacilityQty(txtDate.Text);
-            sortFacility();
-            displayChartFacility();
+                getReservedFacilityQty(txtDate.Text);
+                sortFacility();
+                displayChartFacility();
 
-            RepeaterFacility.DataSource = reservedFacilities;
-            RepeaterFacility.DataBind();
+                RepeaterFacility.DataSource = reservedFacilities;
+                RepeaterFacility.DataBind();
 
-            checkIfEmpty();
+                checkIfEmpty();
+            }
+            else
+            {
+                PNReservationReportDetails.Visible = false;
+            }
+            
 
         }
 
         protected void txtYearMonth_TextChanged(object sender, EventArgs e)
         {
-            PNReservationReportDetails.Visible = true;
+            if (txtYearMonth.Text != "")
+            {
+                PNReservationReportDetails.Visible = true;
 
-            getReservedRoomTypeQuantity(txtYearMonth.Text);
-            sortRoomType();
-            displayChartRoomType();
+                getReservedRoomTypeQuantity(txtYearMonth.Text);
+                sortRoomType();
+                displayChartRoomType();
 
-            RepeaterRentedRoomType.DataSource = reservedRoomTypes;
-            RepeaterRentedRoomType.DataBind();
+                RepeaterRentedRoomType.DataSource = reservedRoomTypes;
+                RepeaterRentedRoomType.DataBind();
 
 
-            getReservedFacilityQty(txtYearMonth.Text);
-            sortFacility();
-            displayChartFacility();
+                getReservedFacilityQty(txtYearMonth.Text);
+                sortFacility();
+                displayChartFacility();
 
-            RepeaterFacility.DataSource = reservedFacilities;
-            RepeaterFacility.DataBind();
+                RepeaterFacility.DataSource = reservedFacilities;
+                RepeaterFacility.DataBind();
 
-            checkIfEmpty();
+                checkIfEmpty();
+            }
+            else
+            {
+                PNReservationReportDetails.Visible = false;
+            }
+            
         }
 
         protected void ddlYear_TextChanged(object sender, EventArgs e)
