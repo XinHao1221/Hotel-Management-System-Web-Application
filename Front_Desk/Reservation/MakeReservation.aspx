@@ -911,7 +911,7 @@
                                             <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
                                         </div>
                                         <div style="float:left; width:10%; text-align:right;" class="subFormTableContent">
-                                            <asp:Label ID="lblRoomPrice" runat="server" Text='<%# Eval("roomPrice") %>' ToolTip='<%# Eval("roomPrice") %>'></asp:Label>
+                                            <asp:Label ID="lblRoomPrice" runat="server" Text='<%# Eval("roomPrice", "{0:N2}") %>' ToolTip='<%# Eval("roomPrice", "{0:N2}") %>'></asp:Label>
                                         </div>
                                         <div style="float:left; width:42%;" class="subFormTableContent">
                                             &nbsp;
@@ -929,7 +929,7 @@
                                             <asp:Label ID="lblRoomType" runat="server" Text='<%# Eval("roomType") %>' ToolTip='<%# Eval("roomType") %>'></asp:Label>
                                         </div>
                                         <div style="float:left; width:10%; text-align:right;" class="subFormTableContentAlternate">
-                                            <asp:Label ID="lblRoomPrice" runat="server" Text='<%# Eval("roomPrice") %>' ToolTip='<%# Eval("roomPrice") %>'></asp:Label>
+                                            <asp:Label ID="lblRoomPrice" runat="server" Text='<%# Eval("roomPrice", "{0:N2}") %>' ToolTip='<%# Eval("roomPrice", "{0:N2}") %>'></asp:Label>
                                         </div>
                                         <div style="float:left; width:42%;" class="subFormTableContentAlternate">
                                             &nbsp;

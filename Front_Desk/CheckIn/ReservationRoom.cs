@@ -40,6 +40,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
         public double extraBedPrice { get; set; }
         public string date { get; set; }
 
+        // Used by room move only
+        public string remark { get; set; }
+        public string fromRoom { get; set; }
 
         // Create connection to database
         SqlConnection conn;
@@ -66,6 +69,8 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.roomPrice = roomPrice;
             this.extraBedPrice = extraBedPrice;
             this.date = date;
+            this.remark = "";
+            this.fromRoom = "";
         }
 
         public ReservationRoom(string temp)
@@ -84,6 +89,8 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.roomPrice = roomPrice;
             this.extraBedPrice = extraBedPrice;
             this.date = date;
+            this.remark = "";
+            this.fromRoom = "";
         }
 
         private string getRoomNo(string roomID)

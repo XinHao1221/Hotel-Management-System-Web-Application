@@ -26,6 +26,9 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
         // Create instance of IDEncryption class
         IDEncryption en = new IDEncryption();
 
+        // Create instance of IDGerator class
+        IDGenerator idGenerator = new IDGenerator();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             reservationID = en.decryption(Request.QueryString["ID"]);
@@ -438,14 +441,65 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
             reservedRooms = reservation.reservedRoom;
 
+            // Check if the newly selected room is the original selected room
+            Boolean isOriginalRoom = false;
+            for(int i = 0; i < reservedRooms.Count; i++)
+            {
+                if(reservedRooms[i].fromRoom == roomNo)
+                {
+                    isOriginalRoom = true;
+                }
+            }
+            // Show popup to gather remark
+            if(isOriginalRoom == false)
+            {
+                PopupMove.Visible = true;
+                lblSelectedRoomNo.Text = roomNo;
+                lblRoomID.Text = roomID;
+            }
+            else
+            {
+                roomMove(roomID, roomNo);
+            }
+
+        }
+
+        private void roomMove(string roomID, string roomNo)
+        {
+            // Get the reference of reservedRoomTypes
+            List<ReservedRoomType> reservedRoomTypes = (List<ReservedRoomType>)Session["ReservedRoomType"];
+
+            // Get reference of ReservationDetail from view state
+            ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
+            List<ReservationRoom> reservedRooms = new List<ReservationRoom>();
+
+            reservedRooms = reservation.reservedRoom;
+
             // Set the selected room into reservedRooms list
             for (int i = 0; i < reservedRooms.Count; i++)
             {
                 // Get the correct item from the list
                 if (reservedRooms[i].reservationRoomID == ViewState["ReservationRoomID"].ToString())
                 {
+                    // If the there is new room selected
+                    if (reservedRooms[i].fromRoom == "")
+                    {
+                        reservedRooms[i].remark = txtRemark.Text;
+                        reservedRooms[i].fromRoom = reservedRooms[i].roomNo;
+                    }
+                    else if (reservedRooms[i].fromRoom == roomNo)       // If user selects the same room as previous
+                    {
+                        reservedRooms[i].remark = "";
+                    }
+                    else       // If another room has been selected
+                    {
+                        reservedRooms[i].remark = txtRemark.Text;
+                    }
+
                     reservedRooms[i].roomID = roomID;
                     reservedRooms[i].roomNo = roomNo;
+
+                    
                 }
             }
 
@@ -488,17 +542,18 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
             // Close popup box
             PopupBoxSelectRoom.Visible = false;
             PopupCover.Visible = false;
+            PopupMove.Visible = false;
 
             // Refresh Reservation Room Repeater
             RepeaterReservedRoom.DataSource = reservation.reservedRoom;
             RepeaterReservedRoom.DataBind();
-
         }
 
         protected void IBClosePopUpBox_Click(object sender, ImageClickEventArgs e)
         {
             PopupBoxSelectRoom.Visible = false;
             PopupCover.Visible = false;
+            PopupMove.Visible = false;
         }
 
         private void setCurrentRentedRoomIntoRoomAvailability()
@@ -531,6 +586,10 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            // Get current date
+            DateTime dateNow = DateTime.Now;
+            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
             // Get current rented room
             ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
             List<ReservationRoom> reservedRooms = reservation.reservedRoom;
@@ -553,14 +612,51 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
                 conn.Close();
             }
 
-            // Show success message
-            PopupRoomMove.Visible = true;
+            // Save Room Move's Remark
+            for (int i = 0; i < reservedRooms.Count; i++)
+            {
+                if(reservedRooms[i].remark != "")
+                {
+                    conn = new SqlConnection(strCon);
+                    conn.Open();
+
+                    string saveRemark = "INSERT INTO RoomMove VALUES (@RoomMoveID, @Remark, @FromRoom, @ToRoom, @ReservationID, @Date)";
+
+                    SqlCommand cmdSaveRemark = new SqlCommand(saveRemark, conn);
+
+                    cmdSaveRemark.Parameters.AddWithValue("@RoomMoveID", idGenerator.getNextID("RoomMoveID", "RoomMove", "RV"));
+                    cmdSaveRemark.Parameters.AddWithValue("@Remark", reservedRooms[i].remark);
+                    cmdSaveRemark.Parameters.AddWithValue("@FromRoom", reservedRooms[i].fromRoom);
+                    cmdSaveRemark.Parameters.AddWithValue("@ToRoom", reservedRooms[i].roomNo);
+                    cmdSaveRemark.Parameters.AddWithValue("@ReservationID", reservationID);
+                    cmdSaveRemark.Parameters.AddWithValue("@Date", todaysDate);
+
+                    int success = cmdSaveRemark.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+                
+            }
+
+                // Show success message
+                PopupRoomMove.Visible = true;
             PopupCover.Visible = true;
         }
 
         protected void btnOK_Click(object sender, EventArgs e)
         {
             Response.Redirect("ReservationDetails.aspx?ID=" + en.encryption(reservationID));
+        }
+
+        protected void btnMove_Click(object sender, EventArgs e)
+        {
+            // Execute room move
+            roomMove(lblRoomID.Text, lblSelectedRoomNo.Text);
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            PopupMove.Visible = false;
         }
     }
 

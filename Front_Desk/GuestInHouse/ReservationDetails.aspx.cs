@@ -52,6 +52,8 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
                 setRentedFacilityToRepeater();
 
+                setRoomMoveHistory();
+
             }
             
 
@@ -371,6 +373,47 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
                 lblExtraBedPrice.Text = "0.00";
             }
 
+        }
+
+        private void setRoomMoveHistory()
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getRoomMoveHistory = "SELECT * FROM RoomMove WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdGetRoomMoveHistory = new SqlCommand(getRoomMoveHistory, conn);
+
+            cmdGetRoomMoveHistory.Parameters.AddWithValue("@ID", reservationID);
+
+            SqlDataReader sdr = cmdGetRoomMoveHistory.ExecuteReader();
+
+            if (sdr.HasRows)
+            {
+                RepeaterRoomMoveHistory.DataSource = sdr;
+                RepeaterRoomMoveHistory.DataBind();
+
+                lblNoRoomMoveHistory.Visible = false;
+            }
+            else
+            {
+                RepeaterRoomMoveHistory.DataSource = null;
+                RepeaterRoomMoveHistory.DataBind();
+
+                lblNoRoomMoveHistory.Visible = true;
+            }
+
+            conn.Close();
+        }
+
+        protected void RepeaterRoomMoveHistory_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Get control's reference
+            Label lblDate = e.Item.FindControl("lblDate") as Label;
+
+            // Format data base on date format on user's computer
+            DateTime formatedDate = Convert.ToDateTime(lblDate.Text);
+            lblDate.Text = formatedDate.ToShortDateString();
         }
     }
 }

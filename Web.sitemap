@@ -2,8 +2,9 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode url="Dashboard/Dashboard.aspx" title="Dashboard"  description="">
 
-	  <!--Room Availability-->
+	  <!--Dashboard-->
 	  <siteMapNode url="Dashboard/RoomAvailability.aspx" title="Room Availability"  description="" />
+	  <siteMapNode url="Dashboard/BlockedRoom.aspx" title="Blocked Room"  description="" />
 	  
     <!--Floor Management-->
     <siteMapNode url="Hotel_Configuration_Management/Floor/Floor.aspx" title="Floor"  description="">

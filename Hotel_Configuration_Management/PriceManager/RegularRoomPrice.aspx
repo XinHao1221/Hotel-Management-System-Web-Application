@@ -139,12 +139,12 @@
                     </div>
                     <div style="float:left; width:10%;" class="tableHeader">
                         <div style="margin-left:5%; text-align:right;">
-                            <asp:Label ID="ttSun" runat="server" Text="Sun" ToolTip="Sunday Price"></asp:Label>
+                            <asp:Label ID="ttSun" runat="server" Text="Sat" ToolTip="Sunday Price"></asp:Label>
                         </div>
                     </div>
                     <div style="float:left; width:10%;" class="tableHeader">
                         <div style="margin-left:5%; text-align:right;">
-                            <asp:Label ID="ttSatPrice" runat="server" Text="Sat" ToolTip="Saturday Price"></asp:Label>
+                            <asp:Label ID="ttSatPrice" runat="server" Text="Sun" ToolTip="Saturday Price"></asp:Label>
                         </div>
                     </div>
                     <div style="width:10%; float:left;" class="tableHeader">

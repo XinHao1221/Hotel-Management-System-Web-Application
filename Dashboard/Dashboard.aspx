@@ -207,21 +207,23 @@
                 &nbsp;
             </div>
 
-            <div class="infoContainer">
-                <div class="mainInfo">
-                    <div class="totalStyle" style="color:rgb(92, 92, 92);">
-                        <asp:Label ID="lblTotalBlockedRoom" runat="server" Text=""></asp:Label>
-                        <div style="font-size:70%; margin-top:5%; color:black;">
-                            Blocked Room
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Dashboard/BlockedRoom.aspx">
+                <div class="infoContainer">
+                    <div class="mainInfo">
+                        <div class="totalStyle" style="color:rgb(92, 92, 92);">
+                            <asp:Label ID="lblTotalBlockedRoom" runat="server" Text=""></asp:Label>
+                            <div style="font-size:70%; margin-top:5%; color:black;">
+                                Blocked Room
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subInfo">
+                        <div class="summaryStyle">
+                            &nbsp;
                         </div>
                     </div>
                 </div>
-                <div class="subInfo">
-                    <div class="summaryStyle">
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
+            </asp:HyperLink>
         </div>
 
         <div style="width:3%; float:left;">

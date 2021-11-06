@@ -571,13 +571,9 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-           
+
             // Check if the roomID exists in ReservationRoom table
-            if (checkReservationRoom() > 0)
-            {
-                changeStatusToDelete();
-            }
-            else
+            try 
             {
                 conn = new SqlConnection(strCon);
                 conn.Open();
@@ -587,6 +583,25 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
 
                 conn.Close();
             }
+            catch
+            {
+                changeStatusToDelete();
+            }
+
+            //if (checkReservationRoom() > 0)
+            //{
+            //    changeStatusToDelete();
+            //}
+            //else
+            //{
+            //    conn = new SqlConnection(strCon);
+            //    conn.Open();
+
+            //    deleteFeature();
+            //    deleteRoom();
+
+            //    conn.Close();
+            //}
 
             PopupDelete.Visible = false;
             PopupCover.Visible = false;

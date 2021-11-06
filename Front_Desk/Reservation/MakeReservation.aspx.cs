@@ -1187,19 +1187,17 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             Label lblStatus = e.Item.FindControl("lblStatus") as Label;
             Label lblQuantity = e.Item.FindControl("lblQuantity") as Label;
 
-            if (lblStatus.Text == "Available")
+            // Set to '0' if it is less than 0
+            if(int.Parse(lblQuantity.Text) <= 0)
             {
-                lblStatus.Style["color"] = "#00ce1b";  // Assign green color
+                lblQuantity.Text = "0";
+                lblStatus.Text = "Unavailable";
+                lblStatus.Style["color"] = "red";
             }
             else
             {
-                lblStatus.Style["color"] = "red";  // Assign red color
-            }
-
-            // Set to '0' if it is less than 0
-            if(int.Parse(lblQuantity.Text) < 0)
-            {
-                lblQuantity.Text = "0";
+                lblStatus.Style["color"] = "#00ce1b";
+                lblStatus.Text = "Available";
             }
         }
 

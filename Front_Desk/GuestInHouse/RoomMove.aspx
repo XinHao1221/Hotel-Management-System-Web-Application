@@ -32,6 +32,10 @@
             float:left; 
             /*background-color:red;*/
         }
+
+        .inputStyle{
+            font-size:80%;
+        }
     </style>
 
     <div>
@@ -172,6 +176,15 @@
                                        
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="formLabel">
+                                         Remark
+                                    </td>
+                                    <td class="tableSeperator"></td>
+                                    <td class="tableData">
+                                        <asp:Label ID="lblRemark" runat="server" Text='<%# Eval("remark") %>'></asp:Label>
+                                    </td>
+                                </tr>
                         
                             </table>
 
@@ -212,7 +225,11 @@
                             </table>
 
                         </div>
+
+                        <div style="clear:both;"></div>
+
                     </div>
+                    
                 </div>
 
             </ItemTemplate>
@@ -404,6 +421,35 @@
         <%-- Popup Cover --%>
         <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
             &nbsp;
+        </asp:Panel>
+
+        <asp:Panel ID="PopupMove" runat="server" CssClass="popupWindow" Visible="false">
+
+            <%-- Popup Window Title --%>
+            <p style="color:#00ce1b;" class="popupTitle">Move Room</p>
+
+            <%-- Popup Window Body --%>
+            <div class="popupBody">
+
+                Move to <asp:Label ID="lblSelectedRoomNo" runat="server" Text=""></asp:Label>?
+                <asp:Label ID="lblRoomID" runat="server" Text="" Visible="false"></asp:Label>
+
+                <div style="margin-top:20px;">
+                    <div style="margin-top:10px;">
+                        <asp:TextBox ID="txtRemark" runat="server" placeholder="Remark" CssClass="inputStyle" Width="70%"></asp:TextBox>
+                        <br />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter a value." ValidationGroup="move" CssClass="validatorStyle" ControlToValidate="txtRemark"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="height:30px;">&nbsp;</div>
+
+            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnCancel_Click"/>
+                
+            <asp:Button ID="btnMove" runat="server" Text="Move" CssClass="popUpActiveBtn" ValidationGroup="move" OnClick="btnMove_Click"/>
+
         </asp:Panel>
 
         <div style="clear:both; width:100%; height:70px;">
