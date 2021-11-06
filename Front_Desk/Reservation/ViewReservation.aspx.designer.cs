@@ -24,6 +24,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.LinkButton LBBack;
 
         /// <summary>
+        /// LBCheckIn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBCheckIn;
+
+        /// <summary>
         /// LBRefund control.
         /// </summary>
         /// <remarks>

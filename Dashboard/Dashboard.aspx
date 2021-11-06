@@ -186,28 +186,30 @@
                 &nbsp;
             </div>
 
-            <div class="infoContainer">
-                <div class="mainInfo">
-                    <div class="totalStyle" style="color:rgb(148, 12, 255);">
-                        <asp:Label ID="lblTotalOccupiedRoom" runat="server" Text=""></asp:Label>
-                        <div style="font-size:70%; margin-top:5%; color:black;">
-                            Occupied Room
+            <asp:HyperLink ID="HLOccupiedRoom" runat="server" NavigateUrl="~/Dashboard/OccupiedRoom.aspx">
+                <div class="infoContainer">
+                    <div class="mainInfo">
+                        <div class="totalStyle" style="color:rgb(148, 12, 255);">
+                            <asp:Label ID="lblTotalOccupiedRoom" runat="server" Text=""></asp:Label>
+                            <div style="font-size:70%; margin-top:5%; color:black;">
+                                Occupied Room
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subInfo">
+                        <div class="summaryStyle">
+                            Occupancy: 
+                            <asp:Label ID="lblOccupancy" runat="server" Text=""></asp:Label>
                         </div>
                     </div>
                 </div>
-                <div class="subInfo">
-                    <div class="summaryStyle">
-                        Occupancy: 
-                        <asp:Label ID="lblOccupancy" runat="server" Text=""></asp:Label>
-                    </div>
-                </div>
-            </div>
+            </asp:HyperLink>
 
             <div style="width:4%; float:left;">
                 &nbsp;
             </div>
 
-            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Dashboard/BlockedRoom.aspx">
+            <asp:HyperLink ID="HLBlockedRoom" runat="server" NavigateUrl="~/Dashboard/BlockedRoom.aspx">
                 <div class="infoContainer">
                     <div class="mainInfo">
                         <div class="totalStyle" style="color:rgb(92, 92, 92);">

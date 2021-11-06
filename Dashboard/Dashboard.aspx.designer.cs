@@ -114,6 +114,15 @@ namespace Hotel_Management_System.Dashboard
         protected global::System.Web.UI.WebControls.Label lblRoomAvailability;
 
         /// <summary>
+        /// HLOccupiedRoom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLOccupiedRoom;
+
+        /// <summary>
         /// lblTotalOccupiedRoom control.
         /// </summary>
         /// <remarks>
@@ -132,13 +141,13 @@ namespace Hotel_Management_System.Dashboard
         protected global::System.Web.UI.WebControls.Label lblOccupancy;
 
         /// <summary>
-        /// HyperLink1 control.
+        /// HLBlockedRoom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.HyperLink HLBlockedRoom;
 
         /// <summary>
         /// lblTotalBlockedRoom control.

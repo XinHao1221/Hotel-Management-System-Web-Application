@@ -25,6 +25,9 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         ReservationUtility reservation = new ReservationUtility();
 
+        // Create instance of ReservationUltility class
+        ReservationUtility reservationUtility = new ReservationUtility();
+
         int page;
         int offset = 0; // start index of data
         int fetch;      // Number of data to display per page
@@ -329,6 +332,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             Label lblCheckInDate = e.Item.FindControl("lblCheckInDate") as Label;
             Label lblCheckOutDate = e.Item.FindControl("lblCheckOutDate") as Label;
             Label lblReservationDate = e.Item.FindControl("lblReservationDate") as Label;
+            Label lblStatus = e.Item.FindControl("lblStatus") as Label;
 
             // Format date base on date format on user's computer
             DateTime formatedCheckInDate = Convert.ToDateTime(lblCheckInDate.Text);
@@ -339,7 +343,29 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             lblCheckInDate.Text = formatedCheckInDate.ToShortDateString();
             lblCheckOutDate.Text = formatedCheckOutDate.ToShortDateString();
             lblReservationDate.Text = formatedReservationDate.ToShortDateString();
+
+            // Overtime or not
+            displayReservationStatus(lblCheckOutDate.Text, lblStatus);
         }
+
+        private void displayReservationStatus(string checkOutDate, Label lblStatus)
+        {
+            // Get current date
+            DateTime dateNow = DateTime.Now;
+            DateTime convertedCheckOutDate = Convert.ToDateTime(checkOutDate);
+
+            // Check if reservation is outdated
+            if (dateNow.Date > convertedCheckOutDate.Date)
+            {
+                lblStatus.Text = "Overtime";
+                lblStatus.Style["color"] = "red";
+            }
+            else
+            {
+                lblStatus.Text = "";
+            }
+        }
+
 
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
         {

@@ -390,6 +390,9 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
                 rrt = new ReservedRoomType(roomTypeID, date, availableRooms);
 
+                // Remove overtime reservation from the list
+                rrt.getOverTimeReservation();
+
                 reservedRoomTypes.Add(rrt);
 
                 conn.Close();

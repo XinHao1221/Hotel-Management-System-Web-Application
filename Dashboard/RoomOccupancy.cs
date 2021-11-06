@@ -41,6 +41,8 @@ namespace Hotel_Management_System.Dashboard
 
         public Boolean available { get; set; }
 
+        public Boolean overtime { get; set; }
+
         // Create connection to database
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -60,12 +62,22 @@ namespace Hotel_Management_System.Dashboard
             this.roomID = roomID;
             getRoomInformation();
             available = true;
+            overtime = false;
         }
 
         public RoomOccupancy(string roomID, Boolean available)
         {
             this.roomID = roomID;
             this.available = available;
+            getRoomInformation();
+            overtime = false;
+        }
+
+        public RoomOccupancy(string roomID, Boolean available, Boolean overtime)
+        {
+            this.roomID = roomID;
+            this.available = available;
+            this.overtime = overtime;
             getRoomInformation();
         }
 

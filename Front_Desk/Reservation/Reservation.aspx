@@ -81,22 +81,30 @@
                                 <asp:Label ID="ttIdNo" runat="server" Text="Id Number" ToolTip="Id Number"></asp:Label>
                             </div>
                         </div>
-                        <div style="float:left; width:15%; text-align:right;" class="tableHeader">
+                        <div style="float:left; width:12.5%; text-align:right;" class="tableHeader">
                             <div style="margin-left:5%;">
                                 <asp:Label ID="ttCheckIn" runat="server" Text="Check in" ToolTip="Check In"></asp:Label>
                             </div>
                         </div>
-                        <div style="float:left; width:15%; text-align:right;" class="tableHeader">
+                        <div style="float:left; width:12.5%; text-align:right;" class="tableHeader">
                             <div style="margin-left:5%;">
                                 <asp:Label ID="ttCheckOut" runat="server" Text="Check out" ToolTip="Check out"></asp:Label>
                             </div>
                         </div>
-                        <div style="float:left; width:15%; text-align:right;" class="tableHeader">
+                        <div style="float:left; width:12.5%; text-align:right;" class="tableHeader">
                             <div style="margin-left:5%;">
                                 <asp:Label ID="ttReservationDate" runat="server" Text="Reservation Date" ToolTip="Reservation Date"></asp:Label>
                             </div>
                         </div>
-                        <div style="width:10%; float:left;" class="tableHeader">
+                        <div style="width:2%; float:left;" class="tableHeader">
+                            &nbsp;
+                        </div>
+                        <div style="float:left; width:10%;" class="tableHeader">
+                            <div style="margin-left:5%;">
+                                <asp:Label ID="ttStatus" runat="server" Text="Status" ToolTip="Status"></asp:Label>
+                            </div>
+                        </div>
+                        <div style="width:5.5%; float:left;" class="tableHeader">
                             &nbsp;
                         </div>
                     </div>
@@ -127,22 +135,30 @@
                                             <asp:Label ID="lblIDNo" runat="server" Text='<%# Eval("IDNo")%>' ToolTip='<%# Eval("IDNo") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="float:left; width:15%; text-align:right;" class="tableContent">
+                                    <div style="float:left; width:12.5%; text-align:right;" class="tableContent">
                                         <div style="margin-left:5%;" class="textOverflowStyle">
                                             <asp:Label ID="lblCheckInDate" runat="server" Text='<%# Eval("CheckInDate")%>' ToolTip='<%# Eval("CheckInDate") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="float:left; width:15%; text-align:right;" class="tableContent">
+                                    <div style="float:left; width:12.5%; text-align:right;" class="tableContent">
                                         <div style="margin-left:5%;" class="textOverflowStyle">
                                             <asp:Label ID="lblCheckOutDate" runat="server" Text='<%# Eval("CheckOutDate")%>' ToolTip='<%# Eval("CheckOutDate") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="float:left; width:15%; text-align:right;" class="tableContent">
+                                    <div style="float:left; width:12.5%; text-align:right;" class="tableContent">
                                         <div style="margin-left:5%;" class="textOverflowStyle">
                                             <asp:Label ID="lblReservationDate" runat="server" Text='<%# Eval("ReservationDate")%>' ToolTip='<%# Eval("ReservationDate") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="min-width:8%; float:left;" class="tableContent">
+                                    <div style="min-width:2%; float:left;" class="tableContent">
+                                        &nbsp;
+                                    </div>
+                                    <div style="float:left; width:10%;" class="tableContent">
+                                        <div style="margin-left:5%;" class="textOverflowStyle">
+                                            <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>&nbsp;
+                                        </div>
+                                    </div>
+                                    <div style="min-width:3.5%; float:left;" class="tableContent">
                                         &nbsp;
                                     </div>
                                 </asp:LinkButton>
@@ -195,22 +211,30 @@
                                             <asp:Label ID="lblIDNo" runat="server" Text='<%# Eval("IDNo")%>' ToolTip='<%# Eval("IDNo") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="float:left; width:15%; text-align:right;" class="tableContentAlternate">
+                                    <div style="float:left; width:12.5%; text-align:right;" class="tableContentAlternate">
                                         <div style="margin-left:5%;" class="textOverflowStyle">
                                             <asp:Label ID="lblCheckInDate" runat="server" Text='<%# Eval("CheckInDate")%>' ToolTip='<%# Eval("CheckInDate") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="float:left; width:15%; text-align:right;" class="tableContentAlternate">
+                                    <div style="float:left; width:12.5%; text-align:right;" class="tableContentAlternate">
                                         <div style="margin-left:5%;" class="textOverflowStyle">
                                             <asp:Label ID="lblCheckOutDate" runat="server" Text='<%# Eval("CheckOutDate")%>' ToolTip='<%# Eval("CheckOutDate") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="float:left; width:15%; text-align:right;" class="tableContentAlternate">
+                                    <div style="float:left; width:12.5%; text-align:right;" class="tableContentAlternate">
                                         <div style="margin-left:5%;" class="textOverflowStyle">
                                             <asp:Label ID="lblReservationDate" runat="server" Text='<%# Eval("ReservationDate")%>' ToolTip='<%# Eval("ReservationDate") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="min-width:8%; float:left;" class="tableContentAlternate">
+                                    <div style="min-width:2%; float:left;" class="tableContentAlternate">
+                                        &nbsp;
+                                    </div>
+                                    <div style="float:left; width:10%;" class="tableContentAlternate">
+                                        <div style="margin-left:5%;" class="textOverflowStyle">
+                                            <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>&nbsp;
+                                        </div>
+                                    </div>
+                                    <div style="min-width:3.5%; float:left;" class="tableContentAlternate">
                                         &nbsp;
                                     </div>
                                 </asp:LinkButton>

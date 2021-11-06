@@ -5,6 +5,7 @@
 	  <!--Dashboard-->
 	  <siteMapNode url="Dashboard/RoomAvailability.aspx" title="Room Availability"  description="" />
 	  <siteMapNode url="Dashboard/BlockedRoom.aspx" title="Blocked Room"  description="" />
+	  <siteMapNode url="Dashboard/OccupiedRoom.aspx" title="Occupied Room"  description="" />
 	  
     <!--Floor Management-->
     <siteMapNode url="Hotel_Configuration_Management/Floor/Floor.aspx" title="Floor"  description="">

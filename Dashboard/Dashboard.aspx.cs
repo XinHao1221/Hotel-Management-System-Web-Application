@@ -101,7 +101,7 @@ namespace Hotel_Management_System.Dashboard
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getTotalArrival = "SELECT COUNT(*) FROM Reservation WHERE CheckInDate LIKE @todaysDate AND Status IN ('Created', 'Checked In')";
+            string getTotalArrival = "SELECT COUNT(*) FROM Reservation WHERE CheckInDate LIKE @todaysDate AND Status IN ('Created', 'Checked In', 'Check In')";
 
             SqlCommand cmdGetTotalArrival = new SqlCommand(getTotalArrival, conn);
 
@@ -297,9 +297,7 @@ namespace Hotel_Management_System.Dashboard
         {
             List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
 
-            // Open Connection
-            conn = new SqlConnection(strCon);
-            conn.Open();
+            
 
             for(int i = 0; i < roomTypes.Count; i++)
             {
@@ -308,6 +306,10 @@ namespace Hotel_Management_System.Dashboard
                 for(int j = 0; j < roomOccupancy.Count; j++)
                 {
                     string roomID = roomOccupancy[j].roomID;
+
+                    // Open Connection
+                    conn = new SqlConnection(strCon);
+                    conn.Open();
 
                     string checkIfRented = "SELECT COUNT(*) FROM ReservationRoom RR, Reservation R " +
                                             "WHERE RR.RoomID LIKE @RoomID AND RR.Date LIKE @todaysDate " +
@@ -325,10 +327,12 @@ namespace Hotel_Management_System.Dashboard
                         roomOccupancy[j].available = false;
                     }
 
-                }
-            }
+                    conn.Close();
 
-            conn.Close();
+                }
+
+                roomTypes[i].getOverTimeReservation();
+            }
         }
 
         private void getTotalRoom()
@@ -443,7 +447,7 @@ namespace Hotel_Management_System.Dashboard
                     string getSoldRoom = "SELECT COUNT(*) FROM ReservationRoom RR, Reservation R " +
                                             "WHERE RR.RoomTypeID LIKE @RoomTypeID AND RR.Date LIKE @todaysDate AND " +
                                             "R.ReservationID LIKE RR.ReservationID " +
-                                            "AND R.Status IN ('Created', 'Checked In')";
+                                            "AND R.Status IN ('Created', 'Checked In', 'Check In')";
 
                     SqlCommand cmdGetSoldRoom = new SqlCommand(getSoldRoom, conn);
 

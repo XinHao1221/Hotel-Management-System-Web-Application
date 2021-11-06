@@ -51,6 +51,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 setRentedFacilityToRepeater();
 
+                checkIfWithinDuration();
+
             }
         }
 
@@ -365,6 +367,29 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         {
             // Redirect to refund page
             Response.Redirect("Refund.aspx?ID=" + en.encryption(reservationID));
+        }
+
+        private void checkIfWithinDuration()
+        {
+            DateTime todaysDate = DateTime.Now;
+            DateTime checkInDate = Convert.ToDateTime(lblCheckIn.Text);
+            DateTime checkOutDate = Convert.ToDateTime(lblCheckOut.Text);
+
+            // Check if the reservation is within duration
+            if (todaysDate.Date >= checkInDate.Date && todaysDate.Date < checkOutDate.Date)
+            {
+                LBCheckIn.Visible = true;
+            }
+            else
+            {
+                LBCheckIn.Visible = false;
+            }
+        }
+
+        protected void LBCheckIn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../CheckIn/CheckInGuest.aspx?ID=" + en.encryption(reservationID));
+
         }
     }
 }

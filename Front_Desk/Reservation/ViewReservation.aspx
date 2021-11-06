@@ -34,6 +34,16 @@
             </div>
         </asp:LinkButton>
 
+        <asp:LinkButton ID="LBCheckIn" runat="server" CssClass="divLBStyle" OnClick="LBCheckIn_Click" Visible="false">
+            <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px; background-color:rgb(0, 137, 250);">
+                <div style="float:left; margin:12px 0px 0px 10px; font-size:15px;">
+                    <div style="font-size:15px; margin:0px 0px 10px 10px;">
+                            Check In
+                    </div>
+                </div>
+            </div>
+        </asp:LinkButton>
+
         <asp:LinkButton ID="LBRefund" runat="server" CssClass="divLBStyle" OnClick="LBRefund_Click">
             <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px; background-color:red;">
                 <div style="float:left; margin:12px 0px 0px 10px; font-size:15px;">

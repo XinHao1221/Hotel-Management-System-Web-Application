@@ -69,7 +69,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             this.ar = ar;
         }
 
-        private void getOverTimeReservation()
+        public void getOverTimeReservation()
         {
             // Hold a list of reservationID
             List<String> reservationIDs = new List<string>();
@@ -78,8 +78,11 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
             DateTime dateNow = DateTime.Now;
             string todaysDate = reservationUtility.formatDate(dateNow.ToString());
 
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
             // Get overtime reservationID
-            string getOvertimeReservation = "SELECT * FROM Reservation R WHERE R.CheckOutDate < @Date " +
+            string getOvertimeReservation = "SELECT * FROM Reservation R WHERE R.CheckOutDate <= @Date " +
                                             "AND R.Status LIKE 'Checked In'";
 
             SqlCommand cmdGetOvertimeReservation = new SqlCommand(getOvertimeReservation, conn);
@@ -123,7 +126,7 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
                 while (sdr.Read())
                 {
-                    for(int j = 0; i < temp.Count; j++)
+                    for(int j = 0; j < temp.Count; j++)
                     {
                         // If the overtime room is found
                         if (sdr["RoomID"].ToString() == temp[j].roomID)

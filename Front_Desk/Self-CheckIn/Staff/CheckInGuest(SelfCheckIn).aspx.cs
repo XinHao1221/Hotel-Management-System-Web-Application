@@ -410,6 +410,9 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Staff
 
                 rrt = new ReservedRoomType(roomTypeID, date, availableRooms);
 
+                // Remove overtime reservation from the list
+                rrt.getOverTimeReservation();
+
                 reservedRoomTypes.Add(rrt);
 
                 conn.Close();
@@ -466,7 +469,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Staff
 
         protected void LBBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CheckIn.aspx");
+            Response.Redirect("../../CheckIn/CheckIn.aspx");
         }
 
         protected void IBDeleteRentedFacility_Click(object sender, ImageClickEventArgs e)

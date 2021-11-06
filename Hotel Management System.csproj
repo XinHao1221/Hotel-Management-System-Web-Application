@@ -74,6 +74,7 @@
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="Dashboard\BlockedRoom.aspx" />
+    <Content Include="Dashboard\OccupiedRoom.aspx" />
     <Content Include="Dashboard\RoomAvailability.aspx" />
     <Content Include="Front_Desk\CheckIn\CheckIn.aspx" />
     <Content Include="Front_Desk\CheckOut\CheckOut.aspx" />
@@ -213,6 +214,13 @@
       <DependentUpon>BlockedRoom.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\GuestInHouse.cs" />
+    <Compile Include="Dashboard\OccupiedRoom.aspx.cs">
+      <DependentUpon>OccupiedRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard\OccupiedRoom.aspx.designer.cs">
+      <DependentUpon>OccupiedRoom.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard\RoomAvailability.aspx.cs">
       <DependentUpon>RoomAvailability.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
