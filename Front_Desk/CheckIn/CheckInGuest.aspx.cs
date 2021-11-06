@@ -398,6 +398,8 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
         }
 
+        
+
         protected void LBBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("CheckIn.aspx");
