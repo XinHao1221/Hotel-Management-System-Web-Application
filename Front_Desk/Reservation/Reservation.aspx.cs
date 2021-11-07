@@ -72,7 +72,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             conn.Open();
 
             // SQL command 
-            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Reservation R, Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID";
+            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Reservation R, Guest G WHERE Status IN ('Created', 'Check In') AND R.GuestID LIKE G.GuestID";
 
             SqlCommand cmdGetItemCount = new SqlCommand(getTotalNumebrOfItem, conn);
 
@@ -123,7 +123,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             conn.Open();
 
             String getReservation = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo, R.Status FROM Reservation R, " +
-                            "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID " +
+                            "Guest G WHERE Status IN ('Created', 'Check In') AND R.GuestID LIKE G.GuestID " +
                             "ORDER BY R.ReservationID DESC OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
 
             SqlCommand cmdGetReservation = new SqlCommand(getReservation, conn);
@@ -280,7 +280,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 String searchReservation = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo, R.Status " +
                                     "FROM Reservation R, Guest G " +
-                                    "WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%' " +
+                                    "WHERE Status IN ('Created', 'Check In') AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%' " +
                                     "ORDER BY R.ReservationID DESC";
 
                 SqlCommand cmdSearchReservation = new SqlCommand(searchReservation, conn);
@@ -310,7 +310,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 displayItemTotal("SELECT COUNT(*) " +
                                     "FROM Reservation R, Guest G " +
-                                    "WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%'");
+                                    "WHERE Status IN ('Created', 'Check In') AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%'");
             }
         }
 
@@ -473,7 +473,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 conn.Open();
 
                 string checkInDateFilter = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo FROM Reservation R, " +
-                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%' " +
+                                "Guest G WHERE Status IN ('Created', 'Check In') AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%' " +
                                 "ORDER BY R.ReservationID DESC";
 
                 SqlCommand cmdCheckInDateFilter = new SqlCommand(checkInDateFilter, conn);
@@ -499,7 +499,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 }
 
                 displayItemTotal("SELECT Count(*) FROM Reservation R, " +
-                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%'");
+                                "Guest G WHERE Status IN ('Created', 'Check In') AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%'");
 
             }
         }

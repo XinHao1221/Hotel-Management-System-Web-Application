@@ -39,14 +39,11 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
             Page.Title = "Hotel Report";
 
             if (!IsPostBack)
-            {
-                Session["GuestInHouse"] = new List<GuestInHouse>();
-
+            { 
                 displayTotalArrival();
                 displayTotalDeparture();
 
                 getTotalGuestInHouse();
-                calcTotalAdultsAndKids();
                 displayTotalInHouseGuest();
 
                 displayRoomType();
@@ -90,71 +87,80 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
         }
 
-        private void getTotalGuestInHouse()
+        private List<String> getInHouseReservationID()
         {
-            List<GuestInHouse> guestInHouses = (List<GuestInHouse>)Session["GuestInHouse"];
+            List<String> reservationID = new List<string>();
 
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getGuestInHouse = "SELECT R.ReservationID, RR.Adults, RR.Kids, RR.RoomID " +
-                                    "FROM Reservation R, ReservationRoom RR " +
-                                    "WHERE R.Status LIKE 'Checked In' AND R.ReservationID LIKE RR.ReservationID";
+            string getInHouseReservationID = "SELECT ReservationID FROM Reservation WHERE Status LIKE 'Checked In'";
 
-            SqlCommand cmdGetGuestInHouse = new SqlCommand(getGuestInHouse, conn);
+            SqlCommand cmdGetInHouseReservationID = new SqlCommand(getInHouseReservationID, conn);
 
-            SqlDataReader sdr = cmdGetGuestInHouse.ExecuteReader();
-
-            // Hold the data into object temporary.
-            List<GuestInHouse> temp = new List<GuestInHouse>();
+            SqlDataReader sdr = cmdGetInHouseReservationID.ExecuteReader();
 
             while (sdr.Read())
             {
-                temp.Add(new GuestInHouse(sdr["ReservationID"].ToString(), sdr["RoomID"].ToString(), int.Parse(sdr["Adults"].ToString()),
-                                        int.Parse(sdr["Kids"].ToString())));
+                reservationID.Add(sdr["ReservationID"].ToString());
             }
 
             conn.Close();
 
-            // Set actual adults and kids into session object
-            // Save the first record
-            if (temp.Count > 0)
-            {
-                guestInHouses.Add(new GuestInHouse(temp[0].reservationID, temp[0].roomID, temp[0].adults, temp[0].kids));
-
-                for (int i = 1; i < temp.Count; i++)
-                {
-                    Boolean exists = false;
-
-                    for (int j = 0; j < guestInHouses.Count; j++)
-                    {
-                        if (temp[i].reservationID == guestInHouses[j].reservationID && temp[i].roomID == guestInHouses[j].roomID)
-                        {
-                            // If exits
-                            exists = true;
-                        }
-                    }
-
-                    // If record is not exists in the list
-                    if (exists == false)
-                    {
-                        guestInHouses.Add(new GuestInHouse(temp[i].reservationID, temp[i].roomID, temp[i].adults, temp[i].kids));
-                    }
-                }
-            }
-
+            return reservationID;
         }
-        private void calcTotalAdultsAndKids()
+
+        private string getLastReservationDate(string reservationID)
         {
+            conn = new SqlConnection(strCon);
+            conn.Open();
 
-            List<GuestInHouse> guestInHouses = (List<GuestInHouse>)Session["GuestInHouse"];
+            string getCheckOutDate = "SELECT CheckOutDate FROM Reservation WHERE ReservationID LIKE @ID";
 
-            totalAdults = 0;
+            SqlCommand cmdGetCheckOutDate = new SqlCommand(getCheckOutDate, conn);
 
-            for (int i = 0; i < guestInHouses.Count; i++)
+            cmdGetCheckOutDate.Parameters.AddWithValue("@ID", reservationID);
+
+            string checkOutDate = (string)cmdGetCheckOutDate.ExecuteScalar();
+
+            conn.Close();
+
+            // Get last reservation date
+            DateTime previousDate = Convert.ToDateTime(checkOutDate);
+            previousDate = previousDate.AddDays(-1);
+
+            // Return last reservation date
+            return reservationUtility.formatDate(previousDate.ToShortDateString());
+        }
+
+        private void getTotalGuestInHouse()
+        {
+            // Hold in house reservation id
+            List<String> reservationID = getInHouseReservationID();
+
+            for (int i = 0; i < reservationID.Count; i++)
             {
-                totalAdults += guestInHouses[i].adults;
-                totalKids += guestInHouses[i].kids;
+                string lastReservationDate = getLastReservationDate(reservationID[i]);
+
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                string getGuestInHouse = "SELECT * FROM ReservationRoom WHERE ReservationID LIKE @ID AND Date LIKE @Date";
+
+                SqlCommand cmdGetGuestInHouse = new SqlCommand(getGuestInHouse, conn);
+
+                cmdGetGuestInHouse.Parameters.AddWithValue("@ID", reservationID[i]);
+                cmdGetGuestInHouse.Parameters.AddWithValue("@Date", lastReservationDate);
+
+                SqlDataReader sdr = cmdGetGuestInHouse.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    totalAdults += int.Parse(sdr["Adults"].ToString());
+                    totalKids += int.Parse(sdr["Kids"].ToString());
+                }
+
+                conn.Close();
             }
 
         }
