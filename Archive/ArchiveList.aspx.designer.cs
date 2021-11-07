@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hotel_Management_System.Front_Desk.Reservation
+namespace Hotel_Management_System.Archive
 {
 
 
-    public partial class Reservation1
+    public partial class ArchiveList
     {
 
         /// <summary>
@@ -31,15 +31,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LBMenuSearchBar;
-
-        /// <summary>
-        /// txtCheckInDateFilter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCheckInDateFilter;
 
         /// <summary>
         /// ttGuestName control.
@@ -87,13 +78,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.Label ttReservationDate;
 
         /// <summary>
-        /// ttStatus control.
+        /// ttArchivedDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttStatus;
+        protected global::System.Web.UI.WebControls.Label ttArchivedDate;
 
         /// <summary>
         /// Repeater1 control.
@@ -177,13 +168,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.Label lblTotalNoOfItem;
 
         /// <summary>
-        /// PopupArchiveReservation control.
+        /// PopupRestoreReservation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupArchiveReservation;
+        protected global::System.Web.UI.WebControls.Panel PopupRestoreReservation;
 
         /// <summary>
         /// lblPopupDeleteContent control.
@@ -204,13 +195,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         protected global::System.Web.UI.WebControls.Button btnCancel;
 
         /// <summary>
-        /// btnMove control.
+        /// btnRestore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMove;
+        protected global::System.Web.UI.WebControls.Button btnRestore;
 
         /// <summary>
         /// PopupCover control.

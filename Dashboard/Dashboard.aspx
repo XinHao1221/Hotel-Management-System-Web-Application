@@ -83,6 +83,7 @@
             width:36%;
             float:left;
         }
+
     </style>
 
     <div style="width:97%; margin-left:auto; margin-right:auto; margin-top:2%;">

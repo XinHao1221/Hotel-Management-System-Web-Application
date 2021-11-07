@@ -369,7 +369,7 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
             ChartFacility.Legends[0].Enabled = false;
 
             // Set chart's tooltip
-            foreach (Series s in ChartRoomType.Series)
+            foreach (Series s in ChartFacility.Series)
             {
                 s.Label = "#VALX   #PERCENT";
                 s["PieLabelStyle"] = "Outside";

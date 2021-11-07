@@ -61,7 +61,7 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string getTotalArrival = "SELECT COUNT(*) FROM Reservation WHERE CheckInDate LIKE @todaysDate AND Status IN ('Created', 'Checked In')";
+            string getTotalArrival = "SELECT COUNT(*) FROM Reservation WHERE CheckInDate LIKE @todaysDate AND Status IN ('Created', 'Checked In', 'Check In')";
 
             SqlCommand cmdGetTotalArrival = new SqlCommand(getTotalArrival, conn);
 

@@ -7,218 +7,164 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hotel_Management_System.Front_Desk.Reservation
+namespace Hotel_Management_System.Archive
 {
 
 
-    public partial class Reservation1
+    public partial class ViewArchivedItem
     {
 
         /// <summary>
-        /// txtSearch control.
+        /// LBBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+        protected global::System.Web.UI.WebControls.LinkButton LBBack;
 
         /// <summary>
-        /// LBMenuSearchBar control.
+        /// lblGuestName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LBMenuSearchBar;
+        protected global::System.Web.UI.WebControls.Label lblGuestName;
 
         /// <summary>
-        /// txtCheckInDateFilter control.
+        /// lblIDNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCheckInDateFilter;
+        protected global::System.Web.UI.WebControls.Label lblIDNo;
 
         /// <summary>
-        /// ttGuestName control.
+        /// lblArchivedDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttGuestName;
+        protected global::System.Web.UI.WebControls.Label lblArchivedDate;
 
         /// <summary>
-        /// ttIdNo control.
+        /// lblCheckIn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttIdNo;
+        protected global::System.Web.UI.WebControls.Label lblCheckIn;
 
         /// <summary>
-        /// ttCheckIn control.
+        /// lblCheckOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttCheckIn;
+        protected global::System.Web.UI.WebControls.Label lblCheckOut;
 
         /// <summary>
-        /// ttCheckOut control.
+        /// lblDurationOfStay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttCheckOut;
+        protected global::System.Web.UI.WebControls.Label lblDurationOfStay;
 
         /// <summary>
-        /// ttReservationDate control.
+        /// ttNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttReservationDate;
+        protected global::System.Web.UI.WebControls.Label ttNo;
 
         /// <summary>
-        /// ttStatus control.
+        /// ttDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ttStatus;
+        protected global::System.Web.UI.WebControls.Label ttDate;
 
         /// <summary>
-        /// Repeater1 control.
+        /// ttRoomType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Repeater1;
+        protected global::System.Web.UI.WebControls.Label ttRoomType;
 
         /// <summary>
-        /// lblNoItemFound control.
+        /// ttAdults control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoItemFound;
+        protected global::System.Web.UI.WebControls.Label ttAdults;
 
         /// <summary>
-        /// IBArrowLeft control.
+        /// ttKids control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton IBArrowLeft;
+        protected global::System.Web.UI.WebControls.Label ttKids;
 
         /// <summary>
-        /// txtPage control.
+        /// ttPrice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPage;
+        protected global::System.Web.UI.WebControls.Label ttPrice;
 
         /// <summary>
-        /// lblPage control.
+        /// ttExtraBed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPage;
+        protected global::System.Web.UI.WebControls.Label ttExtraBed;
 
         /// <summary>
-        /// IBArrowRight control.
+        /// RepeaterRentedRoomType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton IBArrowRight;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterRentedRoomType;
 
         /// <summary>
-        /// ddlItemPerPage control.
+        /// RepeaterRentedFacility control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlItemPerPage;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterRentedFacility;
 
         /// <summary>
-        /// lblItemDisplayed control.
+        /// lblNoFacilityFound control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblItemDisplayed;
-
-        /// <summary>
-        /// lblTotalNoOfItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalNoOfItem;
-
-        /// <summary>
-        /// PopupArchiveReservation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupArchiveReservation;
-
-        /// <summary>
-        /// lblPopupDeleteContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPopupDeleteContent;
-
-        /// <summary>
-        /// btnCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
-
-        /// <summary>
-        /// btnMove control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMove;
-
-        /// <summary>
-        /// PopupCover control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PopupCover;
+        protected global::System.Web.UI.WebControls.Label lblNoFacilityFound;
     }
 }

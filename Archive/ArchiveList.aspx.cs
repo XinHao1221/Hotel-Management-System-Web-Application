@@ -9,9 +9,9 @@ using System.Data;
 using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
 
-namespace Hotel_Management_System.Front_Desk.Reservation
+namespace Hotel_Management_System.Archive
 {
-    public partial class Reservation1 : System.Web.UI.Page
+    public partial class ArchiveList : System.Web.UI.Page
     {
         // Create instance of Encryption class
         IDEncryption en = new IDEncryption();
@@ -31,9 +31,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         int page;
         int offset = 0; // start index of data
         int fetch;      // Number of data to display per page
-
-        // Create instance of IDGerator class
-        IDGenerator idGenerator = new IDGenerator();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -72,7 +69,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             conn.Open();
 
             // SQL command 
-            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Reservation R, Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID";
+            String getTotalNumebrOfItem = "SELECT COUNT(*) FROM Reservation R, Guest G WHERE Status LIKE 'Archived' AND R.GuestID LIKE G.GuestID";
 
             SqlCommand cmdGetItemCount = new SqlCommand(getTotalNumebrOfItem, conn);
 
@@ -123,7 +120,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             conn.Open();
 
             String getReservation = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo, R.Status FROM Reservation R, " +
-                            "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID " +
+                            "Guest G WHERE Status LIKE 'Archived' AND R.GuestID LIKE G.GuestID " +
                             "ORDER BY R.ReservationID DESC OFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY";
 
             SqlCommand cmdGetReservation = new SqlCommand(getReservation, conn);
@@ -263,9 +260,6 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private void searchReservation()
         {
-            // reset filtering
-            txtCheckInDateFilter.Text = "";
-
             String idNo = txtSearch.Text;
 
             if (idNo == "")
@@ -280,7 +274,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 String searchReservation = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo, R.Status " +
                                     "FROM Reservation R, Guest G " +
-                                    "WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%' " +
+                                    "WHERE Status LIKE 'Archived' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%' " +
                                     "ORDER BY R.ReservationID DESC";
 
                 SqlCommand cmdSearchReservation = new SqlCommand(searchReservation, conn);
@@ -310,7 +304,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 displayItemTotal("SELECT COUNT(*) " +
                                     "FROM Reservation R, Guest G " +
-                                    "WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%'");
+                                    "WHERE Status LIKE 'Archived' AND R.GuestID LIKE G.GuestID AND G.IDNo LIKE '%" + idNo + "%'");
             }
         }
 
@@ -335,8 +329,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             Label lblCheckInDate = e.Item.FindControl("lblCheckInDate") as Label;
             Label lblCheckOutDate = e.Item.FindControl("lblCheckOutDate") as Label;
             Label lblReservationDate = e.Item.FindControl("lblReservationDate") as Label;
-            Label lblStatus = e.Item.FindControl("lblStatus") as Label;
-            ImageButton IBMoreOption = e.Item.FindControl("IBMoreOption") as ImageButton;
+            Label lblDateArchived = e.Item.FindControl("lblDateArchived") as Label;
+            Label lblReservationID = e.Item.FindControl("lblReservationID") as Label;
 
             // Format date base on date format on user's computer
             DateTime formatedCheckInDate = Convert.ToDateTime(lblCheckInDate.Text);
@@ -348,33 +342,31 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             lblCheckOutDate.Text = formatedCheckOutDate.ToShortDateString();
             lblReservationDate.Text = formatedReservationDate.ToShortDateString();
 
-            // Overtime or not
-            displayReservationStatus(lblCheckOutDate.Text, lblStatus);
+            getArchivedDate(lblReservationID.Text, lblDateArchived);
 
-            if(lblStatus.Text == "")
-            {
-                IBMoreOption.Visible = false;
-            }
         }
 
-        private void displayReservationStatus(string checkOutDate, Label lblStatus)
+        private void getArchivedDate(string reservationID, Label lblDateArchived)
         {
-            // Get current date
-            DateTime dateNow = DateTime.Now;
-            DateTime convertedCheckOutDate = Convert.ToDateTime(checkOutDate);
+            // Open Connection
+            conn = new SqlConnection(strCon);
+            conn.Open();
 
-            // Check if reservation is outdated
-            if (dateNow.Date > convertedCheckOutDate.Date)
-            {
-                lblStatus.Text = "Overtime";
-                lblStatus.Style["color"] = "red";
-            }
-            else
-            {
-                lblStatus.Text = "";
-            }
+            string getArchivedDate = "SELECT DateArchived FROM ArchiveList WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdGetArchivedDate = new SqlCommand(getArchivedDate, conn);
+
+            cmdGetArchivedDate.Parameters.AddWithValue("@ID", reservationID);
+
+            string archivedDate = (string)cmdGetArchivedDate.ExecuteScalar();
+
+            conn.Close();
+
+            // Format archived date
+            DateTime formatedArchivedDate = Convert.ToDateTime(archivedDate);
+
+            lblDateArchived.Text = formatedArchivedDate.ToShortDateString();
         }
-
 
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -431,7 +423,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             reservationID = en.encryption(reservationID);
 
             // Redirect to view page
-            Response.Redirect("ViewReservation.aspx?ID=" + reservationID);
+            Response.Redirect("ViewArchivedItem.aspx?ID=" + reservationID);
         }
 
         protected void IBMoreOption_Click(object sender, ImageClickEventArgs e)
@@ -451,60 +443,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
         }
 
-        // ********
-
-        protected void txtCheckInDateFilter_TextChanged(object sender, EventArgs e)
-        {
-
-
-            if (txtCheckInDateFilter.Text == "")
-            {
-                setItemToRepeater1();
-            }
-            else
-            {
-                string checkInDate = reservation.formatDate(txtCheckInDateFilter.Text);
-
-                conn = new SqlConnection(strCon);
-                conn.Open();
-
-                // open connection
-                conn = new SqlConnection(strCon);
-                conn.Open();
-
-                string checkInDateFilter = "SELECT R.ReservationID, R.CheckInDate, R.CheckOutDate, R.ReservationDate, G.Name, G.IDNo FROM Reservation R, " +
-                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%' " +
-                                "ORDER BY R.ReservationID DESC";
-
-                SqlCommand cmdCheckInDateFilter = new SqlCommand(checkInDateFilter, conn);
-
-                SqlDataAdapter sda = new SqlDataAdapter(cmdCheckInDateFilter);
-
-                DataTable dt = new DataTable();
-
-                sda.Fill(dt);
-
-                // Bind data into repeater to display
-                Repeater1.DataSource = dt;
-                Repeater1.DataBind();
-
-                // Display message it no item was found
-                if (dt.Rows.Count == 0)
-                {
-                    lblNoItemFound.Visible = true;
-                }
-                else
-                {
-                    lblNoItemFound.Visible = false;
-                }
-
-                displayItemTotal("SELECT Count(*) FROM Reservation R, " +
-                                "Guest G WHERE Status LIKE 'Created' AND R.GuestID LIKE G.GuestID AND R.CheckInDate LIKE '%" + checkInDate + "%'");
-
-            }
-        }
-
-        protected void LBArchiveReservation_Click(object sender, EventArgs e)
+        protected void LBRestoreReservation_Click(object sender, EventArgs e)
         {
             // When user click on delete button in more option panel
             RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
@@ -515,70 +454,59 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             ViewState["ReservationID"] = reservationID;
 
             // Show popup confirmation message
-            PopupArchiveReservation.Visible = true;
+            PopupRestoreReservation.Visible = true;
             PopupCover.Visible = true;
-
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            PopupArchiveReservation.Visible = false;
+            PopupRestoreReservation.Visible = false;
             PopupCover.Visible = false;
         }
 
-        protected void btnMove_Click(object sender, EventArgs e)
+        protected void btnRestore_Click(object sender, EventArgs e)
         {
+            removeArchiveDate();
+            updateReservationStatusToCreated();
 
-            changeReservationStatusToArchived();
-            saveArchivedDate();
-
-            // Close popup message
-            PopupArchiveReservation.Visible = false;
+            PopupRestoreReservation.Visible = false;
             PopupCover.Visible = false;
 
             refreshPage();
         }
 
-        private void changeReservationStatusToArchived()
+        private void removeArchiveDate()
         {
             String reservationID = ViewState["ReservationID"].ToString();
 
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string updateReservationStatus = "UPDATE Reservation SET Status = 'Archived' WHERE ReservationID LIKE @ID";
+            string removeArchiveDate = "DELETE FROM ArchiveList WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdRemoveArchiveDate = new SqlCommand(removeArchiveDate, conn);
+
+            cmdRemoveArchiveDate.Parameters.AddWithValue("@ID", reservationID);
+
+            int i = cmdRemoveArchiveDate.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        private void updateReservationStatusToCreated()
+        {
+            String reservationID = ViewState["ReservationID"].ToString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string updateReservationStatus = "UPDATE Reservation SET Status = 'Created' WHERE ReservationID LIKE @ID";
 
             SqlCommand cmdUpdateReservationStatus = new SqlCommand(updateReservationStatus, conn);
 
             cmdUpdateReservationStatus.Parameters.AddWithValue("@ID", reservationID);
 
             int i = cmdUpdateReservationStatus.ExecuteNonQuery();
-
-            conn.Close();
-        }
-
-        private void saveArchivedDate()
-        {
-            string archiveListID = idGenerator.getNextID("ArchiveListID", "ArchiveList", "AR");
-
-            // Get current date
-            DateTime dateNow = DateTime.Now;
-            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
-
-            String reservationID = ViewState["ReservationID"].ToString();
-
-            conn = new SqlConnection(strCon);
-            conn.Open();
-
-            string saveArchivedDate = "INSERT INTO ArchiveList VALUES (@ArchivedListID, @Date, @ReservationID)";
-
-            SqlCommand cmdSaveArchivedDate = new SqlCommand(saveArchivedDate, conn);
-
-            cmdSaveArchivedDate.Parameters.AddWithValue("@ArchivedListID", archiveListID);
-            cmdSaveArchivedDate.Parameters.AddWithValue("@Date", todaysDate);
-            cmdSaveArchivedDate.Parameters.AddWithValue("@ReservationID", reservationID);
-
-            int i = cmdSaveArchivedDate.ExecuteNonQuery();
 
             conn.Close();
         }

@@ -163,8 +163,8 @@
                                     </div>
                                 </asp:LinkButton>
                                     <div style="min-width:2%; float:left; right:0;" class="tableContent">
-                                        &nbsp;
-                                        <%--<asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>--%>
+                                        
+                                        <asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>&nbsp;
                                     </div>
                             
                                 </div>
@@ -172,14 +172,14 @@
 
                             <asp:Panel ID="TableOptionMenu" runat="server" Visible="false" CssClass="tableOptionMenu">
 
-                                <asp:LinkButton ID="LBCancelReservation" runat="server" OnClick="LBCancelReservation_Click" CssClass="optionContainer" Font-Underline="false">
+                                <asp:LinkButton ID="LBArchiveReservation" runat="server" OnClick="LBArchiveReservation_Click" CssClass="optionContainer" Font-Underline="false">
                             
 
                                     <div class="tableOption" style="color:#FF0000;">
 
-                                        <img src="../../Image/suspend_icon.png" class="tableOptionIcon" />
+                                        <img src="../../Image/archive_icon.png" class="tableOptionIcon" />
                                 
-                                        Cancel
+                                        Archive
 
                                     </div>
                             
@@ -239,11 +239,28 @@
                                     </div>
                                 </asp:LinkButton>
                                 <div style="width:2%; float:left;" class="tableContentAlternate">
-                                    &nbsp;
-                                    <%--<asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>--%>
+                                    
+                                    <asp:ImageButton ID="IBMoreOption" runat="server" OnClick="IBMoreOption_Click" ImageUrl="~/Image/more_icon.png" CssClass="moreIcon" ToolTip="More Option"/>&nbsp;
                                 </div>
 
                             </div>
+
+                            <asp:Panel ID="TableOptionMenu" runat="server" Visible="false" CssClass="tableOptionMenuAlternate">
+
+                                <asp:LinkButton ID="LBArchiveReservation" runat="server" OnClick="LBArchiveReservation_Click" CssClass="optionContainer" Font-Underline="false">
+                            
+
+                                    <div class="tableOption" style="color:#FF0000;">
+
+                                        <img src="../../Image/archive_icon.png" class="tableOptionIcon" />
+                                
+                                        Archive
+
+                                    </div>
+                            
+                                </asp:LinkButton>
+
+                            </asp:Panel> 
 
                         </AlternatingItemTemplate>
                     </asp:Repeater>
@@ -301,23 +318,23 @@
 
         <%-- Popup Window --%>
         <div class="popup">
-            <asp:Panel ID="PopupCancelReservation" runat="server" Visible="False" CssClass="popupWindow">
+            <asp:Panel ID="PopupArchiveReservation" runat="server" Visible="False" CssClass="popupWindow">
 
                 <%-- Popup Window Title --%>
-                <p style="color:red;" class="popupTitle">Delete</p>
+                <p style="color:red;" class="popupTitle">Archive</p>
 
                 <%-- Popup Window Body --%>
                 <div class="popupBody">
 
-                    <asp:Label ID="lblPopupDeleteContent" runat="server" Text="Label"></asp:Label>
+                    <asp:Label ID="lblPopupDeleteContent" runat="server" Text="Move to Archive List?"></asp:Label>
 
                 </div>
 
                 <div>&nbsp;</div>
 
-                <%--<asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnPopupCancel_Click"/>
+                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="popUpCancelBtn" OnClick="btnCancel_Click"/>
                 
-                <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="popUpDeleteBtn" OnClick="btnDelete_Click"/>--%>
+                <asp:Button ID="btnMove" runat="server" Text="Move" CssClass="popUpDeleteBtn" OnClick="btnMove_Click"/>
             </asp:Panel>
         </div>
                 

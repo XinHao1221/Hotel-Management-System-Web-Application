@@ -123,6 +123,11 @@
                      <%--Display Pie Chart--%>
                     <div style="text-align:center;">
                         <asp:Chart ID="ChartRoomType" runat="server" width="700px" height="500px">
+                            <Titles>
+                                <asp:Title Font="Helvetica, 12pt, style=Bold" Name="Title1" 
+                                    Text="Histogram of Reserved Room Type">
+                                </asp:Title>
+                            </Titles>
                             <Series>
                                 <asp:Series Name="Series1"></asp:Series> 
                             </Series>
@@ -184,6 +189,11 @@
                      <%--Display Pie Chart--%>
                     <div style="text-align:center;">
                         <asp:Chart ID="ChartFacility" runat="server" width="700px" height="500px">
+                            <Titles>
+                                <asp:Title Font="Helvetica, 12pt, style=Bold" Name="Title1" 
+                                    Text="Histogram of Rented Facility">
+                                </asp:Title>
+                            </Titles>
                             <Series>
                                 <asp:Series Name="Series1"></asp:Series> 
                             </Series>

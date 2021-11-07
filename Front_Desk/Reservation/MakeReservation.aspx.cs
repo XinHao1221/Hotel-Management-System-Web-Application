@@ -36,6 +36,10 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             if (!IsPostBack)
             {
+                // Limit check in and out date picker with todays date as minimum
+                txtCheckInDate.Attributes["min"] = DateTime.Now.ToString("yyyy-MM-dd");
+                txtCheckOutDate.Attributes["min"] = DateTime.Now.ToString("yyyy-MM-dd");
+
                 // set all guest into drop-down list
                 setGuestList();
                 ddlGuest.Items.Insert(0, new ListItem("-- Please Select --", "-- Please Select --"));
@@ -1160,7 +1164,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Query to get the quantity of room have reserved by other guest
             String getReservedRoomType = "SELECT COUNT(RR.RoomTypeID) AS TotalReserved, RR.RoomTypeID AS RoomTypeID " +
                  "FROM Reservation R, ReservationRoom RR " +
-                 "WHERE R.ReservationID LIKE RR.ReservationID AND R.Status IN ('Created', 'Checked In') AND RR.RoomTypeID LIKE @ID AND RR.Date LIKE @Date " +
+                 "WHERE R.ReservationID LIKE RR.ReservationID AND R.Status IN ('Created', 'Checked In', 'Check In') AND RR.RoomTypeID LIKE @ID AND RR.Date LIKE @Date " +
                  "GROUP BY RR.RoomTypeID ";
 
             SqlCommand cmdGetReservedRoomType = new SqlCommand(getReservedRoomType, conn);

@@ -110,13 +110,20 @@
                 <div style="clear:both; height:40px;"></div>
 
                 <asp:Panel ID="PNReportDetails" runat="server" Visible="false">
-                    <div style="font-family: Helvetica, sans-serif; font-size:120%; font-weight:bold; margin-left:5%; margin-bottom:-40px;">
+                    <%--<div style="font-family: Helvetica, sans-serif; font-size:120%; font-weight:bold; margin-left:5%; margin-bottom:-40px;">
                         Profit 
-                    </div>
+                    </div>--%>
+
+                    <div style="height:10px;">&nbsp;</div>
                 
                     <%--Display Pie Chart--%>
                     <div style="text-align:center;">
                         <asp:Chart ID="ChartProfit" runat="server" OnCustomize="ChartGuestInHouse_Customize" Width="500px" Height="500px">
+                            <Titles>
+                                <asp:Title Font="Helvetica, 12pt, style=Bold" Name="Title1" 
+                                    Text="Pie Chart of Hotel's Revenue">
+                                </asp:Title>
+                            </Titles>
                             <Series>
                                 <asp:Series Name="Series1"></asp:Series> 
                             </Series>

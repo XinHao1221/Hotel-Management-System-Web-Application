@@ -141,13 +141,13 @@ namespace Hotel_Management_System.Template
         protected global::System.Web.UI.WebControls.HyperLink HLCheckOut;
 
         /// <summary>
-        /// HLNavCashiering control.
+        /// LBNavHistory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HLNavCashiering;
+        protected global::System.Web.UI.WebControls.LinkButton LBNavHistory;
 
         /// <summary>
         /// INavHistory control.
@@ -157,6 +157,51 @@ namespace Hotel_Management_System.Template
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image INavHistory;
+
+        /// <summary>
+        /// lblNavHistory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNavHistory;
+
+        /// <summary>
+        /// INavArrowDown3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image INavArrowDown3;
+
+        /// <summary>
+        /// PnNavHistory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnNavHistory;
+
+        /// <summary>
+        /// HLTransactionHistory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLTransactionHistory;
+
+        /// <summary>
+        /// HLArchiveList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLArchiveList;
 
         /// <summary>
         /// LBNavHotelConfiguration control.
