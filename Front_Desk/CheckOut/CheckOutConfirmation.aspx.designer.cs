@@ -177,6 +177,15 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
         protected global::System.Web.UI.WebControls.Label lblNoItemFound;
 
         /// <summary>
+        /// txtFeedback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFeedback;
+
+        /// <summary>
         /// lblTotal control.
         /// </summary>
         /// <remarks>

@@ -705,6 +705,20 @@
             
             </div>
 
+            <div style="clear:both; height:40px;">&nbsp;</div>
+
+            <div class="formSectionStyle" style="margin-bottom:25px">
+                8. Feedback:-
+            </div>
+
+            <table style="width:100%; margin-left:7%;">
+                <tr>
+                    <td class="tableData">
+                        <asp:Label ID="lblFeedback" runat="server" Text=""></asp:Label>
+                    </td>
+                </tr>
+            </table>
+
         </div>
 
         <%--Popup Box Facility Availability--%>

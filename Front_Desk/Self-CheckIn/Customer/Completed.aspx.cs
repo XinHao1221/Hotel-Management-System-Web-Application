@@ -43,13 +43,25 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
             displayAmountDue();
 
             calculateTotalCharges();
+
+            displayGuestPreferences();
+        }
+
+        private void displayGuestPreferences()
+        {
+            // Get reference of ReservationDetail from view state
+            ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
+
+            // Display guest's preferences
+            Session["GuestID"] = reservation.guestID;
+
+            PC1.setPreferences();
         }
 
         private void displayReservedRoom()
         {
             // Get reference of ReservationDetail from view state
             ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
-
 
             RepeaterReservedRoom.DataSource = reservation.reservedRoom;
             RepeaterReservedRoom.DataBind();

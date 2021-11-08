@@ -29,6 +29,12 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Floor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // **** Control access
+            //if(Session["Role"].ToString() != "Cust")
+            //{
+            //    Response.Redirect("../../Error/PermissionError.aspx");
+            //}
+
             // Page TItle
             Page.Title = "Floor";
 

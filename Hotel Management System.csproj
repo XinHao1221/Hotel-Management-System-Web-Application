@@ -78,6 +78,7 @@
     <Content Include="Dashboard\BlockedRoom.aspx" />
     <Content Include="Dashboard\OccupiedRoom.aspx" />
     <Content Include="Dashboard\RoomAvailability.aspx" />
+    <Content Include="Error\PermissionError.aspx" />
     <Content Include="Front_Desk\CheckIn\CheckIn.aspx" />
     <Content Include="Front_Desk\CheckOut\CheckOut.aspx" />
     <Content Include="Front_Desk\CheckOut\Survey %28Email%29.html" />
@@ -180,6 +181,7 @@
     <Content Include="Image\help_icon.png" />
     <Content Include="Image\home_icon.png" />
     <Content Include="Image\more_icon.png" />
+    <Content Include="Image\padlock_icon.png" />
     <Content Include="Image\plus_white.png" />
     <Content Include="Image\pre-loader.gif" />
     <Content Include="Image\restore_icon.png" />
@@ -248,6 +250,13 @@
     </Compile>
     <Compile Include="Dashboard\RoomOccupancy.cs" />
     <Compile Include="Dashboard\RoomType.cs" />
+    <Compile Include="Error\PermissionError.aspx.cs">
+      <DependentUpon>PermissionError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error\PermissionError.aspx.designer.cs">
+      <DependentUpon>PermissionError.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Front_Desk\CheckIn\CheckIn.aspx.cs">
       <DependentUpon>CheckIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

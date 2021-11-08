@@ -311,7 +311,20 @@
                     </div>
                 </div>
                 
+                <div style="clear:both; height:30px;">&nbsp;</div>
 
+                <%--Other Service Charges--%>
+                <div class="formSectionStyle" style="margin-bottom:25px;">
+                    3. Feedback:-
+                </div>
+
+                <table style="width:100%; margin-left:7%;">
+                    <tr>
+                        <td class="formInput">
+                            <asp:TextBox ID="txtFeedback" runat="server" CssClass="inputStyle" placeholder="Feedback" Width="50%"></asp:TextBox>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
             <%--Display and record payment details--%>

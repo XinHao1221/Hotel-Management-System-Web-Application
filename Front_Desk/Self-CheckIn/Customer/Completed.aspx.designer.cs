@@ -51,6 +51,15 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
         protected global::System.Web.UI.WebControls.Label lblNoFacility;
 
         /// <summary>
+        /// PC1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Hotel_Management_System.Front_Desk.Reservation.EditPreference PC1;
+
+        /// <summary>
         /// RepeaterAmountDue control.
         /// </summary>
         /// <remarks>

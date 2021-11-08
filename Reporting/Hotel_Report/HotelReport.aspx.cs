@@ -240,6 +240,71 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
             conn.Close();
 
+            total += getOvertimeReservedRoomQty(roomTypeID);
+
+            return total;
+        }
+
+        public List<String> getOverTimeReservationID()
+        {
+            // Hold a list of reservationID
+            List<String> reservationIDs = new List<string>();
+
+            // Get current date
+            DateTime dateNow = DateTime.Now;
+            string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            // Get overtime reservationID
+            string getOvertimeReservation = "SELECT * FROM Reservation R WHERE R.CheckOutDate < @Date " +
+                                            "AND R.Status LIKE 'Checked In'";
+
+            SqlCommand cmdGetOvertimeReservation = new SqlCommand(getOvertimeReservation, conn);
+
+            cmdGetOvertimeReservation.Parameters.AddWithValue("@Date", todaysDate);
+
+            SqlDataReader sdr = cmdGetOvertimeReservation.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                reservationIDs.Add(sdr["ReservationID"].ToString());
+            }
+
+            conn.Close();
+
+            return reservationIDs;
+        }
+
+        private int getOvertimeReservedRoomQty(string roomTypeID)
+        {
+            int total = 0;
+
+            List<String> reservationIDs = getOverTimeReservationID();
+
+            for(int i = 0; i < reservationIDs.Count; i++)
+            {
+                string lastReservationDate = getLastReservationDate(reservationIDs[i]);
+
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                string getTotalRoom = "SELECT COUNT(*) FROM ReservationRoom WHERE ReservationID LIKE @ID AND Date LIKE @Date " +
+                    "AND RoomTypeID LIKE @RoomTypeID";
+
+                SqlCommand cmdGetTotalRoom = new SqlCommand(getTotalRoom, conn);
+
+                cmdGetTotalRoom.Parameters.AddWithValue("@ID", reservationIDs[i]);
+                cmdGetTotalRoom.Parameters.AddWithValue("@Date", lastReservationDate);
+                cmdGetTotalRoom.Parameters.AddWithValue("@RoomTypeID", roomTypeID);
+
+                total += (int)cmdGetTotalRoom.ExecuteScalar();
+
+                conn.Close();
+
+            }
+
             return total;
         }
 

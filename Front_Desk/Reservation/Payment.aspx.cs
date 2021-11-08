@@ -168,7 +168,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             String nextReservationID = idGenerator.getNextID("ReservationID", "Reservation", "RS");
 
             String addReservation = "INSERT INTO Reservation VALUES (@ReservationID, @CheckInDate, @CheckOutDate, " +
-                                    "@GuetID, @ReservationDate, @SecretPassword, @Status)";
+                                    "@GuetID, @ReservationDate, @SecretPassword, @Status, @Feedback)";
 
             SqlCommand cmdAddReservation = new SqlCommand(addReservation, conn);
 
@@ -179,6 +179,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             cmdAddReservation.Parameters.AddWithValue("@ReservationDate", todaysDate);
             cmdAddReservation.Parameters.AddWithValue("@SecretPassword", generateSecretPassword());
             cmdAddReservation.Parameters.AddWithValue("@Status", "Created");
+            cmdAddReservation.Parameters.AddWithValue("@Feedback", "");
 
             int i = cmdAddReservation.ExecuteNonQuery();
 

@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="Completed.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.Completed" %>
 
+<%@ Register TagPrefix="Preference" TagName="Control" Src="~/Front_Desk/Reservation/EditPreference.ascx" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -345,7 +347,15 @@
                     <div style="clear:both; height:40px;">&nbsp;</div>
 
                     <div class="formSectionStyle" style="margin-bottom:25px">
-                        3. Amount Due:-
+                        3. Preferences:-
+                    </div>
+
+                    <Preference:Control ID="PC1" runat="server"></Preference:Control>
+
+                    <div style="clear:both; height:40px;">&nbsp;</div>
+
+                    <div class="formSectionStyle" style="margin-bottom:25px">
+                        4. Amount Due:-
                     </div>
 
                     <div class="divAmountDue">

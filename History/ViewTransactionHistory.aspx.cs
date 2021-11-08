@@ -81,6 +81,8 @@ namespace Hotel_Management_System.Cashiering
                 setMissingEquipmentToRepeater();
 
                 setRoomMoveHistory();
+
+                displayGuestFeedback();
             }
             
         }
@@ -689,6 +691,30 @@ namespace Hotel_Management_System.Cashiering
             // Format data base on date format on user's computer
             DateTime formatedDate = Convert.ToDateTime(lblDate.Text);
             lblDate.Text = formatedDate.ToShortDateString();
+        }
+
+        private void displayGuestFeedback()
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string displayGuestFeedback = "SELECT Feedback FROM Reservation WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdDisplayGuestFeedback = new SqlCommand(displayGuestFeedback, conn);
+
+            cmdDisplayGuestFeedback.Parameters.AddWithValue("@ID", reservationID);
+
+            try
+            {
+                lblFeedback.Text = (string)cmdDisplayGuestFeedback.ExecuteScalar();
+            }
+            catch
+            {
+                lblFeedback.Text = "";
+            }
+            
+
+            conn.Close();
         }
     }
 }

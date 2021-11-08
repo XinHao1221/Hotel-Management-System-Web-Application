@@ -441,12 +441,13 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string updateReservationStatus = "UPDATE Reservation SET Status = 'Checked Out' " +
+            string updateReservationStatus = "UPDATE Reservation SET Status = 'Checked Out', Feedback = @Feedback " +
                                                 "WHERE ReservationID LIKE @ID";
 
             SqlCommand cmdUpdateReservationStatus = new SqlCommand(updateReservationStatus, conn);
 
             cmdUpdateReservationStatus.Parameters.AddWithValue("@ID", reservationID);
+            cmdUpdateReservationStatus.Parameters.AddWithValue("@Feedback", txtFeedback.Text);
 
             int i = cmdUpdateReservationStatus.ExecuteNonQuery();
 
