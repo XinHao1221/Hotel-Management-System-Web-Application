@@ -209,7 +209,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
             conn.Close();
 
-            if(status == "Check In")
+            if(status == "Check In" || status == "Checked In")
             {
                 return true;
             }

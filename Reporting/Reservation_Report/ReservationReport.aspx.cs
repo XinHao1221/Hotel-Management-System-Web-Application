@@ -46,6 +46,8 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
 
         private void setDDLYear()
         {
+            // Get the oldest payment record from the database
+            // To know the oldest year for the reservation report
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -73,6 +75,7 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
             // Set first item
             ddlYear.Items.Insert(0, new ListItem("--- Please Select ---", ""));
 
+            // Set the possible year of report into drop down list
             if (currentYear >= year)
             {
                 for (int i = year; i <= currentYear; i++)
@@ -96,17 +99,20 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
                 sortRoomType();
                 displayChartRoomType();
 
+                // Display reserved room type details
                 RepeaterRentedRoomType.DataSource = reservedRoomTypes;
                 RepeaterRentedRoomType.DataBind();
 
-
+                // Display facility renting details with Histogram
                 getReservedFacilityQty(txtDate.Text);
                 sortFacility();
                 displayChartFacility();
 
+                // Display reserved facility details in the table
                 RepeaterFacility.DataSource = reservedFacilities;
                 RepeaterFacility.DataBind();
 
+                // Check if there is no any record to display
                 checkIfEmpty();
             }
             else
@@ -124,20 +130,25 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
                 PNReservationReportDetails.Visible = true;
 
                 getReservedRoomTypeQuantity(txtYearMonth.Text);
+
+                // Sort list from small to large
                 sortRoomType();
                 displayChartRoomType();
 
+                // Display reserved room type details
                 RepeaterRentedRoomType.DataSource = reservedRoomTypes;
                 RepeaterRentedRoomType.DataBind();
 
-
+                // Display facility renting details with Histogram
                 getReservedFacilityQty(txtYearMonth.Text);
                 sortFacility();
                 displayChartFacility();
 
+                // Display reserved facility details in the table
                 RepeaterFacility.DataSource = reservedFacilities;
                 RepeaterFacility.DataBind();
 
+                // Check if there is no any record to display
                 checkIfEmpty();
             }
             else
@@ -153,18 +164,21 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
             {
                 PNReservationReportDetails.Visible = true;
 
+                // Sort list from small to large
                 getReservedRoomTypeQuantity(ddlYear.SelectedValue);
                 sortRoomType();
                 displayChartRoomType();
 
+                // Display reserved room type details
                 RepeaterRentedRoomType.DataSource = reservedRoomTypes;
                 RepeaterRentedRoomType.DataBind();
 
-
+                // Display facility renting details with Histogram
                 getReservedFacilityQty(ddlYear.SelectedValue);
                 sortFacility();
                 displayChartFacility();
 
+                // Display reserved facility details in the table
                 RepeaterFacility.DataSource = reservedFacilities;
                 RepeaterFacility.DataBind();
 
@@ -217,6 +231,7 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
 
         private void getReservedRoomTypeQuantity(string date)
         {
+            // Get the total quality rented for all room type
             for(int i = 0; i < reservedRoomTypes.Count; i++)
             {
                 conn = new SqlConnection(strCon);
@@ -252,6 +267,7 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
             //String[] x = { "Room", "Facility", "Fine", "Services" };
             //double[] y = { 1, 2, 3, 4 };
 
+            // Set data in to histogram
             ChartRoomType.Series[0].Points.DataBindXY(x, y);
 
             ChartRoomType.Series[0].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;
@@ -323,6 +339,7 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
 
         private void getReservedFacilityQty(string date)
         {
+            // Get total rented quantity for all facility
             for(int i = 0; i < reservedFacilities.Count; i++)
             {
                 conn = new SqlConnection(strCon);
@@ -356,6 +373,7 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
                 }
             }
 
+            // Set the data to be displayed on the histogram
             ChartFacility.Series[0].Points.DataBindXY(x, y);
 
             ChartFacility.Series[0].ChartType = System.Web.UI.DataVisualization.Charting.SeriesChartType.StackedColumn;

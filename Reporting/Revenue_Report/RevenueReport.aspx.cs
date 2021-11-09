@@ -43,6 +43,9 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
         private void setDDLYear()
         {
+            // Get the oldest payment record from the database
+            // To know the oldest year for the reservation report
+
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -86,6 +89,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             // If there is any data being selected
             if(txtDate.Text != "")
             {
+                // Display total profit for each category
                 totalReservationProfit = getReservationProfit(txtDate.Text);
                 totalFaclityProfit = getFacilityProfit(txtDate.Text);
                 totalFineCharges = getTotalFineCharges(txtDate.Text);
@@ -95,6 +99,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
                 displayChartProfit();
 
+                // Display revenue details for each category
                 displayRoomProfitDetails(txtDate.Text);
                 displayFacilityProfitDetails(txtDate.Text);
                 displayFineChargesDetails(txtDate.Text);
@@ -119,6 +124,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
         {
             if(txtYearMonth.Text != "")
             {
+                // Display total profit for each category
                 totalReservationProfit = getReservationProfit(txtYearMonth.Text);
                 totalFaclityProfit = getFacilityProfit(txtYearMonth.Text);
                 totalFineCharges = getTotalFineCharges(txtYearMonth.Text);
@@ -128,6 +134,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
                 displayChartProfit();
 
+                // Display revenue details for each category
                 displayRoomProfitDetails(txtYearMonth.Text);
                 displayFacilityProfitDetails(txtYearMonth.Text);
                 displayFineChargesDetails(txtYearMonth.Text);
@@ -151,6 +158,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
         {
             if (ddlYear.SelectedIndex != 0)
             {
+                // Display total profit for each category
                 totalReservationProfit = getReservationProfit(ddlYear.SelectedValue);
                 totalFaclityProfit = getFacilityProfit(ddlYear.SelectedValue);
                 totalFineCharges = getTotalFineCharges(ddlYear.SelectedValue);
@@ -160,6 +168,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
                 displayChartProfit();
 
+                // Display revenue details for each category
                 displayRoomProfitDetails(ddlYear.SelectedValue);
                 displayFacilityProfitDetails(ddlYear.SelectedValue);
                 displayFineChargesDetails(ddlYear.SelectedValue);
@@ -183,12 +192,14 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             PNReportDetails.Visible = false;
             lblNoDetailsFound.Visible = false;
 
+            // Reset all value to zero
             lblRoomTotal.Text = "0.00";
             lblFacilityTotal.Text = "0.00";
             lblFineChargesTotal.Text = "0.00";
             lblServicesTotal.Text = "0.00";
             lblProfit.Text = "0.00";
 
+            // Check which report type is being selected
             if(ddlReportType.SelectedValue == "Daily")
             {
                 PNDateFilter.Visible = true;
@@ -241,6 +252,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
             SqlDataReader sdr = cmdGetReservationProfit.ExecuteReader();
 
+            // Calculate total profit for the room renting
             while (sdr.Read())
             {
                 try
@@ -274,6 +286,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
             SqlDataReader sdr = cmdGetFacilityProfit.ExecuteReader();
 
+            // Calculate total profit for the facility renting
             while (sdr.Read())
             {
                 try
@@ -306,6 +319,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
             SqlDataReader sdr = cmdGetTotalFineCharges.ExecuteReader();
 
+            // Calculate total profit for the fine charges
             while (sdr.Read())
             {
                 try
@@ -337,6 +351,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
             SqlDataReader sdr = cmdGetTotalServiceCharges.ExecuteReader();
 
+            // Calculate total profit for the service charges
             while (sdr.Read())
             {
                 try
@@ -418,6 +433,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
             String[] x = { "Room", "Facility", "Fine", "Services" };
             double[] y = { totalReservationProfit, totalFaclityProfit, totalFineCharges, totalServicesCharges };
 
+            // Set data into pie chart
             ChartProfit.Series[0].Points.DataBindXY(x, y);
 
             ChartProfit.Series[0].BorderWidth = 5;
@@ -537,6 +553,7 @@ namespace Hotel_Management_System.Reporting.Revenue_Report
 
             SqlDataReader sdr = cmdGetFacilityProfitDetails.ExecuteReader();
 
+            // Check if any record being retrieved
             if (sdr.HasRows)
             {
                 RepeaterFacility.DataSource = sdr;

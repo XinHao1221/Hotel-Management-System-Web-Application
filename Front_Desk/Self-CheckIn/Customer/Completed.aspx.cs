@@ -34,17 +34,22 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
             // Page TItle
             Page.Title = "Completed";
 
+            
             reservationID = en.decryption(Request.QueryString["ID"]);
 
+            // Display selected room and rented facility
             displayReservedRoom();
 
             displayRentedFacility();
 
+            // Display and calculate the total amount for add-on facility
             displayAmountDue();
-
             calculateTotalCharges();
 
-            displayGuestPreferences();
+            if (!IsPostBack)
+            {
+                displayGuestPreferences();
+            }
         }
 
         private void displayGuestPreferences()
@@ -69,10 +74,10 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
         private void displayRentedFacility()
         {
-
             // Get reference of ReservationDetail from view state
             ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
 
+            // Check if there is any rented facility
             if(reservation.rentedFacility.Count > 0)
             {
                 RepeaterRentedFacility.DataSource = reservation.rentedFacility;
@@ -188,6 +193,7 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
             double totalPayment = 0;
 
+            // Calculate total payment for newly added facility
             for (int i = 0; i < reservationFacilities.Count; i++)
             {
                 totalPayment += reservationFacilities[i].subTotal;

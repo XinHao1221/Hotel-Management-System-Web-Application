@@ -74,6 +74,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         protected void btnPopupCancel_Click(object sender, EventArgs e)
         {
+            // Close popup message
             PopupReset.Visible = false;
             PopupCover.Visible = false;
             PopupBack.Visible = false;
@@ -89,6 +90,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         protected void btnConfirmBack_Click(object sender, EventArgs e)
         {
+            // Navigate back to main page
             Response.Redirect("Facility.aspx");
             PopupCover.Visible = false;
             PopupBack.Visible = false;
@@ -96,6 +98,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Facility
 
         protected void btnReset_Click(object sender, EventArgs e)
         {
+            // Show popup confirmation message
             PopupReset.Visible = true;
             PopupCover.Visible = true;
         }

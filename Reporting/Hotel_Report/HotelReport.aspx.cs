@@ -40,6 +40,7 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
             if (!IsPostBack)
             { 
+                // Display cuurent hotel's information
                 displayTotalArrival();
                 displayTotalDeparture();
 
@@ -58,6 +59,7 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
             conn = new SqlConnection(strCon);
             conn.Open();
 
+            // Get total arrival from database
             string getTotalArrival = "SELECT COUNT(*) FROM Reservation WHERE CheckInDate LIKE @todaysDate AND Status IN ('Created', 'Checked In', 'Check In')";
 
             SqlCommand cmdGetTotalArrival = new SqlCommand(getTotalArrival, conn);
@@ -89,6 +91,7 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
         private List<String> getInHouseReservationID()
         {
+            // Get a list of reservation ID which is current in the hotel
             List<String> reservationID = new List<string>();
 
             conn = new SqlConnection(strCon);
@@ -112,6 +115,8 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
         private string getLastReservationDate(string reservationID)
         {
+            // Get last reservation Date (ie: CheckOutDate - 1)
+
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -135,6 +140,8 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
         private void getTotalGuestInHouse()
         {
+            // Use last reservation date to sum up total adults and kids
+
             // Hold in house reservation id
             List<String> reservationID = getInHouseReservationID();
 
@@ -167,11 +174,14 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
         private void displayTotalInHouseGuest()
         {
+            // Calc and dispay total in house guest
             lblTotalInHouseGuest.Text = (totalAdults + totalKids).ToString();
         }
 
         private void displayRoomType()
         {
+            // Get all hotel's room type from the database
+
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -189,6 +199,7 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
         protected void RepeaterRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            // Get control's references from the repeater
             Label lblRoomTypeID = e.Item.FindControl("lblRoomTypeID") as Label;
             Label lblCheckIn = e.Item.FindControl("lblCheckIn") as Label;
             Label lblInHouse = e.Item.FindControl("lblInHouse") as Label;
@@ -279,6 +290,8 @@ namespace Hotel_Management_System.Reporting.Hotel_Report
 
         private int getOvertimeReservedRoomQty(string roomTypeID)
         {
+            // Get no of overtime reservation for the room type id provided
+
             int total = 0;
 
             List<String> reservationIDs = getOverTimeReservationID();
