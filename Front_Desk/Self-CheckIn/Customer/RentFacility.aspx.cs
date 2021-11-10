@@ -329,14 +329,26 @@ namespace Hotel_Management_System.Front_Desk.Self_CheckIn.Customer
 
                 int durationOfStay = reservationUtility.getdurationOfStay(checkInDate.ToShortDateString(), checkOutDate.ToShortDateString());
 
-                for(int i = 0; i < durationOfStay; i++)
+                // Get rented facility's quantity from the database
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(checkInDate.ToShortDateString()))) >= 0;
+
+                conn.Close();
+
+                for (int i = 0; i < durationOfStay; i++)
                 {
-                    conn = new SqlConnection(strCon);
-                    conn.Open();
+                    if (available != false)
+                    {
+                        // Get rented facility's quantity from the database
+                        conn = new SqlConnection(strCon);
+                        conn.Open();
 
-                    available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(checkInDate.AddDays(i).ToShortDateString()))) >= 0;
+                        available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(checkInDate.AddDays(i).ToShortDateString()))) >= 0;
 
-                    conn.Close();
+                        conn.Close();
+                    } 
                 }
 
                 if(available == false)

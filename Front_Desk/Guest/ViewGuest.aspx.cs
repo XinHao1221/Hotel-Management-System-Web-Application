@@ -33,6 +33,9 @@ namespace Hotel_Management_System.Front_Desk.Guest
             setText();
 
             setPreference();
+
+            // Format date of birth base on region format on users' computer
+            lblDOB.Text = Convert.ToDateTime(lblDOB.Text).ToShortDateString();
         }
 
         protected void LBEdit_Click(object sender, EventArgs e)

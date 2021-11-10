@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using Hotel_Management_System.Utility;
 
 namespace Hotel_Management_System.Dashboard
 {
@@ -15,6 +16,9 @@ namespace Hotel_Management_System.Dashboard
         // Create connection to database
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+        // Create instance of ReservationUltility class
+        ReservationUtility reservationUtility = new ReservationUtility();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -75,7 +79,7 @@ namespace Hotel_Management_System.Dashboard
 
             setRoomType(lblRoomID.Text, lblRoomType);
 
-            setRoomStatus(lblStatus, lblOvertimeStatus);
+            setRoomStatus(lblStatus, lblOvertimeStatus, lblRoomID.Text);
 
             setGuestName(lblRoomID.Text, lblGuestName);
         }
@@ -97,7 +101,7 @@ namespace Hotel_Management_System.Dashboard
             conn.Close();
         }
 
-        private void setRoomStatus(Label lblStatus, Label lblOvertimeStatus)
+        private void setRoomStatus(Label lblStatus, Label lblOvertimeStatus, string roomID)
         {
             if (lblOvertimeStatus.Text == "True")
             {
@@ -106,8 +110,48 @@ namespace Hotel_Management_System.Dashboard
             }
             else
             {
-                lblStatus.Text = "";
+                // Check if the room is checkout today
+                lblStatus.Text = checkOutTodays(roomID);
+                lblStatus.Style["color"] = "#00ce1b";
+
             }
+        }
+
+        private string checkOutTodays(string roomID)
+        {
+            // Get previous date 
+            DateTime dateNow = DateTime.Now;
+            string yesterdayDate = dateNow.AddDays(-1).ToShortDateString();
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string checkIfCheckOutTodays = "SELECT COUNT(*) FROM ReservationRoom RR, Reservation R " + 
+                                            "WHERE RR.RoomID LIKE @RoomID AND " +
+                                            "R.CheckOutDate LIKE @CheckOutDate AND " +
+                                            "R.Status IN('Checked In', 'Check In') AND " + 
+                                            "R.ReservationID LIKE RR.ReservationID AND " + 
+                                            "RR.Date LIKE @ReservedDate";
+
+            SqlCommand cmdCheckIfCheckOutTodays = new SqlCommand(checkIfCheckOutTodays, conn);
+
+            cmdCheckIfCheckOutTodays.Parameters.AddWithValue("@RoomID", roomID);
+            cmdCheckIfCheckOutTodays.Parameters.AddWithValue("@CheckOutDate", reservationUtility.formatDate(dateNow.ToShortDateString()));
+            cmdCheckIfCheckOutTodays.Parameters.AddWithValue("@ReservedDate", reservationUtility.formatDate(yesterdayDate));
+
+            int count = (int)cmdCheckIfCheckOutTodays.ExecuteScalar();
+
+            conn.Close();
+
+            if(count > 0)
+            {
+                return "Check Out Today";
+            }
+            else
+            {
+                return "";
+            }
+            
         }
 
         private void setGuestName(string roomID, Label lblGuestName)

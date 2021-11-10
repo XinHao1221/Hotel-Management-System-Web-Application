@@ -15,7 +15,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background-color: #F3F3F3;
+    /*background-color: #F3F3F3;*/
+    background-color: #efefef;
     font-size: 90%;
     line-height: 50px;
     vertical-align: middle;
@@ -42,7 +43,8 @@
     vertical-align: middle;
     font-size: 85%;
     font-family: Helvetica, sans-serif;
-    background-color: #F3F3F3;
+    /*background-color: #F3F3F3;*/
+    background-color: #f0f0f0;
 }
 
 .subFormBtnSave {

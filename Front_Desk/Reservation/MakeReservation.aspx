@@ -582,7 +582,7 @@
             </div>
             
             <%--Repeater Table content--%>
-            <asp:Repeater ID="RepeaterRentedFacility" runat="server">
+            <asp:Repeater ID="RepeaterRentedFacility" runat="server" OnItemDataBound="RepeaterRentedFacility_ItemDataBound">
 
                 <ItemTemplate>
                     <div style="width:86%; margin:auto;">

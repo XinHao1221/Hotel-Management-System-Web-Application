@@ -150,8 +150,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             }
 
             // Show popup Success Message
-            lblPopupReservationSuccess.Text = "Reservation Saved.";
-            PopupCheckOut.Visible = true;
+            lblPopupReservationSuccess.Text = "Reservation Saved Successfully.";
+            PopupReservationSuccess.Visible = true;
             PopupCover.Visible = true;
         }
 

@@ -9,7 +9,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background-color: #F3F3F3;
+    /*background-color: #F3F3F3;*/
+    background-color: #efefef;
     font-size: 95%;
     line-height: 50px;
     vertical-align: middle;
@@ -36,11 +37,13 @@
     vertical-align: middle;
     font-size: 90%;
     font-family: Helvetica, sans-serif;
-    background-color: #F3F3F3;
+    /*background-color: #F3F3F3;*/
+    background-color: #f0f0f0;
 }
 
 .tableFooter {
-    background-color: #F3F3F3;
+    /*background-color: #F3F3F3;*/
+    background-color: #efefef;
     line-height: 50px;
     vertical-align: middle;
     font-family: Helvetica, sans-serif;

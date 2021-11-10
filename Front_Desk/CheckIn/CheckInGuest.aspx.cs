@@ -59,6 +59,22 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
                 // Check if no any facility rented
                 checkRentedFacilityIsEmpty();
+
+                try
+                {
+                    // Limit facility rent date according to check in and check out date selected
+                    txtRentDate.Attributes["min"] = reservationUtility.formatDate(lblCheckIn.Text);
+                    txtRentDate.Attributes["max"] = reservationUtility.formatDate(lblCheckOut.Text);
+
+                    txtReturnDate.Attributes["min"] = reservationUtility.formatDate(lblCheckIn.Text);
+                    txtReturnDate.Attributes["max"] = reservationUtility.formatDate(lblCheckOut.Text);
+                }
+                catch
+                {
+
+                }
+
+
             }
         }
 
@@ -1140,14 +1156,26 @@ namespace Hotel_Management_System.Front_Desk.CheckIn
 
                 int durationOfStay = reservationUtility.getdurationOfStay(rentDate.ToShortDateString(), returnDate.ToShortDateString());
 
+                // Get rented facility's quantity from the database
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(rentDate.ToShortDateString()))) >= 0;
+
+                conn.Close();
+
                 for (int i = 0; i < durationOfStay; i++)
                 {
-                    conn = new SqlConnection(strCon);
-                    conn.Open();
+                    if (available != false)
+                    {
+                        // Get rented facility's quantity from the database
+                        conn = new SqlConnection(strCon);
+                        conn.Open();
 
-                    available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(rentDate.AddDays(i).ToShortDateString()))) >= 0;
+                        available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(rentDate.AddDays(i).ToShortDateString()))) >= 0;
 
-                    conn.Close();
+                        conn.Close();
+                    }
                 }
 
                 if (available == false)

@@ -415,10 +415,10 @@
                 <asp:Button ID="btnPopupConfirmCancelReservation" runat="server" Text="Confirm" CssClass="popUpDeleteBtn" OnClick="btnPopupConfirmCancelReservation_Click"/>
             </asp:Panel>
 
-            <asp:Panel ID="PopupCheckOut" runat="server" Visible="False" CssClass="popupWindow">
+            <asp:Panel ID="PopupReservationSuccess" runat="server" Visible="False" CssClass="popupWindow">
 
                 <%-- Popup Window Title --%>
-                <p style="color:#00ce1b;" class="popupTitle">Chceked Out</p>
+                <p style="color:#00ce1b;" class="popupTitle">Reservation Saved</p>
 
                 <%-- Popup Window Body --%>
                 <div class="popupBody">

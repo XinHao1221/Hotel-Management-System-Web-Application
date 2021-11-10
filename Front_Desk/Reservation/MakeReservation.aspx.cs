@@ -31,15 +31,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //// Limit check in and out date picker with todays date as minimum
+            //txtCheckInDate.Attributes["min"] = DateTime.Now.ToString("yyyy-MM-dd");
+
             // Page TItle
             Page.Title = "Make Reservation";
 
             if (!IsPostBack)
             {
-                // Limit check in and out date picker with todays date as minimum
-                txtCheckInDate.Attributes["min"] = DateTime.Now.ToString("yyyy-MM-dd");
-                txtCheckOutDate.Attributes["min"] = DateTime.Now.ToString("yyyy-MM-dd");
-
+                
                 // set all guest into drop-down list
                 setGuestList();
                 ddlGuest.Items.Insert(0, new ListItem("-- Please Select --", "-- Please Select --"));
@@ -379,6 +379,20 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 // Set duration of stay
                 lblDurationOfStay.Text = reservationUtility.getdurationOfStay(txtCheckInDate.Text, txtCheckOutDate.Text).ToString() + " Night";
+
+                try
+                {
+                    // Limit facility rent date according to check in and check out date selected
+                    txtRentDate.Attributes["min"] = txtCheckInDate.Text;
+                    txtRentDate.Attributes["max"] = txtCheckOutDate.Text;
+
+                    txtReturnDate.Attributes["min"] = txtCheckInDate.Text;
+                    txtReturnDate.Attributes["max"] = txtCheckOutDate.Text;
+                }
+                catch
+                {
+
+                }
             }
         }
 
@@ -386,6 +400,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         {
             if(txtCheckInDate.Text != "")
             {
+
                 // Run the comparevalidator
                 CompareValidator1.Validate();
 
@@ -429,6 +444,20 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                     // Set facility into dropdown
                     setFacility();
+
+                    try
+                    {
+                        // Limit facility rent date according to check in and check out date selected
+                        txtRentDate.Attributes["min"] = txtCheckInDate.Text;
+                        txtRentDate.Attributes["max"] = txtCheckOutDate.Text;
+
+                        txtReturnDate.Attributes["min"] = txtCheckInDate.Text;
+                        txtReturnDate.Attributes["max"] = txtCheckOutDate.Text;
+                    }
+                    catch
+                    {
+
+                    }
 
                 }
             }
@@ -1511,6 +1540,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         public int getFacilityRentedQty(string facilityID, string date)
         {
+
             // Query to get the quantity of facility have reserved by other guest
             String getReservedFacility = "SELECT FacilityID, COUNT(FacilityID) AS RentedQty " + 
                                         "FROM ReservationFacility " + 
@@ -1777,14 +1807,27 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 int durationOfStay = reservationUtility.getdurationOfStay(rentDate.ToShortDateString(), returnDate.ToShortDateString());
 
-                for (int i = 0; i < durationOfStay; i++)
+                // Get rented facility's quantity from the database
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(rentDate.ToShortDateString()))) >= 0;
+
+                conn.Close();
+
+                for (int i = 1; i < durationOfStay; i++)
                 {
-                    conn = new SqlConnection(strCon);
-                    conn.Open();
+                    if(available != false)
+                    {
+                        // Get rented facility's quantity from the database
+                        conn = new SqlConnection(strCon);
+                        conn.Open();
 
-                    available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(rentDate.AddDays(i).ToShortDateString()))) >= 0;
+                        available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(rentDate.AddDays(i).ToShortDateString()))) >= 0;
 
-                    conn.Close();
+                        conn.Close();
+                    }
+                    
                 }
 
                 if (available == false)
@@ -2224,6 +2267,20 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         {
             PopupFacilityNoAvailable.Visible = false;
             PopupCover.Visible = false;
+        }
+
+        protected void RepeaterRentedFacility_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Get control's refernce
+            Label lblRentDate = e.Item.FindControl("lblRentDate") as Label;
+            Label lblReturnDate = e.Item.FindControl("lblReturnDate") as Label;
+            
+            // Format date according to user's computer
+            DateTime formatedRentDate = Convert.ToDateTime(lblRentDate.Text);
+            DateTime formatedReturnDate = Convert.ToDateTime(lblReturnDate.Text);
+
+            lblRentDate.Text = formatedRentDate.ToShortDateString();
+            lblReturnDate.Text = formatedReturnDate.ToShortDateString();
         }
     }
 }
