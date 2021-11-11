@@ -20,6 +20,7 @@ namespace Hotel_Management_System.Front_Desk.Guest
         // Create connection to database
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        private object cmdAddGuest;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -72,9 +73,16 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
                 ddlNationality.SelectedValue = sdr.GetString(sdr.GetOrdinal("Nationality"));
 
-                txtDOB.Text = sdr.GetString(sdr.GetOrdinal("DOB"));
-
-                getAge(sdr.GetString(sdr.GetOrdinal("DOB")));
+                if(sdr.GetString(sdr.GetOrdinal("DOB")) != "")
+                {
+                    txtDOB.Text = sdr.GetString(sdr.GetOrdinal("DOB"));
+                    getAge(sdr.GetString(sdr.GetOrdinal("DOB")));
+                }
+                else
+                {
+                    txtDOB.Text = "";
+                }
+                
 
                 txtPhone.Text = sdr.GetString(sdr.GetOrdinal("Phone"));
 
@@ -141,8 +149,17 @@ namespace Hotel_Management_System.Front_Desk.Guest
             cmdUpdateGuest.Parameters.AddWithValue("@Email", txtEmail.Text);
             cmdUpdateGuest.Parameters.AddWithValue("@IDType", ddlIDType.SelectedValue);
             cmdUpdateGuest.Parameters.AddWithValue("@IDNo", txtIDNo.Text);
+
             cmdUpdateGuest.Parameters.AddWithValue("@Nationality", ddlNationality.SelectedValue);
-            cmdUpdateGuest.Parameters.AddWithValue("@DOB", txtDOB.Text);
+            if (txtDOB.Text != "")
+            {
+                cmdUpdateGuest.Parameters.AddWithValue("@DOB", txtDOB.Text);
+            }
+            else
+            {
+                cmdUpdateGuest.Parameters.AddWithValue("@DOB", "");
+            }
+
             cmdUpdateGuest.Parameters.AddWithValue("@Gender", ddlGender.Text);
 
             int i = cmdUpdateGuest.ExecuteNonQuery();

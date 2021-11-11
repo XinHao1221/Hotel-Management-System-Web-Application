@@ -37,32 +37,32 @@
     <div style="float:left; width:8%; text-align:center;" class="subFormRepeaterHeader">
         No
     </div>
-    <div style="float:left; width:72%;" class="subFormRepeaterHeader">
+    <div style="float:left; width:70%;" class="subFormRepeaterHeader">
         Preference
     </div>
-    <div style="float:left; width:15%;" class="subFormRepeaterHeader">
+    <div style="float:left; width:15%; text-align:right;" class="subFormRepeaterHeader">
         Date Added
     </div>
-    <div style="float:left; width:5%;" class="subFormRepeaterHeader">
+    <div style="float:left; width:7%;" class="subFormRepeaterHeader">
         &nbsp;
     </div>
 </div> 
 
 <%--Repeater Table content--%>
-<asp:Repeater ID="Repeater1" runat="server">
+<asp:Repeater ID="RepeaterPreferences" runat="server" OnItemDataBound="RepeaterPreferences_ItemDataBound">
 
     <ItemTemplate>
         <div style="width:80%; margin:auto;">
             <div style="float:left; width:8%; text-align:center;" class="subFormTableContent">
                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
             </div>
-            <div style="float:left; width:72%;" class="subFormTableContent">
+            <div style="float:left; width:70%;" class="subFormTableContent">
                 <asp:Label ID="lblPreference" runat="server" Text='<%# Eval("preference") %>'></asp:Label>
             </div>
-            <div style="float:left; width:15%;" class="subFormTableContent">
+            <div style="float:left; width:15%; text-align:right;" class="subFormTableContent">
                 <asp:Label ID="lblDate" runat="server" Text='<%# Eval("date") %>'></asp:Label>
             </div>
-            <div style="float:left; width:2%;" class="subFormTableContent">
+            <div style="float:left; width:4%;" class="subFormTableContent">
                 &nbsp;
             </div>
             <div style="float:left; width:3%;" class="subFormTableContent">
@@ -76,13 +76,13 @@
             <div style="float:left; width:8%; text-align:center;" class="subFormTableContentAlternate">
                 <asp:Label ID="lblNumber" runat="server" Text='<%# Container.ItemIndex + 1 %>'></asp:Label>
             </div>
-            <div style="float:left; width:72%;" class="subFormTableContentAlternate">
+            <div style="float:left; width:70%;" class="subFormTableContentAlternate">
                 <asp:Label ID="lblPreference" runat="server" Text='<%# Eval("preference") %>'></asp:Label>
             </div>
-            <div style="float:left; width:15%;" class="subFormTableContentAlternate">
+            <div style="float:left; width:15%; text-align:right;" class="subFormTableContentAlternate">
                 <asp:Label ID="lblDate" runat="server" Text='<%# Eval("date") %>'></asp:Label>
             </div>
-            <div style="float:left; width:2%;" class="subFormTableContentAlternate">
+            <div style="float:left; width:4%;" class="subFormTableContentAlternate">
                 &nbsp;
             </div>
             <div style="float:left; width:3%;" class="subFormTableContentAlternate">

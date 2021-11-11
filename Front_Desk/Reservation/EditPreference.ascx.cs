@@ -20,6 +20,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         // Create instance of IDGerator class
         IDGenerator idGenerator = new IDGenerator();
 
+        // Create instance of ReservationUltility class
+        ReservationUtility reservationUtility = new ReservationUtility();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -69,6 +71,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             // Get Current Date
             DateTime dateTimeNow = DateTime.Now;
+            string formatedDate = reservationUtility.formatDate(dateTimeNow.ToShortDateString());
 
             conn = new SqlConnection(strCon);
             conn.Open();
@@ -79,7 +82,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             cmdAddPreferences.Parameters.AddWithValue("@ID", nextPreferenceID);
             cmdAddPreferences.Parameters.AddWithValue("@Preference", txtPreference.Text);
-            cmdAddPreferences.Parameters.AddWithValue("@Date", dateTimeNow.ToShortDateString());
+            cmdAddPreferences.Parameters.AddWithValue("@Date", formatedDate);
             cmdAddPreferences.Parameters.AddWithValue("@GuestID", guestID);
 
             int i = cmdAddPreferences.ExecuteNonQuery();
@@ -140,6 +143,13 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             // Refresh preference list
             setPreferences();
+        }
+
+        protected void RepeaterPreferences_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Format date
+            Label lblDate = e.Item.FindControl("lblDate") as Label;
+            lblDate.Text = Convert.ToDateTime(lblDate.Text).ToShortDateString();
         }
     }
 }

@@ -48,8 +48,8 @@ namespace Hotel_Management_System.Front_Desk.Guest
             // Add to Equipment class
             equipmentList.Add(new Preference() { preference = txtPreference.Text, date = dateTimeNow.ToShortDateString()});
 
-            Repeater1.DataSource = equipmentList;
-            Repeater1.DataBind();
+            RepeaterPreferences.DataSource = equipmentList;
+            RepeaterPreferences.DataBind();
 
             txtPreference.Text = null;
 
@@ -89,8 +89,8 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
             preferneceList.RemoveAt(itemIndex - 1);
 
-            Repeater1.DataSource = preferneceList;
-            Repeater1.DataBind();
+            RepeaterPreferences.DataSource = preferneceList;
+            RepeaterPreferences.DataBind();
 
             checkIsEmpty();
 
@@ -98,6 +98,11 @@ namespace Hotel_Management_System.Front_Desk.Guest
             PopupDelete.Visible = false;
         }
 
-        
+        protected void RepeaterPreferences_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Format date
+            Label lblDate = e.Item.FindControl("lblDate") as Label;
+            lblDate.Text = Convert.ToDateTime(lblDate.Text).ToShortDateString();
+        }
     }
 }

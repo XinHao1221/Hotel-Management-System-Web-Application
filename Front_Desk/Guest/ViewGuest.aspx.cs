@@ -34,8 +34,6 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
             setPreference();
 
-            // Format date of birth base on region format on users' computer
-            lblDOB.Text = Convert.ToDateTime(lblDOB.Text).ToShortDateString();
         }
 
         protected void LBEdit_Click(object sender, EventArgs e)
@@ -75,9 +73,18 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
                 lblNationality.Text = sdr.GetString(sdr.GetOrdinal("Nationality"));
 
-                lblDOB.Text = sdr.GetString(sdr.GetOrdinal("DOB"));
+                if (sdr.GetString(sdr.GetOrdinal("DOB")) != "")
+                {
+                    lblDOB.Text = sdr.GetString(sdr.GetOrdinal("DOB"));
+                    getAge(sdr.GetString(sdr.GetOrdinal("DOB")));
 
-                getAge(sdr.GetString(sdr.GetOrdinal("DOB")));
+                    // Format date of birth base on region format on users' computer
+                    lblDOB.Text = Convert.ToDateTime(lblDOB.Text).ToShortDateString();
+                }
+                else
+                {
+                    lblDOB.Text = "";
+                }
 
                 lblPhoneNo.Text = sdr.GetString(sdr.GetOrdinal("Phone"));
 
@@ -126,8 +133,8 @@ namespace Hotel_Management_System.Front_Desk.Guest
             sda.Fill(dt);
 
             // Bind data into repeater to display
-            Repeater1.DataSource = dt;
-            Repeater1.DataBind();
+            RepeaterPreferences.DataSource = dt;
+            RepeaterPreferences.DataBind();
 
             if (dt.Rows.Count <= 0)
             {
@@ -135,6 +142,13 @@ namespace Hotel_Management_System.Front_Desk.Guest
             }
 
             conn.Close();
+        }
+
+        protected void RepeaterPreferences_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Format date
+            Label lblDate = e.Item.FindControl("lblDate") as Label;
+            lblDate.Text = Convert.ToDateTime(lblDate.Text).ToShortDateString();
         }
     }
 }

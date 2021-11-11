@@ -13,7 +13,6 @@ namespace Hotel_Management_System.Front_Desk.Guest
 {
     public partial class AddGuest : System.Web.UI.Page
     {
-
         // Create instance of IDGerator class
         IDGenerator idGenerator = new IDGenerator();
 
@@ -23,6 +22,9 @@ namespace Hotel_Management_System.Front_Desk.Guest
         // Create connection to database
         SqlConnection conn;
         String strCon = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+        // Create instance of ReservationUltility class
+        ReservationUtility reservationUtility = new ReservationUtility();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -88,7 +90,16 @@ namespace Hotel_Management_System.Front_Desk.Guest
             cmdAddGuest.Parameters.AddWithValue("@IDType", ddlIDType.SelectedValue);
             cmdAddGuest.Parameters.AddWithValue("@IDNo", txtIDNo.Text);
             cmdAddGuest.Parameters.AddWithValue("@Nationality", ddlNationality.SelectedValue);
-            cmdAddGuest.Parameters.AddWithValue("@DOB", txtDOB.Text);
+
+            if(txtDOB.Text != "")
+            {
+                cmdAddGuest.Parameters.AddWithValue("@DOB", txtDOB.Text);
+            }
+            else
+            {
+                cmdAddGuest.Parameters.AddWithValue("@DOB", "");
+            }
+            
             cmdAddGuest.Parameters.AddWithValue("@Gender", ddlGender.Text);
 
             int i = cmdAddGuest.ExecuteNonQuery();
@@ -115,7 +126,7 @@ namespace Hotel_Management_System.Front_Desk.Guest
 
                     cmdAddPreferences.Parameters.AddWithValue("@ID", nextPreferenceID);
                     cmdAddPreferences.Parameters.AddWithValue("@Preference", preference.preference);
-                    cmdAddPreferences.Parameters.AddWithValue("@Date", preference.date);
+                    cmdAddPreferences.Parameters.AddWithValue("@Date", reservationUtility.formatDate(preference.date));
                     cmdAddPreferences.Parameters.AddWithValue("@GuestID", nextGuestID);
 
                     int i = cmdAddPreferences.ExecuteNonQuery();
