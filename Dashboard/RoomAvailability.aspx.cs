@@ -153,7 +153,9 @@ namespace Hotel_Management_System.Dashboard
         {
             string roomTypeID = ddlRoomType.SelectedValue;
 
-            if(roomTypeID != "")
+            List<RoomOccupancy> roomOccupancies = new List<RoomOccupancy>();
+
+            if (roomTypeID != "")
             {
                 List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
 
@@ -163,7 +165,17 @@ namespace Hotel_Management_System.Dashboard
                     {
                         if(roomTypes[i].roomOccupancies.Count > 0)
                         {
-                            RepeaterRoomAvailability.DataSource = roomTypes[i].roomOccupancies;
+                            List<RoomOccupancy> ra = roomTypes[i].roomOccupancies;
+
+                            for (int j = 0; j < ra.Count; j++)
+                            {
+                                if (ra[j].status != "Blocked")
+                                {
+                                    roomOccupancies.Add(new RoomOccupancy(ra[j].roomID, ra[j].available));
+                                }
+                            }
+
+                            RepeaterRoomAvailability.DataSource = roomOccupancies;
                             RepeaterRoomAvailability.DataBind();
 
                             lblNoItemFound.Visible = false;
