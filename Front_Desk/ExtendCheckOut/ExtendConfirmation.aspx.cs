@@ -392,13 +392,14 @@ namespace Hotel_Management_System.Front_Desk.ExtendCheckOut
             conn = new SqlConnection(strCon);
             conn.Open();
 
-            string updateCheckOut = "UPDATE CheckOutDate = @Date FROM Reservation WHERE ReservationID LIKE @ID";
+            string updateCheckOut = "UPDATE Reservation " +
+                "SET CheckOutDate = @Date FROM Reservation WHERE ReservationID LIKE @ID";
 
             SqlCommand cmdUpdateCheckOut = new SqlCommand(updateCheckOut, conn);
 
             cmdUpdateCheckOut.Parameters.AddWithValue("@ID", reservationID);
             // Check out date plus one
-            cmdUpdateCheckOut.Parameters.AddWithValue("@Date", reservationUtility.formatDate(lblCheckInDate.Text));
+            cmdUpdateCheckOut.Parameters.AddWithValue("@Date", reservationUtility.formatDate(lblCheckOutDate.Text));
 
             int i = cmdUpdateCheckOut.ExecuteNonQuery();
 
@@ -479,7 +480,7 @@ namespace Hotel_Management_System.Front_Desk.ExtendCheckOut
 
         protected void btnOK_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CheckIn.aspx");
+            Response.Redirect("../GuestInHouse/ReservationDetails.aspx?ID=" + en.encryption(reservationID));
         }
 
         protected void RepeaterRentedRoomType_ItemDataBound(object sender, RepeaterItemEventArgs e)

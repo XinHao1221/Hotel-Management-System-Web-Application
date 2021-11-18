@@ -461,6 +461,35 @@
 
         <div style="clear:both; height:40px;">&nbsp;</div>
 
+
+        <%--Popup Window--%>
+        <div class="popup">
+
+            <asp:Panel ID="PopupRoomUnavailable" runat="server" Visible="False" CssClass="popupWindow">
+
+                <%-- Popup Window Title --%>
+                <p style="color:red;" class="popupTitle">Room Unavailable</p>
+
+                <%-- Popup Window Body --%>
+                <div class="popupBody">
+
+                    <asp:Label ID="lblPopupDeleteContent" runat="server" Text="Room not available."></asp:Label>
+
+                </div>
+
+                <div>&nbsp;</div>
+
+                <asp:Button ID="btnPopupOK" runat="server" Text="OK" CssClass="popUpCancelBtn" OnClick="btnPopupOK_Click"/>
+
+            </asp:Panel>
+
+        </div>
+
+        <%-- Popup Cover --%>
+        <asp:Panel ID="PopupCover" runat="server" CssClass="popupCoverStyle" Visible="false">
+            &nbsp;
+        </asp:Panel>
+
     </div>
 
 </asp:Content>

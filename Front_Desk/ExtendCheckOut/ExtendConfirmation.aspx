@@ -409,7 +409,7 @@
             <asp:Panel ID="PopupCheckIn" runat="server" Visible="False" CssClass="popupWindow">
 
                 <%-- Popup Window Title --%>
-                <p style="color:#00ce1b;" class="popupTitle">Chceked In</p>
+                <p style="color:#00ce1b;" class="popupTitle">Reservation Extended</p>
 
                 <%-- Popup Window Body --%>
                 <div class="popupBody">

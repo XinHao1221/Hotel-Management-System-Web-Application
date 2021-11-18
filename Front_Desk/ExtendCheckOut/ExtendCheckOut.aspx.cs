@@ -301,6 +301,8 @@ namespace Hotel_Management_System.Front_Desk.ExtendCheckOut
                         if (checkIfRoomAvailable(reservationRooms[reservationRooms.Count - 1].roomID, reservationRooms[reservationRooms.Count - 1].date) == false)
                         {
                             reservationRooms[reservationRooms.Count - 1].roomID = "";
+                            reservationRooms[reservationRooms.Count - 1].roomNo = "";
+                            
                         }
 
                         counter++;

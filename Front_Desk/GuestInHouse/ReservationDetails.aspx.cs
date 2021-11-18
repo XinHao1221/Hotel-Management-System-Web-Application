@@ -35,7 +35,6 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
             if (!IsPostBack)
             {
-
                 Session["ReservationDetails"] = new ReservationDetail();
 
                 Session["ReservedRoomType"] = new List<ReservedRoomType>();
@@ -54,6 +53,14 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
                 setRoomMoveHistory();
 
+                // Hide extend button if the reservation had overtime
+                DateTime dateNow = DateTime.Now;
+                string todaysDate = reservationUtility.formatDate(dateNow.ToString());
+
+                if (Convert.ToDateTime(todaysDate) > Convert.ToDateTime(lblCheckOut.Text))
+                {
+                    LBExtendCheckOut.Visible = false;
+                }
             }
            
         }
@@ -417,8 +424,84 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
 
         protected void LBExtendCheckOut_Click(object sender, EventArgs e)
         {
-            // Redirct to extend check out
-            Response.Redirect("../ExtendCheckOut/ExtendCheckOut.aspx?ID=" + en.encryption(reservationID));
+            // Get reference of ReservationDetail from view state
+            ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
+
+            // Check if room available
+            if (checkRoomAvailability(reservation.checkOutDate))
+            {
+                // Redirct to extend check out
+                Response.Redirect("../ExtendCheckOut/ExtendCheckOut.aspx?ID=" + en.encryption(reservationID));
+            }
+            else
+            {
+                // Prompt room unavailable message
+                PopupRoomUnavailable.Visible = true;
+                PopupCover.Visible = true;
+            }
+
+            
+        }
+
+        private Boolean checkRoomAvailability(string nextDay)
+        {
+            // Get reference of ReservationDetail from view state
+            ReservationDetail reservation = (ReservationDetail)Session["ReservationDetails"];
+
+            List<ReservationRoom> reservedRooms = reservation.reservedRoom;
+
+            // Check if room is available at next date
+            for (int i = 0; i < reservedRooms.Count; i++)
+            {
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                // Check if room available
+                string checkRoomAvailability = "SELECT COUNT(*) FROM ReservationRoom " +
+                    "WHERE RoomTypeID LIKE @RoomTypeID AND Date LIKE @Date";
+
+                SqlCommand cmdCheckRoomAvailability = new SqlCommand(checkRoomAvailability, conn);
+
+                cmdCheckRoomAvailability.Parameters.AddWithValue("@RoomTypeID", reservedRooms[i].roomTypeID);
+                cmdCheckRoomAvailability.Parameters.AddWithValue("@Date", nextDay);
+
+                int count = (int)cmdCheckRoomAvailability.ExecuteScalar();
+
+                conn.Close();
+
+                if (!(getTotalRoomQuantity(reservedRooms[i].roomTypeID) - count > 0))
+                {
+                    return false;
+                }
+
+            }
+
+            return true;
+        }
+
+        private int getTotalRoomQuantity(string roomTypeID)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getTotalRoomQuantity = "SELECT COUNT(*) FROM Room WHERE RoomTypeID LIKE @RoomTypeID";
+
+            SqlCommand cmdGetTotalRoomQuantity = new SqlCommand(getTotalRoomQuantity, conn);
+
+            cmdGetTotalRoomQuantity.Parameters.AddWithValue("@RoomTypeID", roomTypeID);
+
+            int total = (int)cmdGetTotalRoomQuantity.ExecuteScalar();
+
+            conn.Close();
+
+            return total;
+        }
+
+        protected void btnPopupOK_Click(object sender, EventArgs e)
+        {
+            // Close popup message
+            PopupRoomUnavailable.Visible = false;
+            PopupCover.Visible = false;
         }
     }
 }
