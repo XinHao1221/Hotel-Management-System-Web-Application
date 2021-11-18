@@ -12,13 +12,15 @@ namespace Hotel_Management_System
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            // Set  global varaible
             Application["TaxRate"] = 0.06;
             Application["LocalHostID"] = "44315";
         }
 
         protected void Session_Start(object sender, EventArgs e)
         {
-
+            // Set session timeout to 1 hours
+            Session.Timeout = 3600;
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

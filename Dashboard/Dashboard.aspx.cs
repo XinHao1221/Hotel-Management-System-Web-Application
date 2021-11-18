@@ -75,6 +75,7 @@ namespace Hotel_Management_System.Dashboard
 
         private void displayDate()
         {
+            // Display current date information 
             lblMonth.Text = dateUtility.getMonth();
             lblDay.Text = dateUtility.getDay();
             lblYear.Text = dateUtility.getYear();
@@ -96,6 +97,7 @@ namespace Hotel_Management_System.Dashboard
 
         private string getTotalArrival()
         {
+            // Get total reservation that will check in today
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -114,6 +116,7 @@ namespace Hotel_Management_System.Dashboard
 
         private string getTotalArrived()
         {
+            // Get total reservation that already check in
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -132,6 +135,7 @@ namespace Hotel_Management_System.Dashboard
 
         private string getTotalDeparture()
         {
+            // Get total reservation record that will check out today
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -150,6 +154,7 @@ namespace Hotel_Management_System.Dashboard
 
         private string getTotalDeparted()
         {
+            // Get total of reservation which already checked out 
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -168,6 +173,7 @@ namespace Hotel_Management_System.Dashboard
 
         private List<String> getInHouseReservationID()
         {
+            // get a list of reservation id which currently in house
             List<String> reservationID = new List<string>();
 
             conn = new SqlConnection(strCon);
@@ -217,6 +223,7 @@ namespace Hotel_Management_System.Dashboard
             // Hold in house reservation id
             List<String> reservationID = getInHouseReservationID();
 
+            // Sum up total in house adults and kids
             for(int i = 0; i < reservationID.Count; i++)
             {
                 string lastReservationDate = getLastReservationDate(reservationID[i]);
@@ -246,11 +253,13 @@ namespace Hotel_Management_System.Dashboard
 
         private void displayTotalInHouseGuest()
         {
+            // Calc and display total in house guest
             lblTotalInHouseGuest.Text = (totalAdults + totalKids).ToString();
         }
 
         private void getRooms()
         {
+            // Get all hotel's room type
             List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
 
             conn = new SqlConnection(strCon);
@@ -274,8 +283,6 @@ namespace Hotel_Management_System.Dashboard
         {
             List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
 
-            
-
             for(int i = 0; i < roomTypes.Count; i++)
             {
                 List<RoomOccupancy> roomOccupancy = roomTypes[i].roomOccupancies;
@@ -288,6 +295,7 @@ namespace Hotel_Management_System.Dashboard
                     conn = new SqlConnection(strCon);
                     conn.Open();
 
+                    // Check if the room is currently occupied
                     string checkIfRented = "SELECT COUNT(*) FROM ReservationRoom RR, Reservation R " +
                                             "WHERE RR.RoomID LIKE @RoomID AND RR.Date LIKE @todaysDate " +
                                             "AND R.ReservationID LIKE RR.ReservationID AND R.Status IN ('Created', 'Checked In')";
@@ -316,6 +324,7 @@ namespace Hotel_Management_System.Dashboard
         {
             List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
 
+            // Get total number of active room
             for(int i = 0; i < roomTypes.Count; i++)
             {
                 List<RoomOccupancy> roomOccupancy = roomTypes[i].roomOccupancies;
@@ -334,12 +343,14 @@ namespace Hotel_Management_System.Dashboard
         {
             List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
 
+            // Count total available room from the list
             for (int i = 0; i < roomTypes.Count; i++)
             {
                 List<RoomOccupancy> roomOccupancy = roomTypes[i].roomOccupancies;
 
                 for (int j = 0; j < roomOccupancy.Count; j++)
                 {
+                    // If the room is available
                     if (roomOccupancy[j].status == "Active" && roomOccupancy[j].available == true)
                     {
                         availableRoom += 1;
@@ -350,20 +361,24 @@ namespace Hotel_Management_System.Dashboard
 
         private void displayRoomAvailability()
         {
+            // Display room availabiliy
             lblTotalAvailableRoom.Text = availableRoom.ToString();
             lblRoomAvailability.Text = availableRoom.ToString() + "/" + totalRoom.ToString();
         }
 
         private void displayOccupiedRoom()
         {
+            // Display occupied room
             double occupancy = ((Convert.ToDouble(totalRoom) - Convert.ToDouble(availableRoom)) / Convert.ToDouble(totalRoom)) * 100.00;
-
             lblTotalOccupiedRoom.Text = (totalRoom - availableRoom).ToString();
+
+            // calculate and display room occupancy in percentage
             lblOccupancy.Text = string.Format("{0:0.00}", occupancy) + "%";
         }
 
         private string getTotalBlockedRoom()
         {
+            // Get total quantity of blocked room
             conn = new SqlConnection(strCon);
             conn.Open();
 
@@ -403,12 +418,14 @@ namespace Hotel_Management_System.Dashboard
 
             List<RoomType> roomTypes = (List<RoomType>)Session["RoomType"];
 
+            // Loop through to find specific room type from the list
             for(int i = 0; i < roomTypes.Count; i++)
             {
                 if(roomTypes[i].roomTypeID == lblRoomTypeID.Text)
                 {
                     List<RoomOccupancy> roomOccupancies = roomTypes[i].roomOccupancies;
 
+                    // Count total active room
                     for (int j = 0; j < roomOccupancies.Count; j++)
                     {
                         if(roomOccupancies[j].status == "Active")
@@ -421,6 +438,7 @@ namespace Hotel_Management_System.Dashboard
                     conn = new SqlConnection(strCon);
                     conn.Open();
 
+                    // Get how many sold quantiy for specific room type
                     string getSoldRoom = "SELECT COUNT(*) FROM ReservationRoom RR, Reservation R " +
                                             "WHERE RR.RoomTypeID LIKE @RoomTypeID AND RR.Date LIKE @todaysDate AND " +
                                             "R.ReservationID LIKE RR.ReservationID " +
@@ -437,9 +455,11 @@ namespace Hotel_Management_System.Dashboard
                 }
             }
 
+            // Display total and sold room 
             lblAvailableRoom.Text = (total - sold).ToString();
             lblSold.Text = sold.ToString();
 
+            // Check if the room is available
             if(total > sold)
             {
                 lblStatus.Text = "Available";
@@ -459,6 +479,7 @@ namespace Hotel_Management_System.Dashboard
             String[] x = { "Adults", "Kids" };
             int[] y = { totalAdults, totalKids };
 
+            // Set data to chart
             ChartGuestInHouse.Series[0].Points.DataBindXY(x, y);
 
             ChartGuestInHouse.Series[0].BorderWidth = 5;

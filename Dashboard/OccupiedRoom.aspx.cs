@@ -39,6 +39,7 @@ namespace Hotel_Management_System.Dashboard
 
             List<RoomOccupancy> roomOccupancies = new List<RoomOccupancy>();
 
+            // Find a list of available and non blocked room
             for (int i = 0; i < roomTypes.Count; i++)
             {
                 List<RoomOccupancy> ra = roomTypes[i].roomOccupancies;
@@ -52,6 +53,7 @@ namespace Hotel_Management_System.Dashboard
                 }
             }
 
+            // Set the result to the data table
             if (roomOccupancies.Count > 0)
             {
                 RepeaterOccupiedRoom.DataSource = roomOccupancies;
@@ -71,16 +73,20 @@ namespace Hotel_Management_System.Dashboard
 
         protected void RepeaterOccupiedRoom_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            // Get control's references
             Label lblRoomID = e.Item.FindControl("lblRoomID") as Label;
             Label lblRoomType = e.Item.FindControl("lblRoomType") as Label;
             Label lblStatus = e.Item.FindControl("lblStatus") as Label;
             Label lblOvertimeStatus = e.Item.FindControl("lblOvertimeStatus") as Label;
             Label lblGuestName = e.Item.FindControl("lblGuestName") as Label;
 
+            // Display room type
             setRoomType(lblRoomID.Text, lblRoomType);
 
+            // Format room status
             setRoomStatus(lblStatus, lblOvertimeStatus, lblRoomID.Text);
 
+            // Display guest's name
             setGuestName(lblRoomID.Text, lblGuestName);
         }
 
@@ -103,6 +109,7 @@ namespace Hotel_Management_System.Dashboard
 
         private void setRoomStatus(Label lblStatus, Label lblOvertimeStatus, string roomID)
         {
+            // If the room is overtime
             if (lblOvertimeStatus.Text == "True")
             {
                 lblStatus.Text = "Overtime";
@@ -126,6 +133,7 @@ namespace Hotel_Management_System.Dashboard
             conn = new SqlConnection(strCon);
             conn.Open();
 
+            // Check if the room will be check out today.
             string checkIfCheckOutTodays = "SELECT COUNT(*) FROM ReservationRoom RR, Reservation R " + 
                                             "WHERE RR.RoomID LIKE @RoomID AND " +
                                             "R.CheckOutDate LIKE @CheckOutDate AND " +
@@ -159,6 +167,7 @@ namespace Hotel_Management_System.Dashboard
             conn = new SqlConnection(strCon);
             conn.Open();
 
+            // Get guest name from the database
             string getGuestName = "SELECT Top 1 G.Name " +
                                 "FROM Reservation R, ReservationRoom RR, Guest G " +
                                 "WHERE R.Status IN('Checked In', 'Check In') AND RR.RoomID LIKE @RoomID " +

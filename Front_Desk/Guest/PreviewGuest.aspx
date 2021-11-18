@@ -41,35 +41,35 @@
 
             <table style="width:100%;">
                 <tr>
-                    <td class="formLabel requiredFieldLabel" style="width:20%;">Name</td>
+                    <td class="formLabel" style="width:20%;">Name</td>
                     <td class="tableSeperator" style="width:2%;"></td>
                     <td class="tableData" style="width:78%;">
                         <asp:Label ID="lblName" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
                 <tr>
-                    <td class="formLabel requiredFieldLabel">Gender</td>
+                    <td class="formLabel">Gender</td>
                     <td></td>
                     <td class="tableData">
                         <asp:Label ID="lblGender" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
                 <tr>
-                    <td class="formLabel requiredFieldLabel">ID Type</td>
+                    <td class="formLabel">ID Type</td>
                     <td></td>
                     <td class="tableData">
                         <asp:Label ID="lblIDType" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
                 <tr>
-                    <td class="formLabel requiredFieldLabel">ID No.</td>
+                    <td class="formLabel">ID No.</td>
                     <td></td>
                     <td class="tableData">
                         <asp:Label ID="lblIDNo" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
                 <tr>
-                    <td class="formLabel requiredFieldLabel">Nationality</td>
+                    <td class="formLabel">Nationality</td>
                     <td></td>
                     <td class="tableData">
                         <asp:Label ID="lblNationality" runat="server" Text=""></asp:Label>
@@ -101,7 +101,7 @@
 
             <table style="width:100%">
                 <tr>
-                    <td class="formLabel requiredFieldLabel" style="width:20%;">Phone</td>
+                    <td class="formLabel" style="width:20%;">Phone</td>
                     <td class="tableSeperator" style="width:2%;"></td>
                     <td class="tableData" style="width:78%;">
                         <asp:Label ID="lblPhoneNo" runat="server" Text=""></asp:Label>

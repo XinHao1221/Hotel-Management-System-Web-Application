@@ -1064,7 +1064,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void IBClosePopUpBox_Click(object sender, ImageClickEventArgs e)
         {
-
+            // Close popup message
             PopupCover.Visible = false;
             PopupBoxRoomAvailability.Visible = false;
             PopupBoxFacilityAvailability.Visible = false;

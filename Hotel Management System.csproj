@@ -82,6 +82,8 @@
     <Content Include="Front_Desk\CheckIn\CheckIn.aspx" />
     <Content Include="Front_Desk\CheckOut\CheckOut.aspx" />
     <Content Include="Front_Desk\CheckOut\Survey %28Email%29.html" />
+    <Content Include="Front_Desk\ExtendCheckOut\ExtendCheckOut.aspx" />
+    <Content Include="Front_Desk\ExtendCheckOut\ExtendConfirmation.aspx" />
     <Content Include="Front_Desk\GuestInHouse\GuestInHouse.aspx" />
     <Content Include="Front_Desk\GuestInHouse\ReservationDetails.aspx" />
     <Content Include="Front_Desk\GuestInHouse\RoomMove.aspx" />
@@ -271,6 +273,20 @@
     </Compile>
     <Compile Include="Front_Desk\CheckOut\CheckOut.aspx.designer.cs">
       <DependentUpon>CheckOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\ExtendCheckOut\ExtendCheckOut.aspx.cs">
+      <DependentUpon>ExtendCheckOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\ExtendCheckOut\ExtendCheckOut.aspx.designer.cs">
+      <DependentUpon>ExtendCheckOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Front_Desk\ExtendCheckOut\ExtendConfirmation.aspx.cs">
+      <DependentUpon>ExtendConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Front_Desk\ExtendCheckOut\ExtendConfirmation.aspx.designer.cs">
+      <DependentUpon>ExtendConfirmation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Front_Desk\GuestInHouse\GuestInHouse.aspx.cs">
       <DependentUpon>GuestInHouse.aspx</DependentUpon>

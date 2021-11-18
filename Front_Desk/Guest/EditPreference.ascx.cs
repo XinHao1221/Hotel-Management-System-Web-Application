@@ -71,6 +71,10 @@ namespace Hotel_Management_System.Front_Desk.Guest
             {
                 lblNoItemFound.Visible = true;
             }
+            else
+            {
+                lblNoItemFound.Visible = false;
+            }
 
             conn.Close();
 

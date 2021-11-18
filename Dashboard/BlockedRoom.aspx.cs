@@ -35,6 +35,7 @@ namespace Hotel_Management_System.Dashboard
 
             List<RoomOccupancy> roomOccupancies = new List<RoomOccupancy>();
 
+            // Find a blocked room from the list
             for (int i = 0; i < roomTypes.Count; i++)
             {
                 List<RoomOccupancy> ra = roomTypes[i].roomOccupancies;
@@ -48,6 +49,7 @@ namespace Hotel_Management_System.Dashboard
                 }
             }
 
+            // Set blocked room to the list
             if (roomOccupancies.Count > 0)
             {
                 RepeaterBlockedRoom.DataSource = roomOccupancies;
@@ -68,8 +70,10 @@ namespace Hotel_Management_System.Dashboard
             Label lblRoomType = e.Item.FindControl("lblRoomType") as Label;
             Label lblHousekeepingStatus = e.Item.FindControl("lblHousekeepingStatus") as Label;
 
+            // Display housekeeping status
             formatHousekeepingStatusColor(lblHousekeepingStatus);
 
+            // Display room type
             setRoomType(lblRoomID.Text, lblRoomType);
         }
 

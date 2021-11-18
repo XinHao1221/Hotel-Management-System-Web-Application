@@ -44,6 +44,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             SqlDataReader sdr = cmdGetPreference.ExecuteReader();
 
+            // If there is any preferences
             if (sdr.HasRows)
             {
                 RepeaterPreferences.DataSource = sdr;
@@ -76,6 +77,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             conn = new SqlConnection(strCon);
             conn.Open();
 
+            // Insert new preferences to the database
             String addPreferneces = "INSERT INTO Preference VALUES (@ID, @Preference, @Date, @GuestID)";
 
             SqlCommand cmdAddPreferences = new SqlCommand(addPreferneces, conn);

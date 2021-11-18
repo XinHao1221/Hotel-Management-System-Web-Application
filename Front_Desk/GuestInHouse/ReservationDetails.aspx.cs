@@ -55,8 +55,7 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
                 setRoomMoveHistory();
 
             }
-            
-
+           
         }
 
         protected void LBBack_Click(object sender, EventArgs e)
@@ -414,6 +413,12 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
             // Format data base on date format on user's computer
             DateTime formatedDate = Convert.ToDateTime(lblDate.Text);
             lblDate.Text = formatedDate.ToShortDateString();
+        }
+
+        protected void LBExtendCheckOut_Click(object sender, EventArgs e)
+        {
+            // Redirct to extend check out
+            Response.Redirect("../ExtendCheckOut/ExtendCheckOut.aspx?ID=" + en.encryption(reservationID));
         }
     }
 }

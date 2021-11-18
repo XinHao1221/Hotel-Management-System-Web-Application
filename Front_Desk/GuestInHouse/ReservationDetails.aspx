@@ -39,6 +39,16 @@
             </div>
         </asp:LinkButton>
 
+        <asp:LinkButton ID="LBExtendCheckOut" runat="server" CssClass="divLBStyle" OnClick="LBExtendCheckOut_Click">
+            <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px; background-color:rgb(0, 206, 27);">
+                <div style="float:left; margin:12px 0px 0px 12.5px; font-size:15px;">
+                    <div style="font-size:15px; margin:0px 0px 10px 15px; color:white;">
+                            Extend
+                    </div>
+                </div>
+            </div>
+        </asp:LinkButton>
+
         <asp:LinkButton ID="LBCheckOut" runat="server" CssClass="divLBStyle" OnClick="LBCheckOut_Click">
             <div class="formBtnEdit" style="float:left; height:40px; margin:0px 0px 0px 20px; background-color:red;">
                 <div style="float:left; margin:12px 0px 0px 0px; font-size:15px;">

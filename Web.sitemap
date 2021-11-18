@@ -108,6 +108,10 @@
 	  <siteMapNode url="Front_Desk/GuestInHouse/GuestInHouse.aspx" title="Guest In House"  description="">
 		  <siteMapNode url="Front_Desk/GuestInHouse/ReservationDetails.aspx" title="Reservation Details"  description="">
 			  <siteMapNode url="Front_Desk/GuestInHouse/RoomMove.aspx" title="Room Move"  description=""/>
+
+			  <siteMapNode url="Front_Desk/ExtendCheckOut/ExtendCheckOut.aspx" title="Extend"  description="">
+				  <siteMapNode url="Front_Desk/ExtendCheckOut/ExtendConfirmation.aspx" title="Extend Confirmation"  description=""/>
+			  </siteMapNode>
 		  </siteMapNode>
 	  </siteMapNode>
   
