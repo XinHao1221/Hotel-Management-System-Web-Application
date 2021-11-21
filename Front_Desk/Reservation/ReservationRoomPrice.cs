@@ -1,4 +1,11 @@
-﻿// Use to hold the room price within the selected check-in and check-out date for repeater purpose
+﻿/*
+ * Author: Koh Xin Hao
+ * Student ID: 20WMR09471
+ * Programme: RSF3G4
+ * Year: 2021
+ */
+
+// Use to hold the room price within the selected check-in and check-out date for repeater purpose
 
 using System;
 using System.Web;

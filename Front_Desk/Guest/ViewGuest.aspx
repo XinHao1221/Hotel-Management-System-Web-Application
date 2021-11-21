@@ -1,4 +1,11 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" AutoEventWireup="true" CodeBehind="ViewGuest.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Guest.ViewGuest" %>
+﻿<%-- 
+    Author: Koh Xin Hao
+    Student ID: 20WMR09471
+    Programme: RSF3G4
+    Year: 2021
+ --%>
+
+<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" AutoEventWireup="true" CodeBehind="ViewGuest.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Guest.ViewGuest" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
 

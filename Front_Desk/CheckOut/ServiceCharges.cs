@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Author: Koh Xin Hao
+ * Student ID: 20WMR09471
+ * Programme: RSF3G4
+ * Year: 2021
+ */
+
+using System;
 using System.Web;
 
 namespace Hotel_Management_System.Front_Desk.CheckOut

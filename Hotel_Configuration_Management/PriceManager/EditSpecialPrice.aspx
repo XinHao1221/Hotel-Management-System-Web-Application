@@ -1,4 +1,11 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="EditSpecialPrice.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.PriceManager.EditSpecialPrice" %>
+﻿<%-- 
+    Author: Koh Xin Hao
+    Student ID: 20WMR09471
+    Programme: RSF3G4
+    Year: 2021
+ --%>
+
+<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="EditSpecialPrice.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.PriceManager.EditSpecialPrice" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
 

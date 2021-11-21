@@ -1,4 +1,11 @@
-﻿using Hotel_Management_System.Utility;
+﻿/*
+ * Author: Koh Xin Hao
+ * Student ID: 20WMR09471
+ * Programme: RSF3G4
+ * Year: 2021
+ */
+
+using Hotel_Management_System.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;

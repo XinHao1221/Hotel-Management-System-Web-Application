@@ -1,4 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SurveySuccess.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Survey.SurveySuccess" %>
+﻿<%-- 
+    Author: Koh Xin Hao
+    Student ID: 20WMR09471
+    Programme: RSF3G4
+    Year: 2021
+ --%>
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SurveySuccess.aspx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Survey.SurveySuccess" %>
 
 <!DOCTYPE html>
 

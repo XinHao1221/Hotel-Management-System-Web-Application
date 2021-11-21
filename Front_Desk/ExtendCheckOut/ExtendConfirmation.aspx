@@ -1,4 +1,11 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="ExtendConfirmation.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.ExtendCheckOut.ExtendConfirmation" %>
+﻿<%-- 
+    Author: Koh Xin Hao
+    Student ID: 20WMR09471
+    Programme: RSF3G4
+    Year: 2021
+ --%>
+
+<%@ Page Language="C#" MasterPageFile="~/Template/MainTemplate.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="ExtendConfirmation.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.ExtendCheckOut.ExtendConfirmation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
 
@@ -399,7 +406,7 @@
             <center>
             
                 <asp:Button ID="formBtnBack" runat="server" Text="Back" CssClass="formBtnCancel" ToolTip="Back"/>
-                <asp:Button ID="btnCheckIn" runat="server" Text="Check In" OnClick="btnCheckIn_Click" CssClass="formBtnSave" ToolTip="Check In" ValidationGroup="next" />
+                <asp:Button ID="btnCheckIn" runat="server" Text="EXtend" OnClick="btnCheckIn_Click" CssClass="formBtnSave" ToolTip="Extend" ValidationGroup="next" />
 
             </center>         
         </div>

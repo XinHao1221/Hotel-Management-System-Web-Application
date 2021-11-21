@@ -1,4 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="Completed.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.Completed" %>
+﻿<%-- 
+    Author: Koh Xin Hao
+    Student ID: 20WMR09471
+    Programme: RSF3G4
+    Year: 2021
+ --%>
+
+<%@ Page Language="C#" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="Completed.aspx.cs" Inherits="Hotel_Management_System.Front_Desk.Self_CheckIn.Customer.Completed" %>
 
 <%@ Register TagPrefix="Preference" TagName="Control" Src="~/Front_Desk/Reservation/EditPreference.ascx" %>
 

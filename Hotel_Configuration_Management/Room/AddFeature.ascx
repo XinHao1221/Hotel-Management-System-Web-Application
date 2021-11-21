@@ -1,5 +1,12 @@
 ﻿
-3<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddFeature.ascx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.AddFeature" %>
+<%-- 
+    Author: Koh Xin Hao
+    Student ID: 20WMR09471
+    Programme: RSF3G4
+    Year: 2021
+ --%>
+
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddFeature.ascx.cs" Inherits="Hotel_Management_System.Hotel_Configuration_Management.Room.AddFeature" %>
 
 <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
 <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />

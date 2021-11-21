@@ -1,4 +1,11 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditPreference.ascx.cs" Inherits="Hotel_Management_System.Front_Desk.Guest.EditPreference" %>
+﻿<%-- 
+    Author: Koh Xin Hao
+    Student ID: 20WMR09471
+    Programme: RSF3G4
+    Year: 2021
+ --%>
+
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditPreference.ascx.cs" Inherits="Hotel_Management_System.Front_Desk.Guest.EditPreference" %>
 
 <link rel="stylesheet" href="../../StyleSheet/SubFormStyle.css" />
 <link rel="stylesheet" href="../../StyleSheet/RepeaterTable.css" />
