@@ -310,11 +310,13 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
             List<MissingEquipment> missingEquipments = (List<MissingEquipment>)Session["MissingEquipments"];
 
+            // If there is any services charges added
             if (serviceCharges.Count > 0)
             {
                 saveOtherCharges();
             }
 
+            // If there is any missing equipment 
             if (missingEquipments.Count > 0)
             {
                 saveFineCharges();
@@ -328,6 +330,9 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
             // Update reservation status to "Checked Out"
             updateReservationStatus();
+
+            //***************************** Update housekeeping status to dirty*******************************************
+            //updateHousekeepingStatusToDirty();
 
             // Send survey form to guest
             sendSurveyForm();
@@ -460,6 +465,83 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
 
             conn.Close();
 
+        }
+
+        private void updateHousekeepingStatusToDirty()
+        {
+            // Use to update the last staying room as dirty after the guest check out from the hotel
+            List<String> roomID = getLastStayingRoom();
+
+            for(int i = 0; i < roomID.Count; i++)
+            {
+                conn = new SqlConnection(strCon);
+                conn.Open();
+
+                string updateHousekeepingStatus = "UPDATE Room SET HousekeepingStatus = 'Dirty' WHERE RoomID LIKE @RoomID";
+
+                SqlCommand cmdUpdateHouseKeepingStatus = new SqlCommand(updateHousekeepingStatus, conn);
+
+                cmdUpdateHouseKeepingStatus.Parameters.AddWithValue("@RoomID", roomID[i]);
+
+                int success = cmdUpdateHouseKeepingStatus.ExecuteNonQuery();
+
+                conn.Close();
+            }
+           
+
+        }
+
+        private List<String> getLastStayingRoom()
+        {
+            List<String> roomID = new List<string>();
+
+            // Get last reservation date
+            string lastReservationDate = getLastReservationDate(reservationID);
+
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getLastStayingRoom = "SELECT RoomID FROM ReservationRoom WHERE ReservationID LIKE @ID AND Date LIKE @Date";
+
+            SqlCommand cmdGetLastStayingRoom = new SqlCommand(getLastStayingRoom, conn);
+
+            cmdGetLastStayingRoom.Parameters.AddWithValue("@ID", reservationID);
+            cmdGetLastStayingRoom.Parameters.AddWithValue("@Date", lastReservationDate);
+
+            SqlDataReader sdr = cmdGetLastStayingRoom.ExecuteReader();
+
+            while (sdr.Read())
+            {
+                roomID.Add(sdr["RoomID"].ToString());
+            }
+
+            conn.Close();
+
+            return roomID;
+
+        }
+
+        private string getLastReservationDate(string reservationID)
+        {
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getCheckOutDate = "SELECT CheckOutDate FROM Reservation WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdGetCheckOutDate = new SqlCommand(getCheckOutDate, conn);
+
+            cmdGetCheckOutDate.Parameters.AddWithValue("@ID", reservationID);
+
+            string checkOutDate = (string)cmdGetCheckOutDate.ExecuteScalar();
+
+            conn.Close();
+
+            // Get last reservation date
+            DateTime previousDate = Convert.ToDateTime(checkOutDate);
+            previousDate = previousDate.AddDays(-1);
+
+            // Return last reservation date
+            return reservationUtility.formatDate(previousDate.ToShortDateString());
         }
 
         private void sendSurveyForm()

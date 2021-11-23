@@ -663,7 +663,25 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room_Type
 
             cmdDeleteRoomType.Parameters.AddWithValue("@ID", roomTypeID);
 
-            int i = cmdDeleteRoomType.ExecuteNonQuery();
+            try
+            {
+                int i = cmdDeleteRoomType.ExecuteNonQuery();
+            }
+            catch
+            {
+                changeRoomStatus();
+
+                // Update room type status to 'Deleted'
+                String updateRoomTypeStatus = "UPDATE RoomType SET Status = @Status WHERE RoomTypeID LIKE @ID";
+
+                SqlCommand cmdUpdateRoomTypeStatus = new SqlCommand(updateRoomTypeStatus, conn);
+
+                cmdUpdateRoomTypeStatus.Parameters.AddWithValue("@Status", "Deleted");
+                cmdUpdateRoomTypeStatus.Parameters.AddWithValue("@ID", roomTypeID);
+
+                int i = cmdUpdateRoomTypeStatus.ExecuteNonQuery();
+
+            }
 
         }
 

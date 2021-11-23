@@ -15,6 +15,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using Hotel_Management_System.Utility;
+using System.Globalization;
 
 namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
 {
@@ -173,9 +174,12 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.PriceManager
         {
             // SELECT R.Title, S.MondayPrice FROM RoomType R, StandardRoomPrice S WHERE Status IN ('Active') AND R.RoomTypeID LIKE S.RoomTypeID
 
+            // Set the standard date string format
+            var dateFormat = new CultureInfo("en-US");
+
             // Get day from specific date
             DateTime dateTime = Convert.ToDateTime(txtDate.Text);
-            String selectedDay = dateTime.ToString("dddd");
+            String selectedDay = dateTime.ToString("dddd", dateFormat);
 
             if (specialPriceExist())
             {

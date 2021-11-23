@@ -360,10 +360,10 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
             int durationOfStay = reservation.getdurationOfStay(lblCheckInDate.Text, lblCheckOutDate.Text);
 
             // Get total Adults
-            lblAdults.Text = getTotalAdults(reservationRooms, durationOfStay);
+            lblAdults.Text = getTotalAdults(reservationRooms, durationOfStay, lblReservationID.Text);
 
             // Get total Kids
-            lblKids.Text = getTotalKids(reservationRooms, durationOfStay);
+            lblKids.Text = getTotalKids(reservationRooms, durationOfStay, lblReservationID.Text);
 
             // Check if overtime
             // Get todays date
@@ -408,31 +408,62 @@ namespace Hotel_Management_System.Front_Desk.GuestInHouse
             return reservationRooms;
         }
 
-        private string getTotalAdults(List<ReservationRoom> reservationRooms, int durationOfStay)
+        private string getLastReservationDate(string reservationID)
+        {
+            // Get last reservation date for a particular reservation
+            // Exp: 21/12/2021 - 22/12/2021 => the last reservation date will be 21/12/2020
+            conn = new SqlConnection(strCon);
+            conn.Open();
+
+            string getCheckOutDate = "SELECT CheckOutDate FROM Reservation WHERE ReservationID LIKE @ID";
+
+            SqlCommand cmdGetCheckOutDate = new SqlCommand(getCheckOutDate, conn);
+
+            cmdGetCheckOutDate.Parameters.AddWithValue("@ID", reservationID);
+
+            string checkOutDate = (string)cmdGetCheckOutDate.ExecuteScalar();
+
+            conn.Close();
+
+            // Get last reservation date
+            DateTime previousDate = Convert.ToDateTime(checkOutDate);
+            previousDate = previousDate.AddDays(-1);
+
+            // Return last reservation date
+            return reservationUtility.formatDate(previousDate.ToShortDateString());
+        }
+
+        private string getTotalAdults(List<ReservationRoom> reservationRooms, int durationOfStay, string reservationID)
         {
             int totalAdults = 0;
 
-            int item = 0;
+            string lastReservationDate = getLastReservationDate(reservationID);
 
-            for(int i = 1; i <= (reservationRooms.Count / durationOfStay); i++)
+            // Calculate total adults from last reservation date
+            for(int i = 0; i < reservationRooms.Count; i++)
             {
-                totalAdults += reservationRooms[item].adults;
-                item += durationOfStay;
+                if(reservationRooms[i].date == lastReservationDate)
+                {
+                    totalAdults += reservationRooms[i].adults;
+                }
             }
 
             return totalAdults.ToString();
         }
 
-        private string getTotalKids(List<ReservationRoom> reservationRooms, int durationOfStay)
+        private string getTotalKids(List<ReservationRoom> reservationRooms, int durationOfStay, string reservationID)
         {
             int totalKids = 0;
 
-            int item = 0;
+            string lastReservationDate = getLastReservationDate(reservationID);
 
-            for (int i = 1; i <= (reservationRooms.Count / durationOfStay); i++)
+            // Calculate total kids from last reservation date
+            for (int i = 0; i < reservationRooms.Count; i++)
             {
-                totalKids += reservationRooms[item].kids;
-                item += durationOfStay;
+                if (reservationRooms[i].date == lastReservationDate)
+                {
+                    totalKids += reservationRooms[i].kids;
+                }
             }
 
             return totalKids.ToString();

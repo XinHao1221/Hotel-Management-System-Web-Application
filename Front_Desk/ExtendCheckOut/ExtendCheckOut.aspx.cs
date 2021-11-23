@@ -17,6 +17,7 @@ using Hotel_Management_System.Utility;
 using System.Configuration;
 using Hotel_Management_System.Front_Desk.CheckIn;
 using Hotel_Management_System.Front_Desk.Reservation;
+using System.Globalization;
 
 namespace Hotel_Management_System.Front_Desk.ExtendCheckOut
 {
@@ -646,9 +647,12 @@ namespace Hotel_Management_System.Front_Desk.ExtendCheckOut
 
         private double getStandardRoomPrice(string roomTypeID, string date)
         {
+            // Set the standard date string format
+            var dateFormat = new CultureInfo("en-US");
+
             // Get full weekday name
             DateTime day = Convert.ToDateTime(date);
-            string dayString = day.ToString("dddd");
+            string dayString = day.ToString("dddd", dateFormat);
 
             // Open SqlConnection
             conn = new SqlConnection(strCon);

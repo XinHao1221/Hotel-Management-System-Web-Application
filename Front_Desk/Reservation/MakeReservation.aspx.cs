@@ -15,6 +15,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using Hotel_Management_System.Utility;
+using System.Globalization;
 
 namespace Hotel_Management_System.Front_Desk.Reservation
 {
@@ -1980,9 +1981,12 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         private double getStandardRoomPrice(string roomTypeID, string date)
         {
+            // Set the standard date string format
+            var dateFormat = new CultureInfo("en-US");
+
             // Get full weekday name
             DateTime day = Convert.ToDateTime(date);
-            string dayString = day.ToString("dddd");
+            string dayString = day.ToString("dddd", dateFormat);
 
             // Open SqlConnection
             conn = new SqlConnection(strCon);
