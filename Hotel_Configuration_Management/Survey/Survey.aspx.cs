@@ -36,6 +36,12 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Survey
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // **** Control access
+            if (Session["Role"].ToString() != "Manager")
+            {
+                Response.Redirect("../../Error/PermissionError.aspx");
+            }
+
             // Page TItle
             Page.Title = "Survey";
 

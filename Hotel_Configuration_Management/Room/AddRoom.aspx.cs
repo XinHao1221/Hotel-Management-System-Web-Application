@@ -68,7 +68,7 @@ namespace Hotel_Management_System.Hotel_Configuration_Management.Room
         {
 
             // SQL command 
-            String getFloorNumber = "SELECT * FROM Floor WHERE Status IN ('Active', 'Suspend') ORDER BY FloorNumber";
+            String getFloorNumber = "SELECT * FROM Floor WHERE Status IN ('Active') ORDER BY FloorNumber";
 
             SqlCommand cmdGetFloorNumber = new SqlCommand(getFloorNumber, conn);
 

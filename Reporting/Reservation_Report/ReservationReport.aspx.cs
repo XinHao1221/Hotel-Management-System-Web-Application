@@ -34,6 +34,12 @@ namespace Hotel_Management_System.Reporting.Reservation_Report
         private List<ReservedFacility> reservedFacilities = new List<ReservedFacility>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            // **** Control access
+            if (Session["Role"].ToString() != "Manager")
+            {
+                Response.Redirect("../../Error/PermissionError.aspx");
+            }
+
             // Page TItle
             Page.Title = "Reservation Report";
 

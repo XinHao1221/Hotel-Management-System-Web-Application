@@ -332,7 +332,7 @@ namespace Hotel_Management_System.Front_Desk.CheckOut
             updateReservationStatus();
 
             //***************************** Update housekeeping status to dirty*******************************************
-            //updateHousekeepingStatusToDirty();
+            updateHousekeepingStatusToDirty();
 
             // Send survey form to guest
             sendSurveyForm();
