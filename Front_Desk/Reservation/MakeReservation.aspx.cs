@@ -2163,7 +2163,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         {
                             if (int.Parse(txtAdults3.Text) <= 0)
                             {
-                                CVAdults3.ErrorMessage = "Value must be greater than 0.";
+                                CVAdults3.ErrorMessage = "Value cannot less than zero.";
                                 args.IsValid = false;
                             }
                             else
@@ -2197,8 +2197,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 {
                     if (txtKids1.Text != "" && int.TryParse(txtKids1.Text, out digit))
                     {
-
-                        args.IsValid = true;
+                        if (int.Parse(txtKids1.Text) < 0)
+                        {
+                            CVKids1.ErrorMessage = "Enter a non negative value.";
+                            args.IsValid = false;
+                        }
+                        else
+                        {
+                            args.IsValid = true;
+                        }
                     }
                     else
                     {
@@ -2228,8 +2235,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     {
                         if (txtKids2.Text != "" && int.TryParse(txtKids2.Text, out digit))
                         {
-
-                            args.IsValid = true;
+                            if (int.Parse(txtKids2.Text) < 0)
+                            {
+                                CVKids2.ErrorMessage = "Enter a non negative value.";
+                                args.IsValid = false;
+                            }
+                            else
+                            {
+                                args.IsValid = true;
+                            }
                         }
                         else
                         {
@@ -2259,8 +2273,15 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     {
                         if (txtKids3.Text != "" && int.TryParse(txtKids3.Text, out digit))
                         {
-
-                            args.IsValid = true;
+                            if (int.Parse(txtKids3.Text) < 0)
+                            {
+                                CVKids3.ErrorMessage = "Enter a non negative value.";
+                                args.IsValid = false;
+                            }
+                            else
+                            {
+                                args.IsValid = true;
+                            }
                         }
                         else
                         {
