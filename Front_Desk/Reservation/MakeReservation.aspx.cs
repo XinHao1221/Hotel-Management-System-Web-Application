@@ -606,6 +606,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
                 LinkButton currentLBAdd = PNReserveRoom.FindControl("LBAddReservationForm" + (index - 1).ToString()) as LinkButton;
 
+                // Allow user to add next room if there is any room type selected for current panel
                 if (previousDDLRoomType.SelectedValue == "-- Please Select --")
                 {
                     currentLBAdd.Visible = false;
@@ -832,6 +833,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         addReservationForm.Visible = true;
                     }
 
+                    // Reset all item for reservation form
                     cbExtraBed.Checked = false;
 
                     ddlAdults.Visible = true;
@@ -1598,7 +1600,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void txtCheckFacilityDate_TextChanged(object sender, EventArgs e)
         {
-
+            // Set available quantity for all facility. 
             setItemToRepeaterFacilityAvailability(txtCheckFacilityDate.Text);
         }
 
@@ -1724,6 +1726,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     {
                         double subTotal;
 
+                        // Calculate facility charges according to price type
                         if (availableFacility[i].priceType == "Per Reservation")
                         {
                             subTotal = availableFacility[i].price * int.Parse(ddlFacilityQty.SelectedValue);
@@ -1735,7 +1738,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                             subTotal = availableFacility[i].price * (int.Parse(ddlFacilityQty.SelectedValue) * durationOfStay);
                         }
 
-
+                        // Add selected facility into list
                         RentedFacility rf = new RentedFacility(ddlFacilityName.SelectedValue,
                                                         availableFacility[i].facilityName,
                                                         int.Parse(ddlFacilityQty.SelectedValue),
@@ -1831,6 +1834,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         conn = new SqlConnection(strCon);
                         conn.Open();
 
+                        // Check if there is enough quantity
                         available = (availableQty - getFacilityRentedQty(facilityID, reservationUtility.formatDate(rentDate.AddDays(i).ToShortDateString()))) >= 0;
 
                         conn.Close();
@@ -1838,6 +1842,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     
                 }
 
+                // If facility not enough quantity
                 if (available == false)
                 {
                     PopupFacilityNoAvailable.Visible = true;
@@ -1873,6 +1878,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void btnPopupCancel_Click(object sender, EventArgs e)
         {
+            // Close popup
             PopupReset.Visible = false;
             PopupDelete.Visible = false;
             PopupCover.Visible = false;
@@ -1885,13 +1891,16 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             List<RentedFacility> rentedFacility = (List<RentedFacility>)Session["RentedFacilityList"];
 
+            // Delete the selected facility from the list
             rentedFacility.RemoveAt(itemIndex - 1);
 
+            // refresh the list
             RepeaterRentedFacility.DataSource = rentedFacility;
             RepeaterRentedFacility.DataBind();
 
             checkRentedFacilityIsEmpty();
 
+            // Close popup window
             PopupCover.Visible = false;
             PopupDelete.Visible = false;
 
@@ -1904,7 +1913,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // Get room availability from Session 
             List<AvailableRoom> availableRoom = (List<AvailableRoom>)Session["AvailableRoom"];
 
-
+            // Get room price for each room type
             for(int i = 0; i < availableRoom.Count; i++)
             {
                 double roomPrice = getStandardOrSpecialRoomPrice(date, availableRoom[i].roomTypeID);
@@ -1928,6 +1937,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             double roomPrice = getSpecialRoomPrice(roomTypeID, date);
 
+            // If special price not exists
             if (roomPrice == -1)
             {
                 roomPrice = getStandardRoomPrice(roomTypeID, date);
@@ -1998,6 +2008,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
             cmdGetStandardRoomPrice.Parameters.AddWithValue("@ID", roomTypeID);
 
+            // Retrieve standard room price from the database
             Decimal temp = (Decimal)cmdGetStandardRoomPrice.ExecuteScalar(); 
             double roomPrice = Convert.ToDouble(temp);
 
@@ -2022,6 +2033,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
         {
             txtRoomPriceDate.Text = txtCheckInDate.Text;
 
+            // Format color for button.
             PNBtnAvailability.CssClass = "formBackBtn";
             PNBtnPrice.CssClass = "formOptionSelectedBtn";
 
@@ -2029,6 +2041,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             PNDisplayRoomAvailability.Visible = false;
             PNDisplayRoomPrice.Visible = true;
 
+            // Displays room price for selected date
             List<ReservationRoomPrice> roomPriceList = getReservationRoomPrice(txtRoomPriceDate.Text);
 
             RepeaterRoomPrice.DataSource = roomPriceList;
@@ -2038,6 +2051,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
 
         protected void txtRoomPriceDate_TextChanged(object sender, EventArgs e)
         {
+            // Displays price for date entered
             List<ReservationRoomPrice> roomPriceList = getReservationRoomPrice(txtRoomPriceDate.Text);
 
             RepeaterRoomPrice.DataSource = roomPriceList;
@@ -2053,6 +2067,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             {
                 if (ddlAdults1.Visible)
                 {
+                    // If user doesn't select extra bed
                     if (ddlAdults1.SelectedIndex != 0)
                     {
                         args.IsValid = true;
@@ -2068,7 +2083,8 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 {
                     if (txtAdults1.Text != "" && int.TryParse(txtAdults1.Text, out digit))
                     {
-                        if(int.Parse(txtAdults1.Text) <= 0)
+                        // Check if quantity if less than equals zero
+                        if (int.Parse(txtAdults1.Text) <= 0)
                         {
                             CVAdults1.ErrorMessage = "Value must be greater than 0.";
                             args.IsValid = false;
@@ -2080,6 +2096,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     }
                     else
                     {
+                        // If input is not a digit
                         CVAdults1.ErrorMessage = "Please enter a digit";
                         args.IsValid = false;
                     }
@@ -2098,6 +2115,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             {
                 if (ddlRoomType2.SelectedIndex != 0)
                 {
+                    // If user doesn't select extra bed
                     if (ddlAdults2.Visible)
                     {
                         if (ddlAdults2.SelectedIndex != 0)
@@ -2115,6 +2133,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     {
                         if (txtAdults2.Text != "" && int.TryParse(txtAdults2.Text, out digit))
                         {
+                            // Check if quantity if less than equals zero
                             if (int.Parse(txtAdults2.Text) <= 0)
                             {
                                 CVAdults2.ErrorMessage = "Value must be greater than 0.";
@@ -2127,6 +2146,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         }
                         else
                         {
+                            // If input is not a digit
                             CVAdults2.ErrorMessage = "Please enter a digit";
                             args.IsValid = false;
                         }
@@ -2144,6 +2164,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             {
                 if (ddlRoomType3.SelectedIndex != 0)
                 {
+                    // If user doesn't select extra bed
                     if (ddlAdults3.Visible)
                     {
                         if (ddlAdults3.SelectedIndex != 0)
@@ -2161,6 +2182,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     {
                         if (txtAdults3.Text != "" && int.TryParse(txtAdults3.Text, out digit))
                         {
+                            // Check if quantity if less than equals zero
                             if (int.Parse(txtAdults3.Text) <= 0)
                             {
                                 CVAdults3.ErrorMessage = "Value cannot less than zero.";
@@ -2173,6 +2195,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         }
                         else
                         {
+                            // If input is not a digit
                             CVAdults3.ErrorMessage = "Please enter a digit";
                             args.IsValid = false;
                         }
@@ -2188,7 +2211,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             // 1st Panel
             if (ddlRoomType1.SelectedIndex != 0)
             {
-
+                // If input is not a digit
                 if (ddlKids1.Visible)
                 {
                     args.IsValid = true;
@@ -2197,6 +2220,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                 {
                     if (txtKids1.Text != "" && int.TryParse(txtKids1.Text, out digit))
                     {
+                        // Check if quantity if less than zero
                         if (int.Parse(txtKids1.Text) < 0)
                         {
                             CVKids1.ErrorMessage = "Enter a non negative value.";
@@ -2209,6 +2233,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     }
                     else
                     {
+                        // If input is not a digit
                         CVKids1.ErrorMessage = "Please enter a digit";
                         args.IsValid = false;
                     }
@@ -2226,7 +2251,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             {
                 if (ddlRoomType2.SelectedIndex != 0)
                 {
-
+                    // If user doesn't select extra bed
                     if (ddlKids2.Visible)
                     {
                         args.IsValid = true;
@@ -2235,6 +2260,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     {
                         if (txtKids2.Text != "" && int.TryParse(txtKids2.Text, out digit))
                         {
+                            // Check if quantity if less than zero
                             if (int.Parse(txtKids2.Text) < 0)
                             {
                                 CVKids2.ErrorMessage = "Enter a non negative value.";
@@ -2247,6 +2273,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         }
                         else
                         {
+                            // If input is not a digit
                             CVKids2.ErrorMessage = "Please enter a digit";
                             args.IsValid = false;
                         }
@@ -2264,6 +2291,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
             {
                 if (ddlRoomType3.SelectedIndex != 0)
                 {
+                    // If user doesn't select extra bed
 
                     if (ddlKids3.Visible)
                     {
@@ -2273,6 +2301,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                     {
                         if (txtKids3.Text != "" && int.TryParse(txtKids3.Text, out digit))
                         {
+                            // Check if quantity if less than zero
                             if (int.Parse(txtKids3.Text) < 0)
                             {
                                 CVKids3.ErrorMessage = "Enter a non negative value.";
@@ -2285,6 +2314,7 @@ namespace Hotel_Management_System.Front_Desk.Reservation
                         }
                         else
                         {
+                            // If input is not a digit
                             CVKids3.ErrorMessage = "Please enter a digit";
                             args.IsValid = false;
                         }
