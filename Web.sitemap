@@ -117,6 +117,7 @@
   
 	  <!--Transaction History-->
 	  <siteMapNode url="History/History.aspx" title="History"  description="">
+		  <siteMapNode url="History/ViewSurveyStatistics.aspx" title="Survey Responses"  description=""/>
 		  <siteMapNode url="History/ViewTransactionHistory.aspx" title="Transaction History Details"  description="">
 				<siteMapNode url="History/ViewSurveyResponse.aspx" title="Survey Response"  description=""/>
 		  </siteMapNode>
@@ -126,7 +127,6 @@
 	  <siteMapNode url="Archive/ArchiveList.aspx" title="Archive List"  description="">
 			<siteMapNode url="Archive/ViewArchivedItem.aspx" title="Reservation Details"  description=""/>
 	  </siteMapNode>
-	  
 	  
 	 <!--Hotel Report-->
 	  <siteMapNode url="Reporting/Hotel_Report/HotelReport.aspx" title="Hotel Report"  description="" />

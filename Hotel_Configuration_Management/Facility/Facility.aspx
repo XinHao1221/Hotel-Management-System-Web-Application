@@ -54,18 +54,16 @@
                 <div class="menuHeaderButton">
                     <div style="float:right; margin-right:0%;">
                         <div class="menuHeaderSaveBtn" onclick="location.href='AddFacility.aspx';">
-
-                            
-                                <div class="menuHeaderButtonStyle">
-                                    <div>
-                                        <img src="../../Image/plus_white.png" width="12.5px" height="12.5px" style="float:left; margin:10px 0px 0px 15px;" />
-                                        <div style="float:left; margin:10px 0px 0px 10px; font-size:12.5px;">
-                                            Add
-                                        </div>
+                            <div class="menuHeaderButtonStyle">
+                                <div>
+                                    <img src="../../Image/plus_white.png" width="12.5px" height="12.5px" style="float:left; margin:10px 0px 0px 15px;" />
+                                    <div style="float:left; margin:10px 0px 0px 10px; font-size:12.5px;">
+                                        Add
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
                 </div>
 
@@ -83,9 +81,12 @@
                             </div>
                         </div>
                         <div style="float:left; width:10%;" class="tableHeader">
-                            <div style="margin-left:5%; text-align:center;">
+                            <div style="margin-left:5%; text-align:right;">
                                 Quantity
                             </div>
+                        </div>
+                        <div style="min-width:3%; float:left;" class="tableHeader">
+                            &nbsp;
                         </div>
                         <div style="float:left; width:13%;" class="tableHeader">
                             <div style="margin-left:5%;">
@@ -105,7 +106,7 @@
                                 Status
                             </div>
                         </div>
-                        <div style="width:12%; float:left;" class="tableHeader">
+                        <div style="width:9%; float:left;" class="tableHeader">
                             &nbsp;
                         </div>
                     </div>
@@ -133,9 +134,12 @@
 
                                     </div>
                                     <div style="float:left; width:10%;" class="tableContent">
-                                        <div style="margin-left:5%; text-align:center;" class="textOverflowStyle">
+                                        <div style="margin-left:5%; text-align:right;" class="textOverflowStyle">
                                             <asp:Label ID="lblQty" runat="server" Text='<%# Eval("Quantity")%>' ToolTip='<%# Eval("Quantity") %>'></asp:Label>&nbsp;
                                         </div>
+                                    </div>
+                                    <div style="min-width:3%; float:left;" class="tableContent">
+                                        &nbsp;
                                     </div>
                                     <div style="float:left; width:13%;" class="tableContent">
                                         <div style="margin-left:5%;" class="textOverflowStyle">
@@ -155,7 +159,7 @@
                                             <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status")%>' ToolTip='<%# Eval("Status") %>'></asp:Label>&nbsp;
                                         </div>
                                     </div>
-                                    <div style="min-width:10%; float:left;" class="tableContent">
+                                    <div style="min-width:7%; float:left;" class="tableContent">
                                         &nbsp;
                                     </div>
                                 </asp:LinkButton>
@@ -231,10 +235,13 @@
 
                                     </div>
                                     <div style="float:left; width:10%;" class="tableContentAlternate">
-                                        <div style="margin-left:5%; text-align:center;" class="textOverflowStyle">
+                                        <div style="margin-left:5%; text-align:right;" class="textOverflowStyle">
                                             <asp:Label ID="lblQty" runat="server" Text='<%# Eval("Quantity")%>' ToolTip='<%# Eval("Quantity") %>'></asp:Label>&nbsp;
                                         </div>
 
+                                    </div>
+                                    <div style="min-width:3%; float:left;" class="tableContentAlternate">
+                                        &nbsp;
                                     </div>
                                     <div style="float:left; width:13%;" class="tableContentAlternate">
                                         <div style="margin-left:5%;" class="textOverflowStyle">
@@ -259,7 +266,7 @@
                                         </div>
                                     </div>
 
-                                    <div style="min-width:10%; float:left;" class="tableContentAlternate">
+                                    <div style="min-width:7%; float:left;" class="tableContentAlternate">
                                         &nbsp;
                                     </div>
                                 

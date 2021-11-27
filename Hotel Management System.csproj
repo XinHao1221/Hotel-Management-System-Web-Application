@@ -105,6 +105,7 @@
     <Content Include="Front_Desk\Survey\SurveyForm.aspx" />
     <Content Include="History\History.aspx" />
     <Content Include="History\ViewSurveyResponse.aspx" />
+    <Content Include="History\ViewSurveyStatistics.aspx" />
     <Content Include="History\ViewTransactionHistory.aspx" />
     <Content Include="Dashboard\Dashboard.aspx" />
     <Content Include="Front_Desk\CheckIn\CheckInGuest.aspx" />
@@ -416,6 +417,13 @@
     </Compile>
     <Compile Include="History\ViewSurveyResponse.aspx.designer.cs">
       <DependentUpon>ViewSurveyResponse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="History\ViewSurveyStatistics.aspx.cs">
+      <DependentUpon>ViewSurveyStatistics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="History\ViewSurveyStatistics.aspx.designer.cs">
+      <DependentUpon>ViewSurveyStatistics.aspx</DependentUpon>
     </Compile>
     <Compile Include="History\ViewTransactionHistory.aspx.cs">
       <DependentUpon>ViewTransactionHistory.aspx</DependentUpon>

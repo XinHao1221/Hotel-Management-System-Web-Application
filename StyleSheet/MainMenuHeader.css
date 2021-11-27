@@ -40,7 +40,6 @@ body {
     float: left;
 }
 
-
 .menuHeaderSaveBtn {
     background-color: rgb(0, 206, 27);
     width: 85px;
@@ -52,6 +51,7 @@ body {
 
 .menuHeaderSaveBtn:hover {
     opacity: 0.7;
+    cursor:pointer;
 }
 
 .searchBarStyle {

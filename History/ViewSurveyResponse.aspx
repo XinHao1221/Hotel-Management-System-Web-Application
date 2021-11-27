@@ -19,7 +19,7 @@
     <style>
 
         .surveyResponseContainer{
-            border: 1px solid rgb(213 213 213);
+            border: 1px solid rgb(203 203 203);
             width: 80%;
             margin: auto;
             padding:30px;

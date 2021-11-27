@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../../StyleSheet/MainMenuHeader.css" />
     <link rel="stylesheet" href="../../StyleSheet/PopupBox.css" />
     
+
     <div>
 
         <%--Title--%>
@@ -35,6 +36,21 @@
                             
                 </div>
             </div>
+
+            <div class="menuHeaderButton">
+                <div style="float:right; margin-right:0%;">
+                    <div class="menuHeaderSaveBtn" onclick="location.href='ViewSurveyStatistics.aspx';">
+                        <div class="menuHeaderButtonStyle">
+                            <div>
+                                <div style="float:left; margin:10px 0px 0px 15px; font-size:12.5px;">
+                                    Statistics
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>  
 
             <div style="clear:both; height:20px;">&nbsp;</div>
