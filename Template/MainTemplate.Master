@@ -1,4 +1,11 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainTemplate.master.cs" Inherits="Hotel_Management_System.Template.MainTemplate" %>
+﻿<%-- 
+    Author: Koh Xin Hao
+    Student ID: 20WMR09471
+    Programme: RSF3G4
+    Year: 2021
+ --%>
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainTemplate.master.cs" Inherits="Hotel_Management_System.Template.MainTemplate" %>
 
 <!DOCTYPE html>
 
@@ -29,6 +36,17 @@
             padding: 20px 10px 0px 10px;
             z-index:1;
             overflow-y:auto;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .navSideBar::-webkit-scrollbar {
+          display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .navSideBar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
         }
 
         .pageContent{
@@ -264,6 +282,36 @@
             </asp:Panel>
                 
             <div class="navBarSeperator" style="clear:both;">&nbsp;</div>
+
+            <!--Housekeeping-->
+            <asp:HyperLink ID="HlNavHousekeeping" runat="server" NavigateUrl="">
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavHouseKeeping" runat="server" ImageUrl="~/Template/Template_Icon/housekeeping.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        Housekeeping
+                    </div>
+                </div>
+            </asp:HyperLink>
+
+            <div class="navBarSeperator">&nbsp;</div>
+
+            <!--Maintenance-->
+            <asp:HyperLink ID="HLNavMaintenance" runat="server" NavigateUrl="">
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavMaintenance" runat="server" ImageUrl="~/Template/Template_Icon/maintenance.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        Maintenance
+                    </div>
+                </div>
+            </asp:HyperLink>
+
+            <div class="navBarSeperator">&nbsp;</div>
 
 
             <%--Hotel Configuration--%>

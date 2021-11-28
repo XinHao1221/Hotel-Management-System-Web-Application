@@ -211,6 +211,8 @@
     <Content Include="Template\Template_Icon\help.png" />
     <Content Include="Template\Template_Icon\history.png" />
     <Content Include="Template\Template_Icon\hotel-configuration.png" />
+    <Content Include="Template\Template_Icon\housekeeping.png" />
+    <Content Include="Template\Template_Icon\maintenance.png" />
     <Content Include="Template\Template_Icon\profit-report.png" />
     <Content Include="Web.config" />
   </ItemGroup>

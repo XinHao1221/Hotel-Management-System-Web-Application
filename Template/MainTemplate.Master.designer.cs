@@ -204,6 +204,42 @@ namespace Hotel_Management_System.Template
         protected global::System.Web.UI.WebControls.HyperLink HLArchiveList;
 
         /// <summary>
+        /// HlNavHousekeeping control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HlNavHousekeeping;
+
+        /// <summary>
+        /// INavHouseKeeping control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image INavHouseKeeping;
+
+        /// <summary>
+        /// HLNavMaintenance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLNavMaintenance;
+
+        /// <summary>
+        /// INavMaintenance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image INavMaintenance;
+
+        /// <summary>
         /// LBNavHotelConfiguration control.
         /// </summary>
         /// <remarks>
