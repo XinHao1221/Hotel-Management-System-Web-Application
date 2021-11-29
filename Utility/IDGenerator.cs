@@ -35,6 +35,7 @@ namespace Hotel_Management_System.Utility
             conn = new SqlConnection(strCon);
             conn.Open();
 
+            // Get last table id from the database
             String getLastID = "SELECT TOP 1 " + tableID + " FROM " + tableName + " ORDER BY " + tableID + " DESC";
 
             SqlCommand cmdGetLastID = new SqlCommand(getLastID, conn);
@@ -59,6 +60,7 @@ namespace Hotel_Management_System.Utility
 
                 int i = prefix.Length;
 
+                // Extract id without prefix
                 String extractedID = (String)lastID.Substring(prefix.Length, (lastID.Length - prefix.Length));
 
                 int intID = int.Parse(extractedID);
