@@ -222,6 +222,24 @@ namespace Hotel_Management_System.Template
         protected global::System.Web.UI.WebControls.Image INavHouseKeeping;
 
         /// <summary>
+        /// HLNavStockManagement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLNavStockManagement;
+
+        /// <summary>
+        /// INavStockManagement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image INavStockManagement;
+
+        /// <summary>
         /// HLNavMaintenance control.
         /// </summary>
         /// <remarks>
@@ -411,6 +429,24 @@ namespace Hotel_Management_System.Template
         protected global::System.Web.UI.WebControls.HyperLink HLRevenueReport;
 
         /// <summary>
+        /// HLNavAdministration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HLNavAdministration;
+
+        /// <summary>
+        /// INavAdministration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image INavAdministration;
+
+        /// <summary>
         /// SiteMapPath1 control.
         /// </summary>
         /// <remarks>
@@ -427,6 +463,15 @@ namespace Hotel_Management_System.Template
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SiteMapDataSource SiteMapDataSource1;
+
+        /// <summary>
+        /// LBLogout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LBLogout;
 
         /// <summary>
         /// ContentPlaceHolder1 control.

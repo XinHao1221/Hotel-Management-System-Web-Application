@@ -204,6 +204,7 @@
     <Content Include="StyleSheet\RepeaterTable.css" />
     <Content Include="StyleSheet\SubFormStyle.css" />
     <Content Include="Temp.aspx" />
+    <Content Include="Template\Template_Icon\admin.png" />
     <Content Include="Template\Template_Icon\arrow_down.png" />
     <Content Include="Template\Template_Icon\dashboard.png" />
     <Content Include="Template\Template_Icon\dollar.png" />
@@ -214,6 +215,7 @@
     <Content Include="Template\Template_Icon\housekeeping.png" />
     <Content Include="Template\Template_Icon\maintenance.png" />
     <Content Include="Template\Template_Icon\profit-report.png" />
+    <Content Include="Template\Template_Icon\ready-stock.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -127,6 +127,14 @@
             color:rgb(93 93 93);
         }
 
+        .navLogoutBtnStyle {
+            width: 50%;
+            word-wrap: break-word;
+            font-family: Helvetica, sans-serif;
+            padding-bottom:10px;
+            float:right;
+
+        }
     </style>
 
 </head>
@@ -298,6 +306,21 @@
 
             <div class="navBarSeperator">&nbsp;</div>
 
+            <!--Stock Management-->
+            <asp:HyperLink ID="HLNavStockManagement" runat="server" NavigateUrl="">
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavStockManagement" runat="server" ImageUrl="~/Template/Template_Icon/ready-stock.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        Stock Management
+                    </div>
+                </div>
+            </asp:HyperLink>
+
+            <div class="navBarSeperator">&nbsp;</div>
+
             <!--Maintenance-->
             <asp:HyperLink ID="HLNavMaintenance" runat="server" NavigateUrl="">
                 <div class="navOptionContainer">
@@ -312,7 +335,6 @@
             </asp:HyperLink>
 
             <div class="navBarSeperator">&nbsp;</div>
-
 
             <%--Hotel Configuration--%>
             <asp:LinkButton ID="LBNavHotelConfiguration" runat="server" OnClick="LBNavHotelConfiguration_Click">
@@ -458,6 +480,21 @@
             </asp:Panel>
 
             <div class="navBarSeperator" style="clear:both;">&nbsp;</div>
+
+            <!--Administration-->
+            <asp:HyperLink ID="HLNavAdministration" runat="server" NavigateUrl="">
+                <div class="navOptionContainer">
+                    <div style="float:left;">
+                        <asp:Image ID="INavAdministration" runat="server" ImageUrl="~/Template/Template_Icon/admin.png" CssClass="navIconStyle"/>
+                    </div>
+
+                    <div style="float:left; margin-left:15px; margin-top:2.5px;">
+                        Administration
+                    </div>
+                </div>
+            </asp:HyperLink>
+
+            <div class="navBarSeperator">&nbsp;</div>
         </div>
     
         <%--Header--%>
@@ -467,8 +504,10 @@
                 <asp:SiteMapPath ID="SiteMapPath1" runat="server" Enabled="False"></asp:SiteMapPath>
                 <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
             </div>
-            <div style="float:left; width:30%; height:50px;">
-                &nbsp;
+            <div style="float:left; width:30%; height:50px; line-height: 50px;">
+                <div style="text-align:right; margin-right:10%;">
+                    <asp:LinkButton ID="LBLogout" runat="server" CssClass="navLogoutBtnStyle" ToolTip="Logout">Logout</asp:LinkButton>
+                </div>
             </div>
         </div>
 
