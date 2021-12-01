@@ -41,8 +41,6 @@ namespace Hotel_Management_System.Dashboard
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["Role"] = "Manager";
-
             // Get current date
             DateTime dateNow = DateTime.Now;
             todaysDate = reservationUtility.formatDate(dateNow.ToString());

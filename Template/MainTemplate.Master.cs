@@ -116,5 +116,11 @@ namespace Hotel_Management_System.Template
                 lblNavHotelConfiguration.Style["font-weight"] = "0";
             }
         }
+
+        protected void LBLogout_Click(object sender, EventArgs e)
+        {
+            // Logout
+            Response.Redirect("~/Login.aspx");
+        }
     }
 }

@@ -255,7 +255,7 @@
                             </tr>
                             <tr>
                                 <td class="formLabel requiredFieldLabel">
-                                    <asp:Label ID="lblExtraBed1" runat="server" Text="ExtraBed" Visible="false"></asp:Label>
+                                    <asp:Label ID="lblExtraBed1" runat="server" Text="Extra Bed" Visible="false"></asp:Label>
                                 </td>
                                 <td class="tableSeperator"></td>
                                 <td class="tableData">
@@ -349,7 +349,7 @@
                             </tr>
                             <tr>
                                 <td class="formLabel requiredFieldLabel">
-                                    <asp:Label ID="lblExtraBed2" runat="server" Text="ExtraBed" Visible="false"></asp:Label>
+                                    <asp:Label ID="lblExtraBed2" runat="server" Text="Extra Bed" Visible="false"></asp:Label>
                                 </td>
                                 <td class="tableSeperator"></td>
                                 <td class="tableData">
@@ -449,7 +449,7 @@
                             </tr>
                             <tr>
                                 <td class="formLabel requiredFieldLabel">
-                                    <asp:Label ID="lblExtraBed3" runat="server" Text="ExtraBed" Visible="false"></asp:Label>
+                                    <asp:Label ID="lblExtraBed3" runat="server" Text="Extra Bed" Visible="false"></asp:Label>
                                 </td>
                                 <td class="tableSeperator"></td>
                                 <td class="tableData">

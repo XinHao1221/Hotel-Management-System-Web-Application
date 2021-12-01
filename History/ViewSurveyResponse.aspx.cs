@@ -35,7 +35,7 @@ namespace Hotel_Management_System.History
         protected void Page_Load(object sender, EventArgs e)
         {
             // **** Control access
-            if (Session["Role"].ToString() != "Manager")
+            if (Session["UserRole"].ToString() != "Manager")
             {
                 Response.Redirect("../Error/PermissionError.aspx");
             }

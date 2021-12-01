@@ -194,6 +194,8 @@
     <Content Include="Image\success_icon.png" />
     <Content Include="Image\survey_icon.png" />
     <Content Include="Image\suspend_icon.png" />
+    <Content Include="img\LoginBackground.jfif" />
+    <Content Include="Login.aspx" />
     <Content Include="Reporting\Hotel_Report\HotelReport.aspx" />
     <Content Include="Reporting\Reservation_Report\ReservationReport.aspx" />
     <Content Include="Reporting\Revenue_Report\RevenueReport.aspx" />
@@ -203,7 +205,6 @@
     <Content Include="StyleSheet\PopupWindow.css" />
     <Content Include="StyleSheet\RepeaterTable.css" />
     <Content Include="StyleSheet\SubFormStyle.css" />
-    <Content Include="Temp.aspx" />
     <Content Include="Template\Template_Icon\admin.png" />
     <Content Include="Template\Template_Icon\arrow_down.png" />
     <Content Include="Template\Template_Icon\dashboard.png" />
@@ -777,6 +778,13 @@
     <Compile Include="Front_Desk\Survey\SurveySuccess.aspx.designer.cs">
       <DependentUpon>SurveySuccess.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\Hotel_Report\HotelReport.aspx.cs">
       <DependentUpon>HotelReport.aspx</DependentUpon>
@@ -800,13 +808,6 @@
     </Compile>
     <Compile Include="Reporting\Revenue_Report\RevenueReport.aspx.designer.cs">
       <DependentUpon>RevenueReport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Temp.aspx.cs">
-      <DependentUpon>Temp.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Temp.aspx.designer.cs">
-      <DependentUpon>Temp.aspx</DependentUpon>
     </Compile>
     <Compile Include="Template\MainTemplate.Master.cs">
       <DependentUpon>MainTemplate.Master</DependentUpon>

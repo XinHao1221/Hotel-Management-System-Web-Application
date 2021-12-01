@@ -506,7 +506,7 @@
             </div>
             <div style="float:left; width:30%; height:50px; line-height: 50px;">
                 <div style="text-align:right; margin-right:10%;">
-                    <asp:LinkButton ID="LBLogout" runat="server" CssClass="navLogoutBtnStyle" ToolTip="Logout">Logout</asp:LinkButton>
+                    <asp:LinkButton ID="LBLogout" runat="server" CssClass="navLogoutBtnStyle" ToolTip="Logout" OnClick="LBLogout_Click">Logout</asp:LinkButton>
                 </div>
             </div>
         </div>
