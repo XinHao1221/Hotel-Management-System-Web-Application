@@ -245,7 +245,7 @@
         </div>
 
         <div style="width:86%; margin:auto;">
-            <asp:LinkButton ID="LBCheckFacilityAvailability" runat="server" OnClick="LBCheckFacilityAvailability_Click" CssClass="tableData">check room availability</asp:LinkButton>
+            <asp:LinkButton ID="LBCheckFacilityAvailability" runat="server" OnClick="LBCheckFacilityAvailability_Click" CssClass="tableData">check facility availability</asp:LinkButton>
         </div>
 
         <div style="clear:both; height:30px;">&nbsp;</div>

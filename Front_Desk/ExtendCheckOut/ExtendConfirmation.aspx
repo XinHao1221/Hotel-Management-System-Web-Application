@@ -406,7 +406,7 @@
             <center>
             
                 <asp:Button ID="formBtnBack" runat="server" Text="Back" CssClass="formBtnCancel" ToolTip="Back"/>
-                <asp:Button ID="btnCheckIn" runat="server" Text="EXtend" OnClick="btnCheckIn_Click" CssClass="formBtnSave" ToolTip="Extend" ValidationGroup="next" />
+                <asp:Button ID="btnCheckIn" runat="server" Text="Extend" OnClick="btnCheckIn_Click" CssClass="formBtnSave" ToolTip="Extend" ValidationGroup="next" />
 
             </center>         
         </div>
