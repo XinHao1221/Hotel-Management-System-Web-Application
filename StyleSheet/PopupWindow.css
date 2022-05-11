@@ -24,6 +24,7 @@ body {
     padding: 0.2% 2% 2% 2%;
     box-shadow: 3px 3px 5px rgb(149 149 149);
     left:35%;
+    border-radius:5px;
 }
 
 /* Frame animation */
