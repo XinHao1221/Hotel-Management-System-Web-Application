@@ -92,32 +92,7 @@
     <title></title>
 </head>
 
-<body>
-     <%--<div>
-         <h1 class="title">Hotel Management System</h1>
-        <h2 class="logo">WELCOME</h2>
-     </div>
-
-     <form runat="server">
-        <div class="custForm">
-            <asp:Panel ID="panelCust" runat="server" >
-                <h3 class="formTitle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Login</h3>
-           
-               <table>
-                   <tr><td>User ID</td></tr>
-                   <tr><td>
-                       </td></tr>
-                   <tr><td>Password</td></tr>
-                   <tr><td>
-                       </td></tr>
-               </table>
-                
-                <asp:Button ID="btnLogin" runat="server" Text="Login" class="buttonLogin" OnClick="btnLogin_Click"/>
-            </asp:Panel>
-
-        </div>
-
-      </form>--%>
+    <body>
 
         <div class="login-form-container">
             <!-- Header -->
