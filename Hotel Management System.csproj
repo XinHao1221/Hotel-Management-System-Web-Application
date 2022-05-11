@@ -183,6 +183,7 @@
     <Content Include="Image\filter_icon.png" />
     <Content Include="Image\help_icon.png" />
     <Content Include="Image\home_icon.png" />
+    <Content Include="Image\key_icon.png" />
     <Content Include="Image\more_icon.png" />
     <Content Include="Image\padlock_icon.png" />
     <Content Include="Image\plus_white.png" />
@@ -194,7 +195,7 @@
     <Content Include="Image\success_icon.png" />
     <Content Include="Image\survey_icon.png" />
     <Content Include="Image\suspend_icon.png" />
-    <Content Include="img\LoginBackground.jfif" />
+    <Content Include="Image\user_icon.png" />
     <Content Include="Login.aspx" />
     <Content Include="Reporting\Hotel_Report\HotelReport.aspx" />
     <Content Include="Reporting\Reservation_Report\ReservationReport.aspx" />
