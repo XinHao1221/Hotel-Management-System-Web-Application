@@ -8,6 +8,7 @@
     <style>
         body {
             background-color: #E0F9FF;
+            background-image: linear-gradient(to bottom, #c33764, #1d2671);
             margin: 0;
             font-family: Helvetica, sans-serif;
         }
